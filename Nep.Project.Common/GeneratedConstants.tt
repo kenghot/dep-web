@@ -1,0 +1,224 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#"  #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Configuration" #>
+<#@ assembly name="Oracle.DataAccess" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Oracle.DataAccess.Client" #>
+<#@ import namespace="Oracle.DataAccess.Types" #>
+<#@ import namespace="System.Configuration" #>
+<#@ output extension=".cs" #>
+<#
+   
+    var webConfigFile =  new System.Configuration.ExeConfigurationFileMap();
+       webConfigFile.ExeConfigFilename = this.Host.ResolvePath(@"..\Nep.Project.Web\Web.config"); // your config file
+       
+
+        System.Configuration.Configuration myConfiguration = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(webConfigFile, System.Configuration.ConfigurationUserLevel.None);
+    
+    using (OracleConnection conn = new OracleConnection(myConfiguration.ConnectionStrings.ConnectionStrings["NepProjectDBEntities"].ConnectionString))
+    {
+        conn.Open();
+    #>
+using System;
+
+namespace Nep.Project.Common
+{
+	public static class TemplateCode
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT TemplateCode FROM MT_Template";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>       
+        public const String <#= StringHelper.ToConstantName((String)reader["TemplateCode"]) #> = "<#= reader["TemplateCode"] #>";
+<# 
+                }
+            }
+        } #>
+    }
+
+	public static class OrganizationTypeID
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT OrganizationTypeID, OrganizationType FROM MT_OrganizationType ORDER BY OrganizationTypeID";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>
+        /// <summary>
+        /// function name : <#= StringHelper.ToEncodedXmlString((String)reader["OrganizationType"]) #>      
+        /// </summary>
+        public const Decimal <#= StringHelper.ToConstantName((String)reader["OrganizationType"]) #> = <#= reader["OrganizationTypeID"] #>;
+<# 
+                }
+            }
+        } #>
+    }
+
+	public static class UserGroupCode
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT GroupCode, GroupName FROM SC_Group ORDER BY GroupCode";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>        
+        public const String <#= StringHelper.ToConstantName((String)reader["GroupName"]) #> = "<#= reader["GroupCode"] #>";
+<# 
+                }
+            }
+        } #>
+    }
+
+    public static class FunctionCode
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT FunctionCode, FunctionName, FunctionDescription FROM SC_Function ORDER BY FunctionCode";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>
+        /// <summary>
+        /// function name : <#= StringHelper.ToEncodedXmlString((String)reader["FunctionName"]) #>
+        /// description : <#= StringHelper.ToEncodedXmlString((String)reader["FunctionDescription"]) #>
+        /// </summary>
+        public const String <#= StringHelper.ToConstantName((String)reader["FunctionName"]) #> = "<#= reader["FunctionCode"] #>";
+<# 
+                }
+            }
+        } #>
+    }
+
+    public static class OrganizationParameterCode
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT DISTINCT ParameterCode FROM MT_OrganizationParameter WHERE IsActive=1 ORDER BY ParameterCode";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>
+        public const String <#= reader["ParameterCode"] #> = "<#= reader["ParameterCode"] #>";
+<# 
+                }
+            }
+        } #>
+    }
+
+    public static class LOVGroup
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT DISTINCT LOVGroup FROM MT_ListOfValue ORDER BY LOVGroup";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>
+        public const String <#= reader["LOVGroup"] #> = "<#= reader["LOVGroup"] #>";
+<# 
+                }
+            }
+        } #>
+    }
+
+    public static class LOVCode
+    {
+<#
+        using (var cmd = conn.CreateCommand())
+        {
+            cmd.CommandText = "SELECT DISTINCT LOVGroup FROM MT_ListOfValue ORDER BY LOVGroup";
+            using (var reader = cmd.ExecuteReader())
+            {
+                while(reader.Read()){
+            #>
+
+        public static class <#= StringHelper.ToCapitalize(reader["LOVGroup"] as string) #>
+        {
+<#
+        using (var cmdCode = conn.CreateCommand())
+        {
+            cmdCode.CommandText = "SELECT LOVCode, LOVName FROM MT_ListOfValue WHERE LOVGroup=:LOVGroup ORDER BY LOVCode";
+            cmdCode.Parameters.Add(new OracleParameter("LOVGroup", reader["LOVGroup"]));
+            using (var readerCode = cmdCode.ExecuteReader())
+            {
+                while(readerCode.Read()){
+            #>
+            public const String <#= StringHelper.ToConstantName(MapLOVName(readerCode["LOVName"] as String)) #> = "<#= readerCode["LOVCode"] #>";
+<# 
+                }
+            }
+        } #>
+        }
+<# 
+                }
+            }
+        } #>
+    }
+}
+<# } #>
+<#+
+    private static Dictionary<string, String> remapConstantName = new Dictionary<string, String>()
+    {        
+		{"XXXX","YYYY"}		
+    };
+
+    private string MapLOVName(String lovName)
+    {
+        return remapConstantName.ContainsKey(lovName)? remapConstantName[lovName] : lovName;
+    }
+#>
+<#+ 
+    public static class StringHelper
+    {
+        public static System.Text.RegularExpressions.Regex RangeOfNumber = new System.Text.RegularExpressions.Regex(@"[0-9]+\s*((-\s*[0-9]*)|\+)");
+        public static String ToEncodedXmlString(String s){
+            return s == null ? null : s.Replace("&","&amp;").Replace("<","&lt;").Replace(">","&gt;");
+        }
+
+        public static String ToCapitalize(String s){
+            String[] allWords = s.Split(new Char[]{'-', '_', ' '});
+
+            String result = "";
+            foreach (String word in allWords){
+                result += word.Substring(0, 1).ToUpper() + word.Substring(1).ToLower();
+            }
+
+            return result;
+        }
+        public static String ToConstantName(String s){
+
+            if (RangeOfNumber.IsMatch(s))
+            {
+                s = s.Replace("-", "_");
+                s = s.Replace(" ", "");
+                s = s.Replace("+", "Plus");
+                return "Range" + s;
+            }
+			s = s.Replace(".", "_");
+            s = s.Replace("-", "_");
+            s = s.Replace(" ", "_");
+            s = s.Replace("+", "_");  
+			s = s.Replace("\n", "_");         
+            s = s.Replace("/", "_");
+			s = s.Replace("(", "_");
+			s = s.Replace(")", "");
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("([a-z])([A-Z])");
+            return regex.Replace(s, "$1_$2").ToUpper();
+        } 
+    }
+#>

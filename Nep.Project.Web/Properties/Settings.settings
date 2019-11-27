@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Nep.Project.Web.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Nep_Project_Web_DesPersonWS_WebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://110.78.8.36/ws/services.php</Value>
+    </Setting>
+    <Setting Name="Nep_Project_Web_NepServiceWS_NepService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:8976/WebServices/NepService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

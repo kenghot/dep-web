@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AssessmentRequiredField" xml:space="preserve">
+    <value>กรุณาระบุการประเมิน {0}</value>
+  </data>
+  <data name="AssessmentScoreRequiredField" xml:space="preserve">
+    <value>กรุณาให้คะแนน {0}</value>
+  </data>
+  <data name="CanotViewProjectData" xml:space="preserve">
+    <value>ท่านไม่สามารถเข้าถึงข้อมูลโครงการนี้</value>
+  </data>
+  <data name="ClientDuplicateValue" xml:space="preserve">
+    <value>{0} มีค่าซ้ำ</value>
+  </data>
+  <data name="CommitteeValidateEntryName" xml:space="preserve">
+    <value>กรุณาระบุชื่อ-นามสกุล และตำแหน่ง</value>
+  </data>
+  <data name="CommitteeValidateSkip" xml:space="preserve">
+    <value>กรุณากรอกข้อมูลโดยไม่เว้นแถวว่างระหว่างรายชื่อกรรมการหรือรายชื่อเจ้าหน้าที่</value>
+  </data>
+  <data name="CompareEqual" xml:space="preserve">
+    <value>{0} ต้องเท่ากันกับ {1}</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>รหัสผ่านไม่ถูกต้อง</value>
+  </data>
+  <data name="DeleteFileUnSuccess" xml:space="preserve">
+    <value>การลบไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</value>
+  </data>
+  <data name="DuplicateValue" xml:space="preserve">
+    <value>{0} มีค่าซ้ำอยู่ในระบบ</value>
+  </data>
+  <data name="EmailField" xml:space="preserve">
+    <value>กรุณาตรวจสอบรูปแบบที่อยู่อีเมล์</value>
+  </data>
+  <data name="EmailRegistryDup" xml:space="preserve">
+    <value>อีเมลมีการใช้งานแล้วในระบบ</value>
+  </data>
+  <data name="ExpiredValue" xml:space="preserve">
+    <value>{0} เกินเวลาที่กำหนด</value>
+  </data>
+  <data name="FileUploadDuplicate" xml:space="preserve">
+    <value>ไฟล์นี้ถูกเลือกแล้ว</value>
+  </data>
+  <data name="FileUploadExtensionInvalid" xml:space="preserve">
+    <value>ระบบอนุญาติให้แนบเอกสารที่มีนามสกุลดังนี้ {0}</value>
+  </data>
+  <data name="FileUploadMaximumExcess" xml:space="preserve">
+    <value>ระบบไม่อนุญาติให้ Upload ไฟล์เกิน 8 Mb.</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>กรุณาตรวจสอบรูปแบบวันที่</value>
+  </data>
+  <data name="InvalidIDCardNo" xml:space="preserve">
+    <value>เลขที่บัตรประชาชนไม่ถูกต้อง</value>
+  </data>
+  <data name="InvalidOldPassword" xml:space="preserve">
+    <value>รหัสผ่านเดิมไม่ถูกต้อง กรุณาระบุใหม่</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาระบุใหม่</value>
+  </data>
+  <data name="ItemCannotResetPassword" xml:space="preserve">
+    <value>ไม่สามารถ Reset Password ได้เนื่องจากยังไม่มี User Name</value>
+  </data>
+  <data name="LessThanOREqual" xml:space="preserve">
+    <value>{0} ต้องน้อยกว่าหรือเท่ากับ {1}</value>
+  </data>
+  <data name="NotFoundUserRegistry" xml:space="preserve">
+    <value>ไม่พบข้อมูลการสมัคร</value>
+  </data>
+  <data name="NumberField" xml:space="preserve">
+    <value>กรุณากรอก {0} เป็นตัวเลข</value>
+  </data>
+  <data name="OrgNameRegistryDup" xml:space="preserve">
+    <value>ชื่อองค์กรมีในระบบแล้ว</value>
+  </data>
+  <data name="OrgRegistryDup" xml:space="preserve">
+    <value>มีผู้ใช้องค์กรนี้ในระบบแล้ว</value>
+  </data>
+  <data name="OverThan" xml:space="preserve">
+    <value>{0} ต้องมากกว่า {1}</value>
+  </data>
+  <data name="OverThanOrEqual" xml:space="preserve">
+    <value>{0} ต้องมากกว่าหรือเท่ากับ {1}</value>
+  </data>
+  <data name="ProjectApprovalStatusInvalid" xml:space="preserve">
+    <value>การแก้ไขข้อมูลไม่ตอรงกับสถานะขั้นตอนการอนุมัติ</value>
+  </data>
+  <data name="ProjectInfoInvalid" xml:space="preserve">
+    <value>ข้อมูลโครงการนี้ยังไม่ถูกต้อง</value>
+  </data>
+  <data name="RegisterExpired" xml:space="preserve">
+    <value>ข้อมูลผู้สมัครหมดอายุแล้ว กรุณาลงทะเบียนใหม่อีครั้งคะ</value>
+  </data>
+  <data name="RegisterNoFound" xml:space="preserve">
+    <value>ไม่พบข้อมูลการสมัคร</value>
+  </data>
+  <data name="RequiredAttachment" xml:space="preserve">
+    <value>กรุณาแนนไฟล์  {0}</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>กรุณาระบุข้อมูล {0}</value>
+  </data>
+  <data name="SelectItemError" xml:space="preserve">
+    <value>กรุณาเลือกรายการ</value>
+  </data>
+  <data name="SendDataToReviewUnsuccess" xml:space="preserve">
+    <value>การส่งคำร้องเกิดข้อผิดพลาด กรุณาติดต่อผู้ดูแลระบบ</value>
+  </data>
+  <data name="SMSMobileInvalid" xml:space="preserve">
+    <value>ไม่สามารถส่ง SMS เนื่องจากเบอร์โทรศัพท์ไม่ถูต้อง</value>
+  </data>
+  <data name="StringLengthField" xml:space="preserve">
+    <value>กรุณากรอก {0} ไม่เกิน {1} ตัวอักษร</value>
+  </data>
+  <data name="TrackingProjectReportError" xml:space="preserve">
+    <value>การแจ้งเตือนส่งรายงานโครงการขององค์กร{0}เกิดข้อผิดพลาด</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>เกิดปัญหาที่นอกเหนือความคาดหมาย กรุณาติดต่อผู้ดูแลระบบ</value>
+  </data>
+  <data name="UserInactiveError" xml:space="preserve">
+    <value>ชื่อผู้ใช้งานนี้ถูกระงับชั่วคราว กรุณาติดต่อผู้ดูแลระบบ</value>
+  </data>
+  <data name="UsernameOrPasswordMismatch" xml:space="preserve">
+    <value>ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบชื่อผู้ใช้งานและรหัสผ่านอีกครั้ง</value>
+  </data>
+  <data name="ValidateApprovalBudgetDetail" xml:space="preserve">
+    <value>ไม่พบข้อมูลรายละเอียดการใช้จ่าย</value>
+  </data>
+  <data name="ValidateCommitee" xml:space="preserve">
+    <value>กรุณาระบุ ประธาน/นายก , กรรมการ และเจ้าหน้าที่ อย่างน้อยประเภทละ 1 คน</value>
+  </data>
+  <data name="ValidateOperationLevelDesc" xml:space="preserve">
+    <value>กรุณาระบุเหตุผลเมื่อเลือก "{0}" เท่านั้น</value>
+  </data>
+  <data name="ValidateProjectTotalBudgetAmount" xml:space="preserve">
+    <value>ยอดเงินรวมของรายการใช้จ่ายต้องเท่ากับยอดเงินรวมทั้งสิ้น</value>
+  </data>
+  <data name="ValidateReviseBudgetAmount" xml:space="preserve">
+    <value>กรุณากรอกจำนวนเงินของ {0} ให้เท่ากับจำนวนเงินเสนอขอ </value>
+  </data>
+  <data name="ValidateReviseBudgetApproval" xml:space="preserve">
+    <value>กรอกข้อมูลวงเงินสนับสนุน เมื่อมีการปรับลดงบประมาณเท่านั้น</value>
+  </data>
+  <data name="ValidationAdministrator" xml:space="preserve">
+    <value>ระบบอนุญาติให้สร้างประเภทผู้ใช้งานนี้เฉพาะส่วนกลางเท่านั้น</value>
+  </data>
+  <data name="ValidationRangeTypeNumber" xml:space="preserve">
+    <value>{0} เป็นข้อมูลตัวเลขที่มีค่าระหว่าง {1} ถึง {2} </value>
+  </data>
+  <data name="ValidationWrongFormat" xml:space="preserve">
+    <value>ข้อมูล {0} ไม่ถูกต้อง</value>
+  </data>
+  <data name="PostCodeField" xml:space="preserve">
+    <value>รหัสไปรษณีย์ไม่ถูกต้อง</value>
+  </data>
+  <data name="ValicateOrgnizationRegisterDate" xml:space="preserve">
+    <value>องค์กรของท่านจัดตั้งไม่ถึง 6 เดือน</value>
+  </data>
+  <data name="RequiredAttachmentOne" xml:space="preserve">
+    <value>กรุณาแนบไฟล์อย่างน้อย 1 ไฟล์</value>
+  </data>
+  <data name="DeleteFail" xml:space="preserve">
+    <value>ไม่สามารถลบข้อมูลได้ เนื่องจากมีการใช้งานในระบบ</value>
+  </data>
+  <data name="LessThan" xml:space="preserve">
+    <value>{0} ต้องน้อยกว่า {1}</value>
+  </data>
+</root>

@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="Scripts/Vue/axios_v0.18.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+    <style>
+        #map {
+            height: 100%;
+        }
+        html,body {
+            height:100%;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBR6HfINWigJCLA7VXVmh45giE8h3VTYBY"></script>
+    <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+var endMarker;
+
+function initialize() {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  var bkk = new google.maps.LatLng(13.763032, 100.5264821, 200);
+  var mapOptions = {
+    zoom: 18,
+    center: bkk
+  }
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  directionsDisplay.setMap(map);
+  setPin();
+}
+function setPin() {
+    var urlParams = new URLSearchParams(location.search);
+    var projid = 0;
+    if (urlParams.has('projid')) {
+        projid = Number(urlParams.get('projid'));
+    }
+    var lat, lng;
+    if (urlParams.has('lat')) {
+        lat = Number(urlParams.get('lat'));
+    }
+    if (urlParams.has('lng')) {
+        lng = Number(urlParams.get('lng'));
+    }
+    if (lat && lng) {
+        var pos = { lat: lat, lng: lng };
+        console.log(pos);
+        map.setCenter(pos);
+        endMarker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            draggable: false,
+        });
+    }
+  
+    //var data = {
+    //    "ProjID": projid,
+    //    "QNGroup": "REPLOC",
+    //    "Action": "",
+    //    "QNData": ""
+
+    //}
+    //axios.post('./ServicesHandler/getqn', data)
+    //          .then(response => {
+
+    //              if (response.data != "") {
+    //                  console.log(response.data);
+    //                  var d = response.data;
+    //                  if (d.IsCompleted) {
+    //                      if (d.Data.length > 0) {
+    //                          var ll = d.Data[0]['QNData'].toString().split(",");
+    //                          console.log(ll);
+    //                          var pos = { lat: Number(ll[0]), lng: Number(ll[1]) };
+    //                          endMarker = new google.maps.Marker({
+    //                              position: pos,
+    //                              map: map,
+    //                              draggable: false,
+    //                          });
+    //                          map.setCenter(pos);
+    //                          //google.maps.event.addListener(endMarker, 'dragend', function () {
+                                 
+    //                          //    copyMarkerpositionToInput();
+    //                          //});
+    //                      }
+                        
+    //                  }
+    //              }
+    //          }
+    //          );
+
+}
+function dropPin() {
+  // if any previous marker exists, let's first remove it from the map
+  if (endMarker) {
+    endMarker.setMap(null);
+  }
+  // create the marker
+  endMarker = new google.maps.Marker({
+    position: map.getCenter(),
+    map: map,
+    draggable: true,
+  });
+  
+  copyMarkerpositionToInput();
+  // add an event "onDrag"
+  google.maps.event.addListener(endMarker, 'dragend', function () {
+      console.log('drag');
+    copyMarkerpositionToInput();
+  });
+
+}
+
+function copyMarkerpositionToInput() {
+  // get the position of the marker, and set it as the value of input
+    //document.getElementById("end").value = endMarker.getPosition().lat() +','+  endMarker.getPosition().lng();
+    var p = endMarker.getPosition().lat().toString() + ',' + endMarker.getPosition().lng().toString();
+    console.log(endMarker.getPosition());
+    var urlParams = new URLSearchParams(location.search);
+    var projid = -1;
+    if (urlParams.has('projid')) {
+        projid = Number(urlParams.get('projid'));
+    }
+    if (projid > 0) {
+        var data = {
+            "ProjID": projid,
+            "QNGroup": "REPLOC",
+            "Action": "",
+            "QNData": p
+
+        }
+        axios.post('./ServicesHandler/saveqn', data)
+                  .then(response => {
+
+                      if (response.data != "") {
+                          // this.items = response.data;
+                          // this.storeData(response.data);
+                      }
+                  }
+                  );
+
+    }
+   
+}
+
+function calcRoute() {
+  var start = document.getElementById("start").value;
+  var end = document.getElementById("end").value;
+  var request = {
+    origin:start,
+    destination:end,
+    travelMode: google.maps.TravelMode.DRIVING
+  };
+  directionsService.route(request, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(result);
+    }
+  });
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</body>
+</html>

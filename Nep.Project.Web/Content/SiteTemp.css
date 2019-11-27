@@ -1,0 +1,572 @@
+﻿html, body, form{
+    height:100%;
+}
+
+
+div.control-block {
+    position:relative;
+}
+
+div.control-block > .form-control {
+    display:inline-block;
+    
+}
+.form-control.no-padding {
+    padding-left:3px;
+    padding-right:3px;
+}
+div.radio-block {
+    position:relative;    
+}
+div.radio-block .left-desc {
+    margin-top:7px;
+    display:inline-block;
+    float:left;
+}
+
+div.radio-block input.form-control {
+    position:absolute;
+}
+
+div.radio-block .right-desc {
+    margin-top:7px;
+    display:inline-block;
+    float:left;
+    margin-left:3px;
+}
+
+span.datepicker-span {
+    display:block;
+    position:relative;
+}
+
+.asp-top-button {
+    margin-bottom:7px;
+}
+.asp-grid {
+    width:100%;
+}
+
+.asp-grid .sort-asc:after {
+    font-family:'Glyphicons Halflings';
+    content:"\00a0\e253";
+    font-size:8px;
+}
+
+.asp-grid .sort-desc:after {
+    font-family:'Glyphicons Halflings';
+    content:"\00a0\e252";
+    font-size:8px;
+}
+
+.asp-grid th{
+    background-color:#f1f1f1;  
+    font-weight:bold; 
+    padding:7px 10px !important;
+    text-transform:uppercase;
+    color:#636363; 
+    line-height:24px;
+}
+
+.asp-grid th, .asp-grid td {
+    padding:5px 10px;
+}
+
+.asp-grid th a{
+    font-size:12px;
+}
+
+.asp-grid th, .asp-grid th a,  
+.asp-grid th a:visited, .asp-grid th a:active, .asp-grid th a:focus {
+    color:#636363;
+    text-decoration:none;
+}
+
+.asp-grid th a:hover {
+    color:#636363;
+    text-decoration:underline;
+}
+
+.asp-grid td {
+    border-top:1px solid #ededed; 
+    border-left:1px solid #ededed; 
+    color:#757575;
+    line-height:1.62em;
+    vertical-align:top;
+}
+
+.asp-grid td:last-child {
+    border-right:1px solid #ededed;
+}
+
+.asp-grid th {
+    border-top:1px solid #DCD9D9; 
+    border-left:1px solid #DCD9D9;
+}
+
+.asp-grid th:last-child {
+    border-right:1px solid #DCD9D9;
+}
+
+.asp-grid td.custom-command {
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.asp-grid td.custom-command input{
+    margin-right:2px;
+    opacity:.6;
+}
+
+.asp-grid td.custom-command input:hover {
+    opacity:1;
+}
+
+.asp-grid tr:last-child td {
+    border-bottom:1px solid #ededed;    
+}
+
+table.asp-grid {
+    margin-bottom:0px !important;
+}
+
+.form-group-sm .form-control, .btn {
+    border-radius:0px;
+}
+
+
+.form-group-sm .form-control.form-control-desc {
+    margin-right:60px;
+}
+
+.form-group-sm span.form-control-desc {
+    position:absolute;
+    top:7px;
+    right:-18px;
+}
+
+.form-group-sm span.form-control-desc.desc-bath {
+    right:-24px;  
+} 
+
+.btn {
+    width:65px;
+}
+
+.btn.btn-medium {
+    width:90px;
+}
+
+.btn-primary {
+    background-color:#00A1E0;
+    border-color:#adadad;
+}
+
+.btn-primary:hover {
+    background-color:#31b0d5;
+    border-color:#269abc;
+}
+
+tr.asp-pagination table {
+    margin-top:5px;
+    margin-bottom:5px;
+    width:auto;
+}
+
+.asp-pagination table td a, .asp-pagination table td span{
+    display:block;
+    padding:2px 0px;
+    width:30px;
+    text-align:center;
+    text-decoration:none;
+}
+
+.asp-pagination table td a:hover, .asp-pagination table td span{
+    background-color:#eee;
+}
+
+.asp-pagination table td {
+    border-left:1px solid #ededed;
+    border-bottom:1px solid #ededed;
+    padding:0px;
+}
+
+.asp-pagination table td:last-child {
+    border-right:1px solid #ededed;
+}
+
+tr.asp-pagination > td {
+    padding:0px 14px;
+}
+
+.form-search {
+    margin-bottom:15px;
+}
+
+.form-group-sm textarea.form-control, 
+.form-group-sm select[multiple].form-control {
+     height:85px
+}
+
+textarea.form-control.textarea-height {
+    height:150px;
+}
+
+span.form-control.form-control-checkbox {
+    border:0px none;
+    box-shadow:none;
+    padding-left:0px;
+}
+
+.form-control-checkbox label{
+    font-weight:normal;
+}
+
+.form-control-checkbox input[type="checkbox"] {
+    margin-right:5px;
+}
+
+.ui-widget {
+    font-family:Arial, Tahoma;
+    font-size:12px;
+}
+
+.ui-datepicker-calendar th{
+    font-size:12px; 
+}
+
+.ui-datepicker-calendar td {
+    font-size:11px; 
+}
+
+div.alert > h4 {
+    margin:0px;
+    font-size:16px;
+    font-weight:normal;
+    line-height:normal;
+    display:inline;
+}
+
+div.alert {
+    border-radius:0px;
+    /*box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 10px 0px;*/
+}
+
+div.alert > br {
+    display:none;
+}
+
+div.alert > button.close:active,
+div.alert > button.close:active span {
+    border:0px none;
+}
+
+div.hide {
+    display:none;
+}
+
+
+/*div.alert-container-message > ul{
+	list-style-type: square;
+    padding:0px;
+	margin: 5px 0px 0px 0px;
+}
+
+
+div.alert-info > div.alert-container-message > ul {
+    margin:0px 0px 0px -20px;
+}
+
+*/
+.form-group-sm > div[class*="col-"].control-value{
+	font-weight: normal;
+	font-family: inherit;
+	margin-top:6px;
+	font-size: 12px;
+	
+}
+
+.form-group-sm .form-control-left-desc {
+    padding-top:6px;
+    padding-right:5px;
+    display:inline-block;
+    float:left;
+    text-align:left;
+}
+
+.form-group-sm .form-control-left {
+     padding-top:6px;
+     text-align:left;
+}
+
+.control-label.control-label-left {
+      text-align:left;
+}
+
+.container-fluid {
+  padding-right: 7px;
+  padding-left: 7px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  margin-right: -7px;
+  margin-left: -7px;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+.form-horizontal .form-group {
+  margin-right: -7px;
+  margin-left: -7px;
+}
+
+.form-group {
+  margin-bottom: 7px;
+}
+.alert.alert-danger ul, .alert.alert-info ul{
+    padding-bottom:0px;
+    margin-bottom:0px;
+}
+
+.error-text {
+    color:red;
+    display:inline-block;   
+}
+
+.error-text[style="visibility:hidden;"], 
+.error-text[style="visibility: hidden;"] {
+    position:absolute;
+}
+
+span.required::after{    
+    color:red;
+    content:"\00a0\002A";
+}
+
+.label-no {
+    display:inline-block;
+    width:25px;
+    text-align:left;
+    float:left;
+}
+
+.control-label {
+    /*font-weight:bold;*/
+    text-align:right;
+}
+
+.control-label-left {
+    text-align:left;
+}
+
+label.control-label, label.control-label-left {
+    font-weight:normal;
+}
+
+.control-label::after {
+    content:"\00a0\003A";
+}
+
+.control-label.without-delimit::after,
+.control-label.control-label-left.without-delimit::after {
+    content:"\00a0";
+}
+
+
+.field-desc {
+    margin-right:10px;
+}
+.field-desc::after {
+    content:"\00a0\003A";
+}
+
+.form-control-radio label.control-label-radio-other{
+  display:inline-block;
+  float:left;
+  margin-top: 0px;
+  margin-left: 2px;
+  width:270px;
+}
+
+.form-control-radio-horizontal .control-label-radio-block {
+    position:relative;
+}
+
+.form-control-radio .control-label-radio-other + input.form-control,
+.form-control-radio-horizontal .control-label-radio-block input.form-control{
+      width: 200px;
+      margin-top: -10px;
+      position: absolute;
+      top: 10px;
+      left: 75px;
+}
+
+
+.panel, .panel-heading {
+    border-radius:0px;
+    border-left: 0px none;
+    border-top: 0px none;
+    border-right: 0px none;
+    box-shadow:none;
+}
+
+.panel-heading {
+    border-bottom: 0px none;
+}
+
+.panel .panel-heading {
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.panel .panel-heading h3.panel-title{
+    padding-top:5px;
+    padding-bottom:5px;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+.panel-default > .panel-heading {
+    background-color:#f2f2f2;
+}
+
+.form-group-title {
+    font-size:14px;
+    font-weight:bold;
+    padding-bottom:7px;
+}
+
+ .form-group-title-line {
+    margin-top:15px;
+    padding-top:7px;
+    border-top:1px solid;
+    margin-left:0px;
+    margin-right:0px;
+}
+
+.form-horizontal  .form-group-title-line {
+    border-color:#E9E9E9;
+}
+
+div[class*="col-"] > input[type="file"] {
+    margin-top:0px;
+    padding-left:0px;
+    box-shadow:none;
+}
+
+div[class*="col-"] > table.form-control-radio,
+div[class*="col-"] > .form-control-radio-horizontal,
+div[class*="col-"] > .form-control-checkbox-horizontal{
+    display:block;
+    margin-bottom:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+table.form-control-radio > tbody > tr {    
+    display:inline-block;
+    float:left;
+}
+
+table.form-control-radio > tbody > tr > td {
+    display:inline-block;
+    float:left;
+}
+
+div[class*="col-"] > .form-control-checkbox-horizontal > tbody > tr > td > label label.control-label-radio {
+    display:inline-block;
+    float:left;
+}
+
+div[class*="col-"] > table.form-control-radio,
+table.form-control-radio > tbody > tr > td{
+     border:0px none;
+}
+
+table.form-control-radio > tbody > tr > td{
+    margin:0px;
+    padding-top:3px;
+    padding-left:2px;
+    padding-bottom:0px;
+    padding-right:10px;
+
+    position:relative;
+}
+
+table.form-control-radio label {
+    display:block;
+    margin-left:17px;    
+    font-weight:normal;
+    margin-top:-21px;
+}
+
+table.form-control-radio input[type="radio"] {
+    margin:5px 0 0 0;
+}
+
+table.form-control-checkbox td {
+    padding-top:7px;
+}
+
+table.form-control-checkbox > tbody > tr:first-child > td {
+    padding-top:0px;
+}
+
+table.form-control-checkbox td > label{   
+    display:inline;
+}
+
+table.form-control-radio-horizontal input[type="radio"],
+table.form-control-checkbox-horizontal input[type="checkbox"] {
+    margin:5px 5px 5px 0;
+}
+
+div[class*="col-"] > .form-control-radio-horizontal  label,
+div[class*="col-"] > .form-control-checkbox-horizontal  label{
+    font-weight:normal;
+    display:inline-block;     
+       
+}
+
+div[class*="col-"] > .form-control-radio-horizontal tr ,
+div[class*="col-"] > .form-control-checkbox-horizontal tr{
+    padding-bottom:7px;
+    display:block;
+}
+
+div[class*="col-"] > .form-control-radio-horizontal tr {
+    display:block;
+}
+
+.form-group-sm .form-control.form-control-datepicker {
+    padding-right:28px;
+}
+
+.form-group-sm .form-control-datepicker + input[type="image"]{
+    position:absolute;
+    top:8px;
+    right:15px;
+}
+
+a.btn.btn-block {
+  width: 100%;
+}
+
+.approved-checked {
+    background-image:url(../Images/icon/checked.gif);
+    display:inline-block;
+    width:20px;
+    height:20px;
+}
+
+/*.nep-calendar .ajax__calendar td.ajax__calendar_other > div.ajax__calendar_day,
+.nep-calendar .ajax__calendar td.ajax__calendar_other > div.ajax__calendar_year {
+    color:#ccc;
+}*/
+
+
+
+

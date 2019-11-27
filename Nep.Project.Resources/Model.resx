@@ -1,0 +1,889 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Demo_Address" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="Demo_Amount" xml:space="preserve">
+    <value>จำนวนเงิน</value>
+  </data>
+  <data name="Demo_Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="Demo_Email" xml:space="preserve">
+    <value>อีเมลล์</value>
+  </data>
+  <data name="Demo_Flag" xml:space="preserve">
+    <value>Flag</value>
+  </data>
+  <data name="Demo_Name" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Demo_Time" xml:space="preserve">
+    <value>จำนวน</value>
+  </data>
+  <data name="Demo_Type" xml:space="preserve">
+    <value>ประเภท</value>
+  </data>
+  <data name="UserProfile_ConfirmPassword" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="UserProfile_Email" xml:space="preserve">
+    <value>อีเมล์</value>
+  </data>
+  <data name="UserProfile_FirstName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="UserProfile_IsActive" xml:space="preserve">
+    <value>Is Active</value>
+  </data>
+  <data name="UserProfile_LastName" xml:space="preserve">
+    <value>สกุล</value>
+  </data>
+  <data name="UserProfile_Password" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="UserProfile_Role" xml:space="preserve">
+    <value>ประเภทผู้ใช้งาน</value>
+  </data>
+  <data name="UserProfile_TelephoneNo" xml:space="preserve">
+    <value>โทรศัพท์</value>
+  </data>
+  <data name="UserProfile_UserName" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="ProjectInfo_ActivityCurrent" xml:space="preserve">
+    <value>กิจกรรมหรือโครงการที่องค์กรดำเนินอยู่ในปัจจุบัน (โดยสรุป)</value>
+  </data>
+  <data name="ProjectInfo_AddressNo" xml:space="preserve">
+    <value>เลขที่</value>
+  </data>
+  <data name="ProjectInfo_AssistanceAmount" xml:space="preserve">
+    <value>จำนวนเงินที่ช่วยเหลือ</value>
+  </data>
+  <data name="ProjectInfo_Assistances" xml:space="preserve">
+    <value>แหล่งขอความช่วยเหลือที่องค์กรได้รับในปัจจุบัน (ทั้งในและต่างประเทศ)</value>
+  </data>
+  <data name="ProjectInfo_Building" xml:space="preserve">
+    <value>อาคาร</value>
+  </data>
+  <data name="ProjectInfo_Committees" xml:space="preserve">
+    <value>รายชื่อคณะกรรมการ/ตำแหน่ง</value>
+  </data>
+  <data name="ProjectInfo_District" xml:space="preserve">
+    <value>เขต/อำเภอ</value>
+  </data>
+  <data name="ProjectInfo_Email" xml:space="preserve">
+    <value>อีเมล์</value>
+  </data>
+  <data name="ProjectInfo_Fax" xml:space="preserve">
+    <value>โทรสาร</value>
+  </data>
+  <data name="ProjectInfo_IsfirstFlag" xml:space="preserve">
+    <value>องค์กรของท่านเคยเสนอโครงการขอรับการสนับสนุนจากกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการหรือไม่</value>
+  </data>
+  <data name="ProjectInfo_MemberName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="ProjectInfo_MemberPosition" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="ProjectInfo_MemberSurname" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="ProjectInfo_Moo" xml:space="preserve">
+    <value>หมู่</value>
+  </data>
+  <data name="ProjectInfo_OfficeLocation" xml:space="preserve">
+    <value>ที่ตั้งสำนักงาน</value>
+  </data>
+  <data name="ProjectInfo_OrganizationGovType" xml:space="preserve">
+    <value>หน่วยงานของรัฐ</value>
+  </data>
+  <data name="ProjectInfo_OrganizationNameHelp" xml:space="preserve">
+    <value>ชื่อองค์กรที่ช่วยเหลือ</value>
+  </data>
+  <data name="ProjectInfo_OrganizationObjective" xml:space="preserve">
+    <value>วัตถุประสงค์ขององค์กรที่ขอสนับสนุน</value>
+  </data>
+  <data name="ProjectInfo_OrganizationPersonType" xml:space="preserve">
+    <value>องค์กรภาคเอกชน</value>
+  </data>
+  <data name="ProjectInfo_OrganizationType" xml:space="preserve">
+    <value>องค์กรของท่านจัดอยู่ในประเภทใด</value>
+  </data>
+  <data name="ProjectInfo_Postcode" xml:space="preserve">
+    <value>รหัสไปรษณีย์</value>
+  </data>
+  <data name="ProjectInfo_Problem" xml:space="preserve">
+    <value>ปัญหาและอุปสรรค</value>
+  </data>
+  <data name="ProjectInfo_ProjectLasted" xml:space="preserve">
+    <value>โครงการล่าสุดที่เคยขอรับการสนับสนุนชื่อโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProjectLastedResult" xml:space="preserve">
+    <value>ผลของโครงการ</value>
+  </data>
+  <data name="ProjectInfo_OrganizationNameEN" xml:space="preserve">
+    <value>ชื่อองค์กร ภาษาอังกฤษ(ถ้ามี)</value>
+  </data>
+  <data name="ProjectInfo_OrganizationNameTH" xml:space="preserve">
+    <value>ชื่อองค์กร ภาษาไทย</value>
+  </data>
+  <data name="ProjectInfo_PromoteAmount" xml:space="preserve">
+    <value>จำนวนครั้งที่ขอรับการสนับสนุน</value>
+  </data>
+  <data name="ProjectInfo_PromoteYear" xml:space="preserve">
+    <value>ปีขอรับการสนับสนุน</value>
+  </data>
+  <data name="ProjectInfo_Province" xml:space="preserve">
+    <value>จังหวัด</value>
+  </data>
+  <data name="ProjectInfo_RegisterYear" xml:space="preserve">
+    <value>ปีที่จดทะเบียนก่อตั้งองค์กรหรือปีที่เริ่มดำเนินการ</value>
+  </data>
+  <data name="ProjectInfo_Soi" xml:space="preserve">
+    <value>ซอย</value>
+  </data>
+  <data name="ProjectInfo_Street" xml:space="preserve">
+    <value>ถนน</value>
+  </data>
+  <data name="ProjectInfo_SubDistrict" xml:space="preserve">
+    <value>แขวง/ตำบล</value>
+  </data>
+  <data name="ProjectInfo_Telephone" xml:space="preserve">
+    <value>โทรศัพท์</value>
+  </data>
+  <data name="ProjectInfo_WorkingYear" xml:space="preserve">
+    <value>ผลงานในรอบ ๑ ปี ที่ผ่านมา (โดยสรุป)</value>
+  </data>
+  <data name="UserProfile_ExpireDate" xml:space="preserve">
+    <value>วันหมดอายุ</value>
+  </data>
+  <data name="UserProfile_RegisterDate" xml:space="preserve">
+    <value>วันที่สมัคร</value>
+  </data>
+  <data name="UserProfile_OrgIdentityAttachment" xml:space="preserve">
+    <value>บัตรประจำตัวพนักงาน</value>
+  </data>
+  <data name="UserProfile_OrganizationCode" xml:space="preserve">
+    <value>รหัสองค์กร</value>
+  </data>
+  <data name="UserProfile_OrganizationName" xml:space="preserve">
+    <value>ชื่อองค์กร</value>
+  </data>
+  <data name="UserProfile_PersonalIDAttachment" xml:space="preserve">
+    <value>บัตรประจำตัวประชาชน</value>
+  </data>
+  <data name="UserProfile_Position" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="Processing_ActualExpense" xml:space="preserve">
+    <value>เพื่อใช้จ่ายตามโครงการ</value>
+  </data>
+  <data name="Processing_Budget" xml:space="preserve">
+    <value>จำนวนเงินทั้งสิ้น</value>
+  </data>
+  <data name="Processing_ContractNo" xml:space="preserve">
+    <value>ทะเบียนโครงการ</value>
+  </data>
+  <data name="Processing_Date" xml:space="preserve">
+    <value>เมื่อวันที่</value>
+  </data>
+  <data name="Processing_Email" xml:space="preserve">
+    <value>อีเมล์</value>
+  </data>
+  <data name="Processing_Fax" xml:space="preserve">
+    <value>โทรสาร</value>
+  </data>
+  <data name="Processing_HouseNo" xml:space="preserve">
+    <value>เลขที่</value>
+  </data>
+  <data name="Processing_LableAttachment" xml:space="preserve">
+    <value>ซึ่งได้รับอนุมัติจากคณะอนุกรรมการบริหารกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ ตามรายละเอียดแนบท้ายสัญญาแล้ว</value>
+  </data>
+  <data name="Processing_Oraganization" xml:space="preserve">
+    <value>ชื่อหน่วยงาน</value>
+  </data>
+  <data name="Processing_Organization" xml:space="preserve">
+    <value>หน่วยงานที่รับผิดชอบ</value>
+  </data>
+  <data name="Processing_Period" xml:space="preserve">
+    <value>ระยะเวลาดำเนินการ</value>
+  </data>
+  <data name="Processing_PostCode" xml:space="preserve">
+    <value>รหัสไปรษณีย์</value>
+  </data>
+  <data name="Processing_ProjectName" xml:space="preserve">
+    <value>ชื่อโครงการ</value>
+  </data>
+  <data name="Processing_Province" xml:space="preserve">
+    <value>จังหวัด</value>
+  </data>
+  <data name="Processing_Responsible" xml:space="preserve">
+    <value>ผู้รับผิดชอบโครงการ</value>
+  </data>
+  <data name="Processing_Telephone" xml:space="preserve">
+    <value>โทรศัพท์</value>
+  </data>
+  <data name="ProjectBudget_Detail" xml:space="preserve">
+    <value>รายละเอียดงบประมาณ</value>
+  </data>
+  <data name="ProjectBudget_IsBudgetGotSupport" xml:space="preserve">
+    <value>แหล่งทุนอื่น</value>
+  </data>
+  <data name="ProjectBudget_TotalAmount" xml:space="preserve">
+    <value>รวมเป็นเงินทั้งสิ้น</value>
+  </data>
+  <data name="BudgetDetail_Amount" xml:space="preserve">
+    <value>จำนวนเงิน</value>
+  </data>
+  <data name="BudgetDetail_Detail" xml:space="preserve">
+    <value>รายละเอียดงบประมาณ</value>
+  </data>
+  <data name="ProcessingPlan_EndDate" xml:space="preserve">
+    <value>สิ้นสุดโครงการวันที่</value>
+  </data>
+  <data name="ProcessingPlan_Location" xml:space="preserve">
+    <value>สถานที่ดำเนินโครงการ</value>
+  </data>
+  <data name="ProcessingPlan_Map" xml:space="preserve">
+    <value>แผนที่</value>
+  </data>
+  <data name="ProcessingPlan_Method" xml:space="preserve">
+    <value>วีธีการดำเนินโครงการ</value>
+  </data>
+  <data name="ProcessingPlan_TotalPeriod" xml:space="preserve">
+    <value>รวมระยะเวลา</value>
+  </data>
+  <data name="ProcessingPlan_StartDate" xml:space="preserve">
+    <value>เริ่มต้นโครงการวันที่</value>
+  </data>
+  <data name="ProjectInfo_Name" xml:space="preserve">
+    <value>ชื่อโครงการ</value>
+  </data>
+  <data name="ProjectInfo_Principles" xml:space="preserve">
+    <value>หลักการและเหตุผล</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoAnticipation" xml:space="preserve">
+    <value>ผลที่คาดว่าจะได้รับ</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoindicator" xml:space="preserve">
+    <value>ตัวชี้วัดโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoNameEN" xml:space="preserve">
+    <value>ชื่อโครงการ ภาษาอังกฤษ(ถ้ามี)</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoNameTH" xml:space="preserve">
+    <value>ชื่อโครงการ ภาษาไทย</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoObjective" xml:space="preserve">
+    <value>วัตถุประสงค์ของโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoStartDate" xml:space="preserve">
+    <value>เมื่อวันที่</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoTarget" xml:space="preserve">
+    <value>กลุ่มเป้าหมายของโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProjectInfoType" xml:space="preserve">
+    <value>ประเภทโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProjectNo1" xml:space="preserve">
+    <value>หมายเลขทะเบียนโครงการ</value>
+  </data>
+  <data name="ProjectInfo_TypeDisabilitys" xml:space="preserve">
+    <value>ประเภทความพิการที่ขอรับการสนับสนุน</value>
+  </data>
+  <data name="ProcessingPlan_Period" xml:space="preserve">
+    <value>ระยะเวลาดำเนินโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ProposerProject" xml:space="preserve">
+    <value>ผู้เสนอโครงการ</value>
+  </data>
+  <data name="ProjectInfo_ResponsibleProject" xml:space="preserve">
+    <value>ผู้รับผิดชอบโครงการ</value>
+  </data>
+  <data name="ProjectInfo_AttachmentInfo" xml:space="preserve">
+    <value>เพื่อประโยชน์ต่อการพิจารณาโครงการของท่าน กรุณาตรวจสอบความครบถ้วนสมบูรณ์ของเอกสารที่กำหนดให้จัดส่งทุกรายการ
+โดยทำเครื่องหมายหน้าหัวข้อเอกสารที่ท่านจัดส่งมาพร้อมแนบรายละเอียด ดังนี้</value>
+  </data>
+  <data name="ProjectInfo_LocationPropose" xml:space="preserve">
+    <value>สถานที่เสนอโครงการ</value>
+  </data>
+  <data name="ProjectInfo_LeaderOrganize" xml:space="preserve">
+    <value>(หัวหน้าองค์กรที่ขอรับการสนับสนุน)</value>
+  </data>
+  <data name="ProjectInfo_OrganizationName" xml:space="preserve">
+    <value>ชื่อหน่วยงาน</value>
+  </data>
+  <data name="ProjectInfo_AssessmentProvince" xml:space="preserve">
+    <value>คณะอนุกรรมการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด</value>
+  </data>
+  <data name="ProjectInfo_BudgetRequest" xml:space="preserve">
+    <value>งบประมาณที่เสนอขอ</value>
+  </data>
+  <data name="ProjectInfo_CommentOther" xml:space="preserve">
+    <value>ความคิดเห็นประกอบการพิจารณา</value>
+  </data>
+  <data name="ProjectInfo_CriterionNo4" xml:space="preserve">
+    <value>เกณฑ์ชี้วัดข้อ 4</value>
+  </data>
+  <data name="ProjectInfo_CriterionNo5" xml:space="preserve">
+    <value>เกณฑ์ชี้วัดข้อ 5</value>
+  </data>
+  <data name="ProjectInfo_CriterionNo6" xml:space="preserve">
+    <value>เกณฑ์ชี้วัดข้อ 6</value>
+  </data>
+  <data name="ProjectInfo_StandardStrategic" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่สอดคล้องกับโครงการ</value>
+  </data>
+  <data name="ProjectInfo_Strategic" xml:space="preserve">
+    <value>ยุทธศาสตร์</value>
+  </data>
+  <data name="ProjectInfo_StrategicProvice" xml:space="preserve">
+    <value>ยุทธศาสตร์จังหวัด</value>
+  </data>
+  <data name="Contract_ContractDate" xml:space="preserve">
+    <value>เมื่อวันที่</value>
+  </data>
+  <data name="Contract_ContractNo" xml:space="preserve">
+    <value>สัญญาเลขที่</value>
+  </data>
+  <data name="Contract_ContractRefDate" xml:space="preserve">
+    <value>ลงวันที่</value>
+  </data>
+  <data name="Contract_ContractRefName" xml:space="preserve">
+    <value>สำนักงานพัฒนาสังคมและความมั่นคงของมนุษย์จังหวัด ชื่อ - นามสกุล</value>
+  </data>
+  <data name="Contract_ContractRefNo" xml:space="preserve">
+    <value>ผู้ได้รับอำนาจให้ทำสัญญาแทนตามคำสั่งกระทรวงตามคำสั่งการพัฒนาสังคมและความมั่นคงของมนุษย์ที่</value>
+  </data>
+  <data name="Contract_EndDate" xml:space="preserve">
+    <value>วันที่สิ้นสุดสัญญา</value>
+  </data>
+  <data name="Contract_Location" xml:space="preserve">
+    <value>สัญญานี้ทำขึ้น ณ</value>
+  </data>
+  <data name="Contract_OrgAddress" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="Contract_OrgEmail" xml:space="preserve">
+    <value>อีเมลล์</value>
+  </data>
+  <data name="Contract_OrgName" xml:space="preserve">
+    <value>ชื่อองค์กร</value>
+  </data>
+  <data name="Contract_OrgTelephone" xml:space="preserve">
+    <value>เบอร์โทรศัพท์</value>
+  </data>
+  <data name="Contract_ProvinceNo" xml:space="preserve">
+    <value>และคำสั่งจังหวัด</value>
+  </data>
+  <data name="Contract_StartDate" xml:space="preserve">
+    <value>วันที่เริ่มสัญญา</value>
+  </data>
+  <data name="Contract_OrgFax" xml:space="preserve">
+    <value>โทรสาร</value>
+  </data>
+  <data name="UserProfile_PersonalID" xml:space="preserve">
+    <value>เลขที่บัตรประชาชน</value>
+  </data>
+  <data name="UserProfile_Province" xml:space="preserve">
+    <value>จังหวัด</value>
+  </data>
+  <data name="ProjectTarget_Amount" xml:space="preserve">
+    <value>จำนวน (คน)</value>
+  </data>
+  <data name="ProjectTarget_TargetName" xml:space="preserve">
+    <value>กลุ่มเป้าหมาย</value>
+  </data>
+  <data name="Organization_Address" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="Organization_OrganizationName" xml:space="preserve">
+    <value>ชื่อองค์กร</value>
+  </data>
+  <data name="Organization_OrganizationNo" xml:space="preserve">
+    <value>เลขทะเบียนองค์กร</value>
+  </data>
+  <data name="Organization_Under" xml:space="preserve">
+    <value>สังกัด</value>
+  </data>
+  <data name="Organization_RequestDate" xml:space="preserve">
+    <value>วันที่ส่งคำร้อง</value>
+  </data>
+  <data name="Organization_RequestName" xml:space="preserve">
+    <value>ชื่อผู้ร้องขอ</value>
+  </data>
+  <data name="BudgetDetail_SecretaryRemark" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="ProjectInfo_Address" xml:space="preserve">
+    <value>บ้านเลขที่</value>
+  </data>
+  <data name="ProjectInfo_Firstname" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="ProjectInfo_IDCardNo" xml:space="preserve">
+    <value>เลขที่บัตรประชาชน</value>
+  </data>
+  <data name="ProjectInfo_InstructorAmt" xml:space="preserve">
+    <value>วิทยากร จำนวน</value>
+  </data>
+  <data name="ProjectInfo_InstructorListFileID" xml:space="preserve">
+    <value>(โปรดแนบรายชื่อ)</value>
+  </data>
+  <data name="ProjectInfo_Lastname" xml:space="preserve">
+    <value>สกุล</value>
+  </data>
+  <data name="ProjectInfo_Prefix" xml:space="preserve">
+    <value>คำนำหน้า</value>
+  </data>
+  <data name="ProjectInfo_Road" xml:space="preserve">
+    <value>ถนน</value>
+  </data>
+  <data name="ProjectInfo_SupportBudgetAmt" xml:space="preserve">
+    <value>งบประมาณ จำนวน</value>
+  </data>
+  <data name="ProjectInfo_SupportDrinkFoodAmt" xml:space="preserve">
+    <value>อาหาร - เครื่องดื่ม จำนวน</value>
+  </data>
+  <data name="ProjectInfo_SupportEquipment" xml:space="preserve">
+    <value>อุปกรณ์</value>
+  </data>
+  <data name="ProjectInfo_SupportOrgName" xml:space="preserve">
+    <value>ชื่อหน่วยงานที่ให้การสนับสนุน</value>
+  </data>
+  <data name="ProjectInfo_SupportOther" xml:space="preserve">
+    <value>อื่นๆ</value>
+  </data>
+  <data name="ProjectInfo_SupportPlace" xml:space="preserve">
+    <value>สถานที่</value>
+  </data>
+  <data name="ProjectInfo_SupportValunteerAmt" xml:space="preserve">
+    <value>อาสาสมัคร จำนวน</value>
+  </data>
+  <data name="ProjectInfo_ValunteerListFileID" xml:space="preserve">
+    <value>(โปรดแนบรายชื่อ)</value>
+  </data>
+  <data name="ProjectInfo_VehicleListFile" xml:space="preserve">
+    <value>ยานพาหนะ (โปรดแนบรายชื่อ)</value>
+  </data>
+  <data name="UserProfile_UserFlag" xml:space="preserve">
+    <value>กลุ่มผู้ใช้งาน</value>
+  </data>
+  <data name="Contract_ViewerName" xml:space="preserve">
+    <value>พยาน (ชื่อ - นามสกุล)</value>
+  </data>
+  <data name="ProjectFollowup_Bubget" xml:space="preserve">
+    <value>ข้อบ่งชี้ด้านงบประมาณ</value>
+  </data>
+  <data name="ProjectFollowup_Period" xml:space="preserve">
+    <value>ระยะเวลา</value>
+  </data>
+  <data name="ProjectFollowup_Processing" xml:space="preserve">
+    <value>วิธีการดำเนินงาน</value>
+  </data>
+  <data name="ProjectBudgetDetail_Amount" xml:space="preserve">
+    <value>จำนวนเงิน</value>
+  </data>
+  <data name="ProjectBudgetDetail_Detail" xml:space="preserve">
+    <value>รายการใช้จ่าย</value>
+  </data>
+  <data name="ProjectBudgetDetail_Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="ProjectBudgetDetail_No" xml:space="preserve">
+    <value>ลำดับ</value>
+  </data>
+  <data name="ProjectBudgetDetail_Remark" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="ProjectBudgetDetail_TotalAmount" xml:space="preserve">
+    <value>รวมเป็นเงินทั้งสิ้น</value>
+  </data>
+  <data name="ProjectApproval_ApproverFirstName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="ProjectApproval_ApproverLastName" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="ProjectApproval_ApproverName" xml:space="preserve">
+    <value>ชื่อ - นามสกุล</value>
+  </data>
+  <data name="ProjectApproval_Budget" xml:space="preserve">
+    <value>วงเงินสนับสนุน</value>
+  </data>
+  <data name="ProjectApproval_Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="ProjectApproval_No" xml:space="preserve">
+    <value>ครั้งที่</value>
+  </data>
+  <data name="ProjectApproval_Position" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="ProjectApproval_Year" xml:space="preserve">
+    <value>ปีงบประมาณ</value>
+  </data>
+  <data name="ProjectBudgetDetail_RequesetAmount" xml:space="preserve">
+    <value>เสนอขอ</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise1CenterAmount" xml:space="preserve">
+    <value>คณะทำงานพิจารณากลั่นกรองโครงการ</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise1ProvinceAmount" xml:space="preserve">
+    <value>คณะกรรมการจังหวัด</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise2Amount" xml:space="preserve">
+    <value>คณะอนุกรรมการบริหารกองทุน</value>
+  </data>
+  <data name="ProjectBudgetDetail_ReviseAmount" xml:space="preserve">
+    <value>ฝ่ายเลขานุการ</value>
+  </data>
+  <data name="ProjectBudgetDetail_ReviseDetail" xml:space="preserve">
+    <value>ค่าใช้จ่ายที่เสนอขอ</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise1CenterTotalAmount" xml:space="preserve">
+    <value>ผลรวมจำนวนเงินของคณะทำงานพิจารณากลั่นกรองโครงการ</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise1ProvinceTotalAmount" xml:space="preserve">
+    <value>ผลรวมจำนวนเงินของคณะกรรมการจังหวัด</value>
+  </data>
+  <data name="ProjectBudgetDetail_Revise2TotalAmount" xml:space="preserve">
+    <value>ผลรวมจำนวนเงินของคณะอนุกรรมการบริหารกองทุน</value>
+  </data>
+  <data name="ProjectParticipant_FirstName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="ProjectParticipant_Gender" xml:space="preserve">
+    <value>เพศ</value>
+  </data>
+  <data name="ProjectParticipant_IDCardNo" xml:space="preserve">
+    <value>เลขประจำตัวประชาชน</value>
+  </data>
+  <data name="ProjectParticipant_LastName" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="ProjectParticipant_No" xml:space="preserve">
+    <value>ลำดับ</value>
+  </data>
+  <data name="ProjectParticipant_TargetGroup" xml:space="preserve">
+    <value>กลุ่มเป้าหมาย</value>
+  </data>
+  <data name="ProjectParticipant_TargetGroupETC" xml:space="preserve">
+    <value>กลุ่มเป้าหมายอื่นๆ</value>
+  </data>
+  <data name="ProjectReportResult_ActivityDescription" xml:space="preserve">
+    <value>กิจกรรมของโครงการ</value>
+  </data>
+  <data name="ProjectReportResult_ActualExpense" xml:space="preserve">
+    <value>งบประมาณที่ใช้จ่ายจริง</value>
+  </data>
+  <data name="ProjectReportResult_BalanceAmount" xml:space="preserve">
+    <value>เหลืองบประมาณ</value>
+  </data>
+  <data name="ProjectReportResult_Benefit" xml:space="preserve">
+    <value>ผลการดำเนินงาน/ประโยชน์ที่ได้รับจากการดำเนินงาน</value>
+  </data>
+  <data name="ProjectReportResult_BudgetAmount" xml:space="preserve">
+    <value>งบประมาณที่เสนอขอ</value>
+  </data>
+  <data name="ProjectReportResult_Date" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="ProjectReportResult_FirstName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="ProjectReportResult_LastName" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="ProjectReportResult_OperationLevel" xml:space="preserve">
+    <value>เปรียบเทียบกับวัตถุประสงค์</value>
+  </data>
+  <data name="ProjectReportResult_OperationLevelDesc" xml:space="preserve">
+    <value>เหตุผล</value>
+  </data>
+  <data name="ProjectReportResult_OperationResult" xml:space="preserve">
+    <value>สรุปผลการดำเนินงาน</value>
+  </data>
+  <data name="ProjectReportResult_Participants" xml:space="preserve">
+    <value>ผู้เข้าร่วมโครงการ/กิจกรรม</value>
+  </data>
+  <data name="ProjectReportResult_Position" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="ProjectReportResult_ProblemsAndObstacle" xml:space="preserve">
+    <value>ปัญหาอุปสรรค์และวิธีการแก้ปัญหาจากการดำเนินการ</value>
+  </data>
+  <data name="ProjectReportResult_ReportAttachment" xml:space="preserve">
+    <value>แนบไฟล์</value>
+  </data>
+  <data name="ProjectReportResult_ReviseBudgetAmount" xml:space="preserve">
+    <value>งบประมาณที่ได้รับอนุมัติ</value>
+  </data>
+  <data name="ProjectReportResult_Suggestion" xml:space="preserve">
+    <value>ข้อคิดเห็นและข้อเสนอแนะ</value>
+  </data>
+  <data name="ProjectReportResult_SuggestionDesc" xml:space="preserve">
+    <value>ข้อคิดเห็นและข้อเสนอแนะ</value>
+  </data>
+  <data name="ProjectReportResult_Telephone" xml:space="preserve">
+    <value>โทรศัพท์</value>
+  </data>
+  <data name="Personal_Contract1" xml:space="preserve">
+    <value>ผู้ประสานงานโครงการ (1)</value>
+  </data>
+  <data name="Personal_Contract2" xml:space="preserve">
+    <value>ผู้ประสานงานโครงการ (2)</value>
+  </data>
+  <data name="Personal_Responsibility" xml:space="preserve">
+    <value>ผู้รับผิดชอบโครงการ</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_DeadlineDate" xml:space="preserve">
+    <value>กำหนดส่ง</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_RefInfo" xml:space="preserve">
+    <value>อ้างถึง</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_RefInfo1" xml:space="preserve">
+    <value>สิ่งที่ส่งมาด้วย</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_ReportNo" xml:space="preserve">
+    <value>เลขที่หนังสือ</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_SendDate" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_No" xml:space="preserve">
+    <value>ลำดับ</value>
+  </data>
+  <data name="FollowupTrackingDocumentForm_TrackingType" xml:space="preserve">
+    <value>ประเภทหนังสือ</value>
+  </data>
+  <data name="Contract_ContractReceiveDate" xml:space="preserve">
+    <value>ลงวันที่</value>
+  </data>
+  <data name="Contract_ContractReceiveName" xml:space="preserve">
+    <value>ชื่อ - นามสกุล</value>
+  </data>
+  <data name="Contract_ContractRefProsition" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+  <data name="ProjectApproval_BudgetType" xml:space="preserve">
+    <value>กรอบวงเงิน</value>
+  </data>
+  <data name="ProjectInfo_OrgUnderSupport" xml:space="preserve">
+    <value>หน่วยงานภายใต้การรับรอง</value>
+  </data>
+  <data name="ProjectInfo_BudgetYear" xml:space="preserve">
+    <value>ปีงบประมาณ</value>
+  </data>
+  <data name="UserProfile_NewPassword" xml:space="preserve">
+    <value>รหัสผ่านใหม่</value>
+  </data>
+  <data name="UserProfile_OldPassword" xml:space="preserve">
+    <value>รหัสผ่านเดิม</value>
+  </data>
+  <data name="ProjectInfo_CancelledProjectRequestAttachment" xml:space="preserve">
+    <value>เอกสารยกเลิกคำร้อง</value>
+  </data>
+  <data name="Organization_Province" xml:space="preserve">
+    <value>จังหวัด</value>
+  </data>
+  <data name="ProjectApproval_Revise1Desc" xml:space="preserve">
+    <value>เหตุผล</value>
+  </data>
+  <data name="ProjectApproval_Revise2Desc" xml:space="preserve">
+    <value>เหตุผล</value>
+  </data>
+  <data name="Contract_AuthorizeDate" xml:space="preserve">
+    <value>วันที่มอบอำนาจ</value>
+  </data>
+  <data name="Contract_AuthorizeDocID" xml:space="preserve">
+    <value>เอกสารการมอบอำนาจ</value>
+  </data>
+  <data name="Contract_AuthorizeFlag" xml:space="preserve">
+    <value>มอบอำนาจหรือไม่</value>
+  </data>
+  <data name="Contract_ReceiverName" xml:space="preserve">
+    <value>ชื่อผู้รับเงิน</value>
+  </data>
+  <data name="Contract_ReceiverPosition" xml:space="preserve">
+    <value>ตำแหน่งผู้รับเงิน</value>
+  </data>
+  <data name="Contract_ReceiverSurname" xml:space="preserve">
+    <value>นามสกุลผู้รับเงิน</value>
+  </data>
+  <data name="Contract_NameSurnameAuthorize" xml:space="preserve">
+    <value>ชื่อ - นามสกุล ผู้รับมอบอำนาจ</value>
+  </data>
+  <data name="Organization_Mobile" xml:space="preserve">
+    <value>โทรศัพท์มือถือ</value>
+  </data>
+  <data name="Organization_OrganizationDate" xml:space="preserve">
+    <value>วันที่ตั้งองค์กร</value>
+  </data>
+  <data name="ProjectInfo_Mobile" xml:space="preserve">
+    <value>โทรศัพท์มือถือ</value>
+  </data>
+  <data name="ProjectInfo_RegisterDate" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="ProjectInfo_StartSupportYear" xml:space="preserve">
+    <value>ปีที่เริ่มรับการสนับสนุน</value>
+  </data>
+  <data name="ProjectInfo_ToSupportYear" xml:space="preserve">
+    <value>ปีล่าสุดที่รับการสนับสนุน</value>
+  </data>
+  <data name="UserProfile_Mobile" xml:space="preserve">
+    <value>โทรศัพท์มือถือ</value>
+  </data>
+  <data name="Contract_CenterContractRefName" xml:space="preserve">
+    <value>ชื่อ - นามสกุล</value>
+  </data>
+  <data name="Committee_Firstname" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Committee_Position" xml:space="preserve">
+    <value>ตำแหน่ง(อื่นๆ)</value>
+  </data>
+  <data name="Committee_Surname" xml:space="preserve">
+    <value>นามสกุล</value>
+  </data>
+  <data name="Committee_OrderNo" xml:space="preserve">
+    <value>ลำดับ</value>
+  </data>
+  <data name="ProjectInfo_SubmitedDate" xml:space="preserve">
+    <value>วันที่ส่งคำร้อง</value>
+  </data>
+  <data name="ProjectInfo_RejectComment" xml:space="preserve">
+    <value>ข้อแนะนำสำหรับการปรับปรุง</value>
+  </data>
+  <data name="ProjectParticipant_IsCripple" xml:space="preserve">
+    <value>ประเภทผู้เข้าร่วม</value>
+  </data>
+  <data name="ProcessingPlan_Address" xml:space="preserve">
+    <value>บ้านเลขที่/สถานที่ดำเนินการ</value>
+  </data>
+  <data name="Committee_PositionCode" xml:space="preserve">
+    <value>ตำแหน่ง</value>
+  </data>
+</root>

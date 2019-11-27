@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FE59AD2F-149A-4357-8322-ACCC4628A88A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nep.Project.Report</RootNamespace>
+    <AssemblyName>Nep.Project.Report</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>NepProjectCommonReportKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReportProjectRequestNew.rdlc" />
+    <EmbeddedResource Include="ReportPaymentSlip.rdlc" />
+    <EmbeddedResource Include="ReportSummaryProjectInfo.rdlc" />
+    <EmbeddedResource Include="ReportBudgetApplicant.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportFormatContractCenter.rdlc" />
+    <EmbeddedResource Include="ReportOrganizationClient.rdlc" />
+    <EmbeddedResource Include="ReportProjectResult.rdlc" />
+    <EmbeddedResource Include="ReportStatisticClient.rdlc" />
+    <EmbeddedResource Include="ReportStatisticDuplicate.rdlc" />
+    <EmbeddedResource Include="ReportSummaryProjectInfoProvince.rdlc" />
+    <EmbeddedResource Include="ReportBudgetSummary.rdlc" />
+    <EmbeddedResource Include="ReportEvaluationSummary.rdlc" />
+    <EmbeddedResource Include="ReportOrgTracking.rdlc" />
+    <EmbeddedResource Include="ReportOverlapSubDistrict.rdlc" />
+    <EmbeddedResource Include="ReportOverlapDistrict.rdlc" />
+    <EmbeddedResource Include="ReportOverlapProvince.rdlc" />
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="Report3.rdlc" />
+    <EmbeddedResource Include="Report4.rdlc" />
+    <EmbeddedResource Include="ReportInterrogate.rdlc" />
+    <EmbeddedResource Include="ReportOverlap.rdlc" />
+    <EmbeddedResource Include="ReportProjectRequest.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportProvinceTracking.rdlc" />
+    <EmbeddedResource Include="ReportReceiverFunding.rdlc" />
+    <EmbeddedResource Include="ReportStatisticSupport.rdlc" />
+    <EmbeddedResource Include="ReportSummaryProject.rdlc" />
+    <EmbeddedResource Include="ReportSummaryProjectInfoCenter.rdlc" />
+    <EmbeddedResource Include="ReportSummaryTracing.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nep.Project.Common.Web\Nep.Project.Common.Web.csproj">
+      <Project>{2be24b49-ed93-4991-960c-e87cd008f9a5}</Project>
+      <Name>Nep.Project.Common.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.Common\Nep.Project.Common.csproj">
+      <Project>{52532c3c-67f4-4e92-ae51-da2d3a12154d}</Project>
+      <Name>Nep.Project.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.IServices\Nep.Project.IServices.csproj">
+      <Project>{d18c497a-a61a-490f-be35-e531fa45b3f3}</Project>
+      <Name>Nep.Project.IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.ServiceModels\Nep.Project.ServiceModels.csproj">
+      <Project>{95122ea7-b3c4-4802-aa60-b148db0365bc}</Project>
+      <Name>Nep.Project.ServiceModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="NepProjectCommonReportKey.pfx" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.Report1.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.Report1Detail.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.Report3.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.Report4.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportBudgetApplicant.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportBudgetSummary.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportEvaluationSummary.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportFormatContract.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportInterrogate.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOrganizationClient.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOrgTracking.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOverlap.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOverlapDistrict.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOverlapProvince.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportOverlapSubDistrict.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportPaymentSlip.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.GeneralProjectInfo.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.OrganizationAssistance.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.ProjectAttachment.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.ProjectBudget.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.ProjectCommittee.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.ProjectOperationAddress.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectRequest.ProjectTargetGroup.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectResult.GeneralProjectInfo.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectResult.ProjectType.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProjectResult.SummaryProjectResult.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportProvinceTracking.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportReceiverFunding.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticClient+AnalyzeProjectByStrategic1.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticClient+AnalyzeProjectByTargetGroup1.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticClient+AnalyzeProjectByType1.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticClient+CompareClientSupport.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticClient.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticDuplicate+AnalyzeProjectByStrategic.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticDuplicate+AnalyzeProjectByType.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticDuplicate+CompareDuplicatedSupport.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticDuplicate.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticSupport+AnalyzeProjectByProjectType.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticSupport+AnalyzeProjectByStrategic.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticSupport+AnalyzeProjectByType.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticSupport+CompareSupport.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportStatisticSupport.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryProjectInfo.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryProjectInfoBudgetDetail.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryTracing.datasource" />
+    <EmbeddedResource Include="Template-ReportBudgetApplicant.xls" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryTracking.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="ReportFormatContractProvince.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="ReportFormatContractProvince2.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\checkbox_selected.jpg" />
+    <Content Include="Images\checkbox_unselected.jpg" />
+    <Content Include="Images\checked.jpg" />
+    <Content Include="Images\kut.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

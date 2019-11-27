@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Nep.Project.Web.WebServices.NepService" CodeBehind="NepServiceOld.svc.cs" %>

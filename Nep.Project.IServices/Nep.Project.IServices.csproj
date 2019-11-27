@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D18C497A-A61A-490F-BE35-E531FA45B3F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nep.Project.IServices</RootNamespace>
+    <AssemblyName>Nep.Project.IServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IReport4Service.cs" />
+    <Compile Include="IReportOrganizationClientService.cs" />
+    <Compile Include="IReportOverlapProvinceService.cs" />
+    <Compile Include="IReportBudgetSummaryService.cs" />
+    <Compile Include="IReportOverlapService.cs" />
+    <Compile Include="IReportSummaryTrackingService.cs" />
+    <Compile Include="IAttachmentService.cs" />
+    <Compile Include="IJobService.cs" />
+    <Compile Include="IOrganizationParameterService.cs" />
+    <Compile Include="IReportBudgetApplicantService.cs" />
+    <Compile Include="IReportEvaluationService.cs" />
+    <Compile Include="IReportStatisticClientService.cs" />
+    <Compile Include="IReportStatisticService.cs" />
+    <Compile Include="IReportStatisticSupportService.cs" />
+    <Compile Include="IRunningNumberService.cs" />
+    <Compile Include="ISecurityService.cs" />
+    <Compile Include="IOrganizationService.cs" />
+    <Compile Include="IAuthenticationService.cs" />
+    <Compile Include="IListOfValueService.cs" />
+    <Compile Include="IProviceService.cs" />
+    <Compile Include="IRegisterService.cs" />
+    <Compile Include="IProjectInfoService.cs" />
+    <Compile Include="ISetFollowupStatusJobService.cs" />
+    <Compile Include="IUserProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nep.Project.Common\Nep.Project.Common.csproj">
+      <Project>{52532c3c-67f4-4e92-ae51-da2d3a12154d}</Project>
+      <Name>Nep.Project.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.DBModels\Nep.Project.DBModels.csproj">
+      <Project>{fe5168ba-61a9-4839-8858-a2c403b106e6}</Project>
+      <Name>Nep.Project.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.ServiceModels\Nep.Project.ServiceModels.csproj">
+      <Project>{95122ea7-b3c4-4802-aa60-b148db0365bc}</Project>
+      <Name>Nep.Project.ServiceModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,804 @@
+﻿/* --Tabs-- */
+.ajax__tab_default .ajax__tab_header {
+    white-space: normal !important;
+    height:auto !important;
+    /*height:36px !important;*/ 
+}
+
+.ajax__tab_header, .ajax__tab_default .ajax__tab {
+    display:table !important;
+}
+
+.ajax__tab_header > span{
+    display:table-cell;
+    vertical-align:top;
+
+}
+
+.ajax__tab_default .ajax__tab_outer {
+    display: block;
+    display: -moz-inline-box;
+    z-index:10 !important;   
+}
+
+.ajax__tab_default .ajax__tab_inner {
+    display: inline-block;
+    display: -moz-inline-box;    
+}
+
+.ajax__tab_default .ajax__tab_tab {
+    
+    display: inline-block;
+    display: -moz-inline-box;
+    overflow: hidden;
+    text-align: center;
+
+    padding-top:9px !important;   
+}
+
+.ajax__tab_xp .ajax__tab_disabled {
+    color: #A0A0A0;
+    cursor: default;
+}
+
+/* xp theme top / default */
+.ajax__tab_xp .ajax__tab_header {
+    background-position: bottom;
+    background-repeat: repeat-x;
+    font-family: Arial Tahoma;
+    font-size: 12px;
+    line-height:1.62em; 
+
+    background-image:none !important;
+    /*border:1px solid #ddd;*/
+    border-left:1px solid #ddd;
+    border:0 none;
+
+    z-index:0;
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: 0px !important;
+
+    background-image:none !important;
+    /*border-top:1px solid #EEE;
+    border-right:1px solid #EEE;
+    border-bottom:1px solid #EEE;*/
+
+    /*border:1px solid #EEE;*/
+    border:1px solid #ccc;
+    /*height:35px !important;*/
+    height:auto !important;
+
+    border-top-left-radius:7px;
+    border-top-right-radius:7px;
+    /*margin-left:-1px;*/
+
+    background: rgba(226,226,226,1) !important;
+    background: -moz-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 26%, rgba(254,254,254,1) 95%, rgba(254,254,254,1) 96%) !important;
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(226,226,226,1)), color-stop(26%, rgba(219,219,219,1)), color-stop(95%, rgba(254,254,254,1)), color-stop(96%, rgba(254,254,254,1)))!important ;
+    background: -webkit-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 26%, rgba(254,254,254,1) 95%, rgba(254,254,254,1) 96%) !important;
+    background: -o-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 26%, rgba(254,254,254,1) 95%, rgba(254,254,254,1) 96%) !important;
+    background: -ms-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 26%, rgba(254,254,254,1) 95%, rgba(254,254,254,1) 96%) !important;
+    background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 26%, rgba(254,254,254,1) 95%, rgba(254,254,254,1) 96%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=0 )!important; 
+    
+
+}
+
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_outer.tab-required{
+    background: #C20000 !important;
+  
+    /*background: rgba(247,34,22,1)!important;
+    background: -moz-linear-gradient(top, rgba(247,34,22,1) 0%, rgba(247,34,22,1) 1%, rgba(250,36,13,1) 28%, rgba(246,41,12,1) 59%, rgba(242,125,109,1) 100%)!important;
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(247,34,22,1)), color-stop(1%, rgba(247,34,22,1)), color-stop(28%, rgba(250,36,13,1)), color-stop(59%, rgba(246,41,12,1)), color-stop(100%, rgba(242,125,109,1)))!important;
+    background: -webkit-linear-gradient(top, rgba(247,34,22,1) 0%, rgba(247,34,22,1) 1%, rgba(250,36,13,1) 28%, rgba(246,41,12,1) 59%, rgba(242,125,109,1) 100%)!important;
+    background: -o-linear-gradient(top, rgba(247,34,22,1) 0%, rgba(247,34,22,1) 1%, rgba(250,36,13,1) 28%, rgba(246,41,12,1) 59%, rgba(242,125,109,1) 100%)!important;
+    background: -ms-linear-gradient(top, rgba(247,34,22,1) 0%, rgba(247,34,22,1) 1%, rgba(250,36,13,1) 28%, rgba(246,41,12,1) 59%, rgba(242,125,109,1) 100%)!important;
+    background: linear-gradient(to bottom, rgba(247,34,22,1) 0%, rgba(247,34,22,1) 1%, rgba(250,36,13,1) 28%, rgba(246,41,12,1) 59%, rgba(242,125,109,1) 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f72216', endColorstr='#f27d6d', GradientType=0 )!important;*/
+}
+.ajax__tab_xp .ajax__tab_header .ajax__tab_outer.tab-required a.ajax__tab_tab {
+    color:white;
+}
+
+/*.ajax__tab_xp .ajax__tab_header > span {
+    border-right:3px solid #fff;
+}
+
+.ajax__tab_xp .ajax__tab_header > span:last-child {
+    border-right:0px;
+}*/
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_inner {
+    background-repeat: no-repeat;
+    padding-left: 0px !important;
+
+    background-image:none !important;    
+    /*border-left:1px solid #EEE;*/    
+    border:0 none;
+    /*height:35px;*/
+   
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
+    background-repeat: repeat-x;
+    margin: 0;
+    padding: 4px;
+
+    
+    background-image:none !important;
+    /*height:35px;*/
+    /*color:#999;*/
+    color:#333;
+    padding-left:10px  !important;
+    padding-right:10px !important;
+    padding-top:10px;
+
+    font-family:"Times New Roman", Times, serif;
+    font-size:13px;
+    height:auto !important;
+   
+
+    
+
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_hover .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-color:#eee;
+    background:none !important; 
+
+    background: rgba(237,237,237,1) !important;
+    background: -moz-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%) !important;
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(237,237,237,1)), color-stop(53%, rgba(246,246,246,1)), color-stop(100%, rgba(255,255,255,1))) !important;
+    background: -webkit-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%)!important;
+    background: -o-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%) !important;
+    background: -ms-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%) !important;
+    background: linear-gradient(to bottom, rgba(237,237,237,1) 0%, rgba(246,246,246,1) 53%, rgba(255,255,255,1) 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=0 ) !important;
+    
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_hover .ajax__tab_inner {
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_hover .ajax__tab_tab,
+.ajax__tab_xp .ajax__tab_header .ajax__tab_hover .tab-required a.ajax__tab_tab {
+    background-repeat: repeat-x;
+    cursor: pointer;
+    color:#333;
+}
+/*.ajax__tab_xp .ajax__tab_header .ajax__tab_active { margin-top: 1px; } */
+.ajax__tab_xp .ajax__tab_header .ajax__tab_active > span.ajax__tab_outer {
+   
+    background-position: right;
+    background-repeat: no-repeat;
+
+   border-color:#ccc;
+   /*background-color:#ddd;*/  
+   border-bottom-color:#fff;
+   background-color:#fff; 
+   background:none !important;
+  
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_active .ajax__tab_inner {  
+
+    background-repeat: no-repeat;
+
+    border-color:#ddd;
+}
+
+.ajax__tab_xp .ajax__tab_header .ajax__tab_active .ajax__tab_tab,
+.ajax__tab_xp .ajax__tab_header .ajax__tab_active .tab-required a.ajax__tab_tab {  
+    background-repeat: repeat-x;
+    /*background-color:#ccc;*/
+    color:#333;
+}
+
+.ajax__tab_xp .ajax__tab_body {
+    background-color: #ffffff;
+    border: 1px solid #DDD !important;
+    border-top: 0  !important;
+    font-family: Arial, Tahoma !important;
+    font-size: 12px;
+    padding: 8px;
+
+    /*border-top: 1px solid #DDD !important;
+    margin-top:45px;*/
+
+    border-top: 1px solid #DDD !important;
+    /*margin-top:-10px;*/
+    margin-top:-1px;
+}
+
+/* xp theme vertical left */
+.ajax__tab_xp .ajax__tab_header_verticalleft {
+    background-position: right;
+    background-repeat: repeat-y;
+    font-family: Arial, Tahoma !important;
+    /*font-size: 11px;*/
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 21px;
+    padding-right: 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_inner {
+    background-repeat: no-repeat;
+    padding-left: 3px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_tab {
+    background-repeat: repeat-x;
+    margin: 0;
+    padding: 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_hover .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_hover .ajax__tab_inner {
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_hover .ajax__tab_tab {
+    background-repeat: repeat-x;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_active:not(:first-child) {
+    margin-top: 1px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_active .ajax__tab_outer {
+   
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_active .ajax__tab_inner {
+   
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalleft .ajax__tab_active .ajax__tab_tab {
+    
+    background-repeat: repeat-x;
+}
+
+.ajax__tab_xp .ajax__tab_body_verticalleft {
+    background-color: #ffffff;
+    border: 1px solid  #DDD !important;
+    border-left: 0;
+    font-family: Arial, Tahoma !important;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* xp theme vertical right */
+.ajax__tab_xp .ajax__tab_header_verticalright {
+    background-position: left;
+    background-repeat: repeat-y;
+    font-family: Arial, Tahoma !important;
+    font-size: 11px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 21px;
+    padding-right: 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_inner {
+    background-repeat: no-repeat;
+    padding-left: 3px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_tab {
+    background-repeat: repeat-x;
+    margin: 0;
+    padding: 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_hover .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_hover .ajax__tab_inner {
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_hover .ajax__tab_tab {
+    background-repeat: repeat-x;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_active {
+    margin-top: 1px;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_active .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_active .ajax__tab_inner {
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_verticalright .ajax__tab_active .ajax__tab_tab {
+    background-repeat: repeat-x;
+}
+
+.ajax__tab_xp .ajax__tab_body_verticalright {
+    background-color: #ffffff;
+    border: 1px solid  #DDD !important;
+    border-right: 0;
+    font-family: Arial, Tahoma !important;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* header on bottom */
+.ajax__tab_xp .ajax__tab_header_bottom {
+    background-position: top;
+    background-repeat: repeat-x;
+    font-family: Arial, Tahoma !important;
+    font-size: 11px;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 21px;
+    padding-right: 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_inner {
+    background-repeat: no-repeat;
+    padding-left: 3px;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_tab {
+    background-repeat: repeat-x;
+    height: 17px;
+    margin: 0;
+    padding: 0 4px 4px 4px;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_hover .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_hover .ajax__tab_inner {
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_hover .ajax__tab_tab {
+    background-repeat: repeat-x;
+    cursor: pointer;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_active .ajax__tab_outer {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_active .ajax__tab_inner {
+    background-repeat: no-repeat;
+}
+
+.ajax__tab_xp .ajax__tab_header_bottom .ajax__tab_active .ajax__tab_tab {
+    background-repeat: repeat-x;
+}
+
+.ajax__tab_xp .ajax__tab_body_bottom {
+    background-color: #ffffff;
+    border: 1px solid #DDD !important;
+    border-bottom: 0;
+    font-family: Arial, Tahoma !important;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* scrolling */
+.ajax__scroll_horiz {
+    overflow-x: scroll;
+}
+
+.ajax__scroll_vert {
+    overflow-y: scroll;
+}
+
+.ajax__scroll_both {
+    overflow: scroll;
+}
+
+.ajax__scroll_auto {
+    overflow: auto;
+}
+
+.ajax__scroll_none {
+    overflow: hidden;
+}
+
+/* plain theme */
+.ajax__tab_plain .ajax__tab_outer {
+    border: 2px solid  #DDD !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ajax__tab_plain .ajax__tab_inner {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ajax__tab_plain .ajax__tab_body {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.ajax__tab_plain .ajax__tab_header {
+    text-align: center;
+    vertical-align: middle;
+  
+}
+
+.ajax__tab_plain .ajax__tab_active .ajax__tab_outer {
+    background: #FFFFE1;
+}
+
+.ajax__tab_header > span {
+    margin-right:-1px;
+}
+
+/* --\Tabs-- */
+
+
+/* ------------------------Calendar------------------------- */
+.nep-calendar .ajax__calendar_container {
+    cursor: default;
+    font-family: Arial, Tahoma;
+    font-size: 12px;
+    padding: 4px;
+    text-align: center;
+    width: 170px;
+
+    background-color:#fff;
+    border: 1px solid #ccc;
+}
+
+.nep-calendar .ajax__calendar_body {
+    height: 139px;
+    margin: 0px;
+    overflow: hidden;
+    position: relative;
+    width: 170px;
+    margin-left:-5px;
+}
+
+.nep-calendar .ajax__calendar_container .ajax__calendar_day,
+.nep-calendar .ajax__calendar_container .ajax__calendar_month,
+.nep-calendar .ajax__calendar_container .ajax__calendar_year
+ {
+    border:1px solid #fff;   
+}
+
+
+
+.nep-calendar .ajax__calendar_hover .ajax__calendar_day ,
+.nep-calendar .ajax__calendar_hover .ajax__calendar_month,
+.nep-calendar .ajax__calendar_hover .ajax__calendar_year {
+	background-color:#dddddd;
+	border:1px solid #cccccc;
+	font-weight:bold;
+	color:inherit;
+}
+
+.nep-calendar .ajax__calendar_active .ajax__calendar_day, 
+.nep-calendar .ajax__calendar_active .ajax__calendar_month, 
+.nep-calendar .ajax__calendar_active .ajax__calendar_year
+{
+	background-color:#eee;
+	border:1px solid #999999;
+	font-weight:bold;
+	color:inherit;
+}
+
+.nep-calendar .ajax__calendar_days, .nep-calendar .ajax__calendar_months, .nep-calendar .ajax__calendar_years {
+    height: 139px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 170px;
+}
+
+.nep-calendar .ajax__calendar_days table, .nep-calendar .ajax__calendar_months table, .nep-calendar .ajax__calendar_years table {
+    border-spacing: 0;
+}
+
+.nep-calendar .ajax__calendar_container TABLE {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.nep-calendar .ajax__calendar_container TD {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.nep-calendar .ajax__calendar_header {
+    background-color:#ccc;
+    /*border:1px solid #ccc;*/
+    height: 27px;
+    width: 100%;
+
+    /*padding-top:5px;*/
+   
+}
+
+.nep-calendar .ajax__calendar_prev {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: left;
+    height: 15px;
+    width: 15px;
+
+    height:27px;
+}
+
+.nep-calendar .ajax__calendar_next {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: right;
+    height: 15px;
+    width: 15px;
+
+    height:27px;
+}
+
+.nep-calendar .ajax__calendar_title {
+    font-family:Arial, Tahoma;
+    font-size:12px;
+
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    padding-top:5px;
+    height:27px;
+}
+
+.nep-calendar .ajax__calendar_hover .ajax__calendar_title,
+.nep-calendar .ajax__calendar_hover .ajax__calendar_next, .nep-calendar .ajax__calendar_hover .ajax__calendar_prev,
+.nep-calendar .ajax__calendar_hover .ajax__calendar_footer
+ {
+    background-color:#eee;
+}
+
+.nep-calendar .ajax__calendar_footer {
+    font-family:Arial, Tahoma;
+    font-size:12px;
+
+    background-color:#ccc;
+    height: 24px;
+}
+
+.nep-calendar .ajax__calendar_today {
+    cursor: pointer;
+    padding-top: 3px;
+}
+
+.nep-calendar .ajax__calendar_dayname {
+    height: 17px;
+    padding: 0 3px;
+    text-align: right;
+    width: 17px;
+
+    font-weight:bold;
+}
+
+.nep-calendar .ajax__calendar_day {
+    font-family:Arial, Tahoma;
+    font-size:12px;
+
+    cursor: pointer;
+    height: 18px;
+    padding: 0 2px;
+    text-align: right;
+    width: 20px;
+}
+
+.nep-calendar .ajax__calendar_month {
+    cursor: pointer;
+    height: 44px;
+    overflow: hidden;
+    text-align: center;
+    width: 40px;
+}
+
+.nep-calendar .ajax__calendar_year {
+    cursor: pointer;
+    height: 44px;
+    overflow: hidden;
+    text-align: center;
+    width: 40px;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_container {
+    background-color: #ffffff;
+    border: 1px solid #646464;
+    color: #000000;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_footer {
+    border-top: 1px solid #f5f5f5;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_dayname {
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_day {
+    border: 1px solid #ffffff;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_month {
+    border: 1px solid #ffffff;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_year {
+    border: 1px solid #ffffff;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_active .ajax__calendar_day {
+    background-color: #edf9ff;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_active .ajax__calendar_month {
+    background-color: #edf9ff;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_active .ajax__calendar_year {
+    background-color: #edf9ff;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_today .ajax__calendar_day {
+    border-color: #0066cc;
+    background-color:rgba(226,226,226,1) !important;
+    border-color:rgba(226,226,226,1) ;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_today .ajax__calendar_month {
+    border-color: #0066cc;
+    background-color:rgba(226,226,226,1) !important;
+    border-color:rgba(226,226,226,1) ;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_today .ajax__calendar_year {
+    border-color: #0066cc;
+    background-color:rgba(226,226,226,1) !important;
+    border-color:rgba(226,226,226,1) ;
+}
+
+.nep-calendar .ajax__calendar ajax__calendar_other div.ajax__calendar_day {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #ccc !important;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_other .ajax__calendar_year {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #ccc !important;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_hover .ajax__calendar_day {
+    background-color: #edf9ff;
+    border-color: #daf2fc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_hover .ajax__calendar_month {
+    background-color: #edf9ff;
+    border-color: #daf2fc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_hover .ajax__calendar_year {
+    background-color: #edf9ff;
+    border-color: #daf2fc;
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_hover .ajax__calendar_title {
+    color: #0066cc;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_hover .ajax__calendar_today {
+    color: #0066cc;
+}
+
+/* styles for invalid dates as defined by startDate and endDate*/
+.nep-calendar .ajax__calendar .ajax__calendar_invalid .ajax__calendar_day {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #646464;
+    cursor: default;
+    text-decoration: line-through;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_invalid .ajax__calendar_month {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #646464;
+    cursor: default;
+    text-decoration: line-through;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_invalid .ajax__calendar_year {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #646464;
+    cursor: default;
+    text-decoration: line-through;
+}
+
+.nep-calendar .ajax__calendar .ajax__calendar_invalid .ajax__calendar_today {
+    cursor: default;
+    visibility: hidden;
+}
+
+/* --\Calendar-- */
+
+/*--ComboBox--*/
+.ajax__combobox_itemlist {
+    /*position:inherit !important;*/ 
+    /*z-index:1000;
+    position:absolute;*/
+
+   /* position:absolute!important; 
+    height: 100px !important;
+    overflow: auto !important;
+    top: auto !important;
+    left: auto !important;*/
+}
+
+/*--\ComboBox--*/

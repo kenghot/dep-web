@@ -1,0 +1,206 @@
+﻿
+
+/*#primary {
+    display: table-cell;
+    width: 100%; 
+    height: auto;
+}
+
+#content {
+    display:inline-block;
+    width:100%;
+}*/
+
+/**
+    display: table-cell;
+    background-color: yellow;
+    width: auto; 
+    height: auto;
+    vertical-align: middle;
+    text-align: center;*/
+
+
+html {
+    overflow-y: auto;    
+}
+
+body {
+    background-color:#ccc;
+
+    font-family:Arial, Tahoma;
+    font-size:12px;
+    /*line-height:1.62em;*/   
+}
+
+body .site {
+    padding-bottom:24px;
+    margin-bottom:0px;
+}
+
+.site {
+    box-shadow:0 0 6px #999;
+}
+
+.site-header {
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+hgroup {
+    margin-top:35px;
+}
+
+hgroup a, hgroup .site-description {
+    padding-left:0px;
+}
+
+hgroup a, hgroup a:hover {
+    color:#585858;
+    
+}
+
+hgroup .site-description, hgroup a.site-description:hover {
+    display:block;
+    font-size:16px;
+    color:#808080;
+}
+
+.site-content-custom {
+    /*display:inline-block;*/
+    border-right:0 none;
+    width:100%;
+    /*padding-right:30px;*/
+    overflow-x:auto;
+    padding:30px 20px;
+}
+
+.themonic-logo {
+    /*padding:10px 10px 0px 17px;*/
+    padding:0px 10px 0px 17px;
+}
+
+.themonic-logo img{
+    width:95px;
+}
+
+.site-header hgroup {
+    margin:17px 0px 0px 0px;
+    padding:10px 0px;
+}
+
+.site-header hgroup a:first-child{
+    font-size:28px;
+}
+
+.wrapper {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    /*height:auto;*/
+}
+
+.current_page_item {
+    border-bottom-color:rgb(22, 161, 231);
+    border-bottom-color:#D680B5;
+}
+
+.nav-menu > ul > li>  a:hover {
+    background: #000000;
+}
+.themonic-nav .current-menu-item > a,
+.themonic-nav .current-menu-ancestor > a,
+.themonic-nav .current_page_item > a,
+.themonic-nav .current_page_ancestor > a {
+		background: none repeat scroll 0 0 #000000 !important;
+		color: #FFFFFF;
+		font-weight: bold;
+}
+
+
+div.nav-menu > ul > li{
+   margin-left:-4px;
+   border-bottom:0px none;
+}
+
+div.nav-menu > ul > li:first-child{
+   margin-left:0px;
+}
+
+.themonic-nav li:hover {
+    background:#000000;
+}
+
+.required {
+    color:inherit;
+}
+
+.nav-menu {
+    margin-top:-5px;
+}
+
+.nav-menu > ul > li > a {
+    font-size:16px;
+    font-weight:400;
+    line-height:normal;
+    padding-top:12px;
+    padding-bottom:12px;
+}
+
+.themonic-nav ul.children li a {
+    font-size:14px;
+    line-height:normal;
+}
+
+
+
+
+/* iPad fix*/
+@media screen and (max-width: 768px) {
+
+    .themonic-nav ul.nav-menu, .themonic-nav div.nav-menu > ul, .themonic-nav li {
+    /*background: none;
+    border-bottom: none;
+    border-top: none;*/
+    display: block;
+    }
+
+   
+}
+
+
+
+@media screen and (min-width: 768px) {
+    /*body,#page{
+        height:100%;
+    }*/
+
+
+    .themonic-nav ul.nav-menu,
+    .themonic-nav div.nav-menu > ul {
+        
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#333333',GradientType=0);
+        background:repeating-linear-gradient(#555, #333 44px);
+       
+        /*border-bottom:5px solid #16A1E7;*/
+        border-bottom:0px;    
+        
+    }
+
+    /*.themonic-nav ul.nav-menu > li,
+    .themonic-nav div.nav-menu > ul > li {
+        background-color:yellow;
+    }*/
+ 
+    .themonic-nav .nav-menu > ul > li > a {
+        color:#fff;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    /*body, #page{
+        height:100%;
+    }*/
+    /*body .site {
+        padding-bottom:24px;
+        margin-bottom:0px;
+    }*/
+
+}
+

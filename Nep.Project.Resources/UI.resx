@@ -1,0 +1,773 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ButtonAdd" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="ButtonBack" xml:space="preserve">
+    <value>กลับ</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="ButtonExport" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ButtonImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ButtonLogin" xml:space="preserve">
+    <value>เข้าสู่ระบบ</value>
+  </data>
+  <data name="ButtonOK" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="ButtonPrint" xml:space="preserve">
+    <value>พิมพ์</value>
+  </data>
+  <data name="ButtonReadMore" xml:space="preserve">
+    <value>อ่านต่อ</value>
+  </data>
+  <data name="ButtonRegister" xml:space="preserve">
+    <value>สมัคร</value>
+  </data>
+  <data name="ButtonReset" xml:space="preserve">
+    <value>ล้างค่า</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="ButtonSearch" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="ButtonSelect" xml:space="preserve">
+    <value>เลือก</value>
+  </data>
+  <data name="ButtonSubmit" xml:space="preserve">
+    <value>ยืนยัน</value>
+  </data>
+  <data name="ButtonView" xml:space="preserve">
+    <value>ดู</value>
+  </data>
+  <data name="DropdownAll" xml:space="preserve">
+    <value>--- ทั้งหมด ---</value>
+  </data>
+  <data name="DropdownPleaseSelect" xml:space="preserve">
+    <value>--- กรุณาเลือก ---</value>
+  </data>
+  <data name="MenuLogOut" xml:space="preserve">
+    <value>ออกจากระบบ</value>
+  </data>
+  <data name="MenuManageUser" xml:space="preserve">
+    <value>ผู้ใช้งาน</value>
+  </data>
+  <data name="MenuProject" xml:space="preserve">
+    <value>โครงการ</value>
+  </data>
+  <data name="MenuReport" xml:space="preserve">
+    <value>รายงาน</value>
+  </data>
+  <data name="MenuUserProfile" xml:space="preserve">
+    <value>ข้อมูลส่วนตัว</value>
+  </data>
+  <data name="SiteDescription" xml:space="preserve">
+    <value>กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ</value>
+  </data>
+  <data name="SystemName" xml:space="preserve">
+    <value>ระบบการขอรับเงินสนับสนุนโครงการ</value>
+  </data>
+  <data name="LabelAmount" xml:space="preserve">
+    <value>จำนวน</value>
+  </data>
+  <data name="LabelBath" xml:space="preserve">
+    <value>บาท</value>
+  </data>
+  <data name="LabelOnce" xml:space="preserve">
+    <value>ครั้ง</value>
+  </data>
+  <data name="PageTitleProjectInfo" xml:space="preserve">
+    <value>ข้อมูลโครงการ</value>
+  </data>
+  <data name="TabTitleGeneralInfo" xml:space="preserve">
+    <value>ข้อมูลทั่วไป</value>
+  </data>
+  <data name="PageTitleDemoForm" xml:space="preserve">
+    <value>หน้าฟอร์ม</value>
+  </data>
+  <data name="PageTitleDemoList" xml:space="preserve">
+    <value>หน้ารายการ</value>
+  </data>
+  <data name="AlertErrorTitle" xml:space="preserve">
+    <value>ข้อผิดพลาด!</value>
+  </data>
+  <data name="LebelDate" xml:space="preserve">
+    <value>วันที่</value>
+  </data>
+  <data name="PageTitleProjectForm" xml:space="preserve">
+    <value>ข้อมูลโครงการ</value>
+  </data>
+  <data name="TabTitleOrganizeInfo" xml:space="preserve">
+    <value>ข้อมูลทั่วไป</value>
+  </data>
+  <data name="TabTitleProjectInfo" xml:space="preserve">
+    <value>ข้อมูลโครงการ</value>
+  </data>
+  <data name="LabelProcessingLocation" xml:space="preserve">
+    <value>ที่ตั้งสำนักงาน</value>
+  </data>
+  <data name="LableReciever" xml:space="preserve">
+    <value>ข้อ 1 ผู้ให้เงินอุดหนุน ตกลงให้เงินอุดหนุน และผู้รับเงินอุดหนุนตกลงรับเงินอุดหนุน</value>
+  </data>
+  <data name="TabTitleProcessing" xml:space="preserve">
+    <value>ข้อมูลการดำเนินงาน</value>
+  </data>
+  <data name="TitleProcessing" xml:space="preserve">
+    <value>รายละเอียดโครงการ</value>
+  </data>
+  <data name="TitleTargetGroup" xml:space="preserve">
+    <value>กลุ่มเป้าหมาย</value>
+  </data>
+  <data name="LabelFieldDescription" xml:space="preserve">
+    <value>คำอธิบาย</value>
+  </data>
+  <data name="LabelFieldRemark" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="LabelIsGotSupport" xml:space="preserve">
+    <value>เสนอแหล่งทุนอื่นด้วย คือ</value>
+  </data>
+  <data name="LabelNo" xml:space="preserve">
+    <value>ไม่</value>
+  </data>
+  <data name="LabelProjectBudgetIsGotSupportRemark" xml:space="preserve">
+    <value>ในกรณีที่ท่านส่งโครงการเดียวกันเพื่อขอรับการสนับสนุน 
+จากแหล่งทุนอื่นๆนอกจากกองทุนส่งเสริมและพัฒนาคุณภาพชีวิต 
+คนพิการ ไม่ว่าเมื่อใด ขอให้ท่านเปิดเผยข้อมูลนี้ต่อกองทุนส่งเสริม 
+และพัฒนาคุณภาพชีวิตคนพิการ หากท่านไม่แสดงข้อมูลดังกล่าว 
+กองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการสงวนสิทธิ์ที่จะระงับ 
+การสนับสนุนโครงการของท่าน</value>
+  </data>
+  <data name="LabelTotalProjectBudgetDescription" xml:space="preserve">
+    <value>ควรแจกแจงรายละเอียดงบประมาณให้ชัดเจน โดยมี 
+ข้อชี้แจงดังต่อไปนี้ 
+๑.มีความสอดคล้องกับโครงการที่ขอรับการสนับสนุน 
+๒.มีความสมเหตุสมผล ประหยัด คุ้มค่า เป็นไปตามเกณฑ์ที่กำหนดไว้</value>
+  </data>
+  <data name="TitleIsGotSuppot" xml:space="preserve">
+    <value>ได้เสนอโครงการเดียวกันนี้เพื่อรับการสนับสนุนจากแหล่งทุนอื่นหรือไม่</value>
+  </data>
+  <data name="TitleTotalProjectBudget" xml:space="preserve">
+    <value>งบประมาณรวมทั้งโครงการ</value>
+  </data>
+  <data name="LocationDesc" xml:space="preserve">
+    <value>ระบุหมู่บ้าน ตำบล อำเภอ จังหวัด พร้อมแนบแผนที่สถานที่ดำเนินโครงการ การกำหนดสถานที่ดำเนินงานโครงการโดยมีข้อบ่งชี้ ดังต่อไปนี้ 
+๑.เหมาะสมกับการดำเนินกิจกรรม ๒.ให้ระบุที่ตั้งของโครงการที่ชัดเจน ๓.มีความเหมาะสมกับสภาพความพิการ ๔.มีความสะดวก และประหยัด</value>
+  </data>
+  <data name="PeriodDesc" xml:space="preserve">
+    <value>ระยะเวลาในการดำเนินโครงการ โดยมีข้อบ่งชี้ดังต่อไปนี้ 
+๑.ต้องมีการระบุระยะเวลาเริ่มต้นและสิ้นสุดของโครงการภายในปีงบ 
+ประมาณ ในกรณีมีแผนงานเกินกว่าหนึ่งปีให้เสนอภาพรวมมาประกอบ 
+การพิจารณาด้วย ๒.มีการกำหนดระยะเวลาในการดำเนินกิจกรรมแต่ละ 
+กิจกรรมอย่างชัดเจน ๓.มีความสอดคล้องกับสภาพความพิการ</value>
+  </data>
+  <data name="ProcessingMethodDesc" xml:space="preserve">
+    <value>วิธีการดำเนินงาน โดยมีข้อบ่งชี้ดังต่อไปนี้ 
+๑.แสดงถึงรายละเอียด กิจกรรมที่เกี่ยวกับการคุ้มครองและพัฒนา 
+คุณภาพชีวิตคนพิการอย่างชัดเจน 
+๒.กิจกรรมที่ดำเนินงานต้องสอดคล้องกับวัตถุประสงค์โครงการ</value>
+  </data>
+  <data name="TabTitleProcessingPlan" xml:space="preserve">
+    <value>การดำเนินงาน</value>
+  </data>
+  <data name="TabTitleProjectBudget" xml:space="preserve">
+    <value>งบประมาณ</value>
+  </data>
+  <data name="PrinciplesDesc" xml:space="preserve">
+    <value>หลักการและเหตุผลต้องเกี่ยวข้องและสะท้อนสถานการณ์ ปัญหาของกลุ่มเป้าหมายอย่างน้อยหนึ่งปัญหาและมีความจำเป็นต้องทำ 
+โครงการส่งเสริมคุณภาพชีวิตคนพิการเรื่องใดเรื่องนึงหรือหลายเรื่องเพื่อป้องกัน แก้ไขปัญหา หรือตอบสนองความต้องการของกลุ่มเป้าหมายในเรื่องต่างๆไม่ชัดเจน</value>
+  </data>
+  <data name="ProjectInfoAnticipationDesc" xml:space="preserve">
+    <value>กำหนดผลที่คาดว่าจะได้รับมีข้อบ่งชี้ดังต่อไปนี้
+๑.สามารถกำหนดผลที่เกิดขึ้นโดยตรงและโดยอ้อมจากการดำเนินงานตามโครงการ
+๒.สามารถระบุกลุ่มเป้าหมายตาม "หัวข้อกลุ่มเป้าหมายของโครงการ" จะได้รับผลประโยชน์และผลกระทบทั้งในเชิงปริมาณและเชิงคุณภาพ แสดงผลที่จะเกิดขึ้นอย่างเป็นรูปธรรมหลังเสร็จสิ้นโครงการ</value>
+  </data>
+  <data name="ProjectInfoindicatorDesc" xml:space="preserve">
+    <value>ตัวชี้วัดเป็นตัวบ่งชี้ถึงผลสัมฤทธิ์หรือระบุผลสำเร็จของงานภายหลังจากการดำเนินโครงการ</value>
+  </data>
+  <data name="ProjectInfoObjectiveDesc" xml:space="preserve">
+    <value>วัตถุประสงค์ขององค์กรต้องมีข้อบ่งชี้ดังต่อไปนี้ 
+๑.มีความชัดเจน มีความเป็นไปได้และสามารถวัดผลและประเมินตนเองได้
+๒.สอดคล้องกับชื่อโครงการที่จะเสนอ และสะท้อนการป้องกันแก้ไขปัญหาหรือตอบสนองกลุ่มเป้าหมายเกี่ยวกับการคุ้มครองและพัฒนาคุณภาพชีวิตคนพิการ</value>
+  </data>
+  <data name="ProjectInfoTargetDesc" xml:space="preserve">
+    <value>การกำหนดกลุ่มเป้าหมายที่เข้าร่วมโครงการโดยมีข้อบ่งชี้ดังต่อไปนี้
+๑.สอดคล้องกับวัตถุประสงค์ของโครงการ
+๒.ระบุกลุ่มเป้าหมายที่ชัดเจน
+๓.มีจำนวนกลุ่มเป้าหมายที่เหมาะสม
+๔.ไม่ซ้ำซ้อนกับโครงการลักษณะเดียวกัน
+๕.มีวิธีเลือกกลุ่มเป้าหมายที่ชัดเจน</value>
+  </data>
+  <data name="TabTitleAttachment" xml:space="preserve">
+    <value>เอกสารแนบ</value>
+  </data>
+  <data name="ProjectInfoLocationProposeDesc1" xml:space="preserve">
+    <value>&lt;b&gt;๑. กรุงเทพมหานคร (ส่วนกลาง)&lt;/b&gt; สามารถยื่นเสนอโครงการได้ที่ &lt;br /&gt;
+&amp;#8195; กองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ สำนักงานส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการแห่งชาติ
+&amp;#8195; เลขที่ ๒๔๔ อาคาร ๖๐ ปี กรมประชาสงเคราะห์ ถนนราชวิถึ เขตราชเทวี กรุงเทพฯ ๑๐๔๐๐</value>
+  </data>
+  <data name="ProjectInfoLocationProposeDesc2" xml:space="preserve">
+    <value>&lt;b&gt;๒. ส่วนภูมิภาค &lt;/b&gt; สามารถยื่นข้อเสนอโครงการได้ที่ &lt;br /&gt;
+&amp;#8195; สำนักงานพัฒนาสังคมและความมั่นคงของมนุษย์ของจังหวัดทุกจังหวัด</value>
+  </data>
+  <data name="LabelSignature" xml:space="preserve">
+    <value>ลงชื่อ .................................................</value>
+  </data>
+  <data name="TabTitleAssessmentProject" xml:space="preserve">
+    <value>ประเมินโครงการ</value>
+  </data>
+  <data name="TitleAssessmentForm" xml:space="preserve">
+    <value>แบบประเมินตามเกณฑ์ชี้วัดโครงการ</value>
+  </data>
+  <data name="LabelDepartmentName" xml:space="preserve">
+    <value>กระทรวงพัฒนาสังคมและความมั่นคงของมนุษย์</value>
+  </data>
+  <data name="LabelOrgAddress" xml:space="preserve">
+    <value>ที่ตั้งสำนักงาน</value>
+  </data>
+  <data name="TabTitleContract" xml:space="preserve">
+    <value>ข้อมูลสัญญา</value>
+  </data>
+  <data name="TitleSupportGiven" xml:space="preserve">
+    <value>ผู้ให้เงินอุดหนุน</value>
+  </data>
+  <data name="TitleSupportReciever" xml:space="preserve">
+    <value>ผู้รับเงินอุดหนุน</value>
+  </data>
+  <data name="TabTitleProjectApproval" xml:space="preserve">
+    <value>ผลการอนุมัติ</value>
+  </data>
+  <data name="TitleApproval" xml:space="preserve">
+    <value>ผลการอนุมัติ</value>
+  </data>
+  <data name="TitleServiceProvider" xml:space="preserve">
+    <value>ผู้รับบริการ</value>
+  </data>
+  <data name="ButtonForgetPassword" xml:space="preserve">
+    <value>ลืมรหัสผ่าน</value>
+  </data>
+  <data name="ButtonRegistry" xml:space="preserve">
+    <value>สมัครสมาชิก</value>
+  </data>
+  <data name="ButtonSend" xml:space="preserve">
+    <value>ส่ง</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>ดาวน์โหลด</value>
+  </data>
+  <data name="LabelApprovalProcess" xml:space="preserve">
+    <value>ขั้นตอนการอนุมัติ</value>
+  </data>
+  <data name="LabelBudgetYear" xml:space="preserve">
+    <value>ปีงบประมาณ</value>
+  </data>
+  <data name="LabelDisabilityType" xml:space="preserve">
+    <value>ประเภทความพิการ</value>
+  </data>
+  <data name="LabelOrgType" xml:space="preserve">
+    <value>ประเภทองค์กร</value>
+  </data>
+  <data name="ButtonClear" xml:space="preserve">
+    <value>ล้างข้อมูล</value>
+  </data>
+  <data name="EvalutionDescription" xml:space="preserve">
+    <value>* เกณฑ์การให้ระดับโครงการของฝ่ายติดตามฯ
+น้อยกว่า ๗๐ คะแนน - เจ้าหน้าที่ควรติดตามอย่างใกล้ชิด
+๗๐ - ๘๐ คะแนน - ควรปรับปรุง 
+๘๑ - ๙๐ คะแนน - ปานกลาง
+๙๑ - ๙๕ คะแนน - ดี
+๙๖ - ๑๐๐ คะแนน - ดีมาก</value>
+  </data>
+  <data name="MenuOrganization" xml:space="preserve">
+    <value>องค์กร</value>
+  </data>
+  <data name="MenuOrganizationList" xml:space="preserve">
+    <value>รายการองค์กร</value>
+  </data>
+  <data name="MenuOrganizationNewRequestList" xml:space="preserve">
+    <value>รายการแจ้งเพิ่ม</value>
+  </data>
+  <data name="TitleProjectServiceProider" xml:space="preserve">
+    <value>ผู้เข้าร่วมโครงการ/กิจกรรม</value>
+  </data>
+  <data name="LabelLoadingText" xml:space="preserve">
+    <value>กำลังโหลดข้อมูล...</value>
+  </data>
+  <data name="ButtonSendProjectInfo" xml:space="preserve">
+    <value>ส่งคำร้อง</value>
+  </data>
+  <data name="ButtonSendProjectReport" xml:space="preserve">
+    <value>บันทึกและส่งผลการปฏิบัติงาน</value>
+  </data>
+  <data name="LabelAdvanceSearch" xml:space="preserve">
+    <value>ค้นหาขั้นสูง</value>
+  </data>
+  <data name="LabelNormalSearch" xml:space="preserve">
+    <value>ค้นหาแบบพื้นฐาน</value>
+  </data>
+  <data name="LabelSearch" xml:space="preserve">
+    <value>ค้นหาข้อมูล</value>
+  </data>
+  <data name="LabelCancelContractStatus" xml:space="preserve">
+    <value>ยกเลิกสัญญา</value>
+  </data>
+  <data name="LabelFollowup" xml:space="preserve">
+    <value>ติดตาม</value>
+  </data>
+  <data name="LabelPerson" xml:space="preserve">
+    <value>คน</value>
+  </data>
+  <data name="LabelBudgetRequest" xml:space="preserve">
+    <value>งบประมาณเสนอขอ</value>
+  </data>
+  <data name="LabelOrgName" xml:space="preserve">
+    <value>ชื่อองค์กร</value>
+  </data>
+  <data name="LabelStandardStrategic1" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่ 1 ส่งเสริมการเข้าถึงสิทธิอย่างเสมอภาคและเท่าเทียม โดยไม่เลือกปฏิบัติต่อคนพิการและผู้ดูแลผู้พิการ</value>
+  </data>
+  <data name="LabelStandardStrategic2" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่ 2 สร้างสภาพแวดล้อม พัฒนา เทคโนโลยี และข้อมูลข่าวสาร ที่คนพิการสามารถเข้าถึง และใช้ประโยชน์ได้</value>
+  </data>
+  <data name="LabelStandardStrategic3" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่ 3 สร้างเสริมพลังอำนาจให้แก่คนพิการและผู้ดูแลคนพิการ</value>
+  </data>
+  <data name="LabelStandardStrategic4" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่ 4 ส่งเสริมศักยภาพและความเข้มแข็งขององค์กรด้านคนพิการและเครือข่าย</value>
+  </data>
+  <data name="LabelStandardStrategic5" xml:space="preserve">
+    <value>ยุทธศาสตร์ที่ 5 สร้างเสริมเจตคติเชิงสร้างสรรค์ต่อความพิการและคนพิการ</value>
+  </data>
+  <data name="LabelTotalRow" xml:space="preserve">
+    <value>รวม : {0} รายการ</value>
+  </data>
+  <data name="PageTitleOrganizationForm" xml:space="preserve">
+    <value>องค์กรสมัครเข้าใช้งาน</value>
+  </data>
+  <data name="PageTitleRequestRegistrationForm" xml:space="preserve">
+    <value>องค์กรสมัครเข้าใช้งาน</value>
+  </data>
+  <data name="LabelDirective" xml:space="preserve">
+    <value>คำสั่งที่</value>
+  </data>
+  <data name="TabTitlePersonal" xml:space="preserve">
+    <value>บุคลากร</value>
+  </data>
+  <data name="FollowupScoreDesc_0_69" xml:space="preserve">
+    <value>เจ้าหน้าที่ควรติดตามอย่างใกล้ชิด</value>
+  </data>
+  <data name="FollowupScoreDesc_70_80" xml:space="preserve">
+    <value>ควรปรับปรุง</value>
+  </data>
+  <data name="FollowupScoreDesc_81_90" xml:space="preserve">
+    <value>ปานกลาง</value>
+  </data>
+  <data name="FollowupScoreDesc_91_95" xml:space="preserve">
+    <value>ดี</value>
+  </data>
+  <data name="FollowupScoreDesc_96_100" xml:space="preserve">
+    <value>ดีมาก</value>
+  </data>
+  <data name="LabelFollwupBudget" xml:space="preserve">
+    <value>การประเมินนิเทศติดตามโครงการอบรม งบประมาณที่ได้รับการอนุมัติ {0} บาท</value>
+  </data>
+  <data name="ProjectApprovalGroup" xml:space="preserve">
+    <value>คณะทำงานพิจารณากลั่นกรองโครงการ</value>
+  </data>
+  <data name="ProjectFollowupGroup" xml:space="preserve">
+    <value>ฝ่ายติดตามโครงการ</value>
+  </data>
+  <data name="TitleFollowup" xml:space="preserve">
+    <value>ติดตามประเมินผลโครงการ</value>
+  </data>
+  <data name="TitleFollowupAttachment" xml:space="preserve">
+    <value>แนบเอกสาร</value>
+  </data>
+  <data name="TitleFollowupEvaluate" xml:space="preserve">
+    <value>โดยสรุปแบ่งเป็นหัวข้อได้ดังนี้</value>
+  </data>
+  <data name="TitleFollowupHistory" xml:space="preserve">
+    <value>ประวัติการส่งหนังสือติดตาม</value>
+  </data>
+  <data name="TitleFollowupSummaryEvaluate" xml:space="preserve">
+    <value>สรุปคะแนนทั้ง 9 ข้อ</value>
+  </data>
+  <data name="LabelAssessmentBudget" xml:space="preserve">
+    <value>งบประมาณ</value>
+  </data>
+  <data name="LabelAssessmentExpection" xml:space="preserve">
+    <value>ผลที่คาดว่าจะได้รับ</value>
+  </data>
+  <data name="LabelAssessmentLocation" xml:space="preserve">
+    <value>สถานที่ดำเนินโครงการ</value>
+  </data>
+  <data name="LabelAssessmentObjective" xml:space="preserve">
+    <value>วัตถุประสงค์ของโครงการ</value>
+  </data>
+  <data name="LabelAssessmentOperationMethod" xml:space="preserve">
+    <value>วิธีการดำเนินงาน</value>
+  </data>
+  <data name="LabelAssessmentProjectName" xml:space="preserve">
+    <value>ชื่อแผนงานหรือโครงการ</value>
+  </data>
+  <data name="LabelAssessmentReason" xml:space="preserve">
+    <value>หลักการและเหตุผล</value>
+  </data>
+  <data name="LabelAssessmentTargetGroup" xml:space="preserve">
+    <value>กลุ่มเป้าหมาย</value>
+  </data>
+  <data name="LabelAssessmentTiming" xml:space="preserve">
+    <value>ระยะเวลาดำเนินโครงการ</value>
+  </data>
+  <data name="LabelNotPass" xml:space="preserve">
+    <value>ไม่ผ่าน</value>
+  </data>
+  <data name="LabelPass" xml:space="preserve">
+    <value>ผ่าน</value>
+  </data>
+  <data name="LabelTotal" xml:space="preserve">
+    <value>รวม</value>
+  </data>
+  <data name="ButtonCancelContract" xml:space="preserve">
+    <value>ยกเลิกสัญญา</value>
+  </data>
+  <data name="LabelYear" xml:space="preserve">
+    <value>ปี</value>
+  </data>
+  <data name="LabelValidateProcessingTotalPeriod" xml:space="preserve">
+    <value>จำนวนวันจากวันที่เริ่มต้นถึงวันที่สิ้นสิ้นสุด</value>
+  </data>
+  <data name="LabelProjectBudget" xml:space="preserve">
+    <value>งบประมาณเสนอขอ</value>
+  </data>
+  <data name="LabelProperty" xml:space="preserve">
+    <value>คุณสมบัติ</value>
+  </data>
+  <data name="TitleCommittreeApprovalResult" xml:space="preserve">
+    <value>มติคณะอนุกรรมการบริหารกองทุน</value>
+  </data>
+  <data name="TitleDiscriminationTeamApprovalResult" xml:space="preserve">
+    <value>มติคณะทำงานกลั่นกรอง/ คณะอนุกรรมการตามประเภทความพิการ</value>
+  </data>
+  <data name="TitleNo" xml:space="preserve">
+    <value>ครั้งที่</value>
+  </data>
+  <data name="TitleProjectApprovalResult" xml:space="preserve">
+    <value>ผลการพิจารณา</value>
+  </data>
+  <data name="TitleProvinceApprovalResult" xml:space="preserve">
+    <value>ผลการพิจารณาคณะกรรมการจังหวัด</value>
+  </data>
+  <data name="LabelFemale" xml:space="preserve">
+    <value>หญิง</value>
+  </data>
+  <data name="LabelMale" xml:space="preserve">
+    <value>ชาย</value>
+  </data>
+  <data name="TitleProjectReport" xml:space="preserve">
+    <value>แบบรายงานผลการปฏิบัติงาน</value>
+  </data>
+  <data name="ProjectReportAttachmentDesc" xml:space="preserve">
+    <value>กรณีใช้จ่ายจริงน้อยกว่างบประมาณที่ได้รับอนุมัติ กรุณาแนบไฟล์</value>
+  </data>
+  <data name="ProjectReportOfficerSuggestionDesc" xml:space="preserve">
+    <value>ข้อคิดเห็นและข้อเสนอแนะจากเจ้าหน้าที่ผู้ปฏิบัติงานกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ</value>
+  </data>
+  <data name="ProjectReportOperationResultDesc" xml:space="preserve">
+    <value>การรายงานผลโครงการให้จัดทำเป็นรูปเล่มรายงานให้เรียบร้อย โดยเอกสารประกอบการรายงานมี ดังนี้
+๑. รายงานผลโครงการตามแบบฟอร์ม
+๒. หลักฐานการใช้จ่ายเงินโครงการตามรายงานที่ได้รับอนุมัติ
+๓. ภาพประกอบการรายงานผลโครงการ และบรรยายใต้ภาพให้เรียบร้อย
+๔. เอกสารอื่นๆ ตามความเหมาะสม</value>
+  </data>
+  <data name="TitleProjectReportBudget" xml:space="preserve">
+    <value>งบประมาณโครงการ</value>
+  </data>
+  <data name="ButtonOfficerSaveSuggestion" xml:space="preserve">
+    <value>บันทึกข้อคิดเห็น</value>
+  </data>
+  <data name="LabelTotalProjectTargetGroup" xml:space="preserve">
+    <value>รวมทั้งสิ้น</value>
+  </data>
+  <data name="InvolvementOfLocalGovernmentsDesc" xml:space="preserve">
+    <value>องค์กรปกครองส่วนท้องถิ่น ในที่นี้หมายถึงเฉพาะ องค์การบริหารส่วนตำบล เทศบาล และองค์การบริหารส่วนจังหวัด ซึ่งมีส่วนร่วมในการสนับสนุนโครงการ เช่น สนับสนุนสถานที่ วิทยากร งบประมาณอุปกรณ์ อาสาสมัคร เป็นต้น โดยมีลักษณะ ของการสนับสนุน ได้แก่ ให้การสนับสนุนโดยไม่เสียค่าใช้จ่าย ให้ยืม ให้เช่าราคาถูก ฯลฯ</value>
+  </data>
+  <data name="TitleInvolvementOfLocalGovernments" xml:space="preserve">
+    <value>การมีส่วนร่วมขององค์การปกครองส่วนท้องถิ่น</value>
+  </data>
+  <data name="ButtonPrePrinting" xml:space="preserve">
+    <value>ตัวอย่างก่อนพิมพ์</value>
+  </data>
+  <data name="PleaseWaitLabel" xml:space="preserve">
+    <value>กรุณารอสักครู่...</value>
+  </data>
+  <data name="TitleLetterProvinceTrackingForm" xml:space="preserve">
+    <value>รายละเอียดหนังสือติดตามถึงจังหวัด</value>
+  </data>
+  <data name="TitleLetterTrackingForm" xml:space="preserve">
+    <value>รายละเอียดการพิมพ์หนังสือทวงถาม</value>
+  </data>
+  <data name="LabelGotSupportAmount" xml:space="preserve">
+    <value>จำนวนเงิน</value>
+  </data>
+  <data name="LabelGotSupportName" xml:space="preserve">
+    <value>เสนอแหล่งทุนอื่นด้วย คือ</value>
+  </data>
+  <data name="LabelGotSupportNo" xml:space="preserve">
+    <value>ไม่</value>
+  </data>
+  <data name="LabelDisabilityCommitteeTemp" xml:space="preserve">
+    <value>คณะอนุกรรมการบุคคลพิการ</value>
+  </data>
+  <data name="ToolTipProjectNameClick" xml:space="preserve">
+    <value>คลิกชื่อโครงการ</value>
+  </data>
+  <data name="ToolTipViewProjectInfoClick" xml:space="preserve">
+    <value>คลิกดูรายงานสรุปโครงการ</value>
+  </data>
+  <data name="LabelEndBudgetYear" xml:space="preserve">
+    <value>ปีงบประมาณสิ้นสุด</value>
+  </data>
+  <data name="LabelStartBudgetYear" xml:space="preserve">
+    <value>ปีงบประมาณเริ่มต้น</value>
+  </data>
+  <data name="LabelTo" xml:space="preserve">
+    <value>ถึง</value>
+  </data>
+  <data name="LabelMonth" xml:space="preserve">
+    <value>เดือน</value>
+  </data>
+  <data name="ButtonApprove" xml:space="preserve">
+    <value>อนุมัติ</value>
+  </data>
+  <data name="LabelNotApprovalStatus" xml:space="preserve">
+    <value>ไม่อนุมัติ</value>
+  </data>
+  <data name="DropdownSelect" xml:space="preserve">
+    <value>--- เลือก ---</value>
+  </data>
+  <data name="LabelStartBudgetYear2" xml:space="preserve">
+    <value>ตั้งแต่ปีงบประมาณ</value>
+  </data>
+  <data name="MenuChangePassword" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="ButtonCancelProjectRequest" xml:space="preserve">
+    <value>ยกเลิกคำร้อง</value>
+  </data>
+  <data name="LabelCancelledProjectRequest" xml:space="preserve">
+    <value>ยกเลิกคำร้อง</value>
+  </data>
+  <data name="TitleCancelledProjectRequest" xml:space="preserve">
+    <value>แนบเอกสารยกเลิกคำร้อง</value>
+  </data>
+  <data name="PasswordDesc" xml:space="preserve">
+    <value>รหัสผ่านต้องไม่น้อยกว่า 8 ตัวอักษร และประกอบด้วยตัวเลขและตัวอักษร(a-z, A-Z)</value>
+  </data>
+  <data name="LabelProjectNo" xml:space="preserve">
+    <value>เลขทะเบียนโครงการ</value>
+  </data>
+  <data name="ToolTipViewProjectInfo1Click" xml:space="preserve">
+    <value>คลิกดูรายงานสรุปโครงการที่อนุมัติ</value>
+  </data>
+  <data name="ButtonReject" xml:space="preserve">
+    <value>ส่งแก้ไข</value>
+  </data>
+  <data name="LabelRejectedProject" xml:space="preserve">
+    <value>ปรับปรุง</value>
+  </data>
+  <data name="ButtonConfirmReportResult" xml:space="preserve">
+    <value>ยืนยันข้อมูลรายงาน</value>
+  </data>
+  <data name="ButtonPrintPdf" xml:space="preserve">
+    <value>พิมพ์ pdf</value>
+  </data>
+  <data name="ButtonPrintWord" xml:space="preserve">
+    <value>พิมพ์ word</value>
+  </data>
+  <data name="NepEmailDisplayName" xml:space="preserve">
+    <value>กองกองทุนและส่งเสริมความเสมอภาคคนพิการ</value>
+  </data>
+  <data name="LabelBudgetDetailRequestAmount" xml:space="preserve">
+    <value>จำนวนเงินเสนอขอ</value>
+  </data>
+  <data name="LabelBudgetDetailReviseAmount" xml:space="preserve">
+    <value>จำนวนเงินแก้ไข</value>
+  </data>
+  <data name="LabelBudgetDetailApprovedAmount" xml:space="preserve">
+    <value>จำนวนเงินที่อนุมัติ</value>
+  </data>
+  <data name="ButtonCreateTrackingDoc" xml:space="preserve">
+    <value>สร้างหนังสือทวงถาม</value>
+  </data>
+  <data name="ButtonSavePdf" xml:space="preserve">
+    <value>บันทึก pdf</value>
+  </data>
+  <data name="ButtonSaveWord" xml:space="preserve">
+    <value>บันทึก word</value>
+  </data>
+  <data name="LabelNotProvinceName" xml:space="preserve">
+    <value>- ไม่ระบุ -</value>
+  </data>
+  <data name="LabelAddress" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="LabelDdlSearching" xml:space="preserve">
+    <value>กรุณาใส่คำเพื่อค้นหา...</value>
+  </data>
+  <data name="LabelCripple" xml:space="preserve">
+    <value>คนพิการ</value>
+  </data>
+  <data name="LabelCrippleSupporter" xml:space="preserve">
+    <value>ผู้ดูแล</value>
+  </data>
+  <data name="LabelUsernameAndDesc" xml:space="preserve">
+    <value>ชื่อผู้ใช้(อีเมลล์)</value>
+  </data>
+  <data name="LabelUsernamePlaceHolder" xml:space="preserve">
+    <value>กรุณากรอกอีเมลล์</value>
+  </data>
+  <data name="LabelGeneratebySystem" xml:space="preserve">
+    <value>สร้างโดยระบบ</value>
+  </data>
+  <data name="TitleSatisfy" xml:space="preserve">
+    <value>แบบรายงานความพึงพอใจ</value>
+  </data>
+  <data name="LabelStandardStrategic6" xml:space="preserve">
+    <value>หรือยุทธศาสตร์อื่นๆ ที่สอดคล้องกับโครงการ</value>
+  </data>
+</root>

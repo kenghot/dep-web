@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="46dc8ac17e984c9183a4c9c594bb8005" Name="Diagram1" ZoomLevel="70">
+        <EntityTypeShape EntityType="Model.MT_Attachment" Width="1.5" PointX="3" PointY="59.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_District" Width="1.5" PointX="5.25" PointY="67.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_ListOfValue" Width="1.5" PointX="0.75" PointY="62.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_Organization" Width="1.5" PointX="10.75" PointY="68" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_OrganizationType" Width="1.5" PointX="8.5" PointY="90.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_Province" Width="1.5" PointX="3" PointY="67" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MT_SubDistrict" Width="1.5" PointX="7.5" PointY="75.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OrganizationCommittee" Width="1.5" PointX="12.75" PointY="51.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectApproval" Width="1.5" PointX="15.5" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectBudget" Width="1.5" PointX="12.375" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectCommittee" Width="1.5" PointX="10.5" PointY="51.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectContract" Width="1.5" PointX="15.375" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectDocument" Width="1.5" PointX="13.5" PointY="56" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectEvaluation" Width="1.5" PointX="18.5" PointY="64.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectFollowup" Width="1.5" PointX="10.5" PointY="80.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectGeneralInfo" Width="1.5" PointX="8.25" PointY="56.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectInformation" Width="1.5" PointX="16.5" PointY="52.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectLog" Width="1.5" PointX="10.5" PointY="87.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectOperation" Width="1.5" PointX="10.5" PointY="60.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectPersonel" Width="1.5" PointX="19.25" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectPrintReportTracking" Width="1.5" PointX="16.5" PointY="58.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectReport" Width="1.5" PointX="10.5" PointY="106.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProjectTargetGroup" Width="1.5" PointX="10.5" PointY="95.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SC_Function" Width="1.5" PointX="0.75" PointY="56" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SC_Group" Width="1.5" PointX="3" PointY="56" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SC_User" Width="1.5" PointX="5.25" PointY="58.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SC_UserAccess" Width="1.5" PointX="7.5" PointY="53.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_LOCMAP_PROJECTOPERATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TYPE_MT_ATTACHMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_DISTRICT_ORGANIZATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_DISTRICT_PROJECTOPERATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROVINCE_DISTRICT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SUBDISTRICT_DISTRICT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SECTION_PROVINCE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_STATUSID1_PROJECTAPPROVAL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_STATUSID2_PROJECTAPPROVAL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TYPE_PROJECTINFOR" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_ORG_ORGCOMMITTE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROVINCE_ORGANIZATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_SUBDISTRICT_ORGANIZATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TYPE_ORGANIZATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROVINCE_PROJECTEVALUATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROVINCE_PROJECTOPERATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTAPPROVAL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTBUDGET" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTCOMMITTEE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTCONTRACT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTDOCUMENT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTEVALUATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTFOLLOWUP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTLOG" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTOPERATION" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTPERSONEL" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTREPORT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_REPORTTRACKING" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PROJECT_TARGETGROUP" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_USER_USERACCESS" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PROJECTFOLLOWUPATT" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SC_GROUPFUNCTIONMAPPING" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.MT_OrganizationParameter" Width="1.5" PointX="0.625" PointY="42.375" />
+        <EntityTypeShape EntityType="Model.View_ProjectList" Width="1.5" PointX="2.625" PointY="42.375" />
+        <AssociationConnector Association="Model.FK_EMPCARD_USER" />
+        <AssociationConnector Association="Model.FK_IDCARD_USER" />
+        <AssociationConnector Association="Model.FK_ORGANIZATION_USER" />
+        <AssociationConnector Association="Model.FK_PROVINCE_USER" />
+        <AssociationConnector Association="Model.FK_GROUP_USER" />
+        <AssociationConnector Association="Model.FK_PREFIX1_PROJECTPERSONEL" />
+        <AssociationConnector Association="Model.FK_PREFIX2_PROJECTPERSONEL" />
+        <AssociationConnector Association="Model.FK_PREFIX3_PROJECTPERSONEL" />
+        <AssociationConnector Association="Model.FK_STATUS_PROJECTGENERALINFO" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTINFORMATION" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID1" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID10" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID11" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID12" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID13" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID14" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID2" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID3" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID4" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID5" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID6" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID7" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID8" />
+        <AssociationConnector Association="Model.FK_ATTACHMENT_DOCUMENTID9" />
+        <EntityTypeShape EntityType="Model.UserRegisterEntry" Width="1.5" PointX="13" PointY="65" />
+        <AssociationConnector Association="Model.FK_USERREGENTRY_FILE1" />
+        <AssociationConnector Association="Model.FK_USERREGENTRY_FILE2" />
+        <AssociationConnector Association="Model.FK_USERREGENTRY_ORG" />
+        <AssociationConnector Association="Model.FK_USERREGENTRY_USER" />
+        <AssociationConnector Association="Model.FK_STATUS_PROJECTEVALUATION" />
+        <EntityTypeShape EntityType="Model.MT_RunningNumber" Width="1.5" PointX="4.625" PointY="42.375" />
+        <EntityTypeShape EntityType="Model.ProjectParticipant" Width="1.5" PointX="10.5" PointY="56.25" />
+        <AssociationConnector Association="Model.FK_TG_PROJECTPARTICIPANTS" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTPARTICIPANTS" />
+        <AssociationConnector Association="Model.FK_TRACKINTYPE_REPORTTRACKIN" />
+        <AssociationConnector Association="Model.FK_LETTER_REPORTTRACKIN" />
+        <EntityTypeShape EntityType="Model.MT_Template" Width="1.5" PointX="4.625" PointY="45.375" />
+        <AssociationConnector Association="Model.FK_BUDGETTYPE_PROJECTAPPROVAL" />
+        <EntityTypeShape EntityType="Model.OrganizationRegisterEntry" Width="1.5" PointX="15.25" PointY="72.625" />
+        <AssociationConnector Association="Model.FK_DISTRICT_ORGANIZATIONENTRY" />
+        <AssociationConnector Association="Model.FK_TYPE_ORGANIZATIONENTRY" />
+        <AssociationConnector Association="Model.FK_PROVINCE_ORGANIZATIONENTRY" />
+        <AssociationConnector Association="Model.FK_SUBDISTRICT_ORGENTRY" />
+        <AssociationConnector Association="Model.FK_USER_ORGANIZATIONENTRY" />
+        <EntityTypeShape EntityType="Model.View_BudgetSummaryByOrgType" Width="1.5" PointX="7.25" PointY="42.375" />
+        <AssociationConnector Association="Model.FK_CANCELLEDDOC_PROJECTINFOR" />
+        <AssociationConnector Association="Model.FK_AUTHORIZEDOC_CONTRACT" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROTARGETGROUP" />
+        <EntityTypeShape EntityType="Model.ProjectOperationAddress" Width="1.5" PointX="7.25" PointY="46.375" />
+        <AssociationConnector Association="Model.FK_PROJECT_OPERATIONADDRESS" />
+        <AssociationConnector Association="Model.FK_MAP_OPERATIONADDRESS" />
+        <AssociationConnector Association="Model.FK_PROVINCE_OPERATIONADDRESS" />
+        <EntityTypeShape EntityType="Model.View_ParticipantProvinceDup" Width="1.5" PointX="11.125" PointY="42.5" />
+        <EntityTypeShape EntityType="Model.PROJECTDOCUMENTLIST" Width="1.5" PointX="17.5" PointY="72.5" />
+        <AssociationConnector Association="Model.PROJECTDOCUMENTLIST_FK1" />
+        <AssociationConnector Association="Model.PROJECTDOCUMENTLIST_FK2" />
+        <EntityTypeShape EntityType="Model.K_FILEINTABLE" Width="1.5" PointX="5.125" PointY="52" />
+        <AssociationConnector Association="Model.K_FILEINTABLE_FK1" />
+        <EntityTypeShape EntityType="Model.K_MT_POSITION" Width="1.5" PointX="10" PointY="48.625" />
+        <AssociationConnector Association="Model.ORGANIZATIONCOMMITTEE_FK1" />
+        <AssociationConnector Association="Model.PROJECTCOMMITTEE_FK1" />
+        <EntityTypeShape EntityType="Model.PROJECTFOLLOWUP2" Width="2.375" PointX="10.5" PointY="32.625" />
+        <AssociationConnector Association="Model.FK_PROJECT_PROJECTFOLLOWUP2" />
+        <EntityTypeShape EntityType="Model.PROJECTQUESTION" Width="1.5" PointX="18.375" PointY="35" />
+        <EntityTypeShape EntityType="Model.PROJECTQUESTIONHD" Width="1.5" PointX="16.125" PointY="34.625" />
+        <AssociationConnector Association="Model.PROJECTQUESTION_FK1" />
+        <EntityTypeShape EntityType="Model.PROJECTHISTORY" Width="1.5" PointX="17.625" PointY="39.125" />
+        <EntityTypeShape EntityType="Model.PROJECTPROCESSED" Width="1.5" PointX="22.25" PointY="37.375" />
+        <EntityTypeShape EntityType="Model.PROJECTBUDGETACTIVITY" Width="1.5" PointX="7.625" PointY="33.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

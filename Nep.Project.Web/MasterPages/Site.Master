@@ -1,0 +1,363 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Nep.Project.Web.MasterPages.SiteMaster" %>
+<!DOCTYPE html>
+<html lang="en" >
+<head id="Head1" runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title title="ระบบขอเงินสนับสนุนโครงการ"><%: Page.Title %></title>
+    
+    <webopt:BundleReference ID="JqueryUICss" runat="server" Path="~/Content/jquery-ui/css" /> 
+    <webopt:BundleReference ID="SiteCss" runat="server" Path="~/Content/css" /> 
+    <webopt:BundleReference ID="IconicOneCss" runat="server" Path="~/Content/themes/iconic-one/css" /> 
+
+ <%--   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>--%>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+   
+<%--    <link href="../Content/adminlte/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="../Content/adminlte/css/skins/_all-skins.min.css" rel="stylesheet" />--%>
+
+    
+</head>
+<body class="custom-font-enabled single-author">   
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header" role="banner">
+            <div class="themonic-logo">
+                <asp:Image ID="Image1" alt="logo" runat="server" ImageUrl="~/Images/logo.png"  ToolTip="Logo"/>
+            </div>
+            <hgroup>
+                <asp:HyperLink ID="HyperLink1" runat="server" Text="<%$code:Nep.Project.Resources.UI.SystemName %>" 
+                    ToolTip="<%$code:Nep.Project.Resources.UI.SystemName %>" />
+
+                <asp:HyperLink ID="HyperLink2" runat="server" CssClass="site-description"
+                    Text="<%$code:Nep.Project.Resources.UI.SiteDescription %>" 
+                    ToolTip="<%$code:Nep.Project.Resources.UI.SiteDescription %>" />
+		    </hgroup>
+
+           <%if ( UserInfo.IsAuthenticated)
+             { %>
+            <div class="current-user">
+                <%= DisplayUserInfo() %>
+            </div>
+            <%} %>
+            
+             <script type="text/javascript">
+                 var ROUND_DELETE_ICON_URL = '<%=Page.ResolveUrl("~/Images/icon/round_delete_icon_16.png") %>';
+                 var FILEUPLOAD_MAXIMUM_EXCESS = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Error.FileUploadMaximumExcess)%>;
+                 var FILEUPLOAD_DUPLICATE = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Error.FileUploadDuplicate)%>;
+                 var FILEUPLOAD_EXTENSION_INVALID = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Error.FileUploadExtensionInvalid)%>;
+                 var CULTURE = '<%= Nep.Project.Common.Constants.CULTURE%>';
+                 var SAVE_BUTTON_NAME = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.UI.ButtonSave)%>;
+                 var CANCEL_BUTTON_NAME = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.UI.ButtonCancel)%>;
+                 var EDIT_BUTTON_NAME = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.UI.ButtonEdit)%>;
+                 var DELETE_BUTTON_NAME = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.UI.ButtonDelete)%>;
+                 var ADD_BUTTON_NAME = <%= Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.UI.ButtonAdd)%>;                 
+             </script>
+
+            <%if(UserInfo.IsAuthenticated){ %>
+            <nav id="site-navigation" class="themonic-nav" role="navigation">
+			    <a class="assistive-text" href="#content" title="content"></a>
+			    <div class="nav-menu">
+                    <ul>
+                        <li class="" runat="server" id="MenuProject" menu="ProjectInfo">
+                            <a runat="server" href="~/ProjectInfo/ProjectInfoList" 
+                            title="<%#Nep.Project.Resources.UI.MenuProject %>"><%:Nep.Project.Resources.UI.MenuProject %></a></li>
+                        <li class="" runat="server" id="MenuAddORGUser" menu="AddORGUser" visible="false">
+                            <a runat="server" href="~/Register/RegisterForm" 
+                            title="เพิ่มผู้ใช้งานภายในองค์กรตนเอง">เพิ่มผู้ใช้งานภายในองค์กรตนเอง</a></li>
+                        <li class="page_item page-item-report" runat="server" id="MenuReport" menu="Report">
+                            <a href="#"  title="รายงานการอนุมัติ">รายงานการอนุมัติ</a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list" runat="server" id="MenuReportEvaluationSummary" ><a id="A6"  runat="server" href="~/Report/ReportEvaluationSummary">รายงานสรุปการพิจารณาโครงการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="MenuReport4" ><a id="A1"  runat="server" href="~/Report/Report4">รายงานรายละเอียดโครงการที่ได้รับการสนับสนุน</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportReceiverFunding" ><a id="A2"  runat="server" href="~/Report/ReportBudgetApplicant">รายงานผู้ขอรับเงินสนับสนุนโครงการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportSummaryTracing"><a id="A3"  runat="server" href="~/Report/ReportSummaryTracing">รายงานสรุปการติดตามโครงการ</a></li>
+                             <%--    <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportBudgetSummary"><a id="A7"  runat="server" href="~/Report/ReportBudgetSummary">รายงานสนับสนุนโครงการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportStatisticSupport"><a id="A11"  runat="server" href="~/Report/ReportStatisticSupport">รายงานสถิติเปรียบเทียบจำนวนเงินสนับสนุนโครงการ</a></li>--%> 
+                            </ul>
+                        </li>
+                        <li class="page_item page-item-report" runat="server" id="MenuReportOverlap" menu="ReportOverlap">
+                            <a href="#"  title="รายงานความซ้ำซ้อน">รายงานความซ้ำซ้อน</a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list" runat="server" id="Li5" ><a id="A15"  runat="server" href="~/Report/ReportOverlap">รายงานทะเบียนผู้รับบริการที่ซ้ำซ้อนทั้งประเทศ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li6" ><a id="A16"  runat="server" href="~/Report/ReportOverlapProvince">รายงานสรุปความซ้ำซ้อนผู้รับบริการระดับจังหวัด</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li3" ><a id="A13"  runat="server" href="~/Report/ReportStatisticClient">รายงานสถิติเปรียบเทียบผู้รับบริการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li1" ><a id="A12"  runat="server" href="~/Report/ReportStatisticDuplicate">รายงานสถิติเปรียบเทียบความซ้ำซ้อนของผู้รับบริการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li2" ><a id="A5"  runat="server" href="~/Report/ReportOrganizationClient">รายงานทะเบียนผู้รับบริการแยกตามโครงการ</a></li>
+                            </ul>
+                        </li>
+                        <li runat="server" id="MenuOrganization"  menu="Organization" visible="false">
+                            <a id="A8" runat="server" href="~/Organization/OrganizationList" 
+                            title="<%#Nep.Project.Resources.UI.MenuOrganization %>"><%:Nep.Project.Resources.UI.MenuOrganization %></a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list">
+                                    <a id="A9"  runat="server" href="~/Organization/OrganizationList"><%:Nep.Project.Resources.UI.MenuOrganizationList %></a></li>
+                                <li class="page_item page-item-demo-form">
+                                    <a id="A10"  runat="server" href="~/Organization/OrganizationRequestList"><%:Nep.Project.Resources.UI.MenuOrganizationNewRequestList %></a></li>                                
+                            </ul>
+                        </li>
+                        <li class="page_item page-item-manageuser"  runat="server" id="MenuManageUser" menu="User" visible="false">
+                            <a href="#"  title="<%#Nep.Project.Resources.UI.MenuManageUser %>">
+                            <%:Nep.Project.Resources.UI.MenuManageUser %></a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list"><a id="A4"  runat="server" href="~/User/UserProfileList">รายการผู้ใช้งาน</a></li>
+                                <li class="page_item page-item-demo-list"><a id="A7"  runat="server" href="~/User/NewUserProfileList">จัดการผู้สมัครใหม่</a></li>
+                            </ul>
+                         
+                        </li>   
+                       <%-- <li class="" runat="server" id="Li2" menu="Manual">
+                            <a id="A5" runat="server" 
+                            title="คู่มือการใช้งาน">คู่มือการใช้งาน</a>
+                        </li>   --%>                   
+                                              
+                       <%-- <li class="page_item page-item-demo"><a id="A111" runat="server" href="~/Demo/List">Demo</a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list"><a id="A22"  runat="server" href="~/Demo/List">List</a></li>
+                                <li class="page_item page-item-demo-form"><a id="A33"  runat="server" href="~/Demo/Form">Create</a></li>
+                                <li class="page_item page-item-demo-form"><a id="A55"  runat="server" href="~/Demo/Form?id=1">Edit</a></li>
+                                <li class="page_item page-item-demo-form"><a id="A66"  runat="server" href="~/Demo/MultiSection">Multi Group Info</a></li>
+                                <li class="page_item page-item-demo-form"><a id="AA1116"  runat="server" href="~/Demo/Attachment">Attachment</a></li>
+                            </ul>
+                        </li>--%>
+
+                        <li class="page_item page-item-manageuser" style="float:right">
+                            <a id="A17" href="~/Account/Logout"  runat="server" title="<%#Nep.Project.Resources.UI.MenuManageUser %>">ออก</a>                            
+                        </li>
+                        
+                        <li class="page_item page-item-changepassword" style="float:right">
+                            <a id="A14" href="~/Account/ChangePassword"  runat="server" title="<%#Nep.Project.Resources.UI.MenuChangePassword %>"><%: Nep.Project.Resources.UI.MenuChangePassword %></a>                            
+                        </li> 
+                    </ul>
+			    </div>
+		    </nav><!-- #site-navigation -->
+            <%} //End if(UserInfo.IsAuthenticated) %>
+		    <div class="clear"></div>
+        </header><!-- #masthead -->
+
+        <div id="main" class="wrapper">
+            <div id="primary" class="site-content-custom">
+		        <div id="content" role="main">
+                    <form id="Form" runat="server" autocomplete="off" enctype="multipart/form-data">                       
+                        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptLocalization="true" EnableScriptGlobalization="true"
+                            EnablePartialRendering="true" >
+                            
+                            <Scripts>
+                                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=272931&clcid=0x409 --%>
+                                <%--Framework Scripts--%>
+            
+                                <asp:ScriptReference Name="MsAjaxBundle" />
+                                <asp:ScriptReference Name="jquery" />
+                                <asp:ScriptReference Name="jquery.ui.combined" />
+                                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                                <asp:ScriptReference Name="WebFormsBundle" />
+                                <%--Site Scripts--%>
+
+                            </Scripts>
+                        </asp:ScriptManager>                       
+                        <script type="text/javascript" src="../Scripts/kendo.all.min.js"></script>
+                        <script type="text/javascript" src="../Scripts/knockout-3.4.2.js"></script>
+                        <script type="text/javascript" src="../Scripts/knockout-kendo.min.js?v=111"></script>
+                        <asp:PlaceHolder ID="modernizrJs" runat="server"><%: Scripts.Render("~/bundles/modernizr") %></asp:PlaceHolder>
+                        <%--<asp:PlaceHolder ID="SiteJs" runat="server"><%: Scripts.Render("~/bundles/site") %></asp:PlaceHolder>--%>        
+  
+                        <script type="text/javascript" src="../Scripts/iconic-one/html5.js"></script>
+                        <script type="text/javascript" src="../Scripts/site.js?v=111"></script>
+                        <script type="text/javascript" src="../Scripts/selectnav.js"></script>
+                        <script type="text/javascript" src="../Scripts/jquery-framedialog.js"></script>
+                        <script type="text/javascript" src="../Scripts/projectbudget.js?v=<%= DateTime.Now.Ticks.ToString() %>"></script>
+                        <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+                        <asp:Label ID="WaitingLabelTemp" Style="display: none" runat="server" />
+                        <ajaxToolkit:ModalPopupExtender ID="WaitingModalPopup" runat="server" TargetControlID="WaitingLabelTemp"
+                            PopupControlID="WaitingModalPopupPanel" Drag="false" BackgroundCssClass="modal-popup-bg">
+                        </ajaxToolkit:ModalPopupExtender>
+                        <asp:Panel ID="WaitingModalPopupPanel" Style="display: none" runat="server">
+                            <span style="font-size : medium; font-weight : bold;"><%=Nep.Project.Resources.UI.PleaseWaitLabel%></span>
+                        </asp:Panel>
+                        <ajaxToolkit:ModalPopupExtender ID="AjaxWaitingModalPopup" runat="server" TargetControlID="WaitingLabelTemp"
+                            PopupControlID="AjaxWaitingModalPopupPanel" Drag="false" BackgroundCssClass="ajax-modal-popup-bg">
+                        </ajaxToolkit:ModalPopupExtender>
+                        <asp:Panel ID="AjaxWaitingModalPopupPanel" Style="display: none" runat="server"/>
+                     
+
+                        <header class="entry-header">
+			                <h1 class="entry-title"><%: Page.Title %></h1>
+                            <asp:Label ID="LabelProjectName" runat="server" CssClass="project-name " Visible="false"/>
+		                </header>
+                        <div class="main-content">
+                            <div id="resultMessage-block">                                
+                                                         
+                            </div>                            
+                            
+                            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                        </div>
+                      
+                    </form><!-- #Form -->
+                </div><!--#content-->
+            </div><!--site-content-->
+        </div><!-- #main -->        
+		<div class="clear"></div>
+    </div>
+
+    <div id="loader" style="display:none">
+        <asp:Image ID="ImageLoader" alt="load" runat="server" ImageUrl="~/Images/icon/loading_throbber_icon_48.gif" ClientIDMode="Static"/>
+    </div>
+
+    <script type="text/kendo-template" id="AlertInfo">
+        <div class="alert alert-info">  
+            <button data-dismiss="alert" class="close" type="button" onclick="c2x.closeAlert(this)">×</button>          
+            #=message#
+        </div>
+     </script>
+
+
+      <script type="text/kendo-template" id="AlertDanger">
+        <div class="alert alert-danger">
+          <button data-dismiss="alert" class="close" type="button" onclick="c2x.closeAlert(this)">×</button>
+            #=message#
+        </div>
+     </script>
+    <script type="text/javascript">
+        $(function () {
+            var currentPageItemCss = "current_page_item";
+            var li = $(".nav-menu > ul > li");
+            var pathname = window.location.pathname;
+            var menuName = "";
+            pathname = pathname.substr(1, pathname.length - 1);           
+            for (var i = 0; i < li.length; i++) {
+                menuName = $(li[i]).attr("menu");                
+                if ((typeof (menuName) != "undefined") && (menuName == "ReportOverlap") && (pathname.indexOf(menuName) > 0)) {
+                    $(li[i]).addClass(currentPageItemCss);
+                } else if ((typeof (menuName) != "undefined") && (pathname.startsWith(menuName)) && (pathname.indexOf("ReportOverlap") < 0)) {
+                    $(li[i]).addClass(currentPageItemCss);
+                } 
+            }
+
+
+            c2x.onCustomControlLoading();
+        });
+
+        c2x.clearAutofill();
+
+        
+
+        function isContainsMatch(itemText, textBoxValue) {
+            var isFound = false;
+            textBoxValue = $.trim(textBoxValue.toLowerCase());
+            itemText = itemText.toLowerCase();
+
+            isFound = (itemText.indexOf(textBoxValue) >= 0) ? true : false;
+            return isFound;
+        }
+
+        function isTextMatch(textBoxValue, options) {
+            var itemText;
+            var isFound = false;
+            textBoxValue = textBoxValue.toLowerCase();
+
+            for (var i = 0; i < options.length; i++) {
+                itemText = options[i].text;
+                itemText = itemText.toLowerCase();
+
+                if (itemText == textBoxValue) {
+                    isFound = true;
+                    break;
+                }
+            }
+
+            return isFound;
+        }
+        //custom filter combox
+    </script> 
+    
+    <script type="text/javascript">
+        // Get the instance of PageRequestManager.
+        var prm = Sys.WebForms.PageRequestManager.getInstance();       
+        // Add initializeRequest and endRequest
+        prm.add_initializeRequest(prm_InitializeRequest);
+        prm.add_endRequest(prm_EndRequest);       
+
+
+
+    
+        // Called when async postback begins
+        function prm_InitializeRequest(sender, args) {
+            // get the divImage and set it to visible            
+            c2x.clearResultMsg();           
+            c2x.showLoader();
+        }
+
+        // Called when async postback ends
+        function prm_EndRequest(sender, args) {
+            // get the divImage and hide it again                      
+            // Enable button that caused a postback
+            // $get(sender._postBackSettings.sourceElement.id).disabled = false; 
+            //c2x.closeLoader();
+            c2x.onCustomControlLoading();
+        }
+
+        // Async postback starts.
+        function InitializeRequest(sender, args) {
+            var modalPopupBehavior = $find('<%=AjaxWaitingModalPopup.ClientID %>');
+            if (typeof(modalPopupBehavior) != 'undefined') {
+                modalPopupBehavior.show();
+            }
+        }
+
+        // Async postback ends.
+        function EndRequest(sender, args) {
+            var modalPopupBehavior = $find('<%=AjaxWaitingModalPopup.ClientID %>');
+            if (typeof (modalPopupBehavior) != 'undefined') {
+                modalPopupBehavior.hide();
+            }
+        }
+
+        function ShowPopupModal() {
+            if (Page_IsValid) {
+                ForceShowPopupModal();
+            }
+        }
+
+        function ForceShowPopupModal() {
+            var modalPopupBehavior = $find('<%=WaitingModalPopup.ClientID %>');
+            if (typeof (modalPopupBehavior) != 'undefined') {
+                modalPopupBehavior.show();
+            }
+        }
+
+        
+   </script> 
+
+    <script type="text/javascript" src="../Scripts/scriptmanager.custom.js"></script>
+
+    <asp:ContentPlaceHolder runat="server" ID="FooterScript" />
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5c08923d40105007f37b2ede/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+    <script src="../Scripts/bootstrap.min.js"></script>
+        <script src="../Scripts/Vue/Utilities/accounting.umd.js"></script>
+    <script src="../Scripts/Vue/vue_v2.5.21/vue.js"></script>
+    <script src="../Scripts/Vue/axios_v0.18.0/axios.min.js"></script>
+     <script src="../Scripts/Vue/vue-numeric_v2.3.0/vue-numeric.min.js"></script> 
+     <%--<script src="../Content/adminlte/js/adminlte.min.js"></script>--%>
+</body>
+</html>

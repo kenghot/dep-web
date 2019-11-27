@@ -1,0 +1,129 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Web", "Nep.Project.Web\Nep.Project.Web.csproj", "{60260566-8DF0-4379-B803-962F72908499}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.ServiceModels", "Nep.Project.ServiceModels\Nep.Project.ServiceModels.csproj", "{95122EA7-B3C4-4802-AA60-B148DB0365BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Business", "Nep.Project.Business\Nep.Project.Business.csproj", "{02F4D7F1-2DA1-4A2A-A687-BBBDE1A16ACD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Common.Web", "Nep.Project.Common.Web\Nep.Project.Common.Web.csproj", "{2BE24B49-ED93-4991-960C-E87CD008F9A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Common", "Nep.Project.Common\Nep.Project.Common.csproj", "{52532C3C-67F4-4E92-AE51-DA2D3A12154D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.IServices", "Nep.Project.IServices\Nep.Project.IServices.csproj", "{D18C497A-A61A-490F-BE35-E531FA45B3F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.DBModels", "Nep.Project.DBModels\Nep.Project.DBModels.csproj", "{FE5168BA-61A9-4839-8858-A2C403B106E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6FF0B3F8-6C3E-432D-BB28-98A3C281327E}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Items\logging.reg = Solution Items\logging.reg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{703D4A04-634E-4E45-B645-717CE597CA10}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Items\Library\AjaxControlToolkit.7z = Solution Items\Library\AjaxControlToolkit.7z
+		Solution Items\Library\AjaxControlToolkit.dll = Solution Items\Library\AjaxControlToolkit.dll
+		Solution Items\Library\ExpressionBuilders.dll = Solution Items\Library\ExpressionBuilders.dll
+		Solution Items\Library\gacutil.exe = Solution Items\Library\gacutil.exe
+		Solution Items\Library\gacutil.exe.config = Solution Items\Library\gacutil.exe.config
+		Solution Items\Library\install_reportdll.bat = Solution Items\Library\install_reportdll.bat
+		Solution Items\Library\Microsoft.SqlServer.Types.dll = Solution Items\Library\Microsoft.SqlServer.Types.dll
+		Solution Items\Library\Nep.Project.Common.Report.dll = Solution Items\Library\Nep.Project.Common.Report.dll
+		Solution Items\Library\uninstall_reportdll.bat = Solution Items\Library\uninstall_reportdll.bat
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Report", "Nep.Project.Report\Nep.Project.Report.csproj", "{FE59AD2F-149A-4357-8322-ACCC4628A88A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Common.Report", "Nep.Project.Common.Report\Nep.Project.Common.Report.csproj", "{A7B57BFA-E5A7-4806-AA68-EEECE648C0F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NPOI", "NPOI", "{04FE6BDB-62A6-4BBA-B425-3D121A4CB0D7}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Items\Library\NPOI\ICSharpCode.SharpZipLib.dll = Solution Items\Library\NPOI\ICSharpCode.SharpZipLib.dll
+		Solution Items\Library\NPOI\NPOI.dll = Solution Items\Library\NPOI\NPOI.dll
+		Solution Items\Library\NPOI\NPOI.OOXML.dll = Solution Items\Library\NPOI\NPOI.OOXML.dll
+		Solution Items\Library\NPOI\NPOI.OpenXml4Net.dll = Solution Items\Library\NPOI\NPOI.OpenXml4Net.dll
+		Solution Items\Library\NPOI\NPOI.OpenXmlFormats.dll = Solution Items\Library\NPOI\NPOI.OpenXmlFormats.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Resources", "Nep.Project.Resources\Nep.Project.Resources.csproj", "{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60260566-8DF0-4379-B803-962F72908499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60260566-8DF0-4379-B803-962F72908499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60260566-8DF0-4379-B803-962F72908499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60260566-8DF0-4379-B803-962F72908499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95122EA7-B3C4-4802-AA60-B148DB0365BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95122EA7-B3C4-4802-AA60-B148DB0365BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95122EA7-B3C4-4802-AA60-B148DB0365BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95122EA7-B3C4-4802-AA60-B148DB0365BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F4D7F1-2DA1-4A2A-A687-BBBDE1A16ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F4D7F1-2DA1-4A2A-A687-BBBDE1A16ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F4D7F1-2DA1-4A2A-A687-BBBDE1A16ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F4D7F1-2DA1-4A2A-A687-BBBDE1A16ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BE24B49-ED93-4991-960C-E87CD008F9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BE24B49-ED93-4991-960C-E87CD008F9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BE24B49-ED93-4991-960C-E87CD008F9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BE24B49-ED93-4991-960C-E87CD008F9A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52532C3C-67F4-4E92-AE51-DA2D3A12154D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52532C3C-67F4-4E92-AE51-DA2D3A12154D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52532C3C-67F4-4E92-AE51-DA2D3A12154D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52532C3C-67F4-4E92-AE51-DA2D3A12154D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18C497A-A61A-490F-BE35-E531FA45B3F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18C497A-A61A-490F-BE35-E531FA45B3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18C497A-A61A-490F-BE35-E531FA45B3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18C497A-A61A-490F-BE35-E531FA45B3F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5168BA-61A9-4839-8858-A2C403B106E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5168BA-61A9-4839-8858-A2C403B106E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5168BA-61A9-4839-8858-A2C403B106E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5168BA-61A9-4839-8858-A2C403B106E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE59AD2F-149A-4357-8322-ACCC4628A88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE59AD2F-149A-4357-8322-ACCC4628A88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE59AD2F-149A-4357-8322-ACCC4628A88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE59AD2F-149A-4357-8322-ACCC4628A88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B57BFA-E5A7-4806-AA68-EEECE648C0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B57BFA-E5A7-4806-AA68-EEECE648C0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B57BFA-E5A7-4806-AA68-EEECE648C0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B57BFA-E5A7-4806-AA68-EEECE648C0F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{703D4A04-634E-4E45-B645-717CE597CA10} = {6FF0B3F8-6C3E-432D-BB28-98A3C281327E}
+		{04FE6BDB-62A6-4BBA-B425-3D121A4CB0D7} = {703D4A04-634E-4E45-B645-717CE597CA10}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://kenghot.visualstudio.com/
+		SccProjectUniqueName0 = Nep.Project.Resources\\Nep.Project.Resources.csproj
+		SccProjectName0 = $/NepProject2019/Nep.Project.Resources
+		SccAuxPath0 = https://kenghot.visualstudio.com
+		SccLocalPath0 = Nep.Project.Resources
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

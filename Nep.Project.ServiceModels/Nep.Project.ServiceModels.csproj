@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{95122EA7-B3C4-4802-AA60-B148DB0365BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nep.Project.ServiceModels</RootNamespace>
+    <AssemblyName>Nep.Project.ServiceModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attachment.cs" />
+    <Compile Include="KendoChart.cs" />
+    <Compile Include="ProjectFunctionParam.cs" />
+    <Compile Include="Report\ReportPaymentSlip.cs" />
+    <Compile Include="Security\ConfirmForgetPassword.cs" />
+    <Compile Include="RegisteredOrganizationList.cs" />
+    <Compile Include="OrganizationRegisterEntry.cs" />
+    <Compile Include="DecimalDropDownListData.cs" />
+    <Compile Include="FilterDescriptor.cs" />
+    <Compile Include="KendoAttachment.cs" />
+    <Compile Include="ListOfValue.cs" />
+    <Compile Include="Organization.cs" />
+    <Compile Include="GenericDropDownListData.cs" />
+    <Compile Include="OrganizationParameter.cs" />
+    <Compile Include="Province.cs" />
+    <Compile Include="Report\ReportOrganizationClient.cs" />
+    <Compile Include="Report\ReportBudgetApplicant.cs" />
+    <Compile Include="Report\ReportBudgetSummary.cs" />
+    <Compile Include="Report\ReportEvaluationSummary.cs" />
+    <Compile Include="Report\ReportOrgTracking.cs" />
+    <Compile Include="Report\ReportOverlapDistrict.cs" />
+    <Compile Include="Report\ReportOverlapProvince.cs" />
+    <Compile Include="Report\Report4.cs" />
+    <Compile Include="Report\ReportFormatContract.cs" />
+    <Compile Include="Report\ReportInterrogate.cs" />
+    <Compile Include="Report\ReportOverlap.cs" />
+    <Compile Include="Report\ReportOverlapSubDistrict.cs" />
+    <Compile Include="Report\ReportProjectRequest.cs" />
+    <Compile Include="Report\ReportProvinceTracking.cs" />
+    <Compile Include="Report\ReportReceiverFunding.cs" />
+    <Compile Include="Report\ReportStatisticClient.cs" />
+    <Compile Include="Report\ReportStatisticDuplicate.cs" />
+    <Compile Include="Report\ReportStatisticSupport.cs" />
+    <Compile Include="Report\ReportSummaryProjectInfo.cs" />
+    <Compile Include="Report\ReportSummaryTracking.cs" />
+    <Compile Include="Report\ReportProjectResult.cs" />
+    <Compile Include="Report\TempEnumProvince.cs" />
+    <Compile Include="Security\ForgetPasswordInfo.cs" />
+    <Compile Include="Security\NepProjectPrincipal.cs" />
+    <Compile Include="ProjectInfo\ProjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryParameter.cs" />
+    <Compile Include="RegisterEntry.cs" />
+    <Compile Include="Report\Report1.cs" />
+    <Compile Include="Report\Report3.cs" />
+    <Compile Include="ReturnMessage.cs" />
+    <Compile Include="Security\NepProjectIdentity.cs" />
+    <Compile Include="Security\SecurityInfo.cs" />
+    <Compile Include="TemplateConfig.cs" />
+    <Compile Include="UserProfile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nep.Project.Common.Report\Nep.Project.Common.Report.csproj">
+      <Project>{a7b57bfa-e5a7-4806-aa68-eeece648c0f3}</Project>
+      <Name>Nep.Project.Common.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.Common\Nep.Project.Common.csproj">
+      <Project>{52532c3c-67f4-4e92-ae51-da2d3a12154d}</Project>
+      <Name>Nep.Project.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.DBModels\Nep.Project.DBModels.csproj">
+      <Project>{fe5168ba-61a9-4839-8858-a2c403b106e6}</Project>
+      <Name>Nep.Project.DBModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.Resources\Nep.Project.Resources.csproj">
+      <Project>{8db17894-5527-4fdf-abe7-f7f9eff3aa9b}</Project>
+      <Name>Nep.Project.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportPaymentSlip.datasource" />
+    <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryProjectInfoBudgetDetail.datasource" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
