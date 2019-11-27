@@ -104,7 +104,7 @@ namespace Nep.Project.Web.Report
             }   
         }
 
-        private String CreateSupportGivenDesc(ServiceModels.Report.ReportFormatContract contract)
+        private String CreateSupportGivenDesc(ServiceModels.Report.ReportFormatContract contract) 
         {
             StringBuilder desc = new StringBuilder();
             if (!String.IsNullOrEmpty(contract.DirectiveNo) && (!String.IsNullOrEmpty(contract.DirectProvinceNo)))
