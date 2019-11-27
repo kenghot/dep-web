@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Resources", "Nep.Project.Resources\Nep.Project.Resources.csproj", "{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Telerik.Report", "Nep.Telerik.Report\Nep.Telerik.Report.csproj", "{5DAEBCEA-7E11-417D-A04A-56348C1B5585}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,10 @@ Global
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DAEBCEA-7E11-417D-A04A-56348C1B5585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DAEBCEA-7E11-417D-A04A-56348C1B5585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DAEBCEA-7E11-417D-A04A-56348C1B5585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DAEBCEA-7E11-417D-A04A-56348C1B5585}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,15 +121,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{703D4A04-634E-4E45-B645-717CE597CA10} = {6FF0B3F8-6C3E-432D-BB28-98A3C281327E}
 		{04FE6BDB-62A6-4BBA-B425-3D121A4CB0D7} = {703D4A04-634E-4E45-B645-717CE597CA10}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://kenghot.visualstudio.com/
-		SccProjectUniqueName0 = Nep.Project.Resources\\Nep.Project.Resources.csproj
-		SccProjectName0 = $/NepProject2019/Nep.Project.Resources
-		SccAuxPath0 = https://kenghot.visualstudio.com
-		SccLocalPath0 = Nep.Project.Resources
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 EndGlobal
