@@ -8,7 +8,7 @@ using Microsoft.Reporting.WebForms;
 using Nep.Project.ServiceModels;
 using Nep.Project.Common.Web;
 using System.Text;
-
+//test
 namespace Nep.Project.Web.Report
 {
     public partial class ReportFormatContract : Nep.Project.Web.Infra.BasePrintPage
