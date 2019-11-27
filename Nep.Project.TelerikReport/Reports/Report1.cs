@@ -1,4 +1,4 @@
-namespace Nep.Telerik.Report.Reports
+namespace Nep.Project.TelerikReport.Reports
 {
     using System;
     using System.ComponentModel;
@@ -6,7 +6,7 @@ namespace Nep.Telerik.Report.Reports
     using System.Windows.Forms;
     using Telerik.Reporting;
     using Telerik.Reporting.Drawing;
-    
+
     /// <summary>
     /// Summary description for Report1.
     /// </summary>
