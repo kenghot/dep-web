@@ -2319,4 +2319,14 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public int DayCount { get; set; }
         public string HistoryName { get; set; }
     }
+    public class GetProjectResponse
+    {
+        public string ContractNo { get; set; }
+        public string ProjectName { get; set; }
+        public DateTime? ContractStartDate { get; set; }
+        public string OrganizationName { get; set; }
+        public string ProvinceName { get; set; }
+        public decimal BudgetYear { get; set; }
+        public decimal BudgetAmount { get; set; }
+    }
 }

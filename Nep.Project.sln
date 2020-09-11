@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Web", "Nep.Project.Web\Nep.Project.Web.csproj", "{60260566-8DF0-4379-B803-962F72908499}"
 EndProject
@@ -49,8 +49,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NPOI", "NPOI", "{04FE6BDB-6
 		Solution Items\Library\NPOI\NPOI.OpenXml4Net.dll = Solution Items\Library\NPOI\NPOI.OpenXml4Net.dll
 		Solution Items\Library\NPOI\NPOI.OpenXmlFormats.dll = Solution Items\Library\NPOI\NPOI.OpenXmlFormats.dll
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Resources", "Nep.Project.Resources\Nep.Project.Resources.csproj", "{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}"
 EndProject
@@ -102,10 +100,6 @@ Global
 		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6120825C-B3CE-41BB-BAE2-0A9EFE7E2335}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73A1E3F8-6BCD-4C08-95EC-4D3EF4C1FF15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -121,5 +115,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{703D4A04-634E-4E45-B645-717CE597CA10} = {6FF0B3F8-6C3E-432D-BB28-98A3C281327E}
 		{04FE6BDB-62A6-4BBA-B425-3D121A4CB0D7} = {703D4A04-634E-4E45-B645-717CE597CA10}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26DF1146-39A6-4443-9BF9-44F86491EE9C}
 	EndGlobalSection
 EndGlobal

@@ -2022,7 +2022,8 @@ namespace Nep.Project.Business
 
 
                     //save activity
-                    var act = (from a in _db.PROJECTBUDGETACTIVITies where a.PROJECTID == projectId select a).ToList();
+                    //var act = (from a in _db.PROJECTBUDGETACTIVITies where a.PROJECTID == projectId select a).ToList();
+                    var act =   _db.PROJECTBUDGETACTIVITies.Where(w => w.PROJECTID == projectId).ToList();
                     foreach (ServiceModels.ProjectInfo.BudgetActivity b in model.BudgetActivities)
                     {
                         DBModels.Model.PROJECTBUDGETACTIVITY actRow = null;
@@ -2810,16 +2811,16 @@ namespace Nep.Project.Business
                 var approvalStatus = _db.ProjectApprovals.Where(x => x.ProjectID == projectID).Select(y => y.ApprovalStatus).FirstOrDefault();
                 //var projectApprovalSatatus = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.ProjectApprovalStatus) && (x.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)).FirstOrDefault();
                 var genIn = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();
-
-                string contractBy = "";
+                if (genIn != null)
+                {
+                    string contractBy = "";
                 string directiveNo = "";
                 string directProvinceNo = "";
                 string provinceName = _db.MT_Province.Where(x => x.ProvinceID == genIn.ProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
                 string receiverProvince = _db.MT_Province.Where(x => x.ProvinceID == genIn.AddressProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
 
                 var receiver = _db.ProjectPersonels.Where(x => x.ProjectID == projectID).FirstOrDefault();
-                if (genIn != null)
-                {
+               
                     decimal? creatorOrganizationID = _db.SC_User.Where(x => (x.UserID == genIn.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault();
 
                     List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;

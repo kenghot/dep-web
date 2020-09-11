@@ -134,7 +134,7 @@
         <AssociationConnector Association="Model.PROJECTQUESTION_FK1" />
         <EntityTypeShape EntityType="Model.PROJECTHISTORY" Width="1.5" PointX="17.625" PointY="39.125" />
         <EntityTypeShape EntityType="Model.PROJECTPROCESSED" Width="1.5" PointX="22.25" PointY="37.375" />
-        <EntityTypeShape EntityType="Model.PROJECTBUDGETACTIVITY" Width="1.5" PointX="7.625" PointY="33.625" />
+        <EntityTypeShape EntityType="Model.PROJECTBUDGETACTIVITY" Width="2.625" PointX="6.75" PointY="33.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

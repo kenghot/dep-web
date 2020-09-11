@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Nep.Project.ServiceModels.Report.ReportProjectRequest;
 
 namespace Nep.Project.ServiceModels.Report
 {
     public class ReportFormatContract
     {
+        public GeneralProjectInfo Info { get; set; }
         public String ContractNo {get;set;}
         public String SignAt {get;set;}
         public String SignDistrict {get;set;}
@@ -74,5 +76,8 @@ namespace Nep.Project.ServiceModels.Report
         public DateTime? MeetingDate { get; set; }
         public string MeetingDateText { get; set; }
         public string MeetingText { get; set; }
+        public string MsgAuthorizeFlag { get; set; }
+        public string SupportGivenDesc { get; set; }
+
     }
 }

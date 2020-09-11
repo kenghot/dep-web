@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Drawing;
 using Nep.Project.DBModels;
+using Nep.Project.ServiceModels.ProjectInfo;
+
 namespace Nep.Project.Web.Infra
 {
     [InjectProperties]
@@ -110,6 +112,10 @@ namespace Nep.Project.Web.Infra
             if (action.Equals("saveprojrep"))
             {
                 SaveProjRep(context);
+            }
+            if (action.Equals("getprojects"))
+            {
+                GetProjects(context);
             }
         }
         private void CheckDESPerson(HttpContext context)
@@ -1086,7 +1092,71 @@ namespace Nep.Project.Web.Infra
             context.Response.End();
         }
 
- 
 
+        private void GetProjects(HttpContext context)
+        {
+
+            ServiceModels.ReturnObject<List<GetProjectResponse>> rep = new ServiceModels.ReturnObject<List<GetProjectResponse>>();
+            rep.IsCompleted = false;
+
+            try
+            {
+                String strValues = ""; //= context.Request.Form[0];
+                using (StreamReader reader = new StreamReader(context.Request.InputStream))
+                {
+                    strValues = reader.ReadToEnd();
+                }
+
+                var json = Newtonsoft.Json.Linq.JObject.Parse(strValues);
+                string idno = null;
+             
+                if (json["IdCardNo"] != null)
+                {
+                    idno = json["IdCardNo"].ToString();
+                }
+                
+                if (string.IsNullOrEmpty(idno))
+                {
+                    rep.Message.Add("IdCardNo is required.");
+                    return;
+                }
+                var db = _projService.GetDB();
+                var parts = db.ProjectParticipants.Where(w => w.IDCardNo == idno).Select(s => s.ProjectID).Distinct().ToList();
+                var pns = db.ProjectPersonels.Where(w => w.IDCardNo == idno).Select(s => s.ProjectID).Distinct().ToList();
+                parts.AddRange(pns);
+                parts.Distinct();
+
+                var contracts = db.ProjectContracts
+                    .Join(db.MT_Province, pj => pj.ProjectGeneralInfo.ProvinceID, pv => pv.ProvinceID,(pj,pv) => new { pj, pv })
+                    .Where(w => parts.Contains(w.pj.ProjectID))
+                    .Select(s => new GetProjectResponse
+                    {
+                        BudgetAmount = s.pj.ProjectGeneralInfo.BudgetValue.HasValue ? s.pj.ProjectGeneralInfo.BudgetValue.Value : 0,
+                        BudgetYear = s.pj.ProjectGeneralInfo.ProjectInformation.BudgetYear,
+                        ContractStartDate = s.pj.ContractStartDate,
+                        ContractNo = s.pj.ContractNo,
+                        OrganizationName = s.pj.ProjectGeneralInfo.OrganizationNameTH,
+                        ProjectName = s.pj.ProjectGeneralInfo.ProjectInformation.ProjectNameTH,
+                        ProvinceName = s.pv.ProvinceName
+                        
+                    }).ToList();
+                rep.Data = contracts;
+                rep.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                rep.Message.Add(ex.Message);
+
+            }
+            finally
+            {
+                context.Response.ContentType = "application/json; charset=utf-8";
+                String responseText = Nep.Project.Common.Web.WebUtility.ToJSON(rep);
+
+                context.Response.Write(responseText);
+                //context.Response.Write(json);
+                context.Response.End();
+            }
+        }
     }
 }

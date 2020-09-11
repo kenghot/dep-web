@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -18,7 +19,14 @@ namespace Nep.Project.Web.MasterPages
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
 
-        
+        public string ReportServiceUrl
+        {
+            get
+            {
+                var rep = ConfigurationManager.AppSettings["REPORT_URL"];
+                return rep;
+            }
+        }
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks

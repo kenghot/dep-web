@@ -52,11 +52,15 @@ namespace Nep.Project.Web
             builder.Register(autofac =>
             {
                 var cookie = HttpContext.Current.Request.Cookies[Common.Constants.TICKET_COOKIE_NAME];
-
-                var ticket = cookie != null ? cookie.Value : null;
+                string tid = null;
+                if (cookie == null)
+                {
+                    tid = HttpContext.Current.Request.Headers[Common.Constants.TICKET_COOKIE_NAME];
+                }
+                var ticket = cookie != null ? cookie.Value : tid;
                 var result = autofac.Resolve<Nep.Project.IServices.ISecurityService>().UpdateUserAccess(ticket);
 
-                if (!result.Data.IsAuthenticated && ticket != null)
+                if (!result.Data.IsAuthenticated && !string.IsNullOrEmpty(ticket))
                 {
                     cookie.Expires = DateTime.Now.AddDays(-1);
                     cookie.Value = String.Empty;

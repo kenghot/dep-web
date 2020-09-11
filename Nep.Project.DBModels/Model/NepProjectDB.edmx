@@ -338,11 +338,11 @@
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
           <Property Name="CONTRACTYEAR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="REMARK" Type="clob" />
-          <Property Name="MEETINGDATE" Type="date" Nullable="true" />
-          <Property Name="MEETINGNO" Type="number" Precision="38" Scale="0"  />
           <Property Name="ATTACHPAGE1" Type="number" Precision="38" Scale="0" />
-          <Property Name="ATTACHPAGE2" Type="number" Precision="38" Scale="0"  />
-          <Property Name="ATTACHPAGE3" Type="number" Precision="38" Scale="0"  />
+          <Property Name="ATTACHPAGE2" Type="number" Precision="38" Scale="0" />
+          <Property Name="ATTACHPAGE3" Type="number" Precision="38" Scale="0" />
+          <Property Name="MEETINGNO" Type="number" Precision="38" Scale="0" />
+          <Property Name="MEETINGDATE" Type="date" />
         </EntityType>
         <EntityType Name="PROJECTDOCUMENT">
           <Key>

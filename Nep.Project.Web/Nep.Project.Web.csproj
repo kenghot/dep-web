@@ -27,6 +27,7 @@
     <SccProvider>SAK</SccProvider>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,6 +131,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
@@ -185,6 +187,14 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.2\lib\net45\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ictdev2\dev_team\temp\GOD\Telerik Report DLL\Telerik.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.ReportViewer.WebForms, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\Telerik.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -408,6 +418,7 @@
     <Content Include="Report\ReportSummaryProjectInfo.aspx" />
     <Content Include="Report\ReportSummaryProjectInfo1.aspx" />
     <Content Include="Report\ReportSummaryTracing.aspx" />
+    <Content Include="Report\ShowReportService.aspx" />
     <Content Include="Scripts\appScriptsJS\app.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\file-upload-helper.js" />
@@ -439,6 +450,7 @@
     <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Scripts\appScriptsJS\app.js.map" />
     <None Include="Web References\NepServiceWS\NepService.disco" />
+    <Content Include="TelerikReport\TelerikRepContractProvince.aspx" />
     <Content Include="WebServices\NepService.asmx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -602,6 +614,7 @@
     <Compile Include="Infra\BaseUserControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Infra\ReportHandler.cs" />
     <Compile Include="Infra\ServicesHandler.cs" />
     <Compile Include="Infra\QuestionareHandler.cs" />
     <Compile Include="Infra\ComboboxHandler.cs" />
@@ -1217,6 +1230,20 @@
     <Compile Include="Report\ReportSummaryTracing.aspx.designer.cs">
       <DependentUpon>ReportSummaryTracing.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Report\ShowReportService.aspx.cs">
+      <DependentUpon>ShowReportService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ShowReportService.aspx.designer.cs">
+      <DependentUpon>ShowReportService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.cs">
+      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.designer.cs">
+      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1338,6 +1365,10 @@
       <Project>{95122ea7-b3c4-4802-aa60-b148db0365bc}</Project>
       <Name>Nep.Project.ServiceModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nep.Project.TelerikReport\Nep.Project.TelerikReport.csproj">
+      <Project>{9883e4ad-ac7a-4800-976b-7acf76c9ae08}</Project>
+      <Name>Nep.Project.TelerikReport</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1366,10 +1397,13 @@
       <CachedSettingsPropName>Nep_Project_Web_NepServiceWS_NepService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

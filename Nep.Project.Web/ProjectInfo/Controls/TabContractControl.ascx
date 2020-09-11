@@ -475,7 +475,10 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonSave %>" OnClick="ButtonSave_Click" Visible="false" />
                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false" 
-                        NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />                    
+                        NavigateUrl='<%$ code:String.Format("~/Report/ShowReportService?projectID={0}&report=nep", ProjectID ) %>' Target="_blank" />               
+<%--                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
+                        CssClass="btn btn-default btn-sm" Visible="false" 
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />   --%>                   
                     <asp:Button runat="server" ID="ButtonCancelContract" CssClass="btn btn-default btn-sm" OnClientClick="return ConfirmToCancelContract()"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
                     <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-red btn-sm" 

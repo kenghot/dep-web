@@ -358,6 +358,108 @@ s0.parentNode.insertBefore(s1,s0);
     <script src="../Scripts/Vue/vue_v2.5.21/vue.js"></script>
     <script src="../Scripts/Vue/axios_v0.18.0/axios.min.js"></script>
      <script src="../Scripts/Vue/vue-numeric_v2.3.0/vue-numeric.min.js"></script> 
+   
      <%--<script src="../Content/adminlte/js/adminlte.min.js"></script>--%>
+<script> 
+         var VueMaster = new Vue({
+          
+          data: () => ({
+              drawer: false,
+              isSiteMaster: true,
+              menus:[],
+              mini: true,
+              hover: true,
+              snackbar: { show: false, text: "", color: "" },
+              userInfo: {},
+              reportUrl: ""
+         }),
+         computed: {
+             userImg: function() {
+                 if (!this.userInfo && this.userInfo.Img != "")
+                     return this.userInfo.Img
+                 else
+                     return ""
+             }
+         },
+         methods: {
+             
+             showSnack(msg, color) {
+                 this.snackbar.show = true
+                 this.snackbar.color = color
+                 this.snackbar.text = msg
+             },
+             donwloadReport(data, fn) {
+                 axios.post("/report/reportexcel.aspx"
+                     , data,
+                     { responseType: 'blob' }
+                 ).then(function (response) {
+                     if (fn) fn(response);
+                     let fileName = response.headers["content-disposition"].split("filename=")[1];
+                     if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE variant
+                         window.navigator.msSaveOrOpenBlob(new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }),
+                             fileName);
+                     } else {
+                         const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+                         const link = document.createElement('a');
+                         link.href = url;
+                         link.setAttribute('download', response.headers["content-disposition"].split("filename=")[1]);
+                         document.body.appendChild(link);
+                         link.click();
+                     }
+                 }
+             )
+             },
+             showRequestReport(projId) {
+                 var param = { project_id: projId }
+                 this.showReport("/nep/generate/document/report/request", param)
+             },
+             showContractReport(projId) {
+                 var param = { project_id: projId }
+                 this.showReport("/nep/generate/document/report/nep", param)
+             },
+             showResultReport(projId) {
+                 var param = { project_id: projId }
+                 this.showReport("/nep/generate/document/report/result", param)
+             },
+             showReport(path, param) {
+    
+                 var url = `${this.reportUrl}${path}`
+                 console.log(url)
+                 console.log(this.userInfo.TicketID)
+                 axios.post(url,
+                     param,
+                     {
+                         headers: {
+                             'sso_tid': this.userInfo.TicketID,
+                             'Content-Type': 'application/ json'
+                         }
+                     }
+                     
+                 )
+                     .then((data) => {
+                         console.log(data)
+                         if (data.error) {
+                             alert(data.error)
+                         } else {
+                             
+                             var file = `https://docs.google.com/gview?url=${this.reportUrl}/public/file/${data.data.filename}.pdf`
+                           
+                             window.open(file, '_blank')
+                         }
+
+                     }
+
+                 )
+                     .catch((error) => {
+                         alert(error)
+                     })
+
+             }
+         }
+     })
+  
+      VueMaster.userInfo = JSON.parse('<%= Newtonsoft.Json.JsonConvert.SerializeObject(UserInfo) %>')
+      VueMaster.reportUrl = '<%= ReportServiceUrl %>'
+ </script>
 </body>
 </html>
