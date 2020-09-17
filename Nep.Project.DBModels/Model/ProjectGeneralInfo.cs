@@ -24,7 +24,6 @@ namespace Nep.Project.DBModels.Model
             this.MT_Attachment = new HashSet<MT_Attachment>();
             this.ProjectParticipants = new HashSet<ProjectParticipant>();
             this.PROJECTOPERATIONADDRESSes = new HashSet<ProjectOperationAddress>();
-            this.PROJECTDOCUMENTLISTs = new HashSet<PROJECTDOCUMENTLIST>();
         }
     
         public decimal ProjectID { get; set; }
@@ -111,7 +110,6 @@ namespace Nep.Project.DBModels.Model
         public virtual ProjectInformation ProjectInformation { get; set; }
         public virtual ICollection<ProjectParticipant> ProjectParticipants { get; set; }
         public virtual ICollection<ProjectOperationAddress> PROJECTOPERATIONADDRESSes { get; set; }
-        public virtual ICollection<PROJECTDOCUMENTLIST> PROJECTDOCUMENTLISTs { get; set; }
         public virtual PROJECTFOLLOWUP2 PROJECTFOLLOWUP2 { get; set; }
     }
 }

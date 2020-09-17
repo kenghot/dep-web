@@ -16,6 +16,7 @@ namespace Nep.Project.Web.Account
     {
         public IServices.IAuthenticationService _authSerive { get; set; }
         private ServiceModels.Security.SecurityInfo info = null;
+        public IServices.IProjectInfoService _projService { get; set; }
        
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -103,6 +104,7 @@ namespace Nep.Project.Web.Account
             {
           
                 info = result.Data;
+                _projService.SaveLogAccess(info.UserID, Common.LOVCode.Logaccess.LOGIN, "I", Request.UserHostAddress);
             }
             else if (result.Message.Count > 0)
             {

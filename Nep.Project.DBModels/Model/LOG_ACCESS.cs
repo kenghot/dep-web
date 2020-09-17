@@ -12,14 +12,16 @@ namespace Nep.Project.DBModels.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PROJECTDOCUMENTLIST
+    public partial class LOG_ACCESS
     {
-        public decimal DOCID { get; set; }
-        public decimal PROJECTID { get; set; }
-        public decimal DOCUMENTNO { get; set; }
-        public decimal DOCUMENTID { get; set; }
+        public decimal LOGID { get; set; }
+        public Nullable<System.DateTime> CREATEDATETIME { get; set; }
+        public Nullable<decimal> USERID { get; set; }
+        public Nullable<decimal> ACCESSID { get; set; }
+        public string ACCESSTYPE { get; set; }
+        public string IPADDRESS { get; set; }
     
-        public virtual MT_Attachment MT_ATTACHMENT { get; set; }
-        public virtual ProjectGeneralInfo PROJECTGENERALINFO { get; set; }
+        public virtual SC_User SC_USER { get; set; }
+        public virtual MT_ListOfValue MT_LISTOFVALUE { get; set; }
     }
 }

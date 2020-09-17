@@ -47,6 +47,33 @@ namespace Nep.Project.Business
                           }).ToQueryData(p);
             return result;
         }
+        public ServiceModels.ReturnQueryData<ServiceModels.UserList> ListAccessWithCriteria(ServiceModels.QueryParameter p)
+        {
+            var result = (
+                          from l in _db.LOG_ACCESS
+                          select new ServiceModels.UserList
+                          {
+                              Email = (l.SC_USER == null) ? "" :  l.SC_USER.Email,
+                              FirstName = (l.SC_USER == null) ? "" : l.SC_USER.FirstName,
+                              LastName = (l.SC_USER == null) ? "" : l.SC_USER.LastName,
+                              IsActive = (l.SC_USER == null) ? "" : l.SC_USER.IsActive,
+                              IsDelete = (l.SC_USER == null) ? "" : l.SC_USER.IsDelete,
+                              TelephoneNo = (l.SC_USER == null) ? "" : l.SC_USER.TelephoneNo,
+                              UserID = (l.SC_USER == null) ? 0 : l.SC_USER.UserID,
+                              UserName = (l.SC_USER == null) ? "" : l.SC_USER.UserName,
+                              RoleID = (l.SC_USER == null) ?  0 : l.SC_USER.GroupID,
+                              Role = (l.SC_USER == null) ? "" : (l.SC_USER.Group != null) ? l.SC_USER.Group.GroupName : null,
+                              RoleCode = (l.SC_USER == null) ? "" : (l.SC_USER.Group != null) ? l.SC_USER.Group.GroupCode : null,
+                              OrganizationName = (l.SC_USER == null) ? "" : l.SC_USER.Organization.OrganizationNameTH,
+                              ProvinceID = (l.SC_USER == null) ? (decimal?)0 :  (l.SC_USER.ProvinceID != null) ? l.SC_USER.ProvinceID : (decimal?)0,
+                              Province = (l.SC_USER == null) ? "" : (l.SC_USER.Province != null) ? l.SC_USER.Province.ProvinceName : null,
+                              AccessDateTime = l.CREATEDATETIME.Value,
+                              AccessDesc = l.MT_LISTOFVALUE.LOVName,
+                              AccessType = l.ACCESSTYPE,
+                              IPAddress = l.IPADDRESS
+                          }).ToQueryData(p);
+            return result;
+        }
         public ServiceModels.ReturnQueryData<ServiceModels.UserList> ListNewRequestWithCriteria(ServiceModels.QueryParameter p)
         {
             var result = (from u in _db.UserRegisterEntries

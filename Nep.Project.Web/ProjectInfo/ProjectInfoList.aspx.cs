@@ -965,6 +965,12 @@ namespace Nep.Project.Web.ProjectInfo
                         img.ImageUrl = string.Format("~/Images/Approval/ApprovalStatus1_{0}.png", r.ApprovalStatus1.LOVCode.Trim());
                         img.AlternateText = r.ApprovalStatus1.LOVName;
                         img.ToolTip = r.ApprovalStatus1.LOVName;
+                    }else
+                    {
+                        if (r.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
+                        {
+
+                        }
                     }
                 }
                 //kenghot18

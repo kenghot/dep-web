@@ -2490,15 +2490,47 @@ namespace Nep.Project.Business
                                 AttachPage2 = pro.ProjectContract.ATTACHPAGE2,
                                 AttachPage3 = pro.ProjectContract.ATTACHPAGE3,
                                 MeetingDate = pro.ProjectContract.MEETINGDATE,
-                                MeetingNo = pro.ProjectContract.MEETINGNO
+                                MeetingNo = pro.ProjectContract.MEETINGNO,
+                                LastApproveStatus = pro.ProjectContract.APPROVESTATUS,
+                                ExtendJson = pro.ProjectContract.EXTENDDATA
 
                             }).SingleOrDefault();
 
                 if(data != null){
                     data.IsCenterContract = IsCenterReviseProject((decimal)data.ProvinceID);
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(data.ExtendJson))
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ContractExtend>(data.ExtendJson);
+                            if (data.ExtendData.AddressAt != null)
+                            {
+                                var ad = data.ExtendData.AddressAt;
+                                var prov = _db.MT_Province.Where(w => w.ProvinceID == ad.ProvinceId).FirstOrDefault();
+                                if (prov != null)
+                                {
+                                    ad.ProvinceName = prov.ProvinceName;
+                                }
+                                var dis = _db.MT_District.Where(w => w.DistrictID == ad.DistrictId).FirstOrDefault();
+                                if (dis != null)
+                                {
+                                    ad.DistrictName = dis.DistrictName;
+                                }
+                                var sdis = _db.MT_SubDistrict.Where(w => w.SubDistrictID == ad.SubDistrictId).FirstOrDefault();
+                                if (sdis != null)
+                                {
+                                    ad.SubDistrictName = sdis.SubDistrictName;
+                                }
+                            }
+                        }
 
+                    }
+                    catch
+                    {
+
+                    }
                     //ข้อมูลผู้ให้เงินอุดหนุนของส่วนกลาง
-                    if(data.IsCenterContract){
+                    if (data.IsCenterContract){
                         
                         if(String.IsNullOrEmpty(data.DirectorFirstName)){
                             string orgDirectorGeneralNameParam = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_DIRECTOR_GENERAL_NAME).Select(y => y.ParameterValue).FirstOrDefault();
@@ -2606,6 +2638,7 @@ namespace Nep.Project.Business
 
                         if (genInfo != null)
                         {
+                            dataDBModel.APPROVESTATUS = genInfo.ProjectApprovalStatusID;
                             genInfo.ProjectApprovalStatusID = status.LOVID;
                             genInfo.UpdatedBy = _user.UserName;
                             genInfo.UpdatedByID = _user.UserID;
@@ -2625,7 +2658,7 @@ namespace Nep.Project.Business
                             result.Message.Add(String.Format(Nep.Project.Resources.Error.DuplicateValue, Nep.Project.Resources.Model.Contract_ContractNo));
                             return result;
                         }
-
+                       
                         dataDBModel.ContractNo = contractNo;
                         dataDBModel.CreatedDate = DateTime.Now;
                         dataDBModel.CreatedBy = _user.UserName;
@@ -2678,6 +2711,50 @@ namespace Nep.Project.Business
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+            return result;
+        }
+        public ServiceModels.ReturnMessage UndoCancelProjectContract(Decimal id)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == id).SingleOrDefault();
+                if (genInfo != null)
+                {
+                    DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา, Common.LOVGroup.ProjectApprovalStatus);
+                    if (genInfo.ProjectApprovalStatusID != status.LOVID)
+                    {
+                        throw new Exception("ไม่สามารถกลับสัญญาที่ยังไม่ได้ยกเลิกได้");
+                    }
+                    var contract = _db.ProjectContracts.Where(w => w.ProjectID == id).FirstOrDefault();
+                    if (contract == null || !contract.APPROVESTATUS.HasValue)
+                    {
+                        throw new Exception("ไม่พบสัญญาที่ผ่านการอนุมัติ");
+                    }
+                    _db.ProjectContracts.Remove(contract);
+                    genInfo.ProjectApprovalStatusID = contract.APPROVESTATUS.Value;
+                    genInfo.UpdatedBy = _user.UserName;
+                    genInfo.UpdatedByID = _user.UserID;
+                    genInfo.UpdatedDate = DateTime.Now;
+
+                    _db.SaveChanges();
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.CancelProjectContractSuccess);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+
             }
             catch (Exception ex)
             {
@@ -2801,8 +2878,159 @@ namespace Nep.Project.Business
             }
             return result;
         }
-
         public ServiceModels.ReturnObject<ServiceModels.Report.ReportFormatContract> GetReportFormatContract(decimal projectID)
+        {
+            ServiceModels.ReturnObject<ServiceModels.Report.ReportFormatContract> result = new ReturnObject<ServiceModels.Report.ReportFormatContract>();
+
+            try
+            {
+                var approvalStatus = _db.ProjectApprovals.Where(x => x.ProjectID == projectID).Select(y => y.ApprovalStatus).FirstOrDefault();
+                //var projectApprovalSatatus = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.ProjectApprovalStatus) && (x.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)).FirstOrDefault();
+                var genIn = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();
+                if (genIn != null)
+                {
+                    string contractBy = "";
+                    string directiveNo = "";
+                    string directProvinceNo = "";
+                    string provinceName = _db.MT_Province.Where(x => x.ProvinceID == genIn.ProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
+                    string receiverProvince = _db.MT_Province.Where(x => x.ProvinceID == genIn.AddressProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
+
+                    var receiver = _db.ProjectPersonels.Where(x => x.ProjectID == projectID).FirstOrDefault();
+
+                    decimal? creatorOrganizationID = _db.SC_User.Where(x => (x.UserID == genIn.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault();
+
+                    List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;
+                    bool canPrint = functions.Contains(Common.ProjectFunction.PrintContract);
+
+                    if (canPrint)
+                    {
+                        DBModels.Model.ProjectContract contract = genIn.ProjectContract;
+                        DBModels.Model.ProjectApproval approval = genIn.ProjectApproval;
+
+                        contractBy = contract.DirectornameName + " " + contract.DirectorLastName;
+                        directiveNo = (!string.IsNullOrEmpty(contract.AttorneyNo)) ? (contract.AttorneyNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.AttorneyYear)) : "";
+                        directProvinceNo = (!string.IsNullOrEmpty(contract.ProvinceContractNo)) ? (contract.ProvinceContractNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.ProvinceContractYear)) : "";
+
+                        ServiceModels.Report.ReportFormatContract obj = new ServiceModels.Report.ReportFormatContract();
+                        obj.ContractNo = contract.ContractNo;
+                        obj.SignAt = contract.ContractLocation;
+                        obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
+                        obj.ContractBy = contractBy;
+                        obj.Position = contract.DirectorPosition;
+                        obj.DirectiveNo = directiveNo;
+                        obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
+                        obj.DirectiveProvince = provinceName;
+                        obj.DirectProvinceNo = directProvinceNo;
+                        obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
+                        obj.ReceiverName = genIn.OrganizationNameTH;
+                        obj.ReceiverAddressNo = genIn.Address;
+ 
+                        obj.ReceiverSubdistrict = genIn.SubDistrict;
+                        obj.ReceiverDistrict = genIn.District;
+                        obj.ReceiverProvince = receiverProvince;
+    
+                        obj.AttorneyDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractReceiveDate, "d MMMM yyyy");
+                        obj.Amount = Common.Web.WebUtility.DisplayInHtml(genIn.BudgetReviseValue, "N2", "");
+                        obj.AmountString = Common.Web.WebUtility.ToThaiBath(genIn.BudgetReviseValue);
+                        obj.ProjectName = genIn.ProjectInformation.ProjectNameTH;
+
+                        obj.ContractViewerName1 = contract.ContractViewerName1;
+                        obj.ContractViewerSurname1 = contract.ContractViewerSurname1;
+                        obj.ContractViewerName2 = contract.ContractViewerName2;
+                        obj.ContractViewerSurname2 = contract.ContractViewerSurname2;
+
+                        obj.IsCenterContract = IsCenterReviseProject(genIn.ProvinceID);
+
+                        obj.AuthorizeFlag = (contract.AuthorizeFlag == Common.Constants.BOOLEAN_TRUE) ? true : false;
+                        obj.ReceiverBy = String.Format("{0} {1}", contract.ReceiverName, contract.ReceiverSurname);
+                        obj.ReceivePosition = contract.ReceiverPosition;
+                        obj.AttachPage1 = contract.ATTACHPAGE1?.ToString();
+                        obj.AttachPage2 = contract.ATTACHPAGE2?.ToString();
+                        obj.AttachPage3 = contract.ATTACHPAGE3?.ToString();
+                        obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
+                        obj.MeetingDate = contract.MEETINGDATE;
+                        obj.MeetingNo = contract.MEETINGNO?.ToString();
+
+                        if (!string.IsNullOrEmpty(contract.EXTENDDATA))
+                        {
+                            obj.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ContractExtend>(contract.EXTENDDATA);
+                            obj.ExtendData.BookDateText = Common.Web.WebUtility.ToBuddhaDateFormat(obj.ExtendData.BookDate, "d MMMM yyyy");
+                            obj.ExtendData.CommandDateText = Common.Web.WebUtility.ToBuddhaDateFormat(obj.ExtendData.CommandDate, "d MMMM yyyy");
+                            obj.ExtendData.MeetingDateText = Common.Web.WebUtility.ToBuddhaDateFormat(obj.ExtendData.MeetingDate, "d MMMM yyyy");
+                            obj.ExtendData.BookNo = WebUtility.ParseToThaiNumber(obj.ExtendData.BookNo);
+                            obj.ExtendData.BookOrder = WebUtility.ParseToThaiNumber(obj.ExtendData.BookOrder);
+                            obj.ExtendData.Command = WebUtility.ParseToThaiNumber(obj.ExtendData.Command);
+
+                            obj.ExtendData.PageCount1Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount1.ToString());
+                            obj.ExtendData.PageCount2Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount2.ToString());
+                            obj.ExtendData.PageCount3Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount3.ToString());
+                            obj.ExtendData.PageCount4Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount4.ToString());
+                            obj.ExtendData.PageCount5Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount5.ToString());
+                            obj.ExtendData.PageCount6Text = WebUtility.ParseToThaiNumber(obj.ExtendData.PageCount6.ToString());
+                            if (obj.ExtendData.AddressAt != null)
+                            {
+                                var ad = obj.ExtendData.AddressAt;
+                                var prov = _db.MT_Province.Where(w => w.ProvinceID == ad.ProvinceId).FirstOrDefault();
+                                if (prov != null)
+                                {
+                                    ad.ProvinceName = prov.ProvinceName;
+                                }
+                                var dis = _db.MT_District.Where(w => w.DistrictID == ad.DistrictId).FirstOrDefault();
+                                if (dis != null)
+                                {
+                                    ad.DistrictName = dis.DistrictName;
+                                }
+                                var sdis = _db.MT_SubDistrict.Where(w => w.SubDistrictID == ad.SubDistrictId).FirstOrDefault();
+                                if (sdis != null)
+                                {
+                                    ad.SubDistrictName = sdis.SubDistrictName;
+                                }
+                            }
+                            if (obj.ExtendData.AddressAuth != null)
+                            {
+                                var ad = obj.ExtendData.AddressAuth;
+                                var prov = _db.MT_Province.Where(w => w.ProvinceID == ad.ProvinceId).FirstOrDefault();
+                                if (prov != null)
+                                {
+                                    ad.ProvinceName = prov.ProvinceName;
+                                }
+                                var dis = _db.MT_District.Where(w => w.DistrictID == ad.DistrictId).FirstOrDefault();
+                                if (dis != null)
+                                {
+                                    ad.DistrictName = dis.DistrictName;
+                                }
+                                var sdis = _db.MT_SubDistrict.Where(w => w.SubDistrictID == ad.SubDistrictId).FirstOrDefault();
+                                if (sdis != null)
+                                {
+                                    ad.SubDistrictName = sdis.SubDistrictName;
+                                }
+                            }
+                        }
+                        result.IsCompleted = true;
+                        result.Data = obj;
+                    }
+                    else
+                    {
+                        result.IsCompleted = false;
+                        result.Message.Add(Nep.Project.Resources.Error.CanotViewProjectData);
+                    }
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
+        public ServiceModels.ReturnObject<ServiceModels.Report.ReportFormatContract> GetReportFormatContractOld(decimal projectID)
         {
             ServiceModels.ReturnObject<ServiceModels.Report.ReportFormatContract> result = new ReturnObject<ServiceModels.Report.ReportFormatContract>();
 
@@ -7821,7 +8049,7 @@ namespace Nep.Project.Business
                 if(disabledTypeCode == Common.LOVCode.Disabilitytype.ทุกประเภทความพิการ){
                     disabilityCommitteeCode = Common.LOVCode.Disabilitycommittee.คณะอนุกรรมการบุคคลพิการทุกประเภท;
                 }
-                else if (disabledTypeCode == Common.LOVCode.Disabilitytype.ประเภททางการเคลื่อนไหวหรือรางกาย)
+                else if (disabledTypeCode == Common.LOVCode.Disabilitytype.ประเภททางการเคลื่อนไหวหรือร่างกาย)
                 {
                     disabilityCommitteeCode = Common.LOVCode.Disabilitycommittee.คณะอนุกรรมการบุคคลพิการทางกายหรือการเคลื่อนไหว;
                 }
@@ -9267,6 +9495,14 @@ namespace Nep.Project.Business
             result.MEETINGNO = model.MeetingNo;
             result.MEETINGDATE = model.MeetingDate;
             result.REMARK = model.Remark;
+            try
+            {
+                result.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+            }
+            catch
+            {
+
+            }
             if (model.AuthorizeFlag)
             {
                 result.ReceiverName = model.ReceiverName;
@@ -9362,13 +9598,13 @@ namespace Nep.Project.Business
         #endregion
                   
 
-        private DBModels.Model.MT_ListOfValue GetListOfValue(string code, string group)
+        public DBModels.Model.MT_ListOfValue GetListOfValue(string code, string group)
         {
             DBModels.Model.MT_ListOfValue obj = _db.MT_ListOfValue.Where(x => x.LOVGroup == group && (x.LOVCode == code)).SingleOrDefault();
             return obj;
         }
         //kenghot
-        private DBModels.Model.MT_ListOfValue GetListOfValueByKey(decimal LOVID )
+        public DBModels.Model.MT_ListOfValue GetListOfValueByKey(decimal LOVID )
         {
             DBModels.Model.MT_ListOfValue obj = _db.MT_ListOfValue.Where(x => x.LOVID == LOVID).SingleOrDefault();
             return obj;
@@ -9841,7 +10077,31 @@ namespace Nep.Project.Business
             }
             return result;
         }
-
+        public ServiceModels.ReturnMessage SaveLogAccess(decimal? userId, string accessCode, string accessType, string ipAddress)
+        {
+            var result = new ReturnMessage();
+            result.IsCompleted = false; 
+            try
+            {
+                var lov = _db.MT_ListOfValue.Where(w => w.LOVCode == accessCode && w.LOVGroup == "LogAccess").FirstOrDefault();
+                var log = new LOG_ACCESS
+                {
+                    ACCESSID = (lov == null) ? (decimal?)null : lov.LOVID,
+                    CREATEDATETIME = DateTime.Now,
+                    ACCESSTYPE = accessType,
+                    IPADDRESS = ipAddress,
+                    USERID = userId
+                };
+                _db.LOG_ACCESS.Add(log);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+ 
+                result.Message.Add(ex.Message);
+            }
+            return result;
+        }
     }
    
 }

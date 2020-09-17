@@ -16,7 +16,7 @@ namespace Nep.Project.Web.ProjectInfo
         public IServices.IProviceService _provinceService { get; set; }
         public IServices.IOrganizationParameterService _orgParamService { get; set; }
                
-
+        public ServiceModels.Security.SecurityInfo userProfile { get; set; }
         public String ProjectApprovalStatusCode
         {
             get {
@@ -200,6 +200,7 @@ namespace Nep.Project.Web.ProjectInfo
            
             if (!IsPostBack)
             {
+                _projectInfoService.SaveLogAccess((userProfile == null)? null: userProfile.UserID, Common.LOVCode.Logaccess.รายละเอียดโครงการ, "I", Request.UserHostAddress);
                 bool isSaveSuccess;               
                 if (Boolean.TryParse(Request.QueryString["isSaveSuccess"], out isSaveSuccess) && (isSaveSuccess == true))
                 {

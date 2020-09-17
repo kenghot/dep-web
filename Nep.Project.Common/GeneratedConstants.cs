@@ -2,20 +2,19 @@
 
 namespace Nep.Project.Common
 {
-
-    public static class TemplateCode
+	public static class TemplateCode
     {
-
+       
         public const String ORG_RETRACKING = "ORG_RETRACKING";
-
+       
         public const String PROVINCE_RETRACKING = "PROVINCE_RETRACKING";
-
+       
         public const String ORG_TRACKING = "ORG_TRACKING";
-
+       
         public const String PROVINCE_TRACKING = "PROVINCE_TRACKING";
     }
 
-    public static class OrganizationTypeID
+	public static class OrganizationTypeID
     {
         /// <summary>
         /// function name : สังกัดกรม      
@@ -47,19 +46,19 @@ namespace Nep.Project.Common
         public const Decimal อื่นๆ = 7;
     }
 
-    public static class UserGroupCode
+	public static class UserGroupCode
     {
-
+        
         public const String เจ้าหน้าที่จังหวัด = "G1";
-
+        
         public const String องค์กรภายนอก = "G2";
-
+        
         public const String กลุ่มอนุมัติโครงการ = "G3";
-
+        
         public const String กลุ่มติดตามโครงการ = "G4";
-
+        
         public const String กลุ่มผู้บริหาร = "G5";
-
+        
         public const String ผู้ดูแลระบบ = "G6";
     }
 
@@ -143,6 +142,7 @@ namespace Nep.Project.Common
         public const String DisabilityType = "DisabilityType";
         public const String EvaluationStatus = "EvaluationStatus";
         public const String FollowupStatus = "FollowupStatus";
+        public const String LogAccess = "LogAccess";
         public const String OperationLevel = "OperationLevel";
         public const String OperationResult = "OperationResult";
         public const String Prefix = "Prefix";
@@ -210,23 +210,22 @@ namespace Nep.Project.Common
             public const String การจัดประชุมคณะกรรมการจังหวัด = "22";
             public const String การบริหารจัดการภัยพิบัติ = "23";
             public const String การรณรงค์หาเสียงเลือกตั้งผู้แทนไทย = "24";
+            public const String กรอบวงเงินสนับสนุนโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการคนพิการประจำจังหวัด = "25";
+            public const String กรอบวงเงินสนับการดำเนินงานของ_อปท_ = "26";
+            public const String กรอบวงเงินวันคนพิการสากลปี_2559_ส่วนภูมิภาค = "27";
+            public const String กรอบวงเงินสนับสนุนการขับเคลื่อนยุทธศาสตร์การพัฒนาสตรีพิการ_ = "28";
+            public const String กรอบวงเงินการจัดทำแผนพัฒนาคุณภาพชีวิตคนพิการจังหวัด_ฉบับที่_3__พ_ศ__2560___2564_จำนวน = "29";
             public const String คณะการได้ยินหรือสื่อความหมาย = "3";
+            public const String กรอบวงเงินสนับสนุนจังหวัดในการประชุมเตรียมความพร้อมและซักซ้อมคนพิการในสถานการณ์ภัยพิบัติ = "30";
+            public const String กรอบวงเงินสนับสนุนศูนย์บริการคนพิการ = "31";
+            public const String กรอบวงเงินปรับปรุงเช่าหรือก่อสร้างสำนักงานศูนย์บริการคนพิการระดับจังหวัด = "32";
+            public const String กรอบสนับสนุนโครงการตามแผนยุทธศาสตร์มุ่งเป้าภายใต้คณะอนุกรรมการนโยบาย_แผนงาน_และมาตรการกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ = "33";
             public const String คณะออทิสติก = "4";
             public const String คณะจิตใจหรือพฤติกรรม = "5";
             public const String คณะการเห็น = "6";
             public const String คณะทำงานส่วนกลาง = "7";
             public const String คณะทำงาน_พก_ = "8";
             public const String บริหารจัดการสมาคมสภาฯ = "9";
-            //keng
-            public const String กรอบวงเงินสนับสนุนโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการคนพิการประจำจังหวัด = "25";
-            public const String กรอบวงเงินสนับการดำเนินงานของ_อปท_ = "26";
-            public const String กรอบวงเงินวันคนพิการสากลปี_2559_ส่วนภูมิภาค = "27";
-            public const String กรอบวงเงินสนับสนุนการขับเคลื่อนยุทธศาสตร์การพัฒนาสตรีพิการ = "28";
-            public const String กรอบวงเงินการจัดทำแผนพัฒนาคุณภาพชีวิตคนพิการจังหวัด_ฉบับที่_3_พ_ศ_2560_2564_จำนวน = "29";
-            public const String กรอบวงเงินสนับสนุนจังหวัดในการประชุมเตรียมความพร้อมและซักซ้อมคนพิการในสถานการณ์ภัยพิบัติ = "30";
-            public const String กรอบวงเงินสนับสนุนศูนย์บริการคนพิการ = "31";
-            public const String กรอบวงเงินปรับปรุงเช่าหรือก่อสร้างสำนักงานศูนย์บริการคนพิการระดับจังหวัด = "32";
-            public const String กรอบสนับสนุนโครงการตามแผนยุทธศาสตร์มุ่งเป้าภายใต้คณะอนุกรรมการนโยบาย_แผนงาน_และมาตรการกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ = "33";
         }
 
         public static class Disabilitycommittee
@@ -246,7 +245,7 @@ namespace Nep.Project.Common
         {
             public const String ประเภททางการเห็น = "1";
             public const String ประเภททางการได้ยินหรือสื่อความหมาย = "2";
-            public const String ประเภททางการเคลื่อนไหวหรือรางกาย = "3";
+            public const String ประเภททางการเคลื่อนไหวหรือร่างกาย = "3";
             public const String ประเภททางจิตใจหรือพฤติกรรม = "4";
             public const String ประเภททางสติปัญญา = "5";
             public const String ประเภททางการเรียนรู้ = "6";
@@ -266,6 +265,17 @@ namespace Nep.Project.Common
             public const String ถึงกำหนดติดตาม_45_วัน = "2";
             public const String รายงานผลแล้ว = "3";
             public const String กำลังติดตาม = "4";
+        }
+
+        public static class Logaccess
+        {
+            public const String LOGIN = "1";
+            public const String รายการโครงการ = "2";
+            public const String ลงทะเบียนผู้ใช้งาน = "3";
+            public const String ลงทะเบียนหน่วยงาน = "4";
+            public const String เปลี่ยนรหัสผ่าน = "5";
+            public const String ยืนยันการลงทะเบียน = "6";
+            public const String รายละเอียดโครงการ = "7";
         }
 
         public static class Operationlevel
@@ -309,26 +319,26 @@ namespace Nep.Project.Common
             public const String ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว = "6";
             public const String ยกเลิกสัญญา = "7";
             public const String ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง = "8";
-            public const String ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด = "9";
-            public const String อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด = "92";
-            public const String อื่นๆ_โดยคณะกรรมการกลั่นกรอง = "82";
-            public const String ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด = "91";
             public const String ยกเลิกโดยคณะกรรมการกลั่นกรอง = "81";
+            public const String อื่นๆ_โดยคณะกรรมการกลั่นกรอง = "82";
+            public const String ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด = "9";
+            public const String ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด = "91";
+            public const String อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด = "92";
         }
 
         public static class Projectattachment
         {
-            public const String โครงการตามแบบฟอร์มเสนอโครงการ_จำนวน_๑_ชุด_พร้อมซีดีไฟล์โครงการ = "1";
+            public const String โครงการตามแบบฟอร์มเสนอโครงการ_จำนวน_๑_ชุด = "1";
             public const String แผนผังของพื้นที่ดำเนินการ = "10";
             public const String หนังสือรับรององค์กร__กรณีไม่เป็นองค์กรนิติบุคคล = "11";
-            public const String หนังสื่อรับรองการมีส่วนรวม__กรณีเป็นโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด = "12";
+            public const String หนังสื่อรับรองการมีส่วนร่วม__กรณีเป็นโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด = "12";
             public const String รายการการประชุมคณะอนุกรรมการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด___กรณีเป็นโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด = "13";
             public const String อื่นๆ__ที่เป็นประโยชน์ต่อการพิจารณาโครงการ = "14";
             public const String รายชื่อคณะกรรมการบริหารองค์กรชุดปัจจุบัน = "2";
             public const String สำเนาใบอนุญาติจัดตั้ง_และระเบียบหรือข้อบังคับองค์กร = "3";
             public const String รายงานผลการดำเนินงานในรอบปีที่ผ่านมาอย่างคร่าวๆ = "4";
             public const String งบดุล_งบแสดงรายรับ___รายจ่ายขององค์กร = "5";
-            public const String โครงการทีมงาานในการบริการจัดการโครงการ = "6";
+            public const String โครงการทีมงานในการบริการจัดการโครงการ = "6";
             public const String รายชื่อผู้เข้าร่วมโครงการ_หรือรายชื่อกลุ่มเป้าหมาย = "7";
             public const String ร่างกำหนดการโครงการ = "8";
             public const String แผนผังที่ตั้งองค์กร = "9";
@@ -336,16 +346,18 @@ namespace Nep.Project.Common
 
         public static class Projecttype
         {
-            public const String อบรมให้ความรู้ = "1";
-            public const String การติดตาม = "10";
-            public const String ฝึกวิชาชีพ = "2";
-            public const String กิจกรรม_งาน_ปชส_ = "3";
-            public const String ประชุมสัมนา = "4";
-            public const String ผลิตสื่อ = "5";
-            public const String สนับสนุนค่าล่ามต่างๆ = "6";
-            public const String สอนภาษามือ = "7";
-            public const String ฟื้นฟูสมรรถภาพฯ = "8";
-            public const String การวิจัย = "9";
+            public const String การอบรมให้ความรู้ = "1";
+            public const String การติดตามประเมินผล = "10";
+            public const String ส่งเสริมมาตราฐานองค์กร = "11";
+            public const String ค่าตอบแทนล่ามภาษามือ = "12";
+            public const String การฝึกอาชีพ = "2";
+            public const String การส่งเสริมการมีงานทำ = "3";
+            public const String การประชาสัมพันธ์ = "4";
+            public const String ด้านสตรีพิการ = "5";
+            public const String สิ่งอำนวยความสะดวก___ปรับสภาพแวดล้อมฯ = "6";
+            public const String การวิจัย_นวัตกรรม = "7";
+            public const String ศุนย์บริการคนพิการ = "8";
+            public const String ค่าตอบแทนผู้ช่วยคนพิการ = "9";
         }
 
         public static class Reporttrackingtype

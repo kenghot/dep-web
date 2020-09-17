@@ -17,6 +17,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnMessage UpdateInternalUser(ServiceModels.UserProfile userProfile);
 
         ServiceModels.ReturnQueryData<ServiceModels.UserList> ListWithCriteria(ServiceModels.QueryParameter p);
+        ServiceModels.ReturnQueryData<ServiceModels.UserList> ListAccessWithCriteria(ServiceModels.QueryParameter p);
         ServiceModels.ReturnQueryData<ServiceModels.UserList> ListNewRequestWithCriteria(ServiceModels.QueryParameter p);
         ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListRole();
 

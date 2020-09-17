@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.MasterPages {
-    
-    
-    public partial class SiteMaster {
-        
+namespace Nep.Project.Web.MasterPages
+{
+
+
+    public partial class SiteMaster
+    {
+
         /// <summary>
         /// Head1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
+
         /// <summary>
         /// JqueryUICss control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference JqueryUICss;
-        
+
         /// <summary>
         /// SiteCss control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference SiteCss;
-        
+
         /// <summary>
         /// IconicOneCss control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference IconicOneCss;
-        
+
         /// <summary>
         /// Image1 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image1;
-        
+
         /// <summary>
         /// HyperLink1 control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
-        
+
         /// <summary>
         /// HyperLink2 control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
-        
+
         /// <summary>
         /// MenuProject control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuProject;
-        
+
         /// <summary>
         /// MenuAddORGUser control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuAddORGUser;
-        
+
         /// <summary>
         /// MenuReport control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReport;
-        
+
         /// <summary>
         /// MenuReportEvaluationSummary control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportEvaluationSummary;
-        
+
         /// <summary>
         /// A6 control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A6;
-        
+
         /// <summary>
         /// MenuReport4 control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReport4;
-        
+
         /// <summary>
         /// A1 control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
-        
+
         /// <summary>
         /// MenuReportReportReceiverFunding control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportReportReceiverFunding;
-        
+
         /// <summary>
         /// A2 control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A2;
-        
+
         /// <summary>
         /// MenuReportReportSummaryTracing control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportReportSummaryTracing;
-        
+
         /// <summary>
         /// A3 control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A3;
-        
+
         /// <summary>
         /// MenuReportOverlap control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportOverlap;
-        
+
         /// <summary>
         /// Li5 control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li5;
-        
+
         /// <summary>
         /// A15 control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A15;
-        
+
         /// <summary>
         /// Li6 control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li6;
-        
+
         /// <summary>
         /// A16 control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A16;
-        
+
         /// <summary>
         /// Li3 control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li3;
-        
+
         /// <summary>
         /// A13 control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A13;
-        
+
         /// <summary>
         /// Li1 control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li1;
-        
+
         /// <summary>
         /// A12 control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A12;
-        
+
         /// <summary>
         /// Li2 control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li2;
-        
+
         /// <summary>
         /// A5 control.
         /// </summary>
@@ -272,7 +274,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A5;
-        
+
         /// <summary>
         /// MenuOrganization control.
         /// </summary>
@@ -281,7 +283,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuOrganization;
-        
+
         /// <summary>
         /// A8 control.
         /// </summary>
@@ -290,7 +292,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A8;
-        
+
         /// <summary>
         /// A9 control.
         /// </summary>
@@ -299,7 +301,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A9;
-        
+
         /// <summary>
         /// A10 control.
         /// </summary>
@@ -308,7 +310,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A10;
-        
+
         /// <summary>
         /// MenuManageUser control.
         /// </summary>
@@ -317,7 +319,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuManageUser;
-        
+
         /// <summary>
         /// A4 control.
         /// </summary>
@@ -326,7 +328,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A4;
-        
+
         /// <summary>
         /// A7 control.
         /// </summary>
@@ -335,7 +337,16 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A7;
-        
+
+        /// <summary>
+        /// A11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A11;
+
         /// <summary>
         /// A17 control.
         /// </summary>
@@ -344,7 +355,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A17;
-        
+
         /// <summary>
         /// A14 control.
         /// </summary>
@@ -353,7 +364,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A14;
-        
+
         /// <summary>
         /// Form control.
         /// </summary>
@@ -362,7 +373,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm Form;
-        
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -371,7 +382,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// modernizrJs control.
         /// </summary>
@@ -380,7 +391,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder modernizrJs;
-        
+
         /// <summary>
         /// HeadContent control.
         /// </summary>
@@ -389,7 +400,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
-        
+
         /// <summary>
         /// WaitingLabelTemp control.
         /// </summary>
@@ -398,7 +409,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label WaitingLabelTemp;
-        
+
         /// <summary>
         /// WaitingModalPopup control.
         /// </summary>
@@ -407,7 +418,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender WaitingModalPopup;
-        
+
         /// <summary>
         /// WaitingModalPopupPanel control.
         /// </summary>
@@ -416,7 +427,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel WaitingModalPopupPanel;
-        
+
         /// <summary>
         /// AjaxWaitingModalPopup control.
         /// </summary>
@@ -425,7 +436,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender AjaxWaitingModalPopup;
-        
+
         /// <summary>
         /// AjaxWaitingModalPopupPanel control.
         /// </summary>
@@ -434,7 +445,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel AjaxWaitingModalPopupPanel;
-        
+
         /// <summary>
         /// LabelProjectName control.
         /// </summary>
@@ -443,7 +454,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelProjectName;
-        
+
         /// <summary>
         /// MainContent control.
         /// </summary>
@@ -452,7 +463,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-        
+
         /// <summary>
         /// ImageLoader control.
         /// </summary>
@@ -461,7 +472,7 @@ namespace Nep.Project.Web.MasterPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImageLoader;
-        
+
         /// <summary>
         /// FooterScript control.
         /// </summary>

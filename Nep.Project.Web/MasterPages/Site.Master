@@ -105,6 +105,7 @@
                             <ul class="children">
                                 <li class="page_item page-item-demo-list"><a id="A4"  runat="server" href="~/User/UserProfileList">รายการผู้ใช้งาน</a></li>
                                 <li class="page_item page-item-demo-list"><a id="A7"  runat="server" href="~/User/NewUserProfileList">จัดการผู้สมัครใหม่</a></li>
+                                <li class="page_item page-item-demo-list"><a id="A11"  runat="server" href="~/User/UserAccessList">รายการผู้เข้าใช้งาน</a></li>
                             </ul>
                          
                         </li>   

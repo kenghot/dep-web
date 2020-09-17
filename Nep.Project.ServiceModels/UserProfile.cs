@@ -174,6 +174,10 @@ namespace Nep.Project.ServiceModels
         [Display(Name = "UserProfile_Province", ResourceType = typeof(Nep.Project.Resources.Model))]
         public string Province { get; set; }
 
+        public DateTime AccessDateTime { get; set; }
+        public string AccessDesc { get; set; }
+        public string AccessType { get; set; }
+        public string IPAddress { get; set; }
         
     }
 }

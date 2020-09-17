@@ -57,6 +57,7 @@ namespace Nep.Project.Web.Register
         {
             if (!IsPostBack)
             {
+                _service.SaveLogAccess(null, Common.LOVCode.Logaccess.ลงทะเบียนหน่วยงาน, "I", Request.UserHostAddress);
                 BindRadioButtonOrganiaztionType();
                 //BindRadioButtonListOrganizationType();
                 //BindRadioButtonListGovType();

@@ -2,17 +2,16 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Data" #>
 <#@ assembly name="System.Configuration" #>
-<#@ assembly name="Oracle.DataAccess" #>
+<#@ assembly name="$(SolutionDir)\Nep.Project.DBModels\bin\Debug\Oracle.ManagedDataAccess.dll" #>
 <#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="Oracle.DataAccess.Client" #>
-<#@ import namespace="Oracle.DataAccess.Types" #>
+<#@ import namespace="Oracle.ManagedDataAccess.Client" #>
+<#@ import namespace="Oracle.ManagedDataAccess.Types" #>
 <#@ import namespace="System.Configuration" #>
 <#@ output extension=".cs" #>
 <#
-   
     var webConfigFile =  new System.Configuration.ExeConfigurationFileMap();
        webConfigFile.ExeConfigFilename = this.Host.ResolvePath(@"..\Nep.Project.Web\Web.config"); // your config file
        
@@ -217,6 +216,7 @@ namespace Nep.Project.Common
             s = s.Replace("/", "_");
 			s = s.Replace("(", "_");
 			s = s.Replace(")", "");
+            s = s.Replace("–", "_");
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("([a-z])([A-Z])");
             return regex.Replace(s, "$1_$2").ToUpper();
         } 

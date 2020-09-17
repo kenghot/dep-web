@@ -53,6 +53,8 @@ namespace Nep.Project.DBModels.Model
         public Nullable<decimal> MEETINGNO { get; set; }
         public Nullable<System.DateTime> MEETINGDATE { get; set; }
         public string REMARK { get; set; }
+        public Nullable<decimal> APPROVESTATUS { get; set; }
+        public string EXTENDDATA { get; set; }
     
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }
         public virtual MT_Attachment AuthorizeDoc { get; set; }

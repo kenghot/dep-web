@@ -39,7 +39,6 @@ namespace Nep.Project.DBModels.Model
             this.ProjectPrintReportTrackings = new HashSet<ProjectPrintReportTracking>();
             this.ProjectInformations = new HashSet<ProjectInformation>();
             this.ProjectContracts = new HashSet<ProjectContract>();
-            this.PROJECTDOCUMENTLISTs = new HashSet<PROJECTDOCUMENTLIST>();
             this.K_FILEINTABLE = new HashSet<K_FILEINTABLE>();
         }
     
@@ -77,7 +76,6 @@ namespace Nep.Project.DBModels.Model
         public virtual ICollection<ProjectInformation> ProjectInformations { get; set; }
         public virtual ICollection<ProjectContract> ProjectContracts { get; set; }
         public virtual MT_ListOfValue ProjectOperationAddresses { get; set; }
-        public virtual ICollection<PROJECTDOCUMENTLIST> PROJECTDOCUMENTLISTs { get; set; }
         public virtual ICollection<K_FILEINTABLE> K_FILEINTABLE { get; set; }
     }
 }

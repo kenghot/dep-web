@@ -451,6 +451,7 @@
     <Content Include="Scripts\appScriptsJS\app.js.map" />
     <None Include="Web References\NepServiceWS\NepService.disco" />
     <Content Include="TelerikReport\TelerikRepContractProvince.aspx" />
+    <Content Include="User\UserAccessList.aspx" />
     <Content Include="WebServices\NepService.asmx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1271,6 +1272,13 @@
     <Compile Include="UserControls\IDCardNumberValidator.cs" />
     <Compile Include="UserControls\TextBox.cs" />
     <Compile Include="UserControls\ValidationSummary.cs" />
+    <Compile Include="User\UserAccessList.aspx.cs">
+      <DependentUpon>UserAccessList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\UserAccessList.aspx.designer.cs">
+      <DependentUpon>UserAccessList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\UserRequestForm.aspx.cs">
       <DependentUpon>UserRequestForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

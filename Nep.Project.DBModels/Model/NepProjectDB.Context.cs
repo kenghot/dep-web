@@ -84,7 +84,6 @@ namespace Nep.Project.DBModels.Model
         public virtual DbSet<View_BudgetSummaryByOrgType> View_BudgetSummaryByOrgType { get; set; }
         public virtual DbSet<ProjectOperationAddress> ProjectOperationAddresses { get; set; }
         public virtual DbSet<View_ParticipantProvinceDup> View_ParticipantProvinceDup { get; set; }
-        public virtual DbSet<PROJECTDOCUMENTLIST> PROJECTDOCUMENTLISTs { get; set; }
         public virtual DbSet<K_FILEINTABLE> K_FILEINTABLE { get; set; }
         public virtual DbSet<K_MT_POSITION> K_MT_POSITION { get; set; }
         public virtual DbSet<PROJECTFOLLOWUP2> PROJECTFOLLOWUP2 { get; set; }
@@ -93,6 +92,7 @@ namespace Nep.Project.DBModels.Model
         public virtual DbSet<PROJECTHISTORY> PROJECTHISTORies { get; set; }
         public virtual DbSet<PROJECTPROCESSED> PROJECTPROCESSEDs { get; set; }
         public virtual DbSet<PROJECTBUDGETACTIVITY> PROJECTBUDGETACTIVITies { get; set; }
+        public virtual DbSet<LOG_ACCESS> LOG_ACCESS { get; set; }
     
         public virtual int ClearUserAccess()
         {

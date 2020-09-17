@@ -60,7 +60,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabContract> SaveProjectContract(ServiceModels.ProjectInfo.TabContract model);
 
         ServiceModels.ReturnMessage CancelProjectContract(Decimal id);
-
+        ServiceModels.ReturnMessage UndoCancelProjectContract(Decimal id);
         ServiceModels.ReturnMessage DeleteProject(Decimal id);
 
         ServiceModels.ReturnMessage DeleteProjectGeneralInfoByID(Decimal id);
@@ -180,8 +180,10 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<List<ServiceModels.ProjectInfo.ProjectHistory>> GetProjectHistoryList(decimal projID);
         ServiceModels.ReturnObject<bool> SendReportToRevise(decimal projecID, string comment);
         List<ServiceModels.ProjectInfo.ProjectProcessed> MapProjectProcessed(decimal projectID);
-
+        DBModels.Model.MT_ListOfValue GetListOfValue(string code, string group);
+        DBModels.Model.MT_ListOfValue GetListOfValueByKey(decimal LOVID);
         ServiceModels.ReturnObject<bool> SaveProjectProcessed(decimal projID, List<ServiceModels.ProjectInfo.ProjectProcessed> data,string ipAddress);
+        ServiceModels.ReturnMessage SaveLogAccess(decimal? userId,string accessCode, string accessType, string ipAddress);
         //ServiceModels.ReturnObject<bool> SaveFileUpload(List<ServiceModels.KendoAttachment> addFiles, List<ServiceModels.KendoAttachment> removeFiles, decimal projID, string tabName, string tabField, decimal attachTypeID);
     }
 }

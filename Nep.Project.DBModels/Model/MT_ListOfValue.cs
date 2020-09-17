@@ -29,6 +29,7 @@ namespace Nep.Project.DBModels.Model
             this.ProjectParticipants = new HashSet<ProjectParticipant>();
             this.ProjectPrintReportTrackings = new HashSet<ProjectPrintReportTracking>();
             this.ProjectApprovalBudgetTypes = new HashSet<ProjectApproval>();
+            this.LOG_ACCESS = new HashSet<LOG_ACCESS>();
         }
     
         public decimal LOVID { get; set; }
@@ -55,5 +56,6 @@ namespace Nep.Project.DBModels.Model
         public virtual ICollection<ProjectParticipant> ProjectParticipants { get; set; }
         public virtual ICollection<ProjectPrintReportTracking> ProjectPrintReportTrackings { get; set; }
         public virtual ICollection<ProjectApproval> ProjectApprovalBudgetTypes { get; set; }
+        public virtual ICollection<LOG_ACCESS> LOG_ACCESS { get; set; }
     }
 }

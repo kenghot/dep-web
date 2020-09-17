@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Nep.Project.ServiceModels.Report.ReportProjectRequest;
+using Nep.Project.ServiceModels.ProjectInfo;
 
 namespace Nep.Project.ServiceModels.Report
 {
@@ -78,6 +79,6 @@ namespace Nep.Project.ServiceModels.Report
         public string MeetingText { get; set; }
         public string MsgAuthorizeFlag { get; set; }
         public string SupportGivenDesc { get; set; }
-
+        public ContractExtend ExtendData { get; set; }
     }
 }

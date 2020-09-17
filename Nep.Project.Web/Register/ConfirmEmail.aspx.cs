@@ -11,6 +11,7 @@ namespace Nep.Project.Web.Register
     public partial class ConfirmEmail : Nep.Project.Web.Infra.BasePage
     {
         public IServices.IRegisterService service { get; set; }
+        public IServices.IProjectInfoService projservice { get; set; }
 
         private static string AcitvatationCode_QueryString = "code";
         private static string ID_QueryString = "entryId";
@@ -35,6 +36,7 @@ namespace Nep.Project.Web.Register
 
             if (!IsPostBack)
             {
+                projservice.SaveLogAccess(null, Common.LOVCode.Logaccess.ยืนยันการลงทะเบียน, "I", Request.UserHostAddress);
                 var result = service.GetRegistryUser(entryid, code);
                 if (result.IsCompleted)
                 {

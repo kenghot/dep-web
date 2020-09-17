@@ -1900,10 +1900,68 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public decimal? AttachPage3 { get; set; }
         public decimal? MeetingNo { get; set; }
         public DateTime? MeetingDate { get; set; }
-
+        public decimal? LastApproveStatus { get; set; }
+        public ContractExtend ExtendData { get; set; }
+        public string ExtendJson { get; set; }
 
     }
+    public class ContractExtend
+    {
+        public int PageCount1 { get; set; }
+        public int PageCount2 { get; set; }
+        public int PageCount3 { get; set; }
+        public int PageCount4 { get; set; }
+        public int PageCount5 { get; set; }
+        public int PageCount6 { get; set; }
+        public string PageCount1Text { get; set; }
+        public string PageCount2Text { get; set; }
+        public string PageCount3Text { get; set; }
+        public string PageCount4Text { get; set; }
+        public string PageCount5Text { get; set; }
+        public string PageCount6Text { get; set; }
+        public string Command { get; set; }
+        public DateTime CommandDate { get; set; }
+        public string CommandDateText { get; set; }
+        public string BookNo { get; set; }
+        public DateTime BookDate { get; set; }
+        public string BookDateText { get; set; }
+        public string BookOrder { get; set; }
 
+        public int MeetingOrder { get; set; }
+        public DateTime MeetingDate { get; set; }
+        public string MeetingDateText { get; set; }
+        public Address AddressAt { get; set; }
+        /// <summary>
+        /// ผู้รับมอบอำนาจ
+        /// </summary>
+        public Address AddressAuth { get; set; }
+    }
+    public class Contact
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Position { get; set; }
+        public string Tel { get; set; }
+        public DateTime? SignDate { get; set; }
+        public string SignDateText { get; set; }
+
+    }
+    public class Address
+    {
+        public string AddressNo { get; set; }
+        public string Moo { get; set; }
+        public string Building { get; set; }
+        public string Soi { get; set; }
+        public string Street { get; set; }
+        public decimal ProvinceId { get; set; }
+        public string ProvinceName { get; set; }
+        public decimal DistrictId { get; set; }
+        public string DistrictName { get; set; }
+        public decimal SubDistrictId { get; set; }
+        public string SubDistrictName { get; set; }
+        public string ZipCode { get; set; }
+    }
     public class ProjectApprovalResult
     {
         public Decimal ProjectID { get; set; }

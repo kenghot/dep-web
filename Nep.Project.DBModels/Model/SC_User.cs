@@ -18,6 +18,7 @@ namespace Nep.Project.DBModels.Model
         {
             this.UserAccess = new HashSet<SC_UserAccess>();
             this.UserRegisterEntries = new HashSet<UserRegisterEntry>();
+            this.LOG_ACCESS = new HashSet<LOG_ACCESS>();
         }
     
         public decimal UserID { get; set; }
@@ -55,5 +56,6 @@ namespace Nep.Project.DBModels.Model
         public virtual MT_Province Province { get; set; }
         public virtual SC_Group Group { get; set; }
         public virtual ICollection<UserRegisterEntry> UserRegisterEntries { get; set; }
+        public virtual ICollection<LOG_ACCESS> LOG_ACCESS { get; set; }
     }
 }

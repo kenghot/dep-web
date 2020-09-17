@@ -23,6 +23,17 @@
           <Property Name="POSNAME" Type="varchar2" MaxLength="50" />
           <Property Name="SORTORDER" Type="varchar2" MaxLength="10" />
         </EntityType>
+        <EntityType Name="LOG_ACCESS">
+          <Key>
+            <PropertyRef Name="LOGID" />
+          </Key>
+          <Property Name="LOGID" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CREATEDATETIME" Type="timestamp" Precision="6" />
+          <Property Name="USERID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ACCESSID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ACCESSTYPE" Type="char" MaxLength="1" />
+          <Property Name="IPADDRESS" Type="varchar2" MaxLength="20" />
+        </EntityType>
         <EntityType Name="MT_ATTACHMENT">
           <Key>
             <PropertyRef Name="ATTACHMENTID" />
@@ -282,10 +293,10 @@
           <Property Name="ACTIVITYDESC" Type="clob" Nullable="false" />
           <Property Name="RUNNO" Type="number" Precision="11" Scale="0" />
           <Property Name="TOTALAMOUNT" Type="number" Precision="11" Scale="2" />
-          <Property Name="CREATEDATE" Type="timestamp" Precision="6" />
-          <Property Name="CREATEBYID" Type="number" Precision="38" Scale="0" />
-          <Property Name="UPDATEDATE" Type="timestamp" Precision="6" />
           <Property Name="UPDATEBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="UPDATEDATE" Type="timestamp" Precision="6" />
+          <Property Name="CREATEBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="CREATEDATE" Type="timestamp" Precision="6" />
         </EntityType>
         <EntityType Name="PROJECTCOMMITTEE">
           <Key>
@@ -339,10 +350,12 @@
           <Property Name="CONTRACTYEAR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="REMARK" Type="clob" />
           <Property Name="ATTACHPAGE1" Type="number" Precision="38" Scale="0" />
-          <Property Name="ATTACHPAGE2" Type="number" Precision="38" Scale="0" />
-          <Property Name="ATTACHPAGE3" Type="number" Precision="38" Scale="0" />
-          <Property Name="MEETINGNO" Type="number" Precision="38" Scale="0" />
           <Property Name="MEETINGDATE" Type="date" />
+          <Property Name="MEETINGNO" Type="number" Precision="38" Scale="0" />
+          <Property Name="ATTACHPAGE3" Type="number" Precision="38" Scale="0" />
+          <Property Name="ATTACHPAGE2" Type="number" Precision="38" Scale="0" />
+          <Property Name="APPROVESTATUS" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="PROJECTDOCUMENT">
           <Key>
@@ -369,15 +382,6 @@
           <Property Name="UPDATEDDATE" Type="timestamp" Precision="6" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
-        </EntityType>
-        <EntityType Name="PROJECTDOCUMENTLIST">
-          <Key>
-            <PropertyRef Name="DOCID" />
-          </Key>
-          <Property Name="DOCID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="PROJECTID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="DOCUMENTNO" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="DOCUMENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PROJECTEVALUATION">
           <Key>
@@ -558,11 +562,11 @@
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
           <Property Name="CURRENTPROJECT" Type="clob" />
           <Property Name="GOTSUPPORTLASTPROJECT" Type="clob" />
-          <Property Name="RESPONSEFIRSTNAME" Type="varchar2" MaxLength="50" />
-          <Property Name="RESPONSETEL" Type="varchar2" MaxLength="50" />
-          <Property Name="RESPONSEEMAIL" Type="varchar2" MaxLength="50" />
-          <Property Name="RESPONSELASTNAME" Type="varchar2" MaxLength="50" />
           <Property Name="RESPONSEPOSITION" Type="varchar2" MaxLength="50" />
+          <Property Name="RESPONSELASTNAME" Type="varchar2" MaxLength="50" />
+          <Property Name="RESPONSEFIRSTNAME" Type="varchar2" MaxLength="50" />
+          <Property Name="RESPONSEEMAIL" Type="varchar2" MaxLength="50" />
+          <Property Name="RESPONSETEL" Type="varchar2" MaxLength="50" />
         </EntityType>
         <EntityType Name="PROJECTHISTORY">
           <Key>
@@ -1472,9 +1476,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_OPERATIONADDRESS">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTOPERATIONADDRESS" Type="Self.PROJECTOPERATIONADDRESS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1486,9 +1488,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTAPPROVAL">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTAPPROVAL" Type="Self.PROJECTAPPROVAL" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1500,9 +1500,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTBUDGET">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTBUDGET" Type="Self.PROJECTBUDGET" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1514,9 +1512,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTCOMMITTEE">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTCOMMITTEE" Type="Self.PROJECTCOMMITTEE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1528,9 +1524,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTCONTRACT">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTCONTRACT" Type="Self.PROJECTCONTRACT" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1542,9 +1536,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTDOCUMENT">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTDOCUMENT" Type="Self.PROJECTDOCUMENT" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1556,9 +1548,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTEVALUATION">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTEVALUATION" Type="Self.PROJECTEVALUATION" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1570,9 +1560,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTFOLLOWUP">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTFOLLOWUP" Type="Self.PROJECTFOLLOWUP" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1584,9 +1572,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTFOLLOWUP2">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTFOLLOWUP2" Type="Self.PROJECTFOLLOWUP2" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1610,9 +1596,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTINFORMATION">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTINFORMATION" Type="Self.PROJECTINFORMATION" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1636,9 +1620,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTOPERATION">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTOPERATION" Type="Self.PROJECTOPERATION" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1650,9 +1632,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTPARTICIPANTS">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTPARTICIPANT" Type="Self.PROJECTPARTICIPANT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1664,9 +1644,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTPERSONEL">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTPERSONEL" Type="Self.PROJECTPERSONEL" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1678,9 +1656,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_PROJECTREPORT">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTREPORT" Type="Self.PROJECTREPORT" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -1716,9 +1692,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PROJECT_TARGETGROUP">
-          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="PROJECTGENERALINFO" Type="Self.PROJECTGENERALINFO" Multiplicity="1" />
           <End Role="PROJECTTARGETGROUP" Type="Self.PROJECTTARGETGROUP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PROJECTGENERALINFO">
@@ -2067,6 +2041,30 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="LOG_ACCESS_FK_USER">
+          <End Role="SC_USER" Type="Self.SC_USER" Multiplicity="0..1" />
+          <End Role="LOG_ACCESS" Type="Self.LOG_ACCESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SC_USER">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="LOG_ACCESS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOG_ACCESS_FK2_ACCESS">
+          <End Role="MT_LISTOFVALUE" Type="Self.MT_LISTOFVALUE" Multiplicity="0..1" />
+          <End Role="LOG_ACCESS" Type="Self.LOG_ACCESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MT_LISTOFVALUE">
+              <PropertyRef Name="LOVID" />
+            </Principal>
+            <Dependent Role="LOG_ACCESS">
+              <PropertyRef Name="ACCESSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ORGANIZATIONCOMMITTEE_FK1">
           <End Role="K_MT_POSITION" Type="Self.K_MT_POSITION" Multiplicity="0..1" />
           <End Role="ORGANIZATIONCOMMITTEE" Type="Self.ORGANIZATIONCOMMITTEE" Multiplicity="*" />
@@ -2108,6 +2106,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="K_FILEINTABLE" EntityType="Self.K_FILEINTABLE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="K_MT_POSITION" EntityType="Self.K_MT_POSITION" Schema="NEP_APP02" store:Type="Tables" />
+          <EntitySet Name="LOG_ACCESS" EntityType="Self.LOG_ACCESS" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_ATTACHMENT" EntityType="Self.MT_ATTACHMENT" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_DISTRICT" EntityType="Self.MT_DISTRICT" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_LISTOFVALUE" EntityType="Self.MT_LISTOFVALUE" Schema="NEP_APP02" store:Type="Tables" />
@@ -2126,7 +2125,6 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <EntitySet Name="PROJECTCOMMITTEE" EntityType="Self.PROJECTCOMMITTEE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="PROJECTCONTRACT" EntityType="Self.PROJECTCONTRACT" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="PROJECTDOCUMENT" EntityType="Self.PROJECTDOCUMENT" Schema="NEP_APP02" store:Type="Tables" />
-          <EntitySet Name="PROJECTDOCUMENTLIST" EntityType="Self.PROJECTDOCUMENTLIST" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="PROJECTEVALUATION" EntityType="Self.PROJECTEVALUATION" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="PROJECTFOLLOWUP" EntityType="Self.PROJECTFOLLOWUP" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="PROJECTFOLLOWUP2" EntityType="Self.PROJECTFOLLOWUP2" Schema="NEP_APP02" store:Type="Tables" />
@@ -2545,6 +2543,14 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="MT_ATTACHMENT" EntitySet="MT_ATTACHMENT" />
             <End Role="K_FILEINTABLE" EntitySet="K_FILEINTABLE" />
           </AssociationSet>
+          <AssociationSet Name="LOG_ACCESS_FK_USER" Association="Self.LOG_ACCESS_FK_USER">
+            <End Role="SC_USER" EntitySet="SC_USER" />
+            <End Role="LOG_ACCESS" EntitySet="LOG_ACCESS" />
+          </AssociationSet>
+          <AssociationSet Name="LOG_ACCESS_FK2_ACCESS" Association="Self.LOG_ACCESS_FK2_ACCESS">
+            <End Role="MT_LISTOFVALUE" EntitySet="MT_LISTOFVALUE" />
+            <End Role="LOG_ACCESS" EntitySet="LOG_ACCESS" />
+          </AssociationSet>
           <AssociationSet Name="ORGANIZATIONCOMMITTEE_FK1" Association="Self.ORGANIZATIONCOMMITTEE_FK1">
             <End Role="K_MT_POSITION" EntitySet="K_MT_POSITION" />
             <End Role="ORGANIZATIONCOMMITTEE" EntitySet="ORGANIZATIONCOMMITTEE" />
@@ -2599,7 +2605,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <NavigationProperty Name="ProjectContracts" Relationship="Model.FK_AUTHORIZEDOC_CONTRACT" FromRole="MT_Attachment" ToRole="ProjectContract" />
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <NavigationProperty Name="ProjectOperationAddresses" Relationship="Model.FK_TYPE_MT_ATTACHMENT" FromRole="MT_ATTACHMENT" ToRole="MT_LISTOFVALUE" />
-          <NavigationProperty Name="PROJECTDOCUMENTLISTs" Relationship="Model.PROJECTDOCUMENTLIST_FK1" FromRole="MT_Attachment" ToRole="PROJECTDOCUMENTLIST" />
           <NavigationProperty Name="K_FILEINTABLE" Relationship="Model.K_FILEINTABLE_FK1" FromRole="MT_Attachment" ToRole="K_FILEINTABLE" />
         </EntityType>
         <EntityType Name="MT_District">
@@ -2646,6 +2651,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <NavigationProperty Name="ProjectParticipants" Relationship="Model.FK_TG_PROJECTPARTICIPANTS" FromRole="MT_ListOfValue" ToRole="PROJECTPARTICIPANT" />
           <NavigationProperty Name="ProjectPrintReportTrackings" Relationship="Model.FK_TRACKINTYPE_REPORTTRACKIN" FromRole="MT_ListOfValue" ToRole="ProjectPrintReportTracking" />
           <NavigationProperty Name="ProjectApprovalBudgetTypes" Relationship="Model.FK_BUDGETTYPE_PROJECTAPPROVAL" FromRole="MT_ListOfValue" ToRole="ProjectApproval" />
+          <NavigationProperty Name="LOG_ACCESS" Relationship="Model.LOG_ACCESS_FK2_ACCESS" FromRole="MT_ListOfValue" ToRole="LOG_ACCESS" />
         </EntityType>
         <EntityType Name="MT_Organization">
           <Key>
@@ -2877,6 +2883,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="MEETINGNO" Type="Decimal"  Precision="38" Scale="0" />
           <Property Name="MEETINGDATE" Type="DateTime" Nullable="true" />
           <Property Name="REMARK" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="APPROVESTATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectDocument">
           <Key>
@@ -3071,7 +3079,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
           <NavigationProperty Name="PROJECTOPERATIONADDRESSes" Relationship="Model.FK_PROJECT_OPERATIONADDRESS" FromRole="ProjectGeneralInfo" ToRole="ProjectOperationAddress" />
-          <NavigationProperty Name="PROJECTDOCUMENTLISTs" Relationship="Model.PROJECTDOCUMENTLIST_FK2" FromRole="ProjectGeneralInfo" ToRole="PROJECTDOCUMENTLIST" />
           <NavigationProperty Name="PROJECTFOLLOWUP2" Relationship="Model.FK_PROJECT_PROJECTFOLLOWUP2" FromRole="ProjectGeneralInfo" ToRole="PROJECTFOLLOWUP2" />
           <Property Name="RESPONSEFIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESPONSETEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3385,6 +3392,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="ForgetPasswordRequestDate" Type="DateTime" />
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="LOG_ACCESS" Relationship="Model.LOG_ACCESS_FK_USER" FromRole="SC_User" ToRole="LOG_ACCESS" />
         </EntityType>
         <EntityType Name="SC_UserAccess">
           <Key>
@@ -4110,15 +4118,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="ProjectOperationAddress" EntitySet="ProjectOperationAddresses" />
           </AssociationSet>
           <EntitySet Name="View_ParticipantProvinceDup" EntityType="Model.View_ParticipantProvinceDup" />
-          <EntitySet Name="PROJECTDOCUMENTLISTs" EntityType="Model.PROJECTDOCUMENTLIST" />
-          <AssociationSet Name="PROJECTDOCUMENTLIST_FK1" Association="Model.PROJECTDOCUMENTLIST_FK1">
-            <End Role="MT_Attachment" EntitySet="MT_Attachment" />
-            <End Role="PROJECTDOCUMENTLIST" EntitySet="PROJECTDOCUMENTLISTs" />
-          </AssociationSet>
-          <AssociationSet Name="PROJECTDOCUMENTLIST_FK2" Association="Model.PROJECTDOCUMENTLIST_FK2">
-            <End Role="ProjectGeneralInfo" EntitySet="ProjectGeneralInfoes" />
-            <End Role="PROJECTDOCUMENTLIST" EntitySet="PROJECTDOCUMENTLISTs" />
-          </AssociationSet>
           <EntitySet Name="K_FILEINTABLE" EntityType="Model.K_FILEINTABLE" />
           <AssociationSet Name="K_FILEINTABLE_FK1" Association="Model.K_FILEINTABLE_FK1">
             <End Role="MT_Attachment" EntitySet="MT_Attachment" />
@@ -4147,6 +4146,15 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySet Name="PROJECTHISTORies" EntityType="Model.PROJECTHISTORY" />
           <EntitySet Name="PROJECTPROCESSEDs" EntityType="Model.PROJECTPROCESSED" />
           <EntitySet Name="PROJECTBUDGETACTIVITies" EntityType="Model.PROJECTBUDGETACTIVITY" />
+          <EntitySet Name="LOG_ACCESS" EntityType="Model.LOG_ACCESS" />
+          <AssociationSet Name="LOG_ACCESS_FK_USER" Association="Model.LOG_ACCESS_FK_USER">
+            <End Role="SC_User" EntitySet="SC_User" />
+            <End Role="LOG_ACCESS" EntitySet="LOG_ACCESS" />
+          </AssociationSet>
+          <AssociationSet Name="LOG_ACCESS_FK2_ACCESS" Association="Model.LOG_ACCESS_FK2_ACCESS">
+            <End Role="MT_ListOfValue" EntitySet="MT_ListOfValue" />
+            <End Role="LOG_ACCESS" EntitySet="LOG_ACCESS" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="MT_OrganizationParameter">
           <Key>
@@ -4907,41 +4915,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="DisabilityTypeName" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="CountParticipant" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
-        <EntityType Name="PROJECTDOCUMENTLIST">
-          <Key>
-            <PropertyRef Name="DOCID" />
-          </Key>
-          <Property Name="DOCID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="PROJECTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="DOCUMENTNO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="DOCUMENTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <NavigationProperty Name="MT_ATTACHMENT" Relationship="Model.PROJECTDOCUMENTLIST_FK1" FromRole="PROJECTDOCUMENTLIST" ToRole="MT_Attachment" />
-          <NavigationProperty Name="PROJECTGENERALINFO" Relationship="Model.PROJECTDOCUMENTLIST_FK2" FromRole="PROJECTDOCUMENTLIST" ToRole="ProjectGeneralInfo" />
-        </EntityType>
-        <Association Name="PROJECTDOCUMENTLIST_FK1">
-          <End Type="Model.MT_Attachment" Role="MT_Attachment" Multiplicity="1" />
-          <End Type="Model.PROJECTDOCUMENTLIST" Role="PROJECTDOCUMENTLIST" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MT_Attachment">
-              <PropertyRef Name="AttachmentID" />
-            </Principal>
-            <Dependent Role="PROJECTDOCUMENTLIST">
-              <PropertyRef Name="DOCUMENTID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PROJECTDOCUMENTLIST_FK2">
-          <End Type="Model.ProjectGeneralInfo" Role="ProjectGeneralInfo" Multiplicity="1" />
-          <End Type="Model.PROJECTDOCUMENTLIST" Role="PROJECTDOCUMENTLIST" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectGeneralInfo">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="PROJECTDOCUMENTLIST">
-              <PropertyRef Name="PROJECTID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="K_FILEINTABLE">
           <Key>
             <PropertyRef Name="FILEINTABLEID" />
@@ -5142,6 +5115,43 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="UPDATEDATE" Type="DateTime" Precision="6" />
           <Property Name="UPDATEBYID" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
+        <EntityType Name="LOG_ACCESS">
+          <Key>
+            <PropertyRef Name="LOGID" />
+          </Key>
+          <Property Name="LOGID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CREATEDATETIME" Type="DateTime" Precision="6" />
+          <Property Name="USERID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ACCESSID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ACCESSTYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="IPADDRESS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SC_USER" Relationship="Model.LOG_ACCESS_FK_USER" FromRole="LOG_ACCESS" ToRole="SC_User" />
+          <NavigationProperty Name="MT_LISTOFVALUE" Relationship="Model.LOG_ACCESS_FK2_ACCESS" FromRole="LOG_ACCESS" ToRole="MT_ListOfValue" />
+        </EntityType>
+        <Association Name="LOG_ACCESS_FK_USER">
+          <End Type="Model.SC_User" Role="SC_User" Multiplicity="0..1" />
+          <End Type="Model.LOG_ACCESS" Role="LOG_ACCESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SC_User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LOG_ACCESS">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOG_ACCESS_FK2_ACCESS">
+          <End Type="Model.MT_ListOfValue" Role="MT_ListOfValue" Multiplicity="0..1" />
+          <End Type="Model.LOG_ACCESS" Role="LOG_ACCESS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MT_ListOfValue">
+              <PropertyRef Name="LOVID" />
+            </Principal>
+            <Dependent Role="LOG_ACCESS">
+              <PropertyRef Name="ACCESSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5358,6 +5368,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectContracts">
             <EntityTypeMapping TypeName="Model.ProjectContract">
               <MappingFragment StoreEntitySet="PROJECTCONTRACT">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
+                <ScalarProperty Name="APPROVESTATUS" ColumnName="APPROVESTATUS" />
                 <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
@@ -6080,16 +6092,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PROJECTDOCUMENTLISTs">
-            <EntityTypeMapping TypeName="Model.PROJECTDOCUMENTLIST">
-              <MappingFragment StoreEntitySet="PROJECTDOCUMENTLIST">
-                <ScalarProperty Name="DOCUMENTID" ColumnName="DOCUMENTID" />
-                <ScalarProperty Name="DOCUMENTNO" ColumnName="DOCUMENTNO" />
-                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
-                <ScalarProperty Name="DOCID" ColumnName="DOCID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="K_FILEINTABLE">
             <EntityTypeMapping TypeName="Model.K_FILEINTABLE">
               <MappingFragment StoreEntitySet="K_FILEINTABLE">
@@ -6227,6 +6229,18 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
                 <ScalarProperty Name="ACTIVITYNAME" ColumnName="ACTIVITYNAME" />
                 <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
                 <ScalarProperty Name="ACTIVITYID" ColumnName="ACTIVITYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOG_ACCESS">
+            <EntityTypeMapping TypeName="Model.LOG_ACCESS">
+              <MappingFragment StoreEntitySet="LOG_ACCESS">
+                <ScalarProperty Name="IPADDRESS" ColumnName="IPADDRESS" />
+                <ScalarProperty Name="ACCESSTYPE" ColumnName="ACCESSTYPE" />
+                <ScalarProperty Name="ACCESSID" ColumnName="ACCESSID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="CREATEDATETIME" ColumnName="CREATEDATETIME" />
+                <ScalarProperty Name="LOGID" ColumnName="LOGID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

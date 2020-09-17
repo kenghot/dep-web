@@ -45,6 +45,7 @@ namespace Nep.Project.Web.Register
         {
             if (!IsPostBack)
             {
+                projservice.SaveLogAccess(null, Common.LOVCode.Logaccess.ลงทะเบียนผู้ใช้งาน, "I", Request.UserHostAddress);
                 var centerProvinceResult = _provinceService.GetCenterProvinceID();
                 if (centerProvinceResult.IsCompleted)
                 {

@@ -119,9 +119,6 @@
         <AssociationConnector Association="Model.FK_MAP_OPERATIONADDRESS" />
         <AssociationConnector Association="Model.FK_PROVINCE_OPERATIONADDRESS" />
         <EntityTypeShape EntityType="Model.View_ParticipantProvinceDup" Width="1.5" PointX="11.125" PointY="42.5" />
-        <EntityTypeShape EntityType="Model.PROJECTDOCUMENTLIST" Width="1.5" PointX="17.5" PointY="72.5" />
-        <AssociationConnector Association="Model.PROJECTDOCUMENTLIST_FK1" />
-        <AssociationConnector Association="Model.PROJECTDOCUMENTLIST_FK2" />
         <EntityTypeShape EntityType="Model.K_FILEINTABLE" Width="1.5" PointX="5.125" PointY="52" />
         <AssociationConnector Association="Model.K_FILEINTABLE_FK1" />
         <EntityTypeShape EntityType="Model.K_MT_POSITION" Width="1.5" PointX="10" PointY="48.625" />
@@ -135,6 +132,9 @@
         <EntityTypeShape EntityType="Model.PROJECTHISTORY" Width="1.5" PointX="17.625" PointY="39.125" />
         <EntityTypeShape EntityType="Model.PROJECTPROCESSED" Width="1.5" PointX="22.25" PointY="37.375" />
         <EntityTypeShape EntityType="Model.PROJECTBUDGETACTIVITY" Width="2.625" PointX="6.75" PointY="33.5" />
+        <EntityTypeShape EntityType="Model.LOG_ACCESS" Width="1.5" PointX="17.5" PointY="73.25" />
+        <AssociationConnector Association="Model.LOG_ACCESS_FK_USER" />
+        <AssociationConnector Association="Model.LOG_ACCESS_FK2_ACCESS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

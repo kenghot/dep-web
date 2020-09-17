@@ -563,7 +563,7 @@
     <value>รวม</value>
   </data>
   <data name="ButtonCancelContract" xml:space="preserve">
-    <value>กลับสัญญา</value>
+    <value>ยกเลิกสัญญา</value>
   </data>
   <data name="LabelYear" xml:space="preserve">
     <value>ปี</value>

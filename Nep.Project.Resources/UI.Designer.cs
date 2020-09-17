@@ -106,7 +106,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to กลับสัญญา.
+        ///   Looks up a localized string similar to ยกเลิกสัญญา.
         /// </summary>
         public static string ButtonCancelContract {
             get {

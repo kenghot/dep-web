@@ -148,7 +148,19 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             CanSaveContract = canSave;
                             ButtonSave.Visible = canSave;
                             CheckBoxAuthorizeFlag.Enabled = canSave;
-
+                            
+                            ButtonUndoCancelContract.Visible = false;
+                            if (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer)
+                            {
+                                DBModels.Model.MT_ListOfValue status = _service.GetListOfValue(Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา, Common.LOVGroup.ProjectApprovalStatus);
+                                var gen = _service.GetDB().ProjectGeneralInfoes.Where(w => w.ProjectID == model.ProjectID).FirstOrDefault();
+                                if (gen != null && gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา && result.Data.LastApproveStatus.HasValue)
+                                {
+                                    ButtonUndoCancelContract.Visible = true;
+                                }
+                            }
+                            
+                            
                             HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             ButtonCancelContract.Visible = functions.Contains(Common.ProjectFunction.CancelContract);
                             C2XFileUploadAuthorizeDoc.Enabled = functions.Contains(Common.ProjectFunction.SaveContract);
@@ -187,7 +199,45 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             TextBoxAttachPage3.Text = model.AttachPage3?.ToString();
                             //TextboxMeetingNo.Text = model.MeetingNo?.ToString();
                             List<ServiceModels.KendoAttachment> SupportFiles = model.SupportAttachments;
-                  
+                            if (model.ExtendData != null)
+                            {
+                                //TextBoxAttachPage1.Text = model.ExtendData.PageCount1.ToString();
+                                //TextBoxAttachPage2.Text = model.ExtendData.PageCount2.ToString();
+                                //TextBoxAttachPage3.Text = model.ExtendData.PageCount3.ToString();
+                                //TextBoxAttachPage4.Text = model.ExtendData.PageCount4.ToString();
+                                //TextBoxAttachPage5.Text = model.ExtendData.PageCount5.ToString();
+                                //TextBoxAttachPage6.Text = model.ExtendData.PageCount6.ToString();
+                                //DatePickerBook.SelectedDate = model.ExtendData.BookDate;
+                                //DatePickerCommand.SelectedDate = model.ExtendData.CommandDate;
+                                //TextBoxBookOrder.Text = model.ExtendData.BookOrder;
+                                //TextBoxBooNo.Text = model.ExtendData.BookNo;
+                                //TextBoxCommand.Text = model.ExtendData.Command;
+                                //DatePickerMeeting.SelectedDate = model.ExtendData.MeetingDate;
+                                //TextBoxMeetingOrder.Text = model.ExtendData.MeetingOrder.ToString();
+                                if (model.ExtendData.AddressAt != null)
+                                {
+                                    var data = model.ExtendData.AddressAt;
+                                    DdlProvince.Value = ((int)data.ProvinceId).ToString();
+                                    DdlDistrict.Value = ((int)data.DistrictId).ToString();
+                                    DdlSubDistrict.Value = ((int)data.SubDistrictId).ToString();
+                                    TextBoxAddressNo.Text = data.AddressNo;
+                                    TextBoxBuilding.Text = data.Building;
+                                    TextBoxMoo.Text = data.Moo;
+                                    TextBoxPostCode.Text = data.ZipCode;
+                                }
+                                //if (model.ExtendData.AddressAuth != null)
+                                //{
+                                //    var data = model.ExtendData.AddressAuth;
+                                //    DdlProvince2.Value = data.ProvinceId == 0 ? null : ((int)data.ProvinceId).ToString();
+                                //    DdlDistrict2.Value = data.DistrictId == 0 ? null : ((int)data.DistrictId).ToString();
+                                //    DdlSubDistrict2.Value = data.SubDistrictId == 0 ? null : ((int)data.SubDistrictId).ToString();
+                                //    TextBoxAddressNo2.Text = data.AddressNo;
+                                //    TextBoxBuilding2.Text = data.Building;
+                                //    TextBoxMoo2.Text = data.Moo;
+                                //    TextBoxPostCode2.Text = data.ZipCode;
+                                //}
+                            }
+
                             //end kenghot
                             FileUploadSupport.ClearChanges();
                             FileUploadSupport.ExistingFiles = SupportFiles;
@@ -399,6 +449,72 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             result.AttachPage3 = decimal.TryParse(TextBoxAttachPage3.Text, out d) ? d : 0;
             //result.MeetingNo = decimal.TryParse(TextboxMeetingNo.Text, out d) ? d : 0;
             //result.MeetingDate = (DatePickerMeetingDate.SelectedDate.HasValue) ? (DateTime?)Convert.ToDateTime(DatePickerMeetingDate.SelectedDate) : null;
+            if (result.ExtendData == null)
+            {
+                result.ExtendData = new ServiceModels.ProjectInfo.ContractExtend();
+            }
+            int i;
+            //result.ExtendData.PageCount1 = int.TryParse(TextBoxAttachPage1.Text, out i) ? i : 0;
+            //result.ExtendData.PageCount2 = int.TryParse(TextBoxAttachPage2.Text, out i) ? i : 0;
+            //result.ExtendData.PageCount3 = int.TryParse(TextBoxAttachPage3.Text, out i) ? i : 0;
+            //result.ExtendData.PageCount4 = int.TryParse(TextBoxAttachPage4.Text, out i) ? i : 0;
+            //result.ExtendData.PageCount5 = int.TryParse(TextBoxAttachPage5.Text, out i) ? i : 0;
+            //result.ExtendData.PageCount6 = int.TryParse(TextBoxAttachPage6.Text, out i) ? i : 0;
+
+            //result.ExtendData.BookDate = DatePickerBook.SelectedDate.Value;
+            //result.ExtendData.CommandDate = DatePickerCommand.SelectedDate.Value;
+            //result.ExtendData.BookOrder = TextBoxBookOrder.Text;
+            //result.ExtendData.BookNo = TextBoxBooNo.Text;
+            //result.ExtendData.Command = TextBoxCommand.Text;
+            //result.ExtendData.MeetingDate = DatePickerMeeting.SelectedDate.Value;
+            //result.ExtendData.MeetingOrder = int.Parse(TextBoxMeetingOrder.Text);
+            var ad = new ServiceModels.ProjectInfo.Address();
+            result.ExtendData.AddressAt = ad;
+            ad.AddressNo = TextBoxAddressNo.Text.Trim();
+            ad.Building = TextBoxBuilding.Text.Trim();
+            ad.Moo = TextBoxMoo.Text.Trim();
+            ad.Soi = TextBoxSoi.Text.Trim();
+            ad.Street = TextBoxStreet.Text.Trim();
+            ad.ZipCode = TextBoxPostCode.Text.Trim();
+
+
+            string provValue = DdlProvince.Value;
+            int provID = 0;
+            Int32.TryParse(provValue, out provID);
+
+            string distValue = DdlDistrict.Value;
+            int distID = 0;
+            Int32.TryParse(distValue, out distID);
+
+            string subDistValue = DdlSubDistrict.Value;
+            int subDistID = 0;
+            Int32.TryParse(subDistValue, out subDistID);
+            ad.ProvinceId = provID;
+            ad.DistrictId = distID;
+            ad.SubDistrictId = subDistID;
+
+            //ad = new ServiceModels.ProjectInfo.Address();
+            //result.ExtendData.AddressAuth = ad;
+            //ad.AddressNo = TextBoxAddressNo2.Text.Trim();
+            //ad.Building = TextBoxBuilding2.Text.Trim();
+            //ad.Moo = TextBoxMoo2.Text.Trim();
+            //ad.Soi = TextBoxSoi2.Text.Trim();
+            //ad.Street = TextBoxStreet2.Text.Trim();
+            //ad.ZipCode = TextBoxPostCode2.Text.Trim();
+            //provValue = DdlProvince2.Value;
+            //provID = 0;
+            //Int32.TryParse(provValue, out provID);
+
+            //distValue = DdlDistrict2.Value;
+            //distID = 0;
+            //Int32.TryParse(distValue, out distID);
+
+            //subDistValue = DdlSubDistrict2.Value;
+            //subDistID = 0;
+            //Int32.TryParse(subDistValue, out subDistID);
+            //ad.ProvinceId = provID;
+            //ad.DistrictId = distID;
+            //ad.SubDistrictId = subDistID;
             return result;
         }
 
@@ -416,7 +532,20 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 ShowErrorMessage(result.Message);
             }
         }
-
+        protected void ButtonUndoCancelContract_Click(object sender, EventArgs e)
+        {
+            var result = _service.UndoCancelProjectContract(ProjectID);
+            if (result.IsCompleted)
+            {
+                Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                page.RebindData("TabPanelContract");
+                ShowResultMessage(result.Message);
+            }
+            else
+            {
+                ShowErrorMessage(result.Message);
+            }
+        }
         protected void CustomValidatorContractDate_ServerValidate(object source, ServerValidateEventArgs args)
         {
             int diff = 0;
@@ -592,9 +721,103 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                        "TabContractScript",
                        script,
                        true);
-            
+            RegisterProvince();
         }
+        private void RegisterProvince()
+        {
+            string provinceSelected = (!String.IsNullOrEmpty(DdlProvince.Value)) ? DdlProvince.Value : "null";
+            string districtSelected = (!String.IsNullOrEmpty(DdlDistrict.Value)) ? DdlDistrict.Value : "null";
+            string subDistrictSelected = (!String.IsNullOrEmpty(DdlSubDistrict.Value)) ? DdlSubDistrict.Value : "null";
+            //string provinceSelected2 = (!String.IsNullOrEmpty(DdlProvince2.Value)) ? DdlProvince2.Value : "null";
+            //string districtSelected2 = (!String.IsNullOrEmpty(DdlDistrict2.Value)) ? DdlDistrict2.Value : "null";
+            //string subDistrictSelected2 = (!String.IsNullOrEmpty(DdlSubDistrict2.Value)) ? DdlSubDistrict2.Value : "null";
+            String script = @"
+                $(function () {                 
+                    
+                    c2x.createComboboxCustom({                       
+                        ControlID: '" + DdlProvince.ClientID + @"',
+                        Placeholder: '" + Nep.Project.Resources.UI.DropdownPleaseSelect + @"',
+                        Enable: true" + @",
+                        TextField: 'Text',
+                        ValueField: 'Value',
+                        ServerFiltering: false,
+                        ReadUrl: './ComboboxHandler/GetProvince',
+                        Change: function(e){c2x.onProvinceComboboxChange('" + DdlDistrict.ClientID + @"', '" + DdlSubDistrict.ClientID + @"',e);},
+                        Value: " + provinceSelected + @",                     
+                     });  
 
+                    c2x.createComboboxCustom({                       
+                        ControlID: '" + DdlDistrict.ClientID + @"',
+                        Placeholder: '" + Nep.Project.Resources.UI.DropdownPleaseSelect + @"',
+                        ParentID:'" + DdlProvince.ClientID + @"', 
+                        AutoBind:false,
+                        Enable:false,
+                        TextField: 'Text',
+                        ValueField: 'Value',
+                        ServerFiltering: false,
+                        ReadUrl: './ComboboxHandler/GetDistrict',
+                        Change: function(e){c2x.onDistrictComboboxChange('" + DdlSubDistrict.ClientID + @"',e);},
+                        Value: " + districtSelected + @",
+                        Param: function(){return c2x.getProvinceComboboxParam('" + DdlProvince.ClientID + @"');},
+                     });    
+
+                    c2x.createComboboxCustom({                       
+                        ControlID: '" + DdlSubDistrict.ClientID + @"',
+                        Placeholder: '" + Nep.Project.Resources.UI.DropdownPleaseSelect + @"',
+                        ParentID:'" + DdlDistrict.ClientID + @"', 
+                        AutoBind:false,
+                        Enable:false,
+                        TextField: 'Text',
+                        ValueField: 'Value',
+                        ServerFiltering: false,
+                        ReadUrl: './ComboboxHandler/GetSubDistrict',      
+                        Value: " + subDistrictSelected + @",     
+                        Param: function(){return c2x.getProvinceComboboxParam('" + DdlDistrict.ClientID + @"');},           
+                     });                   
+
+                });
+
+                function showOrgRegisterDate() {
+                    var orgYearPicker = $find('DatePickerRegisterYear');
+                    if (orgYearPicker != null) {
+                        stopShowOrgDateInterval();
+                        var orgSelectedDate = orgYearPicker.get_selectedDate();
+                        var orgYear = kendo.toString(orgSelectedDate, 'yyyy');
+                        orgYear = parseInt(orgYear, 10);
+
+                        var currentYear = kendo.toString(kendo.parseDate(new Date()), 'yyyy');
+                        currentYear = parseInt(currentYear, 10) - 1;
+                        if (orgYear >= currentYear) {
+                            $('.org-register-date').each(function (item) {
+                                $(this).css('visibility', 'visible');
+                            });
+
+                        } else {
+                            $('.org-register-date').each(function (item) {
+                                $(this).css('visibility', 'hidden');
+                            });
+                        }
+                    }            
+                }
+
+                function stopShowOrgDateInterval() {
+                    clearInterval(showOrgDateInterval);
+                }
+
+                var showOrgDateInterval = setInterval(function(){ showOrgRegisterDate() }, 1000);
+                
+                
+
+            ";
+            ScriptManager.RegisterClientScriptBlock(
+                       UpdatePanelContract,
+                       this.GetType(),
+                       "RegisterProvince",
+                       script,
+                       true);
+
+
+        }
         protected void CustomValidatorRefData_ServerValidate(object source, ServerValidateEventArgs args)
         {
             string refNo1 = TextBoxRefNo1.Text.Trim();
@@ -666,5 +889,32 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             args.IsValid = ((args.Value != "") || (isGen && (args.Value == "")));
            
         }
+        protected void CustomValidatorProvince_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            String value = DdlProvince.Value;
+            int id = 0;
+            Int32.TryParse(value, out id);
+
+            args.IsValid = (id > 0);
+        }
+
+        protected void CustomValidatorDistrict_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            String value = DdlDistrict.Value;
+            int id = 0;
+            Int32.TryParse(value, out id);
+
+            args.IsValid = (id > 0);
+        }
+
+        protected void CustomValidatorSubDistrict_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            String value = DdlSubDistrict.Value;
+            int id = 0;
+            Int32.TryParse(value, out id);
+
+            args.IsValid = (id > 0);
+        }
+
     }
 }

@@ -68,6 +68,9 @@
     <Compile Include="Model\K_MT_POSITION.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\LOG_ACCESS.cs">
+      <DependentUpon>NepProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\MT_Attachment.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
@@ -136,9 +139,6 @@
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ProjectDocument.cs">
-      <DependentUpon>NepProjectDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\PROJECTDOCUMENTLIST.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ProjectEvaluation.cs">

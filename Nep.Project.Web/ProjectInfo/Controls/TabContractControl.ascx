@@ -25,9 +25,8 @@
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractNo) %>"
                                 ValidationGroup="SaveContract" />
                         </div>
-                             
                         <label class="col-sm-2 control-label"><%= Model.Contract_ContractDate %><span class="required"></span></label>
-                        <div class="col-sm-4 control-value">
+                        <div class="col-sm-4 control-value">  
                             <nep:DatePicker runat="server" ID="DatePickerContractDate" ClearTime="true" EnabledTextBox="true" ValidationGroup="SaveContract"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.ValidationWrongFormat, Nep.Project.Resources.UI.LebelDate) %>"
                                 /> 
@@ -84,6 +83,91 @@
                                 ValidationGroup="SaveContract" />
                         </div>                                 
                     </div>
+                    <!-- ที่อยู่ -->
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_AddressNo %><span class="required"></span></label>
+                        <div class="col-sm-1">
+                            <asp:TextBox ID="TextBoxAddressNo" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorAddressNo" ControlToValidate="TextBoxAddressNo" runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
+                                ValidationGroup="SaveContract" />
+                        </div>
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Moo %></label>
+                        <div class="col-sm-1">
+                            <asp:TextBox ID="TextBoxMoo" runat="server" CssClass="form-control" MaxLength="10"></asp:TextBox>
+                        </div>
+
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Building %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxBuilding" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Soi %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxSoi" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                        </div>
+
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Street %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxStreet" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Province %><span class="required"></span></label>
+                        <div class="col-sm-4">
+                            <input id="DdlProvince" runat="server" style="width: 100%;" />
+                            <asp:CustomValidator ID="CustomValidatorProvince" runat="server" ControlToValidate="DdlProvince"
+                                OnServerValidate="CustomValidatorProvince_ServerValidate" ClientValidationFunction="c2x.validateComboBoxRequired"
+                                CssClass="error-text" ValidationGroup="SaveContract" ValidateEmptyText="true" SetFocusOnError="true"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>" />
+
+
+                        </div>
+
+
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_District %><span class="required"></span></label>
+                        <div class="col-sm-4">
+                            <input id="DdlDistrict" runat="server" style="width: 100%;" />
+                            <asp:CustomValidator ID="CustomValidatorDistrict" runat="server" ControlToValidate="DdlDistrict"
+                                OnServerValidate="CustomValidatorDistrict_ServerValidate" ClientValidationFunction="c2x.validateComboBoxRequired"
+                                CssClass="error-text" ValidationGroup="SaveContract" ValidateEmptyText="true" SetFocusOnError="true"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_District) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_District) %>" />
+
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_SubDistrict %><span class="required"></span></label>
+                        <div class="col-sm-4">
+                            <input id="DdlSubDistrict" runat="server" style="width: 100%;" />
+                            <asp:CustomValidator ID="CustomValidatorSubDistrict" runat="server" ControlToValidate="DdlSubDistrict"
+                                OnServerValidate="CustomValidatorSubDistrict_ServerValidate" ClientValidationFunction="c2x.validateComboBoxRequired"
+                                CssClass="error-text" ValidationGroup="SaveContract" ValidateEmptyText="true" SetFocusOnError="true"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_SubDistrict) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_SubDistrict) %>" />
+                        </div>
+
+                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Postcode %><span class="required"></span></label>
+                        <div class="col-sm-4">
+                            <nep:TextBox ID="TextBoxPostCode" runat="server" MaxLength="5" CssClass="form-control" TextMode="Number" NumberFormat="####"></nep:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorPostCode" ControlToValidate="TextBoxPostCode" runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Postcode) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Postcode) %>"
+                                ValidationGroup="SaveContract" />
+                            <ajaxToolkit:MaskedEditExtender TargetControlID="TextBoxPostCode" runat="server" ID="MaskedEditExtenderPostCode"
+                                Mask="99999" MaskType="None" InputDirection="LeftToRight" AcceptNegative="None" ClearMaskOnLostFocus="false" />
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidatorPostCode" ControlToValidate="TextBoxPostCode" runat="server"
+                                CssClass="error-text" ValidationExpression="\d{5}"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.PostCodeField) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.PostCodeField) %>"
+                                ValidationGroup="SaveContract" />
+                        </div>
+                    </div>
+
+                    <!-- ที่อยู่ -->
                     <div class="form-group form-group-sm">
                         <label class="col-sm-offset-6 col-sm-2 control-label"><%= Model.Contract_ViewerName %></label>
                         <div class="col-sm-2">
@@ -479,11 +563,14 @@
 <%--                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false" 
                         NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />   --%>                   
+
+                    <asp:Button runat="server" ID="ButtonUndoCancelContract" CssClass="btn btn-default btn-sm" OnClientClick="return confirm('ต้องการทำสัญญาใหม่หรือไม่ ?')"
+                        Text="ทำสัญญาใหม่" OnClick="ButtonUndoCancelContract_Click" Visible="false" />
+                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-default btn-sm" 
+                        NavigateUrl="~/ProjectInfo/ProjectInfoList.aspx"
+                        Text="กลับ"></asp:HyperLink>
                     <asp:Button runat="server" ID="ButtonCancelContract" CssClass="btn btn-default btn-sm" OnClientClick="return ConfirmToCancelContract()"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
-                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-red btn-sm" 
-                        NavigateUrl="~/ProjectInfo/ProjectInfoList.aspx"
-                        Text="<%$ code:Nep.Project.Resources.UI.ButtonCancel %>"></asp:HyperLink>
                 </div>
             </div>
         </div>
