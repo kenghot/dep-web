@@ -249,6 +249,7 @@
     <Content Include="Content\adminlte\js\adminlte.min.js" />
     <Content Include="Content\ajaxcontrol.custom.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="Content\kendo.common.css" />
     <Content Include="Content\SiteTemp.css" />
     <Content Include="Content\Site.css" />
@@ -288,14 +289,18 @@
     <Content Include="Content\themes\iconic-one\custom.css" />
     <Content Include="Content\themes\iconic-one\ie.css" />
     <Content Include="Content\themes\iconic-one\style.css" />
+    <Content Include="Content\vuetify.min.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Fonts\THSarabun.svg" />
+    <Content Include="html\DashBoard\DashBoard.html" />
+    <Content Include="html\DashBoard\DashBoard.js" />
     <Content Include="Images\Approval\ApprovalStatus1_1.png" />
     <Content Include="Images\Approval\ApprovalStatus1_2.png" />
     <Content Include="Images\Approval\ApprovalStatus1_3.png" />
     <Content Include="Images\Approval\ApprovalStatus1_4.png" />
     <Content Include="Images\Approval\ApprovalStatus1_5.png" />
     <Content Include="Images\Approval\ApprovalStatus1_6.png" />
+    <Content Include="Images\Approval\revise.jpg" />
     <Content Include="Images\garuda.png" />
     <Content Include="Images\header-bg.png" />
     <Content Include="Images\icon\about.png" />
@@ -375,6 +380,7 @@
     <Content Include="ProjectInfo\Controls\TabFollow5MControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabSatisfyControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabReportResultControl.ascx" />
+    <Content Include="ProjectInfo\DashBoard.aspx" />
     <Content Include="ProjectInfo\FollowupPrintingPopup.aspx" />
     <Content Include="ProjectInfo\NotAllowToCreate.aspx" />
     <Content Include="ProjectInfo\ProcessedPopup.aspx" />
@@ -923,6 +929,13 @@
     </Compile>
     <Compile Include="ProjectInfo\Create.aspx.designer.cs">
       <DependentUpon>Create.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInfo\DashBoard.aspx.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\DashBoard.aspx.designer.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\FollowupPrintingPopup.aspx.cs">
       <DependentUpon>FollowupPrintingPopup.aspx</DependentUpon>

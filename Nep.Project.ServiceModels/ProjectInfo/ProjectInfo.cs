@@ -896,6 +896,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string Day5 { get; set; }
         public string Day6 { get; set; }
         public bool IsReportRevise { get; set; }
+        public string RejectComment { get; set; }
         //end kenghot
     }
 

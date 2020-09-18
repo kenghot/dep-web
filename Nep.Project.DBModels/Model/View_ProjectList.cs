@@ -55,5 +55,6 @@ namespace Nep.Project.DBModels.Model
         public decimal CreatedByID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> ProjectEndDate { get; set; }
+        public string REJECTCOMMENT { get; set; }
     }
 }

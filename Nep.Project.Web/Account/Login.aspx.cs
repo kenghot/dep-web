@@ -120,9 +120,11 @@ namespace Nep.Project.Web.Account
 
         private void RedirectAuthenticatedUser(ServiceModels.Security.SecurityInfo info)
         {
+            string gotoPage = "";
+            gotoPage = (info.UserGroupCode == "G2") ? "~/ProjectInfo/ProjectInfoList.aspx" : "~/ProjectInfo/DashBoard.aspx";
             String url = (info.Roles.Contains("admin")) ?
                 Page.ResolveClientUrl("~/Organization/OrganizationRequestList.aspx") :
-                Page.ResolveClientUrl("~/ProjectInfo/ProjectInfoList.aspx");
+                Page.ResolveClientUrl(gotoPage);
             Response.Redirect(url);
         }
     }

@@ -66,7 +66,9 @@ namespace Nep.Project.Business
                                 OrganizationID = x.OrganizationID,
                                 OrganizationName = x.Organization.OrganizationNameTH,
                                 SectionID = x.Province.SectionID,
-                                SectionName = x.Province.Section.LOVName
+                                SectionName = x.Province.Section.LOVName,
+                                UserGroupID = x.GroupID,
+                                UserGroupCode = x.Group.GroupCode
                             }).Single(x => x.UserID == user.UserID);
                             info.LoginTime = DateTime.Now;
                             if (System.Web.HttpContext.Current.Session != null)

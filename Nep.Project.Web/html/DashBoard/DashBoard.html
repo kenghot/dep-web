@@ -1,0 +1,175 @@
+﻿<template id="base-material-stats-card">
+    <base-material-card ref="bmc" :icon="icon"
+                        class="v-card--material-stats"
+                        style="margin-top: 30px;margin-bottom: 15px;"
+                        v-bind="$attrs"
+                        v-on="$listeners">
+
+        <template v-slot:after-heading>
+            <div class="ml-auto text-right">
+                <div class="body-3 grey--text font-weight-light"
+                      >{{title}}</div>
+
+                <h3 class="display-2 font-weight-light text--primary" style="margin:0">
+                    {{ value }} <small>{{ smallValue }}</small>
+                </h3>
+            </div>
+        </template>
+
+        <v-col cols="12"
+               class="px-0">
+            <v-divider style="margin-top:0;margin-bottom:10px" />
+        </v-col>
+
+        <v-icon :color="subIconColor"
+                size="16"
+                class="ml-2 mr-1">
+            {{ subIcon }}
+        </v-icon>
+
+        <span :class="subTextColor"
+              class="caption grey--text font-weight-light"
+               >{{subText}}</span>
+    </base-material-card>
+
+</template>
+<template id="base-material-card">
+
+    <v-card v-bind="$attrs"
+            :class="classes"
+            class="v-card--material pa-3">
+
+        <div class="d-flex grow flex-wrap">
+            <v-avatar v-if="avatar"
+                      size="128"
+                      class="mx-auto v-card--material__avatar elevation-6"
+                      color="grey">
+                <v-img :src="avatar" />
+            </v-avatar>
+
+            <v-sheet v-else
+                     :class="{'pa-7': !$slots.image}"
+                     :color="color"
+                     :max-height="icon ? 90 : undefined"
+                     :width="icon ? 'auto' : '100%'"
+                     elevation="6"
+                     class="text-start v-card--material__heading mb-n6"
+                     dark>
+                <slot v-if="$slots.heading"
+                      name="heading"></slot>
+
+                <slot v-else-if="$slots.image"
+                      name="image"></slot>
+
+                <div v-else-if="title && !icon"
+                     class="display-1 font-weight-light"
+                     >{{title}}</div>
+
+                <v-icon v-else-if="icon"
+                        size="32"
+                        v-text="icon"></v-icon>
+
+                <div v-if="text"
+                     class="headline font-weight-thin"
+                     >{{text}}</div>
+            </v-sheet>
+
+            <div v-if="$slots['after-heading']"
+                 class="ml-6">
+                <slot name="after-heading"></slot>
+            </div>
+            <div v-else-if="icon && title"
+                 class="ml-4">
+                <div class="card-title font-weight-light"
+                     v-text="title">{{title}}</div>
+            </div>
+
+        </div>
+
+        <slot></slot>
+
+        <template v-if="$slots.actions">
+            <v-divider class="mt-2" />
+
+            <v-card-actions class="pb-0">
+                <slot name="actions"></slot>
+            </v-card-actions>
+        </template>
+    </v-card>
+</template>
+<div id="appDashBoard">
+    <v-app>
+
+        <v-container id="dashboard"
+                     fluid
+                     tag="section">
+            <v-col cols="12"
+                   sm="3"
+                   lg="4">
+                <base-material-stats-card ref="statCard" color="info"
+                                          icon="mdi-twitter"
+                                          title="Followers"
+                                          value="+245"
+                                          sub-icon="mdi-clock"
+                                          sub-text="จำนวนโครงการบลา บลา บลา" />
+            </v-col>
+            <v-col cols="12"
+                   sm="3"
+                   lg="4">
+                <base-material-stats-card ref="statCard" color="info"
+                                          icon="mdi-twitter"
+                                          title="Followers"
+                                          value="+245"
+                                          sub-icon="mdi-clock"
+                                          sub-text="จำนวนโครงการบลา บลา บลา" />
+            </v-col>
+            <v-col cols="12"
+                   sm="3"
+                   lg="4">
+                <base-material-stats-card ref="statCard" color="info"
+                                          icon="mdi-twitter"
+                                          title="Followers"
+                                          value="+245"
+                                          sub-icon="mdi-clock"
+                                          sub-text="จำนวนโครงการบลา บลา บลา" />
+            </v-col>
+        </v-container>
+
+    </v-app>
+</div>
+<style lang="sass">
+    .v-card--material-stats
+    display: flex
+    flex-wrap: wrap
+    position: relative > div:first-child
+    justify-content: space-between
+
+    .v-card
+    border-radius: 4px
+    flex: 0 1 auto
+
+    .v-card__text
+    display: inline-block
+    flex: 1 0 calc(100% - 120px)
+    position: absolute
+    top: 0
+    right: 0
+    width: 100%
+
+    .v-card__actions
+    flex: 1 0 100%
+</style>
+
+<style lang="sass">
+    .v-card--material
+    &__avatar
+    position: relative
+    top: -64px
+    margin-bottom: -32px
+
+    &__heading
+    position: relative
+    top: -40px
+    transition: .3s ease
+    z-index: 1
+</style>

@@ -11,10 +11,14 @@ namespace Nep.Project.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            String url = (UserInfo.Roles.Contains(Common.UserGroupCode.ผู้ดูแลระบบ)) ?
-                Page.ResolveClientUrl("~/Organization/OrganizationRequestList") :
-                Page.ResolveClientUrl("~/ProjectInfo/ProjectInfoList");
+            string gotoPage = "";
+            gotoPage = (UserInfo.UserGroupCode == "G2") ? "~/ProjectInfo/ProjectInfoList.aspx" : "~/ProjectInfo/DashBoard.aspx";
+            String url = (UserInfo.Roles.Contains("admin")) ?
+                Page.ResolveClientUrl("~/Organization/OrganizationRequestList.aspx") :
+                Page.ResolveClientUrl(gotoPage);
             Response.Redirect(url);
+
+   
         }
     }
 }

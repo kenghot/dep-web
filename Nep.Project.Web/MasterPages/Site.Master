@@ -19,7 +19,10 @@
    
 <%--    <link href="../Content/adminlte/css/AdminLTE.min.css" rel="stylesheet" />
     <link href="../Content/adminlte/css/skins/_all-skins.min.css" rel="stylesheet" />--%>
-
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="../Content/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     
 </head>
 <body class="custom-font-enabled single-author">   
@@ -356,10 +359,11 @@ s0.parentNode.insertBefore(s1,s0);
 <!--End of Tawk.to Script-->
     <script src="../Scripts/bootstrap.min.js"></script>
         <script src="../Scripts/Vue/Utilities/accounting.umd.js"></script>
-    <script src="../Scripts/Vue/vue_v2.5.21/vue.js"></script>
+    <%--<script src="../Scripts/Vue/vue_v2.5.21/vue.js"></script>--%>
     <script src="../Scripts/Vue/axios_v0.18.0/axios.min.js"></script>
-     <script src="../Scripts/Vue/vue-numeric_v2.3.0/vue-numeric.min.js"></script> 
-   
+  <script src="../Scripts/Vue/vue-numeric_v2.3.0/vue-numeric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.2.22/vuetify.min.js"></script>
      <%--<script src="../Content/adminlte/js/adminlte.min.js"></script>--%>
 <script> 
          var VueMaster = new Vue({
@@ -462,5 +466,6 @@ s0.parentNode.insertBefore(s1,s0);
       VueMaster.userInfo = JSON.parse('<%= Newtonsoft.Json.JsonConvert.SerializeObject(UserInfo) %>')
       VueMaster.reportUrl = '<%= ReportServiceUrl %>'
  </script>
+        <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolderFooterScript" />
 </body>
 </html>

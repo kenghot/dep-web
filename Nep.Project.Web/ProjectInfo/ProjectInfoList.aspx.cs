@@ -967,9 +967,12 @@ namespace Nep.Project.Web.ProjectInfo
                         img.ToolTip = r.ApprovalStatus1.LOVName;
                     }else
                     {
-                        if (r.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
+                        if (r.IsReject)
                         {
-
+                            img.Visible = true;
+                            img.ImageUrl =  "~/Images/Approval/revise.jpg" ;
+                            img.AlternateText = "ส่งแก้ไข";
+                            img.ToolTip = "ส่งแก้ไข";
                         }
                     }
                 }
