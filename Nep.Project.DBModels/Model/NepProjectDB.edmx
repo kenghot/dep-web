@@ -805,6 +805,8 @@
           <Property Name="DESCRIPTION" Type="varchar2" MaxLength="1000" />
           <Property Name="PROCESSSTART" Type="timestamp" Precision="6" />
           <Property Name="PROCESSEND" Type="timestamp" Precision="6" />
+          <Property Name="LATITUDE" Type="number" Precision="32" Scale="10" />
+          <Property Name="LONGITUDE" Type="number" Precision="32" Scale="10" />
         </EntityType>
         <EntityType Name="PROJECTQUESTION">
           <Key>
@@ -1064,7 +1066,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <Property Name="SUBMITEDDATE" Type="timestamp" Precision="6" />
           <Property Name="CREATEDDATE" Type="timestamp" Precision="6" Nullable="false" />
           <Property Name="ISREJECT" Type="number" Precision="38" Scale="0" />
-          <Property Name="REJECTCOMMENT" Type="clob" />
+          <Property Name="REJECTCOMMENT" Type="varchar2" MaxLength="4000" />
         </EntityType>
         <Association Name="FK_ATT_PROJECTFOLLOWUPATT">
           <End Role="MT_ATTACHMENT" Type="Self.MT_ATTACHMENT" Multiplicity="1">
@@ -5102,6 +5104,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="DESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="PROCESSSTART" Type="DateTime" Precision="6" />
           <Property Name="PROCESSEND" Type="DateTime" Precision="6" />
+          <Property Name="LATITUDE" Type="Decimal" Precision="32" Scale="10" />
+          <Property Name="LONGITUDE" Type="Decimal" Precision="32" Scale="10" />
         </EntityType>
         <EntityType Name="PROJECTBUDGETACTIVITY">
           <Key>
@@ -6201,6 +6205,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="PROJECTPROCESSEDs">
             <EntityTypeMapping TypeName="Model.PROJECTPROCESSED">
               <MappingFragment StoreEntitySet="PROJECTPROCESSED">
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
                 <ScalarProperty Name="PROCESSEND" ColumnName="PROCESSEND" />
                 <ScalarProperty Name="PROCESSSTART" ColumnName="PROCESSSTART" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />

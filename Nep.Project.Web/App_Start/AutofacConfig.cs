@@ -6,6 +6,10 @@ using System.Reflection;
 using System.ServiceModel;
 using System.Web;
 using Autofac.Integration.Wcf;
+using Autofac.Integration.WebApi;
+using Autofac.Integration.Mvc;
+using System.Web.Mvc;
+using System.Web.Http;
 
 namespace Nep.Project.Web
 {
@@ -13,8 +17,12 @@ namespace Nep.Project.Web
     public static class AutofacConfig
     {
         public static IContainer RegisterAutofac()
+        //public static ContainerBuilder RegisterAutofac()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterApiControllers( Assembly.GetExecutingAssembly());
             builder.Register<DBModels.Model.NepProjectDBEntities>(f => new DBModels.Model.NepProjectDBEntities()).InstancePerDependency();
             builder.RegisterService<Business.RunningNumberService>();
             builder.RegisterService<Business.OrganizationParameterService>();
@@ -72,8 +80,12 @@ namespace Nep.Project.Web
 
             builder.RegisterType<Infra.ClearUserAccessJob>();
             builder.RegisterType<Infra.SetFollowupStatusJob>();
-           
-            return builder.Build();
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); //Set the MVC DependencyResolver
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container); //Set the WebApi DependencyResolver
+            //return builder.Build();
+            return container;
         }        
     }
 

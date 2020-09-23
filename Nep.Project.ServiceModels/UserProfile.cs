@@ -86,7 +86,7 @@ namespace Nep.Project.ServiceModels
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
-      
+        public string ContractPWD { get; set; }
         
     }
 

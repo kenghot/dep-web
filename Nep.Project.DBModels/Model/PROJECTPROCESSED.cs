@@ -30,5 +30,7 @@ namespace Nep.Project.DBModels.Model
         public string DESCRIPTION { get; set; }
         public Nullable<System.DateTime> PROCESSSTART { get; set; }
         public Nullable<System.DateTime> PROCESSEND { get; set; }
+        public Nullable<decimal> LATITUDE { get; set; }
+        public Nullable<decimal> LONGITUDE { get; set; }
     }
 }

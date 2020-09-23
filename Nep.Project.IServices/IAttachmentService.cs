@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nep.Project.DBModels.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,6 @@ namespace Nep.Project.IServices
         /// <param name="attachmentId"></param>
         /// <returns></returns>
         List<ServiceModels.KendoAttachment> GetAttachmentOfTable(String TableName, String FieldName, decimal TableRowID);
+        ServiceModels.ReturnObject<PROJECTQUESTIONHD> UploadImage(string imgGroupName, decimal? imgId, decimal dataKey, string base64);
     }
 }

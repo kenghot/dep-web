@@ -1626,7 +1626,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public List<string> RequiredSubmitData { get; set; }
 
         public List<ProjectOperationAddress> ProjectOperationAddresses { get; set; }
-       
+
     }
 
     [Serializable]
@@ -1662,6 +1662,15 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public DateTime? ProcessStart { get; set; }
         public DateTime? ProcessEnd { get; set; }
         public decimal ProcessID { get; set; }
+
+        /// <summary>
+        /// kenghot
+        /// </summary>
+        public List<ServiceModels.KendoAttachment> ImageAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedImageAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedImageAttachments { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
     }
 
     public class TabContract

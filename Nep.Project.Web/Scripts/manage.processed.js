@@ -51,6 +51,7 @@
         return ret;
     };
     C2XProcFunctions.prototype.getAddressFormat = function (data) {
+        //console.log(data);
         var text = "";
         text = _addressLabel + " " + data.Address;
         if (data.Moo != null && (data.Moo != "")) {
@@ -89,7 +90,25 @@
             text += "<br />ไฟล์แนบ <a href='' target='_blank' class='file-link' onclick='return c2xProc.openAttachment(\"" + attahc.tempId + "\", \"" + attahc.id + "\", \"" + attahc.name + "\");'>" + attahc.name + "</a>";
 
         }
- 
+        if (data.ImageAttachments) {
+            for (i = 0; i <= data.ImageAttachments.length - 1; i++) {
+                var img = data.ImageAttachments[i];
+                addlink = false;
+                if ((img != null)) { //&& (data.AddedLocationMapAttachment == null && data.RemovedLocationMapAttachment == null)) {
+                    addlink = true;
+
+                }
+
+                if ((data.RemovedImageAttachments && data.RemovedImageAttachments[i] != null)) {
+                    addlink = false;
+
+                }
+                if (addlink) {
+                    text += "<br />รูปที่ " + (i + 1) + " <a href='' target='_blank' class='file-link' onclick='return c2xProc.openAttachment(\"" + img.tempId + "\", \"" + img.id + "\", \"" + img.name + "\");'>" + img.name + "</a>";
+                }
+                
+            }
+        }
         return text;
     };
 
@@ -217,6 +236,7 @@
                 model.AddedLocationMapAttachment = null;
                 //model.LocationMapAttachment = null;
             }
+            editModel.set("ImageAttachments", model.ImageAttachments);
              grid.saveChanges();
            
         }

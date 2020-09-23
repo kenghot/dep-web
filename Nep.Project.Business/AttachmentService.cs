@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Nep.Project.ServiceModels;
 using Nep.Project.Common.Web;
+using Nep.Project.DBModels.Model;
+using System.Drawing;
+using System.IO;
 
 namespace Nep.Project.Business
 {
@@ -90,6 +93,57 @@ namespace Nep.Project.Business
             }
             return ret ;
       
+        }
+        public ServiceModels.ReturnObject<PROJECTQUESTIONHD> UploadImage(string imgGroupName, decimal? imgId, decimal dataKey, string base64)
+        {
+            var result = new ServiceModels.ReturnObject<PROJECTQUESTIONHD>();
+            result.IsCompleted = false;
+            try
+            {
+                var bytes = Convert.FromBase64String(base64);
+ 
+
+                Image image;
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    image = Image.FromStream(ms);
+                }
+                var path = System.Web.HttpContext.Current.Server.MapPath("/UploadImages/");
+                var fname = Guid.NewGuid() + ".png";
+                image.Save(path + fname, System.Drawing.Imaging.ImageFormat.Png);
+
+                PROJECTQUESTIONHD img = null;
+                if (imgId.HasValue)
+                {
+                    img = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == imgId.Value && w.QUESTGROUP == imgGroupName).FirstOrDefault();
+                }
+                if (img == null)
+                {
+                    img = new PROJECTQUESTIONHD
+                    {
+                        ISREPORTED = "1",
+                        CREATEDBY = "system",
+                        CREATEDBYID = 1,
+                        CREATEDDATE = DateTime.Now,
+                        PROJECTID = dataKey,
+                        QUESTGROUP = imgGroupName,
+                        
+                    };
+                    _db.PROJECTQUESTIONHDs.Add(img);
+                }
+                img.DATA = fname;
+                img.UPDATEDBY = "system";
+                img.UPDATEDBYID = 1;
+                img.UPDATEDDATE = DateTime.Now;
+
+                _db.SaveChanges();
+                result.Data = img;
+                result.IsCompleted = true;
+            }catch (Exception ex)
+            {
+                result.Message.Add(ex.Message + " | " + ex.InnerException?.Message);
+            }
+            return result;
         }
     }
 }

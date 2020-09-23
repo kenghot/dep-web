@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Requests\Commons.cs" />
+    <Compile Include="API\Requests\ProjectInfo.cs" />
+    <Compile Include="API\Responses\Common.cs" />
+    <Compile Include="API\Responses\ProjectInfo.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="KendoChart.cs" />
     <Compile Include="ProjectFunctionParam.cs" />
@@ -120,6 +124,7 @@
     <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportPaymentSlip.datasource" />
     <None Include="Properties\DataSources\Nep.Project.ServiceModels.Report.ReportSummaryProjectInfoBudgetDetail.datasource" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

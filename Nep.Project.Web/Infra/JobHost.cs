@@ -84,7 +84,7 @@ namespace Nep.Project.Web.Infra
                 }
                 try
                 {
-                    IJob jobInstance = (IJob) _container.ApplicationContainer.Resolve(_jobType);
+                    IJob jobInstance = (IJob)_container.ApplicationContainer.Resolve(_jobType);
                     jobInstance.Job();
                 }
                 catch (Exception ex)

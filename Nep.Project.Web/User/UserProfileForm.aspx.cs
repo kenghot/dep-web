@@ -231,7 +231,10 @@ namespace Nep.Project.Web.User
                         CustomValidatorProvince.Enabled = false;
                       
                     }
-
+                    //TextBoxConfirmPwd.Text = user.ContractPWD;
+                    //TextBoxConfirmPwd.Text = user.ContractPWD;
+                    TextBoxContractPwd.Attributes["value"] = user.ContractPWD;
+                    TextBoxConfirmPwd.Attributes["value"] = user.ContractPWD;
                     if (user.UserName.ToLower() == Common.Constants.SYSTEM_USERNAME.ToLower())
                     {
                         ButtonDelete.Visible = false;
@@ -297,6 +300,7 @@ namespace Nep.Project.Web.User
                 user.ProvinceID = provinceID;
                 user.Position = TxtPosition.Text.Trim();
                 user.IsActive = (IsActive.Checked) ? "1" : "0";
+                user.ContractPWD = TextBoxContractPwd.Text;
 
 
 

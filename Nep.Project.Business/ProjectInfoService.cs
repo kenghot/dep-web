@@ -30,7 +30,9 @@ namespace Nep.Project.Business
         private const String TABLE_PROJECTPERSONEL = "PROJECTPERSONEL";
         private const String TABLE_PROJECTCONTRACT = "PROJECTCONTRACT";
         private const String TABLE_PROJECTDOCUMENT = "PROJECTDOCUMENT";
-        
+        private const String TABLE_PROJECTPROCESSED = "PROJECTPROCESSED";
+
+        private const String PROJECTPROCESSED_IMAGE = "IMAGE";
         private const String PERSON_INSTRUCTOR = "INSTRUCTOR";
         private const String PERSON_VEHICLE = "VEHICLE";
         private const String PERSON_VALUNTEER = "VALUNTEER";
@@ -1671,7 +1673,7 @@ namespace Nep.Project.Business
                             data.LocationMapAttachment = file;
                         }
                     }
-
+              
 
                     if (data.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                     {
@@ -9327,6 +9329,9 @@ namespace Nep.Project.Business
                              ProcessEnd = d.PROCESSEND,
                              ProcessStart = d.PROCESSSTART,
                              LocationMapID = d.LOCATIONMAPID,
+                             Latitude = d.LATITUDE,
+                             Longitude = d.LONGITUDE
+                             
                              //FileName = (d. != null) ? d.MapAttachment.AttachmentFilename : null,
                             // FileSize = (d.MapAttachment != null) ? d.MapAttachment.FileSize : (decimal?)null,
                          }
@@ -9364,6 +9369,34 @@ namespace Nep.Project.Business
                             size = (int)item.FileSize
                         };
                     }
+                    var att = new Business.AttachmentService(_db);
+                    //addresses[i].ImageAttachments = att.GetAttachmentOfTable(TABLE_PROJECTPROCESSED, PROJECTPROCESSED_IMAGE, addresses[i].ProcessID);
+                    //addresses[i].ImageAttachments.Add(new KendoAttachment
+                    //{
+                    //    extension = "jpg",
+                    //    fieldName = "f1",
+                    //    id = "1",
+                    //    name = "n1",
+                    //    size = 111,
+                    //    tempId = "1"
+                    //});
+                    //addresses[i].ImageAttachments.Add(new KendoAttachment
+                    //{
+                    //    extension = "jpg",
+                    //    fieldName = "f2",
+                    //    id = "2",
+                    //    name = "n2",
+                    //    size = 222,
+                    //    tempId = "2"
+                    //});
+                    addresses[i].ImageAttachments = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == addresses[i].ProcessID && w.QUESTGROUP == "ACTIVITYIMG")
+                        .Select(s => new KendoAttachment
+                        {
+                            id = s.PROJECTID.ToString(),
+                            name = s.DATA
+                        })
+                        .ToList();
+                    
                 }
             }
 

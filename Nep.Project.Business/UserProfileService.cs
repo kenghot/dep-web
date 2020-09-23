@@ -128,6 +128,7 @@ namespace Nep.Project.Business
                                 RegisterDate = u.RegisterDate
                                                                
                             }).FirstOrDefault();
+
                 #region Add Attachment
                 if ((data != null) && (data.IDCardFileID.HasValue)){
                     DBModels.Model.MT_Attachment dbAttach = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)data.IDCardFileID).FirstOrDefault();
@@ -166,6 +167,14 @@ namespace Nep.Project.Business
 
                 if (data != null)
                 {
+                    #region contract password
+
+                    var qn = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == userID && w.QUESTGROUP == "CONTRACTPWD").FirstOrDefault();
+                    if (qn != null)
+                    {
+                        data.ContractPWD = qn.DATA;
+                    }
+                    #endregion
                     result.IsCompleted = true;
                     result.Data = data;
                 }
@@ -384,6 +393,24 @@ namespace Nep.Project.Business
                         _db.SC_User.Add(objDB);
                         _db.SaveChanges();
 
+                        var qn = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == userProfile.UserID && w.QUESTGROUP == "CONTRACTPWD").FirstOrDefault();
+                        if (qn == null)
+                        {
+                            qn = new DBModels.Model.PROJECTQUESTIONHD
+                            {
+                                PROJECTID = userProfile.UserID,
+                                CREATEDBYID = userProfile.UserID,
+                                CREATEDBY = "system",
+                                CREATEDDATE = DateTime.Now,
+                                ISREPORTED = "1",
+                                QUESTGROUP = "CONTRACTPWD"
+
+                            };
+                            _db.PROJECTQUESTIONHDs.Add(qn);   
+                        }
+                        qn.DATA = userProfile.ContractPWD;
+                        _db.SaveChanges();
+
                         var entry = new DBModels.Model.UserRegisterEntry()
                         {
                             Email = userProfile.Email,
@@ -465,7 +492,23 @@ namespace Nep.Project.Business
                         dbUser.UpdatedBy = _loggedUser.UserName;
                         dbUser.UpdatedByID = _loggedUser.UserID;
                         dbUser.UpdatedDate = DateTime.Now;
+                        var qn = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == userProfile.UserID && w.QUESTGROUP == "CONTRACTPWD").FirstOrDefault();
+                        if (qn == null)
+                        {
+                            qn = new DBModels.Model.PROJECTQUESTIONHD
+                            {
+                                PROJECTID = userProfile.UserID,
+                                CREATEDBYID = userProfile.UserID,
+                                CREATEDBY = "system",
+                                CREATEDDATE = DateTime.Now,
+                                ISREPORTED = "1",
+                                QUESTGROUP = "CONTRACTPWD"
 
+                            };
+                            _db.PROJECTQUESTIONHDs.Add(qn);
+                        }
+                        qn.DATA = userProfile.ContractPWD;
+                         
                         _db.SaveChanges();
                         result.IsCompleted = true;
                         result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);

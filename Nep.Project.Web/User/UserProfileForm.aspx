@@ -22,6 +22,15 @@
                             ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.UserProfile_Role) %>"
                             />
                     </div>
+                    <label class="col-sm-2 control-label" for="TextBoxContractPwd">รหัสแก้เลขที่สัญญา</span></label>
+                    <div class="col-sm-4">
+                        <asp:TextBox runat="server" ID="TextBoxContractPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="TxtTelephoneNo" 
+                            runat="server" CssClass="error-text" 
+                            Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.UserProfile_TelephoneNo) %>" 
+                            ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.UserProfile_TelephoneNo) %>"
+                            ValidationGroup="Save" />
+                    </div>
                 </div>
                 <div class="form-group form-group-sm">
                     <label class="col-sm-2 control-label" for="txtFirstName"><%: Nep.Project.Resources.Model.UserProfile_FirstName %><span class="required"></span></label>
@@ -55,6 +64,12 @@
 
                        
                     </div> 
+                    <label class="col-sm-2 control-label" for="TextBoxConfirmPwd">ยืนยันรหัส</span></label>
+                    <div class="col-sm-4">
+                        <asp:TextBox runat="server" ID="TextBoxConfirmPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
+                        <asp:CompareValidator runat="server" ID="Comp1" ControlToValidate="TextBoxConfirmPwd" ControlToCompare="TextBoxContractPwd" 
+                            Text="ยืนยันรหัสผ่านไม่ถูกต้อง" Font-Size="11px" ForeColor="Red"  ValidationGroup="Save"  />
+                    </div>
                 </div>               
 
                 <div class="form-group form-group-sm">
