@@ -101,17 +101,22 @@ namespace Nep.Project.Business
             try
             {
                 var bytes = Convert.FromBase64String(base64);
- 
-
-                Image image;
-                using (MemoryStream ms = new MemoryStream(bytes))
-                {
-                    image = Image.FromStream(ms);
-                }
                 var path = System.Web.HttpContext.Current.Server.MapPath("/UploadImages/");
                 var fname = Guid.NewGuid() + ".png";
-                image.Save(path + fname, System.Drawing.Imaging.ImageFormat.Png);
 
+                //Image image;
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    using (Image image = Image.FromStream(ms))
+                    {
+
+          
+                        image.Save(path + fname, System.Drawing.Imaging.ImageFormat.Png);
+                     
+
+                    }
+
+                }
                 PROJECTQUESTIONHD img = null;
                 if (imgId.HasValue)
                 {
