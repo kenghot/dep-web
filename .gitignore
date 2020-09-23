@@ -1,6 +1,7 @@
 ###################
 # compiled source #
 ###################
+*.licx
 *.com
 *.class
 *.dll
