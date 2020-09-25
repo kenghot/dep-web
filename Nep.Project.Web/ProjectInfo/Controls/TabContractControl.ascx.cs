@@ -163,6 +163,11 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             
                             HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             ButtonCancelContract.Visible = functions.Contains(Common.ProjectFunction.CancelContract);
+                            ButtonEditContractNo.Visible = ButtonCancelContract.Visible;
+                            if (ButtonEditContractNo.Visible)
+                            {
+                                ButtonEditContractNo.OnClientClick = $"VueContract.EditContractNo({ProjectID});return false;";
+                            }
                             C2XFileUploadAuthorizeDoc.Enabled = functions.Contains(Common.ProjectFunction.SaveContract);
 
                             //LabelContractNo.Text = Common.Web.WebUtility.DisplayInHtml(model.ContractNo, null, "-");
@@ -715,6 +720,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                      args.IsValid = isValid;  
                 }
             ";
+            var vue = System.IO.File.ReadAllText($"{Server.MapPath("\\html\\contract\\contractvue.js")}");
+            script += vue;
             ScriptManager.RegisterClientScriptBlock(
                        UpdatePanelContract,
                        this.GetType(),

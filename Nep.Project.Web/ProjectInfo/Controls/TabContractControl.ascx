@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TabContractControl.ascx.cs" Inherits="Nep.Project.Web.ProjectInfo.Controls.TabContractControl"
     %>
 <%@ Import Namespace="Nep.Project.Resources"  %>
-
+ <!-- #include file="~/Html/Contract/Contract.html" -->
 <asp:UpdatePanel ID="UpdatePanelContract" 
                     UpdateMode="Conditional" 
                     runat="server" >
     <ContentTemplate>      
-        
+       
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><%= UI.TabTitleContract %></h3>
@@ -571,6 +571,8 @@
                         Text="กลับ"></asp:HyperLink>
                     <asp:Button runat="server" ID="ButtonCancelContract" CssClass="btn btn-default btn-sm" OnClientClick="return ConfirmToCancelContract()"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
+                    <asp:Button runat="server" ID="ButtonEditContractNo" CssClass="btn btn-default btn-sm" OnClientClick="VueContract.EditContractNo(1);return false;"
+                        Text="แก้ไขเลขที่สัญญา"   Visible="false" />
                 </div>
             </div>
         </div>

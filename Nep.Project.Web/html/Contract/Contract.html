@@ -1,0 +1,38 @@
+﻿<style>
+    .v-application--wrap {
+        min-height: 0px;
+    }
+</style>
+<div id="appContract">
+    <v-app id="inspire">
+        <v-dialog v-model="dialogEditContractNo" persistent max-width="600px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">แก้ไขเลขที่สัญญา</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+
+                        <v-col cols="12" sm="6">
+                            <v-text-field v-model="contractNo"
+                                          label="เลขที่สัญญา"
+                                          outlined></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                            <v-text-field v-model="password"
+                                          type="password"
+                                          label="รหัสสำหรับแก้ไข"
+                                          outlined></v-text-field>
+                        </v-col>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn color="blue darken-1" text @click="PrintDemandDoc()">บันทึก</v-btn>
+                    <v-btn color="blue darken-1" text @click="dialogEditContractNo = false">ปิด</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-app>
+</div>

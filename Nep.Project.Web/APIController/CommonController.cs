@@ -11,7 +11,7 @@ using Nep.Project.ServiceModels.API.Responses;
 
 namespace Nep.Project.Web.APIController
 {
-
+    [RoutePrefix("api/common")]
     public class CommonController : ApiController
     {
         public IServices.IAuthenticationService authSerivce { get; set; }

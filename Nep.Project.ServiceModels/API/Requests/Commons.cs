@@ -29,4 +29,17 @@ namespace Nep.Project.ServiceModels.API.Requests
         [Required]
         public string Base64Data { get; set; }
     }
+
+    public class Paging
+    {
+        [Required]
+        public int PageIndex { get; set; }
+        [Required]
+        public int PageSize { get; set; }
+        public string SortExpression { get; set; }
+        /// <summary>
+        /// 0 = Ascending, 1 = Decending
+        /// </summary>
+        public int? SortDirection { get; set; }
+    }
 }

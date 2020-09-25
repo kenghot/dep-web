@@ -330,6 +330,8 @@
     <Content Include="Content\vuetify.min.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Fonts\THSarabun.svg" />
+    <Content Include="html\Contract\Contract.html" />
+    <Content Include="html\Contract\ContractVue.js" />
     <Content Include="html\DashBoard\DashBoard.html" />
     <Content Include="html\DashBoard\DashBoard.js" />
     <Content Include="Images\Approval\ApprovalStatus1_1.png" />
@@ -629,6 +631,7 @@
     </Compile>
     <Compile Include="APIController\CommonController.cs" />
     <Compile Include="APIController\ProjectsController.cs" />
+    <Compile Include="APIController\SystemsController.cs" />
     <Compile Include="API\APIHelper.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -1459,9 +1462,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Nep_Project_Web_NepServiceWS_NepService</CachedSettingsPropName>
     </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
