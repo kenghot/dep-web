@@ -721,7 +721,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 }
             ";
             var vue = System.IO.File.ReadAllText($"{Server.MapPath("\\html\\contract\\contractvue.js")}");
-            script += vue;
+            script += vue + $"\nVueContract.refreshButton = '{ImageButtonRefresh.ClientID}'";
             ScriptManager.RegisterClientScriptBlock(
                        UpdatePanelContract,
                        this.GetType(),
@@ -922,6 +922,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             args.IsValid = (id > 0);
         }
-
+        protected void ImageButtonRefresh_Click(object sender, ImageClickEventArgs e)
+        {
+            //GridViewActivity.DataSource = GridViewActivityData;
+            //GridViewActivity.DataBind();
+            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+            page.RebindData("TabPanelContract");
+        }
     }
 }

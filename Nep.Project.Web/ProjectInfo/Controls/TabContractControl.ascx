@@ -573,6 +573,9 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
                     <asp:Button runat="server" ID="ButtonEditContractNo" CssClass="btn btn-default btn-sm" OnClientClick="VueContract.EditContractNo(1);return false;"
                         Text="แก้ไขเลขที่สัญญา"   Visible="false" />
+                     <asp:ImageButton ID="ImageButtonRefresh" runat="server" ToolTip="รีเฟรช"
+                                            ImageUrl="~/Images/icon/reload_icon_16.png" BorderStyle="None" CssClass="button-add-targetgroup"
+                                            OnClick="ImageButtonRefresh_Click" />
                 </div>
             </div>
         </div>

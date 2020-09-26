@@ -24,6 +24,14 @@ namespace Nep.Project.ServiceModels
             }
         }
         public bool IsCompleted { get; set; }
+        public void SetExceptionMessage(Exception ex)
+        {
+            _message.Add(ex.Message);
+            if (ex.InnerException != null)
+            {
+                _message.Add(ex.InnerException.Message);
+            }
+        }
     }    
 
     public class ReturnObject<T> : ReturnMessage

@@ -43,8 +43,8 @@ namespace Nep.Project.Business
         private const String REPORT_RESULT = "REPORT_RESULT";
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
 
-        public ProjectInfoService(DBModels.Model.NepProjectDBEntities db, 
-            ServiceModels.Security.SecurityInfo user, 
+        public ProjectInfoService(DBModels.Model.NepProjectDBEntities db,
+            ServiceModels.Security.SecurityInfo user,
             IServices.IRunningNumberService runningService,
             MailService mailService,
             SmsService smsService)
@@ -66,15 +66,15 @@ namespace Nep.Project.Business
                 DBModels.Model.ProjectInformation proInfo = _db.ProjectInformations.Where(x => x.ProjectID == id).FirstOrDefault();
                 if (proInfo != null)
                 {
-                    _db.ProjectInformations.Remove(proInfo);                    
+                    _db.ProjectInformations.Remove(proInfo);
                 }
-                
+
 
                 List<DBModels.Model.ProjectTargetGroup> proTargetGroups = _db.ProjectTargetGroups.Where(x => x.ProjectID == id).ToList();
                 if ((proTargetGroups != null) && (proTargetGroups.Count > 0))
                 {
-                    _db.ProjectTargetGroups.RemoveRange(proTargetGroups);                    
-                }                
+                    _db.ProjectTargetGroups.RemoveRange(proTargetGroups);
+                }
                 #endregion ลบข้อมูลโครงการ
 
                 #region ลบข้อมูลบุคลากร
@@ -82,8 +82,8 @@ namespace Nep.Project.Business
                 if (personel != null)
                 {
                     _db.ProjectPersonels.Remove(personel);
-                    RemoveProjectPersonalFile(personel);                   
-                }                
+                    RemoveProjectPersonalFile(personel);
+                }
                 #endregion ลบข้อมูลบุคลากร
 
                 #region ลบข้อมูลการดำเนินงาน
@@ -91,38 +91,39 @@ namespace Nep.Project.Business
                 if (proOperation != null)
                 {
                     _db.ProjectOperations.Remove(proOperation);
-                    RemoveProjectOperationFile(proOperation.LocationMap);                   
-                }                
+                    RemoveProjectOperationFile(proOperation.LocationMap);
+                }
                 #endregion ลบข้อมูลการดำเนินงาน
 
                 #region ลบข้อมูลงบประมาณ
                 List<DBModels.Model.ProjectBudget> budgets = _db.ProjectBudgets.Where(x => x.ProjectID == id).ToList();
                 if ((budgets != null) && (budgets.Count > 0))
                 {
-                    _db.ProjectBudgets.RemoveRange(budgets);                    
-                }                
+                    _db.ProjectBudgets.RemoveRange(budgets);
+                }
                 #endregion ลบข้อมูลงบประมาณ
-                
+
                 #region ลบข้อมูลเอกสารแนบ
                 DBModels.Model.ProjectDocument doc = _db.ProjectDocuments.Where(x => x.ProjectID == id).FirstOrDefault();
                 if (doc != null)
                 {
                     _db.ProjectDocuments.Remove(doc);
-                    RemoveProjectDocumentFile(doc);                    
-                }     
+                    RemoveProjectDocumentFile(doc);
+                }
                 #endregion ลบข้อมูลเอกสารแนบ
 
                 #region ลบข้อมูลคณะกรรมการ
                 List<DBModels.Model.ProjectCommittee> committees = _db.ProjectCommittees.Where(x => x.ProjectID == id).ToList();
                 if (committees != null && (committees.Count > 0))
                 {
-                    _db.ProjectCommittees.RemoveRange(committees);                    
+                    _db.ProjectCommittees.RemoveRange(committees);
                 }
                 #endregion ลบข้อมูลคณะกรรมการ
 
                 #region ลบข้อมูลการประเมิน
                 DBModels.Model.ProjectEvaluation eval = _db.ProjectEvaluations.Where(x => x.ProjectID == id).FirstOrDefault();
-                if(eval != null){
+                if (eval != null)
+                {
                     _db.ProjectEvaluations.Remove(eval);
                     _db.SaveChanges();
                 }
@@ -133,43 +134,48 @@ namespace Nep.Project.Business
                 if ((opAddress != null) && (opAddress.Count > 0))
                 {
                     _db.ProjectOperationAddresses.RemoveRange(opAddress);
-                }   
+                }
                 #endregion ลบข้อมูลสถานที่ดำเนินโครงการ
 
                 #region ลบข้อมูลทั่วไป
                 DBModels.Model.ProjectGeneralInfo proGen = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == id).FirstOrDefault();
                 if (proGen != null)
                 {
-                    _db.ProjectGeneralInfoes.Remove(proGen);                    
+                    _db.ProjectGeneralInfoes.Remove(proGen);
                     _db.SaveChanges();
-                }                             
+                }
                 #endregion ลบข้อมูลทั่วไป
-               
+
 
                 result.IsCompleted = true;
                 result.Message.Add(Nep.Project.Resources.Message.DeleteSuccess);
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }
-            
+
             return result;
         }
 
         private void RemoveProjectPersonalFile(DBModels.Model.ProjectPersonel personel)
         {
-            if(personel != null){
+            if (personel != null)
+            {
                 String rootDestinationFolderPath = GetAttachmentRootFolder();
-                String destinationFilePath;                              
+                String destinationFilePath;
 
-                if(personel.InstructorListFileID2.HasValue){
-                   DBModels.Model.MT_Attachment attach = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)personel.InstructorListFileID2).FirstOrDefault();
-                    if(attach != null){
+                if (personel.InstructorListFileID2.HasValue)
+                {
+                    DBModels.Model.MT_Attachment attach = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)personel.InstructorListFileID2).FirstOrDefault();
+                    if (attach != null)
+                    {
                         destinationFilePath = rootDestinationFolderPath + attach.PathName;
                         _db.MT_Attachment.Remove(attach);
                         File.Delete(destinationFilePath);
-                    }                    
+                    }
                 }
 
                 if (personel.ValunteerListFileID7.HasValue)
@@ -197,8 +203,9 @@ namespace Nep.Project.Business
         }
 
         private void RemoveProjectOperationFile(DBModels.Model.MT_Attachment attach)
-        {            
-            if(attach != null){
+        {
+            if (attach != null)
+            {
                 String rootDestinationFolderPath = GetAttachmentRootFolder();
                 String destinationFilePath = rootDestinationFolderPath + attach.PathName;
                 _db.MT_Attachment.Remove(attach);
@@ -210,16 +217,17 @@ namespace Nep.Project.Business
         {
             String rootDestinationFolderPath = GetAttachmentRootFolder();
             String destinationFilePath;
-            
-            
+
+
             //Document 1
             DBModels.Model.MT_Attachment attach1 = _db.MT_Attachment.Where(x => x.AttachmentID == doc.DocumentID1).FirstOrDefault();
-            if(attach1 != null){
-                destinationFilePath = rootDestinationFolderPath + attach1.PathName;                
+            if (attach1 != null)
+            {
+                destinationFilePath = rootDestinationFolderPath + attach1.PathName;
                 File.Delete(destinationFilePath);
                 _db.MT_Attachment.Remove(attach1);
             }
-            
+
 
             //Document 2
             if (doc.DocumentID2.HasValue)
@@ -376,8 +384,8 @@ namespace Nep.Project.Business
                     _db.MT_Attachment.Remove(attach14);
                 }
             }
-               
-            
+
+
         }
         #endregion Delete Project
 
@@ -403,13 +411,13 @@ namespace Nep.Project.Business
         {
             List<ServiceModels.DecimalDropDownListData> result = new List<DecimalDropDownListData>();
             string centerAbbr = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.CENTER_PROVINCE_ABBR).Select(y => y.ParameterValue).FirstOrDefault();
-            decimal? centerProvinceID = _db.MT_Province.Where(x=> x.ProvinceAbbr == centerAbbr).Select(y => y.ProvinceID).FirstOrDefault();
+            decimal? centerProvinceID = _db.MT_Province.Where(x => x.ProvinceAbbr == centerAbbr).Select(y => y.ProvinceID).FirstOrDefault();
 
             if (provinceID.HasValue)
             {
                 if (provinceID == centerProvinceID)
                 {
-                    result = (from e in _db.MT_Organization   
+                    result = (from e in _db.MT_Organization
                               orderby e.OrganizationNameTH
                               select new ServiceModels.DecimalDropDownListData()
                               {
@@ -428,18 +436,18 @@ namespace Nep.Project.Business
                                   Value = e.OrganizationID
                               }).ToList();
                 }
-                
+
             }
             else
             {
-                result = (from e in _db.MT_Organization                        
-                         select new ServiceModels.DecimalDropDownListData()
-                         {
-                             Text = e.OrganizationNameTH,
-                             Value = e.OrganizationID
-                         }).ToList();
+                result = (from e in _db.MT_Organization
+                          select new ServiceModels.DecimalDropDownListData()
+                          {
+                              Text = e.OrganizationNameTH,
+                              Value = e.OrganizationID
+                          }).ToList();
             }
-                       
+
             return result;
         }
 
@@ -496,7 +504,7 @@ namespace Nep.Project.Business
 
             return result;
         }
-               
+
 
         public ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> GetOrganizationType()
         {
@@ -504,12 +512,12 @@ namespace Nep.Project.Business
             try
             {
                 result.Data = (from e in _db.MT_OrganizationType
-                              select new ServiceModels.GenericDropDownListData()
-                              {
-                                  Text = e.OrganizationType,
-                                  Value = e.OrganizationTypeID.ToString()
-                              }).ToList();
-                
+                               select new ServiceModels.GenericDropDownListData()
+                               {
+                                   Text = e.OrganizationType,
+                                   Value = e.OrganizationTypeID.ToString()
+                               }).ToList();
+
                 result.IsCompleted = true;
             }
             catch (Exception ex)
@@ -534,7 +542,7 @@ namespace Nep.Project.Business
                 {
                     model = MappProjectGeneralInfoToOrganizationInfo(q);
                 }
-                                
+
 
                 result.Data = model;
                 result.IsCompleted = true;
@@ -550,7 +558,7 @@ namespace Nep.Project.Business
         #endregion
 
         public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.OrganizationInfo> Create(ServiceModels.ProjectInfo.OrganizationInfo model
-            ,String projectNameTH,String projectNameEN)
+            , String projectNameTH, String projectNameEN)
         {
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.OrganizationInfo> result = new ReturnObject<ServiceModels.ProjectInfo.OrganizationInfo>();
             try
@@ -595,7 +603,7 @@ namespace Nep.Project.Business
 
                     tran.Commit();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -613,7 +621,7 @@ namespace Nep.Project.Business
             try
             {
                 DBModels.Model.ProjectGeneralInfo data = new DBModels.Model.ProjectGeneralInfo();
-                
+
                 //-- Mapp
                 data = MappOrganizationInfoToDBProjectGeneralInfo(model);
                 data.UpdatedBy = _user.UserName;
@@ -722,10 +730,10 @@ namespace Nep.Project.Business
                             CommitteePosition = e.CommitteePosition,
                             MemberName = e.Firstname,
                             MemberSurname = e.LastName,
-                            MemberPosition = e.Position,    
+                            MemberPosition = e.Position,
                             //kenghot  
                             PositionCode = e.POSCODE,
-                            PositionName = e.K_MT_POSITION.POSNAME                  
+                            PositionName = e.K_MT_POSITION.POSNAME
                         }).ToList();
                 var cm = (from c in list where c.CommitteePosition == "1" select c).FirstOrDefault();
                 if (cm != null)
@@ -786,7 +794,7 @@ namespace Nep.Project.Business
             List<DBModels.Model.ProjectCommittee> listDB = new List<DBModels.Model.ProjectCommittee>();
             List<ServiceModels.ProjectInfo.Committee> list = listCommittee;
 
-            
+
             List<DBModels.Model.ProjectCommittee> oldCommittee = _db.ProjectCommittees.Where(x => x.ProjectID == id).ToList();
             _db.ProjectCommittees.RemoveRange(oldCommittee);
             Decimal orderNo;
@@ -860,20 +868,21 @@ namespace Nep.Project.Business
                 {
                     dataDB.CommittePosition = "2";
                 }
-                    if (dataDB.CommittePosition == "3")
+                if (dataDB.CommittePosition == "3")
                 {
                     dataDB.Position = "เจ้าหน้าที่";
-                }else
+                }
+                else
                 {
                     if (string.IsNullOrEmpty(dataDB.Position))
                     {
                         dataDB.Position = " ";
                     }
                 }
-          
-               listDB.Add(dataDB);
-               
-                   
+
+                listDB.Add(dataDB);
+
+
 
             }
 
@@ -884,7 +893,7 @@ namespace Nep.Project.Business
             }
         }
         #endregion
-        
+
         #endregion
 
         #region ProjectInformation
@@ -943,7 +952,7 @@ namespace Nep.Project.Business
                 ServiceModels.ProjectInfo.TabProjectInfo model = new ServiceModels.ProjectInfo.TabProjectInfo();
                 Decimal projectId = id;
 
-                var q = _db.ProjectInformations.Where(x => x.ProjectID == projectId).FirstOrDefault();              
+                var q = _db.ProjectInformations.Where(x => x.ProjectID == projectId).FirstOrDefault();
 
                 if (q != null)
                     model = MappDBProjectInformationToTabProjectInfo(q);
@@ -967,7 +976,7 @@ namespace Nep.Project.Business
             try
             {
                 decimal projectId = id;
-                List< ServiceModels.ProjectInfo.ProjectTarget> list = _db.ProjectTargetGroups.Where(x => x.ProjectID == projectId)
+                List<ServiceModels.ProjectInfo.ProjectTarget> list = _db.ProjectTargetGroups.Where(x => x.ProjectID == projectId)
                     .Select(y => new ServiceModels.ProjectInfo.ProjectTarget
                     {
                         ProjectID = y.ProjectID,
@@ -980,15 +989,16 @@ namespace Nep.Project.Business
 
                 if (list != null && (list.Count > 0))
                 {
-                    for (int i =0; i < list.Count; i++)
+                    for (int i = 0; i < list.Count; i++)
                     {
                         list[i].UID = Guid.NewGuid().ToString();
                     }
-                }else
+                }
+                else
                 {
                     list = new List<ServiceModels.ProjectInfo.ProjectTarget>();
                 }
-                               
+
                 result.IsCompleted = true;
                 result.Data = list; //MappDBProjectTargetGroupToProjectTarget(listDB);
 
@@ -1020,11 +1030,12 @@ namespace Nep.Project.Business
                 DBModels.Model.ProjectPersonel personel = _db.ProjectPersonels.Where(x => x.ProjectID == projectID).FirstOrDefault();
                 if (personel != null)
                 {
-                    tabAttch.ResponsibleProject = String.Format("{0}{1} {2}",personel.Prefix1Personel.LOVName, personel.Firstname1, personel.Lastname1);
+                    tabAttch.ResponsibleProject = String.Format("{0}{1} {2}", personel.Prefix1Personel.LOVName, personel.Firstname1, personel.Lastname1);
                 }
 
                 DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();
-                if(genInfo != null){
+                if (genInfo != null)
+                {
                     tabAttch.ProjectID = genInfo.ProjectID;
                     tabAttch.OrganizationID = genInfo.OrganizationID;
                     tabAttch.ApprovalStatus = (genInfo.ProjectApproval != null) ? genInfo.ProjectApproval.ApprovalStatus : null;
@@ -1040,12 +1051,14 @@ namespace Nep.Project.Business
                 if (tabAttch.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                 {
                     tabAttch.RequiredSubmitData = GetKeyRequiredSubmitData(projectID);
-                }                
+                }
 
                 result.IsCompleted = true;
                 result.Data = tabAttch;
-                                    
-            }catch(Exception ex){
+
+            }
+            catch (Exception ex)
+            {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
@@ -1058,7 +1071,7 @@ namespace Nep.Project.Business
         /// </summary>
         private void MigrateTabAttachDataToNewStructure(DBModels.Model.ProjectDocument pd)
         {
-            AddPojDocToFileInTable(pd.ProjectID, "DOCUMENTID1",   pd.DocumentID1);
+            AddPojDocToFileInTable(pd.ProjectID, "DOCUMENTID1", pd.DocumentID1);
             AddPojDocToFileInTable(pd.ProjectID, "DOCUMENTID2", pd.DocumentID2);
             AddPojDocToFileInTable(pd.ProjectID, "DOCUMENTID3", pd.DocumentID3);
             AddPojDocToFileInTable(pd.ProjectID, "DOCUMENTID4", pd.DocumentID4);
@@ -1078,27 +1091,27 @@ namespace Nep.Project.Business
                 pd.DocumentID8 = pd.DocumentID9 = pd.DocumentID10 = pd.DocumentID11 = pd.DocumentID12 = pd.DocumentID13 = pd.DocumentID14 = null;
                 _db.SaveChanges();
             }
-           
+
         }
-        private void AddPojDocToFileInTable(decimal projID,string FieldName,   decimal? AttachID)
+        private void AddPojDocToFileInTable(decimal projID, string FieldName, decimal? AttachID)
         {
             if (AttachID.HasValue)
             {
                 var att = _db.MT_Attachment.Where(w => w.AttachmentID == AttachID.Value).FirstOrDefault();
                 if (att != null)
                 {
-                     _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
-                     {
-                            ATTACHMENTID = AttachID.Value,
-                            FIELDNAME = FieldName ,
-                            TABLENAME  = TABLE_PROJECTDOCUMENT ,
-                            TABLEROWID = projID ,
-                            MT_ATTACHMENT = att
-                    
-                        });
+                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
+                    {
+                        ATTACHMENTID = AttachID.Value,
+                        FIELDNAME = FieldName,
+                        TABLENAME = TABLE_PROJECTDOCUMENT,
+                        TABLEROWID = projID,
+                        MT_ATTACHMENT = att
+
+                    });
                 }
-         
-                
+
+
 
             }
         }
@@ -1111,16 +1124,17 @@ namespace Nep.Project.Business
         {
             List<ServiceModels.ProjectInfo.AttachmentProvide> list = new List<ServiceModels.ProjectInfo.AttachmentProvide>();
             ServiceModels.ProjectInfo.AttachmentProvide attach;
-            int no;               
+            int no;
             list = _db.MT_ListOfValue.Where(x => x.LOVGroup == Common.LOVGroup.ProjectAttachment)
-                .Select(x => new ServiceModels.ProjectInfo.AttachmentProvide{
+                .Select(x => new ServiceModels.ProjectInfo.AttachmentProvide
+                {
                     ProjectID = projectID,
                     DocumentNo = x.OrderNo,
                     DocumentProvideName = x.LOVName
                 }).OrderBy(or => or.DocumentNo).ToList();
 
             DBModels.Model.ProjectDocument projDoc = _db.ProjectDocuments.Where(x => x.ProjectID == projectID).FirstOrDefault();
-            
+
             //DBModels.Model.MT_Attachment dbAttach;
             if (projDoc != null)
             {
@@ -1135,18 +1149,18 @@ namespace Nep.Project.Business
                     for (int i = 0; i < list.Count; i++)
                     {
                         attach = list[i];
-                        colName = "DOCUMENTID" + (i+1).ToString().Trim();
+                        colName = "DOCUMENTID" + (i + 1).ToString().Trim();
                         var tmpAtt = files.Where(w => w.fieldName == colName).ToList();
                         if (tmpAtt.Count() > 0)
                         {
                             attach.AttachFiles = new List<KendoAttachment>();
                             attach.AttachFiles.AddRange(tmpAtt);
                         }
-                    
+
                     }
                 }
-           
-            }           
+
+            }
 
             return list;
         }
@@ -1260,7 +1274,7 @@ namespace Nep.Project.Business
         //    return list;
         //}
         public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> SaveProjectInformation(ServiceModels.ProjectInfo.TabProjectInfo model
-            ,List<ServiceModels.ProjectInfo.ProjectTarget> targetList)
+            , List<ServiceModels.ProjectInfo.ProjectTarget> targetList)
         {
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> result = new ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo>();
             try
@@ -1291,7 +1305,7 @@ namespace Nep.Project.Business
                     {
                         SaveProjectTargetGroup(model.ProjectID, targetList);
                     }
-                    
+
 
                     result.Data = MappDBProjectInformationToTabProjectInfo(dataDBModel);
                     result.IsCompleted = true;
@@ -1299,7 +1313,7 @@ namespace Nep.Project.Business
 
                     tran.Commit();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1357,13 +1371,13 @@ namespace Nep.Project.Business
                 DBModels.Model.ProjectTargetGroup itemDB = new DBModels.Model.ProjectTargetGroup();
                 itemDB.ProjectID = projectId;
                 itemDB.TargetGroupID = list[i].TargetID;
-                itemDB.TargetGroupEtc = list[i].TargetOtherName;               
+                itemDB.TargetGroupEtc = list[i].TargetOtherName;
                 itemDB.TargetGroupAmt = list[i].Amount.Value;
                 listCreate.Add(itemDB);
             }
             _db.ProjectTargetGroups.AddRange(listCreate);
             _db.SaveChanges();
-            
+
         }
 
         //private void SaveProjectTargetGroup(Decimal id,List<ServiceModels.ProjectInfo.ProjectTarget> listTarget)
@@ -1442,15 +1456,15 @@ namespace Nep.Project.Business
             try
             {
                 ServiceModels.ProjectInfo.TabPersonal model = null;
-                Decimal projectId = id;                             
+                Decimal projectId = id;
 
                 var q = _db.ProjectPersonels.Where(x => x.ProjectID == projectId).FirstOrDefault();
-                
+
                 if (q == null)
                 {
                     q = new DBModels.Model.ProjectPersonel();
                     q.ProjectID = id;
-                   
+
 
                 }
                 else
@@ -1459,19 +1473,23 @@ namespace Nep.Project.Business
                     // convert attchfile to new structure
                     if (q.InstructorListFileID2.HasValue)
                     {
-                     
-                        _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE {  ATTACHMENTID = q.InstructorListFileID2.Value ,
-                            FIELDNAME = PERSON_INSTRUCTOR, TABLENAME = TABLE_PROJECTPERSONEL, TABLEROWID = id
-                         });
+
+                        _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
+                        {
+                            ATTACHMENTID = q.InstructorListFileID2.Value,
+                            FIELDNAME = PERSON_INSTRUCTOR,
+                            TABLENAME = TABLE_PROJECTPERSONEL,
+                            TABLEROWID = id
+                        });
                         q.InstructorListFileID2 = null;
                     }
                     if (q.ValunteerListFileID7.HasValue)
                     {
-                        
+
                         _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
                         {
                             ATTACHMENTID = q.ValunteerListFileID7.Value,
-                            FIELDNAME = PERSON_VALUNTEER ,
+                            FIELDNAME = PERSON_VALUNTEER,
                             TABLENAME = TABLE_PROJECTPERSONEL,
                             TABLEROWID = id
                         });
@@ -1479,7 +1497,7 @@ namespace Nep.Project.Business
                     }
                     if (q.VehicleListFileID6.HasValue)
                     {
-                        
+
                         _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
                         {
                             ATTACHMENTID = q.VehicleListFileID6.Value,
@@ -1515,17 +1533,17 @@ namespace Nep.Project.Business
                 List<decimal> districtIds = new List<decimal>();
                 List<decimal> subDistrictIds = new List<decimal>();
                 //save draft
-                if (model.Address1.DistrictID1 !=null)
-                districtIds.Add((decimal)model.Address1.DistrictID1);
+                if (model.Address1.DistrictID1 != null)
+                    districtIds.Add((decimal)model.Address1.DistrictID1);
                 //save draft
-                if ( model.Address1.SubDistrictID1 != null)
-                subDistrictIds.Add((decimal)model.Address1.SubDistrictID1);
+                if (model.Address1.SubDistrictID1 != null)
+                    subDistrictIds.Add((decimal)model.Address1.SubDistrictID1);
                 //save draft
                 if (model.Address2.DistrictID2 != null)
-                districtIds.Add((decimal)model.Address2.DistrictID2);
+                    districtIds.Add((decimal)model.Address2.DistrictID2);
                 //save draft
                 if (model.Address2.SubDistrictID2 != null)
-                subDistrictIds.Add((decimal)model.Address2.SubDistrictID2);
+                    subDistrictIds.Add((decimal)model.Address2.SubDistrictID2);
                 if ((model.Address3 != null) && (model.Address3.DistrictID3.HasValue))
                 {
                     districtIds.Add((decimal)model.Address3.DistrictID3);
@@ -1537,21 +1555,21 @@ namespace Nep.Project.Business
 
                 ServiceModels.ProjectInfo.TabPersonal dataServiceModel = model;
                 DBModels.Model.ProjectPersonel dataDBModel = new DBModels.Model.ProjectPersonel();
-                                             
+
                 using (var tran = _db.Database.BeginTransaction())
                 {
 
                     dataDBModel = MappTabProjectPersonalToDBProjectPersonal(dataServiceModel, districtList, subDistrictList);
 
-                    
-                    
+
+
 
                     if (dataDBModel.ProjectID > 0) // for update
                     {
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
-                        _db.SaveChanges();                       
+                        _db.SaveChanges();
                     }
                     else // for create
                     {
@@ -1561,7 +1579,7 @@ namespace Nep.Project.Business
                         dataDBModel.CreatedByID = (decimal)_user.UserID;
 
                         _db.ProjectPersonels.Add(dataDBModel);
-                        _db.SaveChanges();                        
+                        _db.SaveChanges();
                     }
 
                     tran.Commit();
@@ -1572,7 +1590,7 @@ namespace Nep.Project.Business
                 result.IsCompleted = true;
                 result.Message.Add(Resources.Message.SaveSuccess);
 
-                
+
             }
             catch (Exception ex)
             {
@@ -1590,7 +1608,7 @@ namespace Nep.Project.Business
             try
             {
                 var q = _db.ProjectPersonels.Where(x => x.ProjectID == id).FirstOrDefault();
-                if(q != null)
+                if (q != null)
                 {
                     _db.ProjectPersonels.Remove(q);
                     _db.SaveChanges();
@@ -1617,7 +1635,7 @@ namespace Nep.Project.Business
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProcessingPlan> result = new ReturnObject<ServiceModels.ProjectInfo.TabProcessingPlan>();
             try
             {
-                
+
                 Decimal projectId = id;
 
                 var data = (from pro in _db.ProjectGeneralInfoes
@@ -1626,11 +1644,11 @@ namespace Nep.Project.Business
                             {
                                 ProjectID = pro.ProjectID,
                                 OrganizationID = pro.OrganizationID,
-                                ApprovalStatus = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalStatus : null,
+                                ApprovalStatus = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalStatus : null,
                                 ProjectApprovalStatusID = pro.ProjectApprovalStatusID,
                                 ProjectApprovalStatusCode = pro.ProjectApprovalStatus.LOVCode,
                                 ProjectApprovalStatusName = pro.ProjectApprovalStatus.LOVName,
-                              
+
                                 Address = (pro.ProjectOperation != null) ? pro.ProjectOperation.Address : null,
                                 Building = (pro.ProjectOperation != null) ? pro.ProjectOperation.Building : null,
                                 Moo = (pro.ProjectOperation != null) ? pro.ProjectOperation.Moo : null,
@@ -1640,25 +1658,26 @@ namespace Nep.Project.Business
                                 SubDistrict = (pro.ProjectOperation != null) ? pro.ProjectOperation.SubDistrict : null,
                                 DistrictID = (pro.ProjectOperation != null) ? pro.ProjectOperation.DistrictID : (decimal?)null,
                                 District = (pro.ProjectOperation != null) ? pro.ProjectOperation.District : null,
-                                ProvinceID = (pro.ProjectOperation != null) ? pro.ProjectOperation.ProvinceID : (decimal?)null ,
+                                ProvinceID = (pro.ProjectOperation != null) ? pro.ProjectOperation.ProvinceID : (decimal?)null,
                                 LocationMapID = (pro.ProjectOperation != null) ? pro.ProjectOperation.LocationMapID : (decimal?)null,
                                 StartDate = (pro.ProjectOperation != null) ? pro.ProjectOperation.StartDate : (DateTime?)null,
                                 EndDate = (pro.ProjectOperation != null) ? pro.ProjectOperation.EndDate : (DateTime?)null,
-                                TotalDay = (pro.ProjectOperation != null) ? pro.ProjectOperation.TotalDay  : (decimal?)null,
-                                TimeDesc = (pro.ProjectOperation != null) ? pro.ProjectOperation.TimeDesc :null,
+                                TotalDay = (pro.ProjectOperation != null) ? pro.ProjectOperation.TotalDay : (decimal?)null,
+                                TimeDesc = (pro.ProjectOperation != null) ? pro.ProjectOperation.TimeDesc : null,
                                 Method = (pro.ProjectOperation != null) ? pro.ProjectOperation.Method : null,
                                 CreatorOrganizationID = _db.SC_User.Where(users => (users.UserID == pro.CreatedByID) && (users.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                 ProjectProvinceID = pro.ProvinceID,
                                 OrgProjectProvinceID = _db.MT_Organization.Where(org => org.OrganizationID == pro.OrganizationID).Select(orgr => orgr.ProvinceID).FirstOrDefault()
-                            }).FirstOrDefault();    
-           
-                if(data != null)
+                            }).FirstOrDefault();
+
+                if (data != null)
                 {
 
                     data.ProjectOperationAddresses = MappProjectOperationAddress(projectId);
-                    
 
-                    if (data.LocationMapID.HasValue){
+
+                    if (data.LocationMapID.HasValue)
+                    {
                         DBModels.Model.MT_Attachment dbAttach = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)data.LocationMapID).FirstOrDefault();
                         if (dbAttach != null)
                         {
@@ -1673,13 +1692,13 @@ namespace Nep.Project.Business
                             data.LocationMapAttachment = file;
                         }
                     }
-              
+
 
                     if (data.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                     {
                         data.RequiredSubmitData = GetKeyRequiredSubmitData(data.ProjectID);
                     }
-                    
+
                 }
 
                 result.Data = data;
@@ -1729,30 +1748,31 @@ namespace Nep.Project.Business
             }
 
         }
-        public ServiceModels.ReturnObject<bool> SaveProjectProcessed(decimal projID,List<ServiceModels.ProjectInfo.ProjectProcessed> data,string ipAddress )
+        public ServiceModels.ReturnObject<bool> SaveProjectProcessed(decimal projID, List<ServiceModels.ProjectInfo.ProjectProcessed> data, string ipAddress)
         {
             ServiceModels.ReturnObject<bool> result = new ReturnObject<bool>();
             try
             {
                 var pc = from p in _db.PROJECTPROCESSEDs where p.PROJECTID == projID select p;
-                
-                foreach(DBModels.Model.PROJECTPROCESSED ptmp in pc)
+
+                foreach (DBModels.Model.PROJECTPROCESSED ptmp in pc)
                 {
                     var search = (from s in data where s.ProcessID == ptmp.PROCESSID select s).FirstOrDefault();
                     if (search != null)
                     {
                         CopyProcessed(search, ptmp);
-                    } else
+                    }
+                    else
                     {
                         _db.PROJECTPROCESSEDs.Remove(ptmp);
                     }
                 }
                 var add = data.Where(w => w.ProcessID < 0).ToList();
-                foreach(ProjectProcessed a in add)
+                foreach (ProjectProcessed a in add)
                 {
                     var row = new DBModels.Model.PROJECTPROCESSED();
                     CopyProcessed(a, row);
-                   
+
                     _db.PROJECTPROCESSEDs.Add(row);
                 }
                 _db.PROJECTHISTORies.Add(CreateRowProjectHistory(projID, "5", _user.UserID.Value, ipAddress));
@@ -1760,7 +1780,8 @@ namespace Nep.Project.Business
                 result.Data = true;
                 result.IsCompleted = true;
                 result.Message.Add("บันทึกสำเร็จ");
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
@@ -1774,31 +1795,31 @@ namespace Nep.Project.Business
             try
             {
                 ServiceModels.ProjectInfo.TabProcessingPlan dataServiceModel = model;
-               
+
                 using (var tran = _db.Database.BeginTransaction())
                 {
-                    
+
                     DBModels.Model.ProjectOperation dataDBModel = MappTabProcessingPlanToDBProjectOperation(dataServiceModel);
 
                     if (dataDBModel.ProjectID > 0) // for update
                     {
-                        
+
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
                         _db.SaveChanges();
-                        
+
                     }
                     else // for create
                     {
                         dataDBModel.ProjectID = model.ProjectID;
                         dataDBModel.CreatedDate = DateTime.Now;
                         dataDBModel.CreatedBy = _user.UserName;
-                        dataDBModel.CreatedByID = (decimal)_user.UserID; 
+                        dataDBModel.CreatedByID = (decimal)_user.UserID;
 
                         _db.ProjectOperations.Add(dataDBModel);
                         _db.SaveChanges();
-                       
+
                     }
 
                     SaveProjectOperationAddress(dataDBModel.ProjectID, dataServiceModel.ProjectOperationAddresses);
@@ -1808,7 +1829,7 @@ namespace Nep.Project.Business
                     result.Message.Add(Resources.Message.SaveSuccess);
                     tran.Commit();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1829,7 +1850,8 @@ namespace Nep.Project.Business
             decimal? removeAttachmentID;
             List<DBModels.Model.ProjectOperationAddress> old = _db.ProjectOperationAddresses.Where(x => x.ProjectID == projectId).ToList();
             decimal? locationMapID;
-            if(old != null){
+            if (old != null)
+            {
                 ServiceModels.ProjectInfo.ProjectOperationAddress model;
                 DBModels.Model.ProjectOperationAddress dbModel;
                 decimal operationAddressID;
@@ -1850,9 +1872,10 @@ namespace Nep.Project.Business
                         item.District = model.District;
                         item.DistrictID = model.DistrictID;
                         item.ProvinceID = model.ProvinceID;
-                        
 
-                        if((model.RemovedLocationMapAttachment != null) && (!String.IsNullOrEmpty(model.RemovedLocationMapAttachment.id))){
+
+                        if ((model.RemovedLocationMapAttachment != null) && (!String.IsNullOrEmpty(model.RemovedLocationMapAttachment.id)))
+                        {
                             item.LocationMapID = (decimal?)null;
                             RemoveFile(model.RemovedLocationMapAttachment, rootDestinationFolderPath);
                         }
@@ -1870,10 +1893,11 @@ namespace Nep.Project.Business
                     else
                     {
                         removeAttachmentID = item.LocationMapID;
-                        
-                        _db.ProjectOperationAddresses.Remove(item);                       
 
-                        if(removeAttachmentID.HasValue){
+                        _db.ProjectOperationAddresses.Remove(item);
+
+                        if (removeAttachmentID.HasValue)
+                        {
                             removeAttachment = new KendoAttachment
                             {
                                 id = removeAttachmentID.ToString()
@@ -1884,16 +1908,16 @@ namespace Nep.Project.Business
                         _db.SaveChanges();
                     }
                 }
-               
+
 
                 if (addresses != null && (addresses.Count > 0))
                 {
                     List<DBModels.Model.ProjectOperationAddress> newList = new List<DBModels.Model.ProjectOperationAddress>();
-                    for (int i = 0; i < addresses.Count; i++ )
+                    for (int i = 0; i < addresses.Count; i++)
                     {
                         model = addresses[i];
                         locationMapID = SaveFile(model.AddedLocationMapAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
-                        
+
                         dbModel = new DBModels.Model.ProjectOperationAddress
                         {
                             ProjectID = model.ProjectID,
@@ -1909,7 +1933,7 @@ namespace Nep.Project.Business
                             ProvinceID = model.ProvinceID,
                             LocationMapID = locationMapID
                         };
-                        newList.Add(dbModel);                        
+                        newList.Add(dbModel);
                     }
 
                     _db.ProjectOperationAddresses.AddRange(newList);
@@ -1949,7 +1973,7 @@ namespace Nep.Project.Business
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.ProjectBudget> result = new ReturnObject<ServiceModels.ProjectInfo.ProjectBudget>();
             try
             {
-                
+
 
                 ServiceModels.ProjectInfo.ProjectBudget model = null;
                 decimal projectId = id;
@@ -1960,13 +1984,13 @@ namespace Nep.Project.Business
                     model.ProjectID = projectId;
                     model.OrganizationID = q.OrganizationID;
                     model.TotalRequestAmount = q.BudgetValue;
-                    model.TotalReviseAmount =  q.BudgetReviseValue;
-                    model.IsBudgetGotSupport = (q.BudgetFromOtherFlag == "1") ? true : ((q.BudgetFromOtherFlag == "0")? false : (bool?)null);
+                    model.TotalReviseAmount = q.BudgetReviseValue;
+                    model.IsBudgetGotSupport = (q.BudgetFromOtherFlag == "1") ? true : ((q.BudgetFromOtherFlag == "0") ? false : (bool?)null);
                     model.BudgetGotSupportName = q.BudgetFromOtherName;
                     model.BudgetGotSupportAmount = q.BudgetFromOtherAmount;
                     //kenghot
                     model.BudgetDetails = MappDBProjectBudgetToListProjectBudgetDetail(q.ProjectBudgets.OrderBy(pb => pb.ProjectBudgetID).ToList());
-                   // model.BudgetDetails = MappDBProjectBudgetToListProjectBudgetDetail(q.ProjectBudgets.OrderBy(pb => pb.ProjectBudgetID).OrderByDescending(o=> o.BudgetValue ).ToList());
+                    // model.BudgetDetails = MappDBProjectBudgetToListProjectBudgetDetail(q.ProjectBudgets.OrderBy(pb => pb.ProjectBudgetID).OrderByDescending(o=> o.BudgetValue ).ToList());
 
                     model.ProjectApprovalStatusID = q.ProjectApprovalStatusID;
                     model.ProjectApprovalStatusCode = q.ProjectApprovalStatus.LOVCode;
@@ -1976,17 +2000,18 @@ namespace Nep.Project.Business
 
                     model.ProvinceID = q.ProvinceID;
                     model.CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == q.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault();
-                    model.BudgetActivities =  (from a in _db.PROJECTBUDGETACTIVITies where a.PROJECTID == projectId
-                                                        select new Project.ServiceModels.ProjectInfo.BudgetActivity
-                                                        {
-                                                            ActivityDESC = a.ACTIVITYDESC,
-                                                            ActivityID = a.ACTIVITYID,
-                                                            ActivityName = a.ACTIVITYNAME,
-                                                            ProjectID = a.PROJECTID,
-                                                            RunNo = a.RUNNO.Value,
-                                                            TotalAmount = a.TOTALAMOUNT,
-                                                            CreateDate = a.CREATEDATE
-                                                        }).ToList();
+                    model.BudgetActivities = (from a in _db.PROJECTBUDGETACTIVITies
+                                              where a.PROJECTID == projectId
+                                              select new Project.ServiceModels.ProjectInfo.BudgetActivity
+                                              {
+                                                  ActivityDESC = a.ACTIVITYDESC,
+                                                  ActivityID = a.ACTIVITYID,
+                                                  ActivityName = a.ACTIVITYNAME,
+                                                  ProjectID = a.PROJECTID,
+                                                  RunNo = a.RUNNO.Value,
+                                                  TotalAmount = a.TOTALAMOUNT,
+                                                  CreateDate = a.CREATEDATE
+                                              }).ToList();
                     if (model.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                     {
                         model.RequiredSubmitData = GetKeyRequiredSubmitData(model.ProjectID);
@@ -2020,12 +2045,12 @@ namespace Nep.Project.Business
                 using (var tran = _db.Database.BeginTransaction())
                 {
                     ServiceModels.ProjectInfo.ProjectBudget dataServiceModel = model;
-                 
+
 
 
                     //save activity
                     //var act = (from a in _db.PROJECTBUDGETACTIVITies where a.PROJECTID == projectId select a).ToList();
-                    var act =   _db.PROJECTBUDGETACTIVITies.Where(w => w.PROJECTID == projectId).ToList();
+                    var act = _db.PROJECTBUDGETACTIVITies.Where(w => w.PROJECTID == projectId).ToList();
                     foreach (ServiceModels.ProjectInfo.BudgetActivity b in model.BudgetActivities)
                     {
                         DBModels.Model.PROJECTBUDGETACTIVITY actRow = null;
@@ -2062,10 +2087,10 @@ namespace Nep.Project.Business
                         {
                             //if (a.ACTIVITYNAME != Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE)
                             //{
-                                lstDel.Add(a);
-                                _db.Database.ExecuteSqlCommand(string.Format("delete from PROJECTBUDGET where ACTIVITYID={0}", a.ACTIVITYID.ToString()));
+                            lstDel.Add(a);
+                            _db.Database.ExecuteSqlCommand(string.Format("delete from PROJECTBUDGET where ACTIVITYID={0}", a.ACTIVITYID.ToString()));
                             //}
-                            
+
                         }
 
                     }
@@ -2232,7 +2257,7 @@ namespace Nep.Project.Business
                                                                     && x.LOVCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                                                                     .Select(x => x.LOVID).FirstOrDefault();
                     bool isRevise = false;
-                    var sum = SaveBudgetActivityDetail(model.BudgetDetails.ToList(), projectId, model.ActivityID, isRevise , statusDraft);
+                    var sum = SaveBudgetActivityDetail(model.BudgetDetails.ToList(), projectId, model.ActivityID, isRevise, statusDraft);
                     if (generalInfo != null)
                     {
                         if (generalInfo.ProjectApprovalStatusID == statusDraft)
@@ -2255,11 +2280,11 @@ namespace Nep.Project.Business
                         generalInfo.UpdatedByID = _user.UserID;
                         generalInfo.UpdatedDate = DateTime.Now;
 
-                      
+
                         _db.SaveChanges();
                     }
 
-                   
+
 
 
                     var savedResult = GetProjectBudgetInfoByProjectID(projectId);
@@ -2280,10 +2305,10 @@ namespace Nep.Project.Business
 
             return result;
         }
-        private DBModels.Model.ProjectGeneralInfo SaveBudgetActivityDetail(List<ServiceModels.ProjectInfo.BudgetDetail> list, Decimal projectId, Decimal? activityID, Boolean isRevise,decimal statusDraft)
+        private DBModels.Model.ProjectGeneralInfo SaveBudgetActivityDetail(List<ServiceModels.ProjectInfo.BudgetDetail> list, Decimal projectId, Decimal? activityID, Boolean isRevise, decimal statusDraft)
         {
             DBModels.Model.ProjectGeneralInfo sumdata = new ProjectGeneralInfo();
-            sumdata.BudgetValue  = 0;
+            sumdata.BudgetValue = 0;
             sumdata.BudgetReviseValue = 0;
             List<ServiceModels.ProjectInfo.BudgetDetail> result = new List<ServiceModels.ProjectInfo.BudgetDetail>();
             decimal Id = projectId;
@@ -2379,7 +2404,7 @@ namespace Nep.Project.Business
                 _db.ProjectBudgets.RemoveRange(listProjectBudgets);
                 _db.SaveChanges();
             }
-           
+
             return sumdata;
         }
         public ServiceModels.ReturnMessage DeleteProjectBudgetByID(Decimal id)
@@ -2417,7 +2442,7 @@ namespace Nep.Project.Business
             return result;
         }
 
-        
+
         #endregion
 
         #region ProjectContract
@@ -2425,7 +2450,7 @@ namespace Nep.Project.Business
         {
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabContract> result = new ReturnObject<ServiceModels.ProjectInfo.TabContract>();
             try
-            {                
+            {
                 decimal projectId = id;
                 //var test = (from ct in _db.ProjectContracts where ct.ProjectID == id select ct).FirstOrDefault();
                 var data = (from pro in _db.ProjectGeneralInfoes
@@ -2440,7 +2465,7 @@ namespace Nep.Project.Business
                                 ProjectApprovalStatusCode = pro.ProjectApprovalStatus.LOVCode,
 
                                 ContractNo = (pro.ProjectContract != null) ? pro.ProjectContract.ContractNo : null,
-                                ApprovalYear = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalYear : null,
+                                ApprovalYear = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalYear : null,
                                 ContractYear = (pro.ProjectContract != null) ? pro.ProjectContract.ContractYear : (Decimal?)null,
                                 ContractDate = (pro.ProjectContract != null) ? pro.ProjectContract.ContractDate : (DateTime?)null,
                                 ContractStartDate = (pro.ProjectContract != null) ? pro.ProjectContract.ContractStartDate : (DateTime?)null,
@@ -2452,14 +2477,14 @@ namespace Nep.Project.Business
                                 ViewerSurname2 = (pro.ProjectContract != null) ? pro.ProjectContract.ContractViewerSurname2 : null,
                                 DirectorFirstName = (pro.ProjectContract != null) ? pro.ProjectContract.DirectornameName : null,
                                 DirectorLastName = (pro.ProjectContract != null) ? pro.ProjectContract.DirectorLastName : null,
-                                DirectorPosition = (pro.ProjectContract != null)? pro.ProjectContract.DirectorPosition : null,
+                                DirectorPosition = (pro.ProjectContract != null) ? pro.ProjectContract.DirectorPosition : null,
                                 AttorneyNo = (pro.ProjectContract != null) ? pro.ProjectContract.AttorneyNo : null,
                                 AttorneyYear = (pro.ProjectContract != null) ? pro.ProjectContract.AttorneyYear : null,
                                 ContractGiverDate = (pro.ProjectContract != null) ? pro.ProjectContract.ContractGiverDate : null,
                                 ProvinceContractNo = (pro.ProjectContract != null) ? pro.ProjectContract.ProvinceContractNo : null,
                                 ProvinceContractYear = (pro.ProjectContract != null) ? pro.ProjectContract.ProvinceContractYear : null,
-                                ProvinceContractDate = (pro.ProjectContract != null)? (DateTime?)pro.ProjectContract.ProvinceContractDate : null,
-                                Remark =  (pro.ProjectContract != null) ? pro.ProjectContract.REMARK : null,
+                                ProvinceContractDate = (pro.ProjectContract != null) ? (DateTime?)pro.ProjectContract.ProvinceContractDate : null,
+                                Remark = (pro.ProjectContract != null) ? pro.ProjectContract.REMARK : null,
                                 OrganizationNameEN = pro.OrganizationNameEN,
                                 OrganizationNameTH = pro.OrganizationNameTH,
                                 Address = pro.Address,
@@ -2479,12 +2504,12 @@ namespace Nep.Project.Business
                                 CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                 ContractReceiveDate = (pro.ProjectContract != null) ? (DateTime?)pro.ProjectContract.ContractReceiveDate : null,
                                 // มอบอำนาจ
-                                AuthorizeFlag  = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeFlag == Common.Constants.BOOLEAN_TRUE)? true : false) : false,
+                                AuthorizeFlag = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeFlag == Common.Constants.BOOLEAN_TRUE) ? true : false) : false,
                                 ReceiverName = (pro.ProjectContract != null) ? pro.ProjectContract.ReceiverName : null,
                                 ReceiverSurname = (pro.ProjectContract != null) ? pro.ProjectContract.ReceiverSurname : null,
                                 ReceiverPosition = (pro.ProjectContract != null) ? pro.ProjectContract.ReceiverPosition : null,
-                                AuthorizeDate = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeDate != null)? (DateTime?)pro.ProjectContract.AuthorizeDate : null) : null,
-                                AuthorizeDocID = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeDocID != null)? pro.ProjectContract.AuthorizeDocID : (decimal?)null) : (decimal?)null,
+                                AuthorizeDate = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeDate != null) ? (DateTime?)pro.ProjectContract.AuthorizeDate : null) : null,
+                                AuthorizeDocID = (pro.ProjectContract != null) ? ((pro.ProjectContract.AuthorizeDocID != null) ? pro.ProjectContract.AuthorizeDocID : (decimal?)null) : (decimal?)null,
 
                                 RequestBudgetAmount = pro.BudgetValue,
                                 ReviseBudgetAmount = pro.BudgetReviseValue,
@@ -2498,7 +2523,8 @@ namespace Nep.Project.Business
 
                             }).SingleOrDefault();
 
-                if(data != null){
+                if (data != null)
+                {
                     data.IsCenterContract = IsCenterReviseProject((decimal)data.ProvinceID);
                     try
                     {
@@ -2532,9 +2558,11 @@ namespace Nep.Project.Business
 
                     }
                     //ข้อมูลผู้ให้เงินอุดหนุนของส่วนกลาง
-                    if (data.IsCenterContract){
-                        
-                        if(String.IsNullOrEmpty(data.DirectorFirstName)){
+                    if (data.IsCenterContract)
+                    {
+
+                        if (String.IsNullOrEmpty(data.DirectorFirstName))
+                        {
                             string orgDirectorGeneralNameParam = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_DIRECTOR_GENERAL_NAME).Select(y => y.ParameterValue).FirstOrDefault();
                             string orgDirectorGeneralPosParam = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_DIRECTOR_GENERAL_POS).Select(y => y.ParameterValue).FirstOrDefault();
 
@@ -2545,7 +2573,8 @@ namespace Nep.Project.Business
                             data.DirectorPosition = orgDirectorGeneralPosParam;
                         }
 
-                        if(String.IsNullOrEmpty(data.Location)){
+                        if (String.IsNullOrEmpty(data.Location))
+                        {
                             string orgAddressParam = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_ADDRESS).Select(y => y.ParameterValue).FirstOrDefault();
                             orgAddressParam = orgAddressParam.Replace("\n", " ");
                             data.Location = orgAddressParam;
@@ -2557,7 +2586,7 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectPersonel proContractReceive = _db.ProjectPersonels.Where(x => (x.ProjectID == id)).FirstOrDefault();
                         if (proContractReceive != null)
                         {
-                            data.ContractReceiveName = string.Format("{0}{1}",proContractReceive.Prefix1Personel.LOVName,proContractReceive.Firstname1) ;
+                            data.ContractReceiveName = string.Format("{0}{1}", proContractReceive.Prefix1Personel.LOVName, proContractReceive.Firstname1);
                             data.ContractReceiveSurname = proContractReceive.Lastname1;
                             data.ContractReceivePosition = Resources.Model.Personal_Responsibility;
                         }
@@ -2615,9 +2644,10 @@ namespace Nep.Project.Business
                 {
                     if (hasData) // for update
                     {
-                        if (contractYear <= 2016) {
+                        if (contractYear <= 2016)
+                        {
                             contractNo = model.ContractNo;
-                            if ((!String.IsNullOrEmpty(contractNo)) &&  !CheckContractNo(contractNo, dataDBModel.ProjectID))
+                            if ((!String.IsNullOrEmpty(contractNo)) && !CheckContractNo(contractNo, dataDBModel.ProjectID))
                             {
                                 result.IsCompleted = false;
                                 result.Message.Add(String.Format(Nep.Project.Resources.Error.DuplicateValue, Nep.Project.Resources.Model.Contract_ContractNo));
@@ -2633,7 +2663,7 @@ namespace Nep.Project.Business
                     }
                     else // for create
                     {
-                        DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID && 
+                        DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
                             ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
                              (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))).SingleOrDefault();
                         DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
@@ -2654,13 +2684,13 @@ namespace Nep.Project.Business
                         int thaiContractYear = Convert.ToInt32(dataDBModel.ContractYear) + 543;
                         contractNo = (contractYear > 2016) ? _runningService.GetProjectContractNo(model.ProjectID, thaiContractYear).Data : model.ContractNo;
 
-                        if ( (!String.IsNullOrEmpty(contractNo)) && !CheckContractNo(contractNo, dataDBModel.ProjectID))
+                        if ((!String.IsNullOrEmpty(contractNo)) && !CheckContractNo(contractNo, dataDBModel.ProjectID))
                         {
                             result.IsCompleted = false;
                             result.Message.Add(String.Format(Nep.Project.Resources.Error.DuplicateValue, Nep.Project.Resources.Model.Contract_ContractNo));
                             return result;
                         }
-                       
+
                         dataDBModel.ContractNo = contractNo;
                         dataDBModel.CreatedDate = DateTime.Now;
                         dataDBModel.CreatedBy = _user.UserName;
@@ -2669,14 +2699,14 @@ namespace Nep.Project.Business
                         _db.ProjectContracts.Add(dataDBModel);
                         _db.SaveChanges();
                     }
-                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments,TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
 
                     result.Data = MappDBProjectContractToTabProjectContract(dataDBModel);
                     result.IsCompleted = true;
                     result.Message.Add(Resources.Message.SaveSuccess);
                     tran.Commit();
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -2712,7 +2742,7 @@ namespace Nep.Project.Business
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -2786,16 +2816,17 @@ namespace Nep.Project.Business
                         if (s.Contains("4")) IsAttach = true;
                         if (s.Contains("5")) IsProcess = true;
                     }
-                } catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
 
                 }
- 
-                
+
+
             }
 
         }
-        public ServiceModels.ReturnMessage RejectToOrganization(decimal projectID, string comment,string checkbox)
+        public ServiceModels.ReturnMessage RejectToOrganization(decimal projectID, string comment, string checkbox)
         {
             ServiceModels.ReturnMessage result = new ReturnMessage();
             try
@@ -2818,13 +2849,13 @@ namespace Nep.Project.Business
 
                     result.IsCompleted = true;
                     _mailService.SendRejectProject(projectID);
-                    _smsService.Send("โครงการของท่าน ได้ถูกส่งให้แก้ไข",_db, projectID);
+                    _smsService.Send("โครงการของท่าน ได้ถูกส่งให้แก้ไข", _db, projectID);
                 }
                 else
                 {
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
-                }                
+                }
 
             }
             catch (Exception ex)
@@ -2841,10 +2872,10 @@ namespace Nep.Project.Business
             ServiceModels.ReturnObject<List<string>> result = new ReturnObject<List<string>>();
             try
             {
-                var data = _db.ProjectInformations.Where(x => x.ProjectID == projectID).Select(y => new { RejectComment = y.RejectComment , RejectTopic = y.RejectTopic}).FirstOrDefault();
+                var data = _db.ProjectInformations.Where(x => x.ProjectID == projectID).Select(y => new { RejectComment = y.RejectComment, RejectTopic = y.RejectTopic }).FirstOrDefault();
                 result.IsCompleted = true;
                 result.Data = new List<string>();
-                result.Data.Add(data.RejectComment)  ;
+                result.Data.Add(data.RejectComment);
                 result.Data.Add(data.RejectTopic);
             }
             catch (Exception ex)
@@ -2926,11 +2957,11 @@ namespace Nep.Project.Business
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
                         obj.ReceiverName = genIn.OrganizationNameTH;
                         obj.ReceiverAddressNo = genIn.Address;
- 
+
                         obj.ReceiverSubdistrict = genIn.SubDistrict;
                         obj.ReceiverDistrict = genIn.District;
                         obj.ReceiverProvince = receiverProvince;
-    
+
                         obj.AttorneyDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractReceiveDate, "d MMMM yyyy");
                         obj.Amount = Common.Web.WebUtility.DisplayInHtml(genIn.BudgetReviseValue, "N2", "");
                         obj.AmountString = Common.Web.WebUtility.ToThaiBath(genIn.BudgetReviseValue);
@@ -3044,13 +3075,13 @@ namespace Nep.Project.Business
                 if (genIn != null)
                 {
                     string contractBy = "";
-                string directiveNo = "";
-                string directProvinceNo = "";
-                string provinceName = _db.MT_Province.Where(x => x.ProvinceID == genIn.ProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
-                string receiverProvince = _db.MT_Province.Where(x => x.ProvinceID == genIn.AddressProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
+                    string directiveNo = "";
+                    string directProvinceNo = "";
+                    string provinceName = _db.MT_Province.Where(x => x.ProvinceID == genIn.ProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
+                    string receiverProvince = _db.MT_Province.Where(x => x.ProvinceID == genIn.AddressProvinceID).Select(y => y.ProvinceName).FirstOrDefault();
 
-                var receiver = _db.ProjectPersonels.Where(x => x.ProjectID == projectID).FirstOrDefault();
-               
+                    var receiver = _db.ProjectPersonels.Where(x => x.ProjectID == projectID).FirstOrDefault();
+
                     decimal? creatorOrganizationID = _db.SC_User.Where(x => (x.UserID == genIn.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault();
 
                     List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;
@@ -3062,7 +3093,7 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectApproval approval = genIn.ProjectApproval;
 
                         contractBy = contract.DirectornameName + " " + contract.DirectorLastName;
-                        directiveNo = (!string.IsNullOrEmpty(contract.AttorneyNo))? (contract.AttorneyNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.AttorneyYear)) : "";
+                        directiveNo = (!string.IsNullOrEmpty(contract.AttorneyNo)) ? (contract.AttorneyNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.AttorneyYear)) : "";
                         directProvinceNo = (!string.IsNullOrEmpty(contract.ProvinceContractNo)) ? (contract.ProvinceContractNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.ProvinceContractYear)) : "";
 
                         ServiceModels.Report.ReportFormatContract obj = new ServiceModels.Report.ReportFormatContract();
@@ -3072,7 +3103,7 @@ namespace Nep.Project.Business
                         obj.ContractBy = contractBy;
                         obj.Position = contract.DirectorPosition;
                         obj.DirectiveNo = directiveNo;
-                        obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate,"d MMMM yyyy");
+                        obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
                         obj.DirectiveProvince = provinceName;
                         obj.DirectProvinceNo = directProvinceNo;
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
@@ -3093,7 +3124,7 @@ namespace Nep.Project.Business
 
                         obj.IsCenterContract = IsCenterReviseProject(genIn.ProvinceID);
 
-                        obj.AuthorizeFlag = (contract.AuthorizeFlag == Common.Constants.BOOLEAN_TRUE)? true : false;
+                        obj.AuthorizeFlag = (contract.AuthorizeFlag == Common.Constants.BOOLEAN_TRUE) ? true : false;
                         obj.ReceiverBy = String.Format("{0} {1}", contract.ReceiverName, contract.ReceiverSurname);
                         obj.ReceivePosition = contract.ReceiverPosition;
                         obj.AttachPage1 = contract.ATTACHPAGE1?.ToString();
@@ -3109,7 +3140,7 @@ namespace Nep.Project.Business
                     {
                         result.IsCompleted = false;
                         result.Message.Add(Nep.Project.Resources.Error.CanotViewProjectData);
-                    }                    
+                    }
                 }
                 else
                 {
@@ -3142,7 +3173,7 @@ namespace Nep.Project.Business
                                 ProjectID = pro.ProjectID,
                                 OrganizationID = pro.OrganizationID,
 
-                                ApprovalStatus = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalStatus : null,
+                                ApprovalStatus = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalStatus : null,
 
                                 ProjectApprovalStatusID = pro.ProjectApprovalStatusID,
                                 ProjectApprovalStatusCode = pro.ProjectApprovalStatus.LOVCode,
@@ -3153,17 +3184,17 @@ namespace Nep.Project.Business
 
                                 TotalBudgetRequest = pro.BudgetValue,
 
-                                ProjectNo = (pro.ProjectInformation != null)? pro.ProjectInformation.ProjectNo : null,
-                                ProjectNameTH = (pro.ProjectInformation != null)? pro.ProjectInformation.ProjectNameTH : null,
+                                ProjectNo = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNo : null,
+                                ProjectNameTH = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNameTH : null,
                                 ProjectNameEN = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNameEN : null,
 
-                                EvaluationIsPassAss4 = (pro.ProjectEvaluation != null)? pro.ProjectEvaluation.IsPassAss4 : null,
+                                EvaluationIsPassAss4 = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.IsPassAss4 : null,
                                 EvaluationIsPassAss5 = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.IsPassAss5 : null,
-                                EvaluationScore = (pro.ProjectEvaluation != null)? pro.ProjectEvaluation.EvaluationValue : 0,
+                                EvaluationScore = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.EvaluationValue : 0,
                                 EvaluationScoreCode = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.EvaluationStatus.LOVCode : null,
-                                EvaluationScoreDesc = (pro.ProjectEvaluation != null)? pro.ProjectEvaluation.EvaluationStatus.LOVName : null,
+                                EvaluationScoreDesc = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.EvaluationStatus.LOVName : null,
 
-                                ApprovalStatusID1 = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalStatusID1 : (decimal?)null,
+                                ApprovalStatusID1 = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalStatusID1 : (decimal?)null,
                                 ApprovalBudget1 = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalBudget1 : (decimal?)null,
                                 ApprovalDesc1 = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalDesc1 : null,
                                 ApprovalName1 = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalName1 : null,
@@ -3183,10 +3214,10 @@ namespace Nep.Project.Business
                                 ApprovalYear = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalYear : null,
                                 ApprovalDate = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalDate : null,
 
-                                CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID== pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
+                                CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
 
-                                BudgetTypeID = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalBudgetTypeID : (decimal?)null
-                                
+                                BudgetTypeID = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalBudgetTypeID : (decimal?)null
+
                             }).FirstOrDefault();
 
                 if (data != null)
@@ -3204,10 +3235,10 @@ namespace Nep.Project.Business
                                              ReviseRemark = budget.RemarkRevise,
                                              ApprovalRemark = budget.RemarkApproval,
                                              ActivityID = budget.ACTIVITYID
-                                            
+
                                              //kenghot
                                          }).OrderBy(or => or.ProjectBudgetID).ToList();
-                //}).OrderByDescending(or => or.Amount).ToList();
+                    //}).OrderByDescending(or => or.Amount).ToList();
                     data.BudgetDetails = budgetDetails;
                     data.IsCenterReviseProject = IsCenterReviseProject(data.ProvinceID);
 
@@ -3219,7 +3250,7 @@ namespace Nep.Project.Business
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -3237,51 +3268,51 @@ namespace Nep.Project.Business
             //กลั่นกรอง
             if (lov.LOVGroup == Common.LOVGroup.ApprovalStatus1)
             {
-                switch ( lov.LOVCode)
+                switch (lov.LOVCode)
                 {
-                 
-                    case Common.LOVCode.Approvalstatus1.ชะลอการพิจารณา :
+
+                    case Common.LOVCode.Approvalstatus1.ชะลอการพิจารณา:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา ;
+                            projst = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา;
                             break;
                         }
-                    case Common.LOVCode.Approvalstatus1.ยกเลิก :
+                    case Common.LOVCode.Approvalstatus1.ยกเลิก:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง ;
+                            projst = Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง;
                             break;
                         }
-                    case Common.LOVCode.Approvalstatus1.อื่นๆ :
+                    case Common.LOVCode.Approvalstatus1.อื่นๆ:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง ;
+                            projst = Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง;
                             break;
                         }
                 }
             }
             //กองทุน
-            if (lov. LOVGroup == Common.LOVGroup.ApprovalStatus2)
+            if (lov.LOVGroup == Common.LOVGroup.ApprovalStatus2)
             {
-                switch  (lov.LOVCode)
+                switch (lov.LOVCode)
                 {
                     case Common.LOVCode.Approvalstatus2.ชะลอการพิจารณา:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_5_1_ชะลอการพิจารณา ;
+                            projst = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_5_1_ชะลอการพิจารณา;
                             break;
                         }
                     case Common.LOVCode.Approvalstatus2.ยกเลิก:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด   ;
+                            projst = Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด;
                             break;
                         }
                     case Common.LOVCode.Approvalstatus2.อื่นๆ:
                         {
-                            projst = Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด ;
+                            projst = Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด;
                             break;
                         }
                 }
             }
             if (projst == "")
             { return null; }
-           
+
             var l = GetListOfValue(projst, Common.LOVGroup.ProjectApprovalStatus);
             return l.LOVID;
         }
@@ -3291,7 +3322,7 @@ namespace Nep.Project.Business
             try
             {
                 decimal requestBudget = 0;
-                decimal approvedBudget = 0;                
+                decimal approvedBudget = 0;
                 bool isSendApprovedMail = false;
                 bool isSendNotApprovedMail = false;
                 string approvalStatus = null;
@@ -3360,7 +3391,7 @@ namespace Nep.Project.Business
                         dbApproval.UpdatedBy = _user.UserName;
                         dbApproval.UpdatedDate = DateTime.Now;
 
-                        
+
                     }
                     else
                     {
@@ -3375,12 +3406,12 @@ namespace Nep.Project.Business
 
                     projectName = _db.ProjectInformations.Where(x => x.ProjectID == model.ProjectID).Select(y => y.ProjectNameTH).SingleOrDefault();
 
-                   
+
                     #region Update Project Approval Status
                     DBModels.Model.MT_Organization org = _db.MT_Organization.Where(x => x.OrganizationID == genInfo.OrganizationID).FirstOrDefault();
-                    DBModels.Model.ProjectPersonel personal = _db.ProjectPersonels.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();                  
+                    DBModels.Model.ProjectPersonel personal = _db.ProjectPersonels.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();
                     DBModels.Model.MT_ListOfValue projectApprovalStatus;
-                    
+
                     orgMobile = org.Mobile;
                     personalMobile = personal.Mobile1;
 
@@ -3390,10 +3421,10 @@ namespace Nep.Project.Business
                         if (dbApproval.ApprovalStatusID2.HasValue &&
                             (!String.IsNullOrEmpty(dbApproval.ApprovalNo)) &&
                             (!String.IsNullOrEmpty(dbApproval.ApprovalYear)) &&
-                            (dbApproval.ApprovalDate.HasValue) )
+                            (dbApproval.ApprovalDate.HasValue))
                         {
-                            
-                            projectApprovalStatus = _db.MT_ListOfValue.Where(x => x.LOVID == (decimal)model.ApprovalStatusID2).FirstOrDefault();                           
+
+                            projectApprovalStatus = _db.MT_ListOfValue.Where(x => x.LOVID == (decimal)model.ApprovalStatusID2).FirstOrDefault();
 
                             if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus2.อนุมัติ_ตามวงเงินที่โครงการขอสนับสนุน)
                             {
@@ -3407,7 +3438,7 @@ namespace Nep.Project.Business
                             }
                             else if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus2.อนุมัติ_ปรับลดวงเงินสนับสนุน)
                             {
-                                
+
                                 approvalStatus = "1";
 
                                 isSendApprovedMail = true;
@@ -3428,7 +3459,7 @@ namespace Nep.Project.Business
                             {
                                 isCreateProjectNo = true;
                                 newProjectStatus = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน, Common.LOVGroup.ProjectApprovalStatus).LOVID;
-                              
+
                             }
                             else
                             {
@@ -3443,7 +3474,7 @@ namespace Nep.Project.Business
                                 //end kenghot
                             }
 
-                                                
+
                         }
                         else
                         {
@@ -3464,18 +3495,18 @@ namespace Nep.Project.Business
                             }
                             else if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus1.ไม่อนุมัติ)
                             {
-                                isSendNotApprovedMail = true;                                
+                                isSendNotApprovedMail = true;
                                 approvalStatus = "0";
                                 //genInfo.BudgetReviseValue = 0;
                             }
 
                             if (isStep4Approved)
                             {
-                                newProjectStatus = step4Status.LOVID;                               
+                                newProjectStatus = step4Status.LOVID;
                             }
                             //kenghot
                             //else if (approvalStatus == "0")
-                            else  
+                            else
                             {
                                 //kenghot 
                                 // newProjectStatus = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง, Common.LOVGroup.ProjectApprovalStatus).LOVID;
@@ -3485,7 +3516,7 @@ namespace Nep.Project.Business
                                 else
                                     newProjectStatus = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง, Common.LOVGroup.ProjectApprovalStatus).LOVID;
                             }
-                             
+
                         }
                         #endregion Center
                     }
@@ -3496,11 +3527,11 @@ namespace Nep.Project.Business
                             (!String.IsNullOrEmpty(dbApproval.ApprovalYear)) &&
                             (dbApproval.ApprovalDate.HasValue))
                         {
-                            
+
                             projectApprovalStatus = _db.MT_ListOfValue.Where(x => x.LOVID == (decimal)model.ApprovalStatusID1).FirstOrDefault();
                             if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus1.อนุมัติ_ตามวงเงินที่โครงการขอสนับสนุน)
                             {
-                                
+
                                 approvalStatus = "1";
 
                                 isSendApprovedMail = true;
@@ -3511,7 +3542,7 @@ namespace Nep.Project.Business
                             }
                             else if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus1.อนุมัติ_ปรับลดวงเงินสนับสนุน)
                             {
-                                
+
                                 approvalStatus = "1";
 
                                 isSendApprovedMail = true;
@@ -3520,14 +3551,15 @@ namespace Nep.Project.Business
                                 newBudgetRevise = model.ApprovalBudget1;
                                 //genInfo.BudgetReviseValue = model.ApprovalBudget1;
                             }
-                            else if(projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus1.ไม่อนุมัติ)
+                            else if (projectApprovalStatus.LOVCode == Common.LOVCode.Approvalstatus1.ไม่อนุมัติ)
                             {
                                 approvalStatus = "0";
                                 isSendNotApprovedMail = true;
                                 //genInfo.BudgetReviseValue = 0;
                             }
 
-                            if(approvalStatus == "1"){
+                            if (approvalStatus == "1")
+                            {
                                 isCreateProjectNo = true;
                                 newProjectStatus = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด, Common.LOVGroup.ProjectApprovalStatus).LOVID;
                                 //genInfo.ProjectApprovalStatusID = status.LOVID;
@@ -3542,8 +3574,8 @@ namespace Nep.Project.Business
                                 else
                                     newProjectStatus = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด, Common.LOVGroup.ProjectApprovalStatus).LOVID;
                                 //genInfo.ProjectApprovalStatusID = status.LOVID;
-                            }                          
-                            
+                            }
+
                             #endregion Province;
                         }
                     }
@@ -3556,41 +3588,41 @@ namespace Nep.Project.Business
                         genInfo.UpdatedByID = _user.UserID;
                         genInfo.UpdatedDate = DateTime.Now;
                     }
-                   
+
 
                     #endregion Update Project Approval Status
 
 
                     #region Update ProjectNo
                     DBModels.Model.ProjectInformation proInfo = _db.ProjectInformations.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
-                                                         
+
                     String projectNo = model.ProjectNo;
                     if (isCreateProjectNo && (newProjectStatus != oldProjectStatus) && (String.IsNullOrEmpty(projectNo)))
                     {
-                        
+
                         if (approvalYear > 2016)
                         {
                             var projectNoResult = _runningService.GetProjectProjectNo(model.ProjectID, (DateTime)model.ApprovalDate, Int32.Parse(model.ApprovalNo), approvalYear);
                             if (projectNoResult.IsCompleted)
                             {
-                                projectNo = projectNoResult.Data;                               
+                                projectNo = projectNoResult.Data;
                             }
                             else
                             {
                                 throw new Exception(projectNoResult.Message[0]);
                             }
-                        }                                             
+                        }
                     }
 
                     if (proInfo.ProjectNo != projectNo)
                     {
-                        if ((!String.IsNullOrEmpty(projectNo)) &&  !CheckProjectNo(projectNo, proInfo.ProjectID))
+                        if ((!String.IsNullOrEmpty(projectNo)) && !CheckProjectNo(projectNo, proInfo.ProjectID))
                         {
                             String msg = String.Format(Nep.Project.Resources.Error.DuplicateValue, Nep.Project.Resources.Model.ProjectInfo_ProjectNo1);
                             result.IsCompleted = false;
                             result.Message.Add(msg);
                             return result;
-                        }                        
+                        }
 
                         proInfo.ProjectNo = projectNo;
                         proInfo.UpdatedBy = _user.UserName;
@@ -3610,7 +3642,7 @@ namespace Nep.Project.Business
                         newValue.ProjectApprovalStatusID = newProjectStatus;
                         newValue.ProjectNo = proInfo.ProjectNo;
                         newValue.BudgetReviseValue = newBudgetRevise;
-                        
+
                         DBModels.Model.ProjectLog proLog = new DBModels.Model.ProjectLog();
                         proLog.ProjectID = model.ProjectID;
                         proLog.OldValue = Nep.Project.Common.Web.WebUtility.ToJSON(oldValue);
@@ -3619,7 +3651,7 @@ namespace Nep.Project.Business
                         proLog.UpdatedByID = (decimal)_user.UserID;
                         proLog.UpdatedTime = dbApproval.UpdatedDate.Value;
                         _db.ProjectLogs.Add(proLog);
-                    }                    
+                    }
                     #endregion Inset project log
 
                     isTransCommit = true;
@@ -3655,7 +3687,7 @@ namespace Nep.Project.Business
                             _smsService.Send(sms, telephones.ToArray());
                         }
                     }
-                     
+
                 }
                 catch (Exception ex)
                 {
@@ -3692,12 +3724,13 @@ namespace Nep.Project.Business
         {
             ServiceModels.ProjectInfo.BudgetDetail budget;
             DBModels.Model.ProjectBudget dbBudget;
-            for (int i = 0; i < budgetDetails.Count; i++ )
+            for (int i = 0; i < budgetDetails.Count; i++)
             {
                 budget = budgetDetails[i];
                 dbBudget = _db.ProjectBudgets.Where(x => x.ProjectBudgetID == budget.ProjectBudgetID).FirstOrDefault();
-                if(dbBudget != null){
-                    dbBudget.BudgetReviseValue1 = (budget.Revise1Amount.HasValue)? (decimal)budget.Revise1Amount : 0;
+                if (dbBudget != null)
+                {
+                    dbBudget.BudgetReviseValue1 = (budget.Revise1Amount.HasValue) ? (decimal)budget.Revise1Amount : 0;
                     dbBudget.BudgetReviseValue2 = (budget.Revise2Amount.HasValue) ? (decimal)budget.Revise2Amount : 0;
                     dbBudget.RemarkApproval = budget.ApprovalRemark;
                     dbBudget.UpdatedBy = _user.UserName;
@@ -3749,49 +3782,49 @@ namespace Nep.Project.Business
                                               BudgetReviseValue = pb.BudgetReviseValue,
                                               BudgetReviseValue1 = pb.BudgetReviseValue1,
                                               BudgetReviseValue2 = pb.BudgetReviseValue2
-                                          }).OrderBy(or=> or.ProjectBudgetID).ToList();
+                                          }).OrderBy(or => or.ProjectBudgetID).ToList();
             }
             else
             {
                 oldValue = new ServiceModels.ProjectInfo.ProjectApprovalLog();
             }
-            
+
             return oldValue;
         }
 
         private ServiceModels.ProjectInfo.ProjectApprovalLog GetNewValueOfProjectApproval(ServiceModels.ProjectInfo.ProjectApprovalResult model)
         {
-            
+
             ServiceModels.ProjectInfo.ProjectApprovalLog newValue = new ServiceModels.ProjectInfo.ProjectApprovalLog();
-           
-                newValue.ApprovalStatusID1 = model.ApprovalStatusID1.Value;
-                newValue.ApprovalBudget1 = model.ApprovalBudget1;
-                newValue.ApprovalName1 = model.ApprovalName1;
-                newValue.ApprovalLastName1 = model.ApprovalLastName1;
-                newValue.ApproverPosition1 = model.ApproverPosition1;
-                newValue.ApprovalDate1 = model.ApprovalDate1;
 
-                newValue.ApprovalStatusID2 = model.ApprovalStatusID2;
-                newValue.ApprovalBudget2 = model.ApprovalBudget2;
-                newValue.ApprovalName2 = model.ApprovalName2;
-                newValue.ApprovalLastName2 = model.ApprovalLastName2;
-                newValue.ApproverPosition2 = model.ApproverPosition2;
-                newValue.ApprovalDate2 = model.ApprovalDate2;
+            newValue.ApprovalStatusID1 = model.ApprovalStatusID1.Value;
+            newValue.ApprovalBudget1 = model.ApprovalBudget1;
+            newValue.ApprovalName1 = model.ApprovalName1;
+            newValue.ApprovalLastName1 = model.ApprovalLastName1;
+            newValue.ApproverPosition1 = model.ApproverPosition1;
+            newValue.ApprovalDate1 = model.ApprovalDate1;
 
-                newValue.ApprovalNo = model.ApprovalNo;
-                newValue.ApprovalYear = model.ApprovalYear;
-                newValue.ApprovalDate = model.ApprovalDate;
+            newValue.ApprovalStatusID2 = model.ApprovalStatusID2;
+            newValue.ApprovalBudget2 = model.ApprovalBudget2;
+            newValue.ApprovalName2 = model.ApprovalName2;
+            newValue.ApprovalLastName2 = model.ApprovalLastName2;
+            newValue.ApproverPosition2 = model.ApproverPosition2;
+            newValue.ApprovalDate2 = model.ApprovalDate2;
 
-                newValue.BudgetDetails = (from pb in model.BudgetDetails                                         
-                                          select new ServiceModels.ProjectInfo.BudgetDetailApprovalLog
-                                          {
-                                              ProjectBudgetID = pb.ProjectBudgetID,
-                                              BudgetValue = pb.Amount.Value,
-                                              BudgetReviseValue = pb.ReviseAmount.Value,
-                                              BudgetReviseValue1 = pb.Revise1Amount.Value,
-                                              BudgetReviseValue2 = pb.Revise2Amount.Value
-                                          }).OrderBy(or => or.ProjectBudgetID).ToList();
-                                
+            newValue.ApprovalNo = model.ApprovalNo;
+            newValue.ApprovalYear = model.ApprovalYear;
+            newValue.ApprovalDate = model.ApprovalDate;
+
+            newValue.BudgetDetails = (from pb in model.BudgetDetails
+                                      select new ServiceModels.ProjectInfo.BudgetDetailApprovalLog
+                                      {
+                                          ProjectBudgetID = pb.ProjectBudgetID,
+                                          BudgetValue = pb.Amount.Value,
+                                          BudgetReviseValue = pb.ReviseAmount.Value,
+                                          BudgetReviseValue1 = pb.Revise1Amount.Value,
+                                          BudgetReviseValue2 = pb.Revise2Amount.Value
+                                      }).OrderBy(or => or.ProjectBudgetID).ToList();
+
             return newValue;
         }
         #endregion ProjectApprovalResult
@@ -3803,9 +3836,9 @@ namespace Nep.Project.Business
             try
             {
                 var data = (from pro in _db.PROJECTQUESTIONHDs
-                           where pro.PROJECTID == projectID && pro.QUESTGROUP == qGroup
-                           select pro.DATA).FirstOrDefault();
-              
+                            where pro.PROJECTID == projectID && pro.QUESTGROUP == qGroup
+                            select pro.DATA).FirstOrDefault();
+
 
 
                 result.IsCompleted = true;
@@ -3819,7 +3852,7 @@ namespace Nep.Project.Business
             }
             return result;
         }
-        public ServiceModels.ReturnObject<string> SaveQNData(decimal projectID, string qGroup,string isReported,string  QNData)
+        public ServiceModels.ReturnObject<string> SaveQNData(decimal projectID, string qGroup, string isReported, string QNData)
         {
             ServiceModels.ReturnObject<string> result = new ReturnObject<string>();
 
@@ -3835,15 +3868,15 @@ namespace Nep.Project.Business
                     _db.PROJECTQUESTIONHDs.Add(data);
                     data.PROJECTID = projectID;
                     data.CREATEDBY = _user.UserName;
-                    data.CREATEDBYID = _user.UserID.Value;
+                    data.CREATEDBYID = _user.UserID.HasValue? _user.UserID.Value : 0;
                     data.CREATEDDATE = DateTime.Now;
-                    
+
                     data.QUESTGROUP = qGroup;
-                    
-                    
+
+
                 }
                 data.UPDATEDBY = _user.UserName;
-                data.UPDATEDBYID = _user.UserID.Value;
+                data.UPDATEDBYID = _user.UserID.HasValue ? _user.UserID.Value : 0;
                 data.UPDATEDDATE = DateTime.Now;
                 data.ISREPORTED = isReported;
                 data.DATA = QNData;
@@ -3862,7 +3895,7 @@ namespace Nep.Project.Business
         public ServiceModels.ReturnObject<List<ServiceModels.ProjectInfo.Questionare>> GetProjectQuestionare(decimal projectID, string qGroup)
         {
             ServiceModels.ReturnObject<List<ServiceModels.ProjectInfo.Questionare>> result = new ReturnObject<List<Questionare>>();
-            
+
             try
             {
                 var data = from pro in _db.PROJECTQUESTIONs
@@ -3873,8 +3906,8 @@ namespace Nep.Project.Business
                                QType = pro.QTYPE,
                                QValue = pro.QVALUE
                            };
-      
-       
+
+
 
                 result.IsCompleted = true;
                 result.Data = data.ToList();
@@ -3903,14 +3936,14 @@ namespace Nep.Project.Business
                                                                       {
                                                                           ProjectID = pro.ProjectID,
                                                                           OrganizationID = pro.OrganizationID,
-                                                                          ApprovalStatus = (pro.ProjectApproval != null)? pro.ProjectApproval.ApprovalStatus : null,
-                                                                          ContractYear = (pro.ProjectContract != null)? pro.ProjectContract.ContractYear : (decimal?)null,
+                                                                          ApprovalStatus = (pro.ProjectApproval != null) ? pro.ProjectApproval.ApprovalStatus : null,
+                                                                          ContractYear = (pro.ProjectContract != null) ? pro.ProjectContract.ContractYear : (decimal?)null,
 
                                                                           FollowupStatusID = pro.FollowUpStatus,
                                                                           FollowupStatusCode = (pro.FollowUpStatus != null) ? _db.MT_ListOfValue.Where(x => x.LOVID == pro.FollowUpStatus).Select(y => y.LOVCode).FirstOrDefault() : null,
                                                                           BudgetAmount = pro.BudgetValue,
                                                                           ReviseBudgetAmount = pro.BudgetReviseValue,
-                                                                          ActivityDescription = (pro.ProjectReport != null)? pro.ProjectReport.ActivityDescription : null,
+                                                                          ActivityDescription = (pro.ProjectReport != null) ? pro.ProjectReport.ActivityDescription : null,
                                                                           MaleParticipant = (pro.ProjectReport != null) ? pro.ProjectReport.MaleParticipant : 0,
                                                                           FemaleParticipant = (pro.ProjectReport != null) ? pro.ProjectReport.FemaleParticipant : 0,
                                                                           ActualExpense = (pro.ProjectReport != null) ? pro.ProjectReport.ActualExpense : (decimal?)null,
@@ -3921,9 +3954,9 @@ namespace Nep.Project.Business
                                                                           OperationLevel = (pro.ProjectReport != null) ? pro.ProjectReport.OperationLevel : null,
                                                                           OperationLevelDesc = (pro.ProjectReport != null) ? pro.ProjectReport.OperationLevelDesc : null,
                                                                           ReporterName1 = (pro.ProjectReport != null) ? pro.ProjectReport.ReporterName1 : null,
-                                                                          ReporterLastname1 = (pro.ProjectReport != null) ? pro.ProjectReport.ReporterLastname1 :null,
+                                                                          ReporterLastname1 = (pro.ProjectReport != null) ? pro.ProjectReport.ReporterLastname1 : null,
                                                                           Position1 = (pro.ProjectReport != null) ? pro.ProjectReport.Position1 : null,
-                                                                          RepotDate1 = (pro.ProjectReport != null)? pro.ProjectReport.RepotDate1 : (DateTime?)null,
+                                                                          RepotDate1 = (pro.ProjectReport != null) ? pro.ProjectReport.RepotDate1 : (DateTime?)null,
                                                                           Telephone1 = (pro.ProjectReport != null) ? pro.ProjectReport.Telephone1 : null,
                                                                           SuggestionDesc = (pro.ProjectReport != null) ? pro.ProjectReport.SuggestionDesc : null,
                                                                           ReporterName2 = (pro.ProjectReport != null) ? pro.ProjectReport.ReporterName2 : null,
@@ -3931,10 +3964,10 @@ namespace Nep.Project.Business
                                                                           Position2 = (pro.ProjectReport != null) ? pro.ProjectReport.Position2 : null,
                                                                           RepotDate2 = (pro.ProjectReport != null) ? pro.ProjectReport.RepotDate2 : (DateTime?)null,
                                                                           Telephone2 = (pro.ProjectReport != null) ? pro.ProjectReport.Telephone2 : null,
-                                                                          ReportAttachmentID = (pro.ProjectReport != null)? pro.ProjectReport.ReportAttachmentID : null,
+                                                                          ReportAttachmentID = (pro.ProjectReport != null) ? pro.ProjectReport.ReportAttachmentID : null,
 
                                                                           ProjectApprovalStatusID = pro.ProjectApprovalStatusID,
-                                                                          ProjectApprovalStatusCode = (pro.ProjectApprovalStatus != null)? pro.ProjectApprovalStatus.LOVCode : null,
+                                                                          ProjectApprovalStatusCode = (pro.ProjectApprovalStatus != null) ? pro.ProjectApprovalStatus.LOVCode : null,
                                                                           CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                                                           ProvinceID = pro.ProvinceID,
                                                                           Interest = pro.ProjectReport.INTEREST
@@ -3962,34 +3995,34 @@ namespace Nep.Project.Business
 
 
                                                                                        }).ToList();
-                    foreach(ServiceModels.ProjectInfo.ProjectParticipant p in participants)
+                    foreach (ServiceModels.ProjectInfo.ProjectParticipant p in participants)
                     {
-                        if (int.Parse(p.IsCripple) > 1 )
+                        if (int.Parse(p.IsCripple) > 1)
                         {
                             p.TargetGroupID = 0;
                             p.TargetGroupName = "";
                         }
                     }
                     data.Participants = participants;
-                
+
                     //Attachment
                     if (data.ReportAttachmentID.HasValue)
                     {
                         //kenghot18
                         _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
-                            {
-                                ATTACHMENTID = data.ReportAttachmentID.Value,
-                                FIELDNAME = REPORT_BUDGET,
-                                TABLENAME = TABLE_REPORT,
-                                TABLEROWID = projectID
-                            });
+                        {
+                            ATTACHMENTID = data.ReportAttachmentID.Value,
+                            FIELDNAME = REPORT_BUDGET,
+                            TABLENAME = TABLE_REPORT,
+                            TABLEROWID = projectID
+                        });
                         var edit = (from e in _db.ProjectReports where e.ProjectID == projectID select e).FirstOrDefault();
-                            edit.ReportAttachmentID = null;
-                       
+                        edit.ReportAttachmentID = null;
+
                         _db.SaveChanges();
                         //
 
-                    //kenghot18
+                        //kenghot18
                         //DBModels.Model.MT_Attachment dbAttachment = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)data.ReportAttachmentID).FirstOrDefault();
                         //if (dbAttachment != null)
                         //{
@@ -4003,7 +4036,7 @@ namespace Nep.Project.Business
                         //}
                     }
                     //kenghot18
-                 
+
                     data.ReportAttachments = att.GetAttachmentOfTable(TABLE_REPORT, REPORT_BUDGET, projectID);
                     data.ActivityAttachments = att.GetAttachmentOfTable(TABLE_REPORT, REPORT_ACTIVITY, projectID);
                     data.ParticipantAttachments = att.GetAttachmentOfTable(TABLE_REPORT, REPORT_PARTICIPANT, projectID);
@@ -4023,7 +4056,68 @@ namespace Nep.Project.Business
             }
             return result;
         }
-        public ServiceModels.ReturnMessage SaveProjectQuestionareResult(decimal projID,string QNGroup,string controls, bool isSaveOfficerReport, bool isSendReport, string ipAddress)
+        public ServiceModels.ReturnObject<decimal?> SaveDocument(decimal projID, string QNGroup, string data)
+        {
+            var result = new ReturnObject<decimal?>();
+            try
+            {
+
+                PROJECTQUESTIONHD doc = null;
+
+                doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                if (doc == null)
+                {
+                    doc = new PROJECTQUESTIONHD
+                    {
+                        CREATEDBY = "system",
+                        CREATEDBYID = 1,
+                        CREATEDDATE = DateTime.Now,
+                        ISREPORTED = "1",
+                        PROJECTID = projID,
+                        QUESTGROUP = QNGroup
+                    };
+                    _db.PROJECTQUESTIONHDs.Add(doc);
+                }
+                doc.UPDATEDBY = "system";
+                doc.UPDATEDBYID = 1;
+                doc.UPDATEDDATE = DateTime.Now;
+                doc.DATA = data;
+                _db.SaveChanges();
+                result.Data = doc.QUESTHDID;
+                result.IsCompleted = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        public ServiceModels.ReturnObject<string> GetDocument(decimal projID, string QNGroup)
+        {
+            var result = new ReturnObject<string>();
+            try
+            {
+          
+                var doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                if (doc == null)
+                {
+                    result.Message.Add("ไม่พบข้อมูล");
+                    return result;
+                }
+                result.Data = doc.DATA;
+                result.IsCompleted = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        public ServiceModels.ReturnMessage SaveProjectQuestionareResult(decimal projID, string QNGroup, string controls, bool isSaveOfficerReport, bool isSendReport, string ipAddress)
         {
             ServiceModels.ReturnMessage result = new ReturnMessage();
             try
@@ -4039,8 +4133,9 @@ namespace Nep.Project.Business
                     qn.ISREPORTED = (isSendReport) ? "1" : "0";
                     qn.PROJECTID = projID;
                     qn.QUESTGROUP = QNGroup;
-    
-                } else
+
+                }
+                else
                 {
                     if (isSendReport) qn.ISREPORTED = "1";
                     qn.UPDATEDBY = _user.UserName;
@@ -4061,9 +4156,9 @@ namespace Nep.Project.Business
                         tmp.QFIELD = j.Key;
                         tmp.QTYPE = "X";
                         qn.PROJECTQUESTIONs.Add(tmp);
-                      
 
-                    }   
+
+                    }
                     tmp.QVALUE = j.Value.ToString();
                 }
                 if (QNGroup == "SATISFY")
@@ -4084,7 +4179,8 @@ namespace Nep.Project.Business
                 {
                     result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
@@ -4092,10 +4188,10 @@ namespace Nep.Project.Business
             }
             return result;
 
-  
+
 
         }
-        public ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType,List<KendoAttachment> removeFiles, List<KendoAttachment> addFiles, string tableName , string fieldName)
+        public ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType, List<KendoAttachment> removeFiles, List<KendoAttachment> addFiles, string tableName, string fieldName)
         {
             String rootFolderPath = Common.Constants.UPLOAD_TEMP_PATH;
             String rootDestinationFolderPath = GetAttachmentRootFolder();
@@ -4153,7 +4249,7 @@ namespace Nep.Project.Business
                     if (dbReport == null)
                     {
                         dbReport = new DBModels.Model.ProjectReport();
-                    }                                     
+                    }
 
                     dbReport.ActivityDescription = model.ActivityDescription;
                     dbReport.MaleParticipant = model.MaleParticipant;
@@ -4180,10 +4276,10 @@ namespace Nep.Project.Business
                         dbReport.RepotDate2 = model.RepotDate2;
                         dbReport.Telephone2 = model.Telephone2;
                     }
-                    
+
 
                     //Attachment 
-                   
+
                     if (model.RemovedReportAttachment != null)
                     {
                         //kenghot18
@@ -4212,7 +4308,7 @@ namespace Nep.Project.Business
                         }
                     }
 
-                   
+
 
                     if (model.RemovedActivityAttachments != null)
                     {
@@ -4222,7 +4318,7 @@ namespace Nep.Project.Business
                         }
 
                     }
-          
+
                     if (model.AddedActivityAttachments != null)
                     {
                         foreach (KendoAttachment k in model.AddedActivityAttachments)
@@ -4340,7 +4436,7 @@ namespace Nep.Project.Business
                     {
                         result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
@@ -4350,7 +4446,7 @@ namespace Nep.Project.Business
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }
             return result;
-        }        
+        }
 
         public ServiceModels.ReturnMessage SaveOfficerProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model)
         {
@@ -4387,7 +4483,7 @@ namespace Nep.Project.Business
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }
 
-            return result;            
+            return result;
         }
 
         public ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectTargetNameList> GetProjectTargetForParticipant(decimal projectID)
@@ -4397,21 +4493,21 @@ namespace Nep.Project.Business
             {
                 List<ServiceModels.ProjectInfo.ProjectTargetNameList> data = (
                         (from targetGroup in _db.MT_ListOfValue
-                        join pTargetGroup in _db.ProjectTargetGroups.Where(pt=> pt.ProjectID == projectID) on targetGroup.LOVID equals pTargetGroup.TargetGroupID into pTargetGroupTmp
-                        from ptg in pTargetGroupTmp.DefaultIfEmpty()                       
-                        where (targetGroup.LOVGroup == Common.LOVGroup.TargetGroup) && ((targetGroup.IsActive == Common.Constants.BOOLEAN_TRUE) || ((targetGroup.IsActive == Common.Constants.BOOLEAN_FALSE) && (ptg != null) ))
-                        select new ServiceModels.ProjectInfo.ProjectTargetNameList
-                        {
-                            ProjectParticipantsID = (decimal?)null,
-                            ProjectTargetID = ptg.ProjectTargetGroupID,
-                            TargetID = targetGroup.LOVID,
-                            TargetName = targetGroup.LOVName,
-                            TargetEtc = ptg.TargetGroupEtc,
-                            LovIsActive = targetGroup.IsActive 
-                        }).Union(
+                         join pTargetGroup in _db.ProjectTargetGroups.Where(pt => pt.ProjectID == projectID) on targetGroup.LOVID equals pTargetGroup.TargetGroupID into pTargetGroupTmp
+                         from ptg in pTargetGroupTmp.DefaultIfEmpty()
+                         where (targetGroup.LOVGroup == Common.LOVGroup.TargetGroup) && ((targetGroup.IsActive == Common.Constants.BOOLEAN_TRUE) || ((targetGroup.IsActive == Common.Constants.BOOLEAN_FALSE) && (ptg != null)))
+                         select new ServiceModels.ProjectInfo.ProjectTargetNameList
+                         {
+                             ProjectParticipantsID = (decimal?)null,
+                             ProjectTargetID = ptg.ProjectTargetGroupID,
+                             TargetID = targetGroup.LOVID,
+                             TargetName = targetGroup.LOVName,
+                             TargetEtc = ptg.TargetGroupEtc,
+                             LovIsActive = targetGroup.IsActive
+                         }).Union(
                             from participant in _db.ProjectParticipants
-                            join targetGroup in _db.MT_ListOfValue  on participant.TargetGroupID equals targetGroup.LOVID
-                            where (participant.ProjectID == projectID) && (participant.ProjectTargetGroupID == null) && (targetGroup.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ)                          
+                            join targetGroup in _db.MT_ListOfValue on participant.TargetGroupID equals targetGroup.LOVID
+                            where (participant.ProjectID == projectID) && (participant.ProjectTargetGroupID == null) && (targetGroup.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ)
                             select new ServiceModels.ProjectInfo.ProjectTargetNameList
                             {
                                 ProjectParticipantsID = participant.ProjectParticipantsID,
@@ -4425,14 +4521,17 @@ namespace Nep.Project.Business
 
                         ).Distinct().OrderBy(or => or.TargetID).ToList();
 
-              
+
 
 
                 DBModels.Model.MT_ListOfValue lovOther = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.TargetGroup) && (x.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ) && (x.IsActive == Common.Constants.BOOLEAN_TRUE)).FirstOrDefault();
-                if(lovOther != null){
+                if (lovOther != null)
+                {
                     int otherCount = data.Where(x => x.TargetID == lovOther.LOVID && ((x.ProjectTargetID == null) && (x.ProjectParticipantsID == null))).Count();
-                    if(otherCount == 0){
-                        data.Add(new ServiceModels.ProjectInfo.ProjectTargetNameList {
+                    if (otherCount == 0)
+                    {
+                        data.Add(new ServiceModels.ProjectInfo.ProjectTargetNameList
+                        {
                             ProjectTargetID = (decimal?)null,
                             TargetID = lovOther.LOVID,
                             TargetName = lovOther.LOVName,
@@ -4442,16 +4541,16 @@ namespace Nep.Project.Business
                     }
                 }
 
-                    //from proTarget in _db.ProjectTargetGroups
-                    //                                                          join targetGroup in _db.MT_ListOfValue on proTarget.TargetGroupID equals targetGroup.LOVID
-                    //                                                          where proTarget.ProjectID == projectID
-                    //                                                          select new ServiceModels.ProjectInfo.ProjectTargetNameList
-                    //                                                          {
-                    //                                                              ProjectTargetID = proTarget.ProjectTargetGroupID,
-                    //                                                              TargetID = proTarget.TargetGroupID,
-                    //                                                              TargetName = targetGroup.LOVName,
-                    //                                                              TargetEtc = proTarget.TargetGroupEtc
-                    //                                                          }).Distinct().OrderBy(or => or.ProjectTargetID).ToList();
+                //from proTarget in _db.ProjectTargetGroups
+                //                                                          join targetGroup in _db.MT_ListOfValue on proTarget.TargetGroupID equals targetGroup.LOVID
+                //                                                          where proTarget.ProjectID == projectID
+                //                                                          select new ServiceModels.ProjectInfo.ProjectTargetNameList
+                //                                                          {
+                //                                                              ProjectTargetID = proTarget.ProjectTargetGroupID,
+                //                                                              TargetID = proTarget.TargetGroupID,
+                //                                                              TargetName = targetGroup.LOVName,
+                //                                                              TargetEtc = proTarget.TargetGroupEtc
+                //                                                          }).Distinct().OrderBy(or => or.ProjectTargetID).ToList();
 
 
                 //List<ServiceModels.ProjectInfo.ProjectTargetNameList> data = (from proTarget in _db.ProjectTargetGroups
@@ -4465,10 +4564,12 @@ namespace Nep.Project.Business
                 //                TargetEtc = proTarget.TargetGroupEtc
                 //            }).Distinct().OrderBy(or => or.ProjectTargetID).ToList();
 
-                
+
                 result.IsCompleted = true;
                 result.Data = data;
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
@@ -4481,9 +4582,9 @@ namespace Nep.Project.Business
             ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ReturnQueryData<GenericDropDownListData>();
             try
             {
-                var data = (from proTarget in _db.ProjectTargetGroups                           
+                var data = (from proTarget in _db.ProjectTargetGroups
                             join targetGroup in _db.MT_ListOfValue on proTarget.TargetGroupID equals targetGroup.LOVID
-                            where (proTarget.ProjectID == projectID) && 
+                            where (proTarget.ProjectID == projectID) &&
                                 (targetGroup.LOVGroup == Common.LOVGroup.TargetGroup) &&
                                 (targetGroup.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ)
                             orderby proTarget.ProjectTargetGroupID ascending
@@ -4507,42 +4608,43 @@ namespace Nep.Project.Business
 
         public String GetProjectTargetGroupEtc(decimal projectID)
         {
-            
+
             String etc = (from proTarget in _db.ProjectTargetGroups
-                        join targetGroup in _db.MT_ListOfValue on proTarget.TargetGroupID equals targetGroup.LOVID
-                        where (proTarget.ProjectID == projectID) &&
-                            (targetGroup.LOVGroup == Common.LOVGroup.TargetGroup) &&
-                            (targetGroup.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ)
-                        select proTarget.TargetGroupEtc
+                          join targetGroup in _db.MT_ListOfValue on proTarget.TargetGroupID equals targetGroup.LOVID
+                          where (proTarget.ProjectID == projectID) &&
+                              (targetGroup.LOVGroup == Common.LOVGroup.TargetGroup) &&
+                              (targetGroup.LOVCode == Common.LOVCode.Targetgroup.อื่นๆ)
+                          select proTarget.TargetGroupEtc
                         ).FirstOrDefault();
-                          
-          
+
+
             return etc;
         }
 
         private void SaveProjectParticipant(List<ServiceModels.ProjectInfo.ProjectParticipant> participants, decimal projectID)
         {
-            if(participants != null){
+            if (participants != null)
+            {
                 List<DBModels.Model.ProjectParticipant> oldParticipants = _db.ProjectParticipants.Where(x => x.ProjectID == projectID).ToList();
                 _db.ProjectParticipants.RemoveRange(oldParticipants);
 
                 List<DBModels.Model.ProjectParticipant> newParticipants = new List<DBModels.Model.ProjectParticipant>();
                 ServiceModels.ProjectInfo.ProjectParticipant newItem;
-                for (int i = 0; i < participants.Count; i++ )
+                for (int i = 0; i < participants.Count; i++)
                 {
                     newItem = participants[i];
                     newParticipants.Add(new DBModels.Model.ProjectParticipant
                     {
-                        ProjectID = projectID,                       
+                        ProjectID = projectID,
                         FirstName = newItem.FirstName,
                         LastName = newItem.LastName,
                         IDCardNo = newItem.IDCardNo,
                         Gender = newItem.Gender,
                         IsCripple = newItem.IsCripple,
-                        ProjectTargetGroupID = (newItem.ProjectTargetGroupID.HasValue && newItem.ProjectTargetGroupID > 0)? newItem.ProjectTargetGroupID : null,
+                        ProjectTargetGroupID = (newItem.ProjectTargetGroupID.HasValue && newItem.ProjectTargetGroupID > 0) ? newItem.ProjectTargetGroupID : null,
                         TargetGroupID = (decimal)newItem.TargetGroupID,
                         TargetGroupETC = newItem.TargetGroupEtc,
-                    });   
+                    });
                 }
                 _db.ProjectParticipants.AddRange(newParticipants);
             }
@@ -4584,13 +4686,13 @@ namespace Nep.Project.Business
             var ret = (from a in _db.ProjectApprovals where a.ProjectID == ProjectID select a).FirstOrDefault();
             if (ret != null)
             {
-              
-                    return GetListOfValueByKey(ret.ApprovalStatusID1);
-                      
-                
+
+                return GetListOfValueByKey(ret.ApprovalStatusID1);
+
+
             }
-            else 
-            return null;
+            else
+                return null;
         }
         public ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> ListProjectInfoList(ServiceModels.QueryParameter p)
         {
@@ -4678,11 +4780,11 @@ namespace Nep.Project.Business
             if (result.IsCompleted)
             {
                 foreach (ServiceModels.ProjectInfo.ProjectInfoList pl in result.Data)
-                    {
-                       pl.ApprovalStatus1 = GetApprovalBudgetByProjecID(pl.ProjectInfoID);
-                    }
+                {
+                    pl.ApprovalStatus1 = GetApprovalBudgetByProjecID(pl.ProjectInfoID);
+                }
             }
-           
+
             return result;
         }
 
@@ -4724,7 +4826,7 @@ namespace Nep.Project.Business
             {
                 errorMessage.Add(required[key]);
             }
-            
+
 
             bool isValid = (errorMessage.Count == 0) ? true : false;
 
@@ -4735,7 +4837,8 @@ namespace Nep.Project.Business
             return result;
         }
 
-        public ServiceModels.ReturnMessage SendDataToReview(decimal projectID,string ipAddress){
+        public ServiceModels.ReturnMessage SendDataToReview(decimal projectID, string ipAddress)
+        {
             ServiceModels.ReturnMessage result = new ServiceModels.ReturnMessage();
             var validateResult = ValidateSubmitData(projectID);
             if ((validateResult.IsCompleted) && (validateResult.Data == true))
@@ -4745,24 +4848,24 @@ namespace Nep.Project.Business
                 if (steptOneStatus != null)
                 {
                     var projectGenaralInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();
-               
-           
-                    _db.PROJECTHISTORies.Add(CreateRowProjectHistory(projectID,"1",_user.UserID.Value,ipAddress));
+
+
+                    _db.PROJECTHISTORies.Add(CreateRowProjectHistory(projectID, "1", _user.UserID.Value, ipAddress));
                     if (projectGenaralInfo != null)
                     {
-                 
-                            projectGenaralInfo.ProjectApprovalStatusID = steptOneStatus.LOVID;
-                            projectGenaralInfo.UpdatedDate = DateTime.Now;
-                            projectGenaralInfo.SubmitedDate = DateTime.Now;
-                            projectGenaralInfo.UpdatedBy = _user.UserName;
-                            projectGenaralInfo.UpdatedByID = _user.UserID;
 
-                            _db.SaveChanges();
+                        projectGenaralInfo.ProjectApprovalStatusID = steptOneStatus.LOVID;
+                        projectGenaralInfo.UpdatedDate = DateTime.Now;
+                        projectGenaralInfo.SubmitedDate = DateTime.Now;
+                        projectGenaralInfo.UpdatedBy = _user.UserName;
+                        projectGenaralInfo.UpdatedByID = _user.UserID;
 
-                            result.IsCompleted = true;
-                            result.Message.Add(Nep.Project.Resources.Message.SendDataToReviewSuccess);
+                        _db.SaveChanges();
 
-                            _mailService.SendProjectConfirmNotify(projectID);
+                        result.IsCompleted = true;
+                        result.Message.Add(Nep.Project.Resources.Message.SendDataToReviewSuccess);
+
+                        _mailService.SendProjectConfirmNotify(projectID);
                         _smsService.Send("มีการยื่นคำร้องโครงการเข้ามาใหม่", _db, projectID);
                     }
                 }
@@ -4777,7 +4880,7 @@ namespace Nep.Project.Business
                 result.IsCompleted = false;
                 result.Message = validateResult.Message;
             }
-            
+
             return result;
         }
 
@@ -4788,7 +4891,7 @@ namespace Nep.Project.Business
             {
                 result.IsCompleted = true;
                 var data = (from p in _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID)
-                            join status in _db.MT_ListOfValue on p.ProjectApprovalStatusID equals status.LOVID 
+                            join status in _db.MT_ListOfValue on p.ProjectApprovalStatusID equals status.LOVID
                             select new ServiceModels.ListOfValue()
                             {
                                 LovID = p.ProjectApprovalStatusID,
@@ -4829,21 +4932,26 @@ namespace Nep.Project.Business
                     string colName = "";
                     if (model.AddedDocuments.Count() > 0)
                     {
-                         foreach( List<KendoAttachment> tmp in model.AddedDocuments)
-                         {
+                        foreach (List<KendoAttachment> tmp in model.AddedDocuments)
+                        {
                             colName = "DOCUMENTID" + i.ToString().Trim();
                             i++;
                             if (tmp.Count() > 0)
                             {
                                 foreach (KendoAttachment k in tmp)
                                 {
-                                    var attKey  = SaveFile(k, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
-                                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE { ATTACHMENTID = attKey.Value, FIELDNAME = colName,
-                                     TABLENAME = TABLE_PROJECTDOCUMENT , TABLEROWID = model.ProjectID });
+                                    var attKey = SaveFile(k, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
+                                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
+                                    {
+                                        ATTACHMENTID = attKey.Value,
+                                        FIELDNAME = colName,
+                                        TABLENAME = TABLE_PROJECTDOCUMENT,
+                                        TABLEROWID = model.ProjectID
+                                    });
                                 }
                             }
-                            
-                         }
+
+                        }
                     }
                     if (model.RemovedDocuments.Count() > 0)
                     {
@@ -4972,9 +5080,11 @@ namespace Nep.Project.Business
                     result.IsCompleted = true;
                     result.Message.Add(Resources.Message.SaveSuccess);
                     tran.Commit();
-                }                
+                }
 
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
@@ -4988,14 +5098,14 @@ namespace Nep.Project.Business
             ServiceModels.ReturnObject<ServiceModels.ProjectInfo.ProjectFollowup> result = new ReturnObject<ServiceModels.ProjectInfo.ProjectFollowup>();
             try
             {
-                
-                ServiceModels.ProjectInfo.ProjectFollowup data = (from p in _db.ProjectGeneralInfoes                                                                   
+
+                ServiceModels.ProjectInfo.ProjectFollowup data = (from p in _db.ProjectGeneralInfoes
                                                                   where p.ProjectID == projectID
                                                                   select new ServiceModels.ProjectInfo.ProjectFollowup
                                                                   {
                                                                       ProjectID = p.ProjectID,
                                                                       OrganizationID = p.OrganizationID,
-                                                                      ApprovalStatus = (p.ProjectApproval != null)? p.ProjectApproval.ApprovalStatus : null,
+                                                                      ApprovalStatus = (p.ProjectApproval != null) ? p.ProjectApproval.ApprovalStatus : null,
 
                                                                       ApprovalBudget = p.BudgetReviseValue,
 
@@ -5036,8 +5146,8 @@ namespace Nep.Project.Business
                                                                       Assessment69 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment69 : (Decimal?)null,
 
                                                                       ProjectApprovalStatusID = p.ProjectApprovalStatusID,
-                                                                      ProjectApprovalStatusCode = (p.ProjectApprovalStatus != null)? p.ProjectApprovalStatus.LOVCode : null,
-                                                                      FollowupStatusCode = (p.FollowUpStatus != null)? _db.MT_ListOfValue.Where(f => f.LOVID == (decimal)p.FollowUpStatus).Select(fObj => fObj.LOVCode).FirstOrDefault() : null,
+                                                                      ProjectApprovalStatusCode = (p.ProjectApprovalStatus != null) ? p.ProjectApprovalStatus.LOVCode : null,
+                                                                      FollowupStatusCode = (p.FollowUpStatus != null) ? _db.MT_ListOfValue.Where(f => f.LOVID == (decimal)p.FollowUpStatus).Select(fObj => fObj.LOVCode).FirstOrDefault() : null,
                                                                       ProvinceID = p.ProvinceID,
                                                                       ProvinceAbbr = _db.MT_Province.Where(prov => prov.ProvinceID == p.ProjectID).Select(provr => provr.ProvinceAbbr).FirstOrDefault()
 
@@ -5047,7 +5157,7 @@ namespace Nep.Project.Business
                 DBModels.Model.MT_Attachment dbAttachment;
                 if ((data != null) && (dbAttachments != null) && (dbAttachments.Count > 0))
                 {
-                    for (int i = 0; i < dbAttachments.Count; i++ )
+                    for (int i = 0; i < dbAttachments.Count; i++)
                     {
                         dbAttachment = dbAttachments[i];
                         attachments.Add(new ServiceModels.KendoAttachment
@@ -5055,15 +5165,15 @@ namespace Nep.Project.Business
                             id = dbAttachment.AttachmentID.ToString(),
                             name = dbAttachment.AttachmentFilename,
                             extension = Path.GetExtension(dbAttachment.AttachmentFilename),
-                            size = (int) dbAttachment.FileSize
+                            size = (int)dbAttachment.FileSize
                         });
                     }
 
                     data.Attachments = attachments;
-                 
-                   
+
+
                 }
-               
+
                 data.ProjectFollowup2 = (from f in _db.PROJECTFOLLOWUP2 where f.PROJECTID == projectID select f).FirstOrDefault();
                 var tg = _db.ProjectTargetGroups.Where(w => w.ProjectID == projectID);
                 if (tg.Count() > 0)
@@ -5074,10 +5184,10 @@ namespace Nep.Project.Business
                 {
                     data.TotalTargetGroup = 0;
                 }
-                
+
                 data.TotalParticipant = (int)_db.ProjectParticipants.Where(w => w.ProjectID == projectID).Count();
                 var period = _db.ProjectOperations.Where(w => w.ProjectID == projectID).FirstOrDefault();
-                data.Period1 = string.Format("{0} ถึง {1}", Utility.ToThaiDateFormat( period.StartDate,"dd MMMM yyyy",""), Utility.ToThaiDateFormat(period.EndDate, "dd MMMM yyyy", ""));
+                data.Period1 = string.Format("{0} ถึง {1}", Utility.ToThaiDateFormat(period.StartDate, "dd MMMM yyyy", ""), Utility.ToThaiDateFormat(period.EndDate, "dd MMMM yyyy", ""));
                 result.Data = data;
                 result.IsCompleted = true;
             }
@@ -5109,7 +5219,7 @@ namespace Nep.Project.Business
                     dbProjectFollowup = new DBModels.Model.ProjectFollowup();
                 }
 
-                DBModels.Model.PROJECTFOLLOWUP2  f2 = _db.PROJECTFOLLOWUP2.Where(x => x.PROJECTID  == model.ProjectFollowup2.PROJECTID).FirstOrDefault();
+                DBModels.Model.PROJECTFOLLOWUP2 f2 = _db.PROJECTFOLLOWUP2.Where(x => x.PROJECTID == model.ProjectFollowup2.PROJECTID).FirstOrDefault();
                 if (f2 == null)
                 {
                     f2 = new DBModels.Model.PROJECTFOLLOWUP2();
@@ -5119,14 +5229,14 @@ namespace Nep.Project.Business
                     #region Add Attachment and Remove Attachment
                     if ((model.AddedAttachments != null) && (model.AddedAttachments.Count > 0))
                     {
-                        for (int i = 0; i < model.AddedAttachments.Count; i++ )
+                        for (int i = 0; i < model.AddedAttachments.Count; i++)
                         {
                             attachment = model.AddedAttachments[i];
                             dbAttachment = CopyFile(attachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
                             if (dbAttachment != null)
                             {
                                 addedDBAttachment.Add(dbAttachment);
-                            }                                                      
+                            }
                         }
 
                         DBModels.Model.ProjectGeneralInfo proGenInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
@@ -5141,10 +5251,10 @@ namespace Nep.Project.Business
                     if ((model.RemovedAttachments != null) && (model.RemovedAttachments.Count > 0))
                     {
                         for (int i = 0; i < model.RemovedAttachments.Count; i++)
-                        {                            
+                        {
                             attachment = model.RemovedAttachments[i];
                             removedAttachmentIDs.Add(Decimal.Parse(attachment.id));
-                            RemoveFile(attachment, rootDestinationFolderPath, false);                          
+                            RemoveFile(attachment, rootDestinationFolderPath, false);
                         }
 
                         _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).SelectMany(atts => atts.MT_Attachment.Where(att => removedAttachmentIDs.Contains(att.AttachmentID))).ToList()
@@ -5156,8 +5266,8 @@ namespace Nep.Project.Business
                         //    .SelectMany(y => y.MT_Attachment).ToList<DBModels.Model.MT_Attachment>();                        
 
                         //removedDbAttach.ForEach(att => _db.MT_Attachment.Remove(att));
-                        
-                        
+
+
                     }
                     #endregion Add Attachment and Remove Attachment
 
@@ -5188,7 +5298,7 @@ namespace Nep.Project.Business
 
                     dbProjectFollowup.Expectation = model.Expection;
                     dbProjectFollowup.ExpectationFollowUpValue = (decimal)model.ExpectionFollowupValue;
-                                       
+
 
                     if (dbProjectFollowup.ProjectID > 0)
                     {
@@ -5210,16 +5320,16 @@ namespace Nep.Project.Business
                     f2.ACTIVITY1 = f.ACTIVITY1;
                     f2.ACTIVITY2 = f.ACTIVITY2;
                     f2.ACTIVITYSCORE1 = f.ACTIVITYSCORE1;
-                    f2.OBJECTIVE1 = f.OBJECTIVE1 ;
+                    f2.OBJECTIVE1 = f.OBJECTIVE1;
                     f2.OBJECTIVE2 = f.OBJECTIVE2;
                     f2.OBJECTIVESCORE = f.OBJECTIVESCORE;
                     f2.PARTICIPANTSCORE1 = f.PARTICIPANTSCORE1;
                     f2.PERIODSCORE1 = f.PERIODSCORE1;
- 
+
                     f2.RESULT1 = f.RESULT1;
                     f2.RESULT2 = f.RESULT2;
                     f2.RESULTSCORE = f.RESULTSCORE;
-                    f2.TARGET1 = f.TARGET1 ;
+                    f2.TARGET1 = f.TARGET1;
                     f2.TARGET2 = f.TARGET2;
                     f2.TARGETSCORE = f.TARGETSCORE;
                     f2.TOTALPERCENT = f.TOTALPERCENT;
@@ -5231,18 +5341,18 @@ namespace Nep.Project.Business
                     f2.PERIODFROM2 = f.PERIODFROM2;
                     f2.PERIODTO2 = f.PERIODTO2;
 
-                    if (f2.PROJECTID  > 0)
+                    if (f2.PROJECTID > 0)
                     {
                         f2.UPDATEDBY = _user.UserName;
-                        f2.UPDATEDBYID  = _user.UserID;
-                        f2.UPDATEDDATE  = DateTime.Now;
+                        f2.UPDATEDBYID = _user.UserID;
+                        f2.UPDATEDDATE = DateTime.Now;
                     }
                     else
                     {
-                        f2.PROJECTID  = model.ProjectID;
+                        f2.PROJECTID = model.ProjectID;
                         f2.CREATEDBY = _user.UserName;
                         f2.CREATEDBYID = (decimal)_user.UserID;
-                        f2.CREATEDDATE  = DateTime.Now;
+                        f2.CREATEDDATE = DateTime.Now;
                         _db.PROJECTFOLLOWUP2.Add(f2);
                     }
                     #endregion Update Project Followup 2
@@ -5270,19 +5380,19 @@ namespace Nep.Project.Business
             ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.FollowupTrackingDocumentList> result = new ReturnQueryData<ServiceModels.ProjectInfo.FollowupTrackingDocumentList>();
             try
             {
-                result = (from tracking in _db.ProjectPrintReportTrackings                         
+                result = (from tracking in _db.ProjectPrintReportTrackings
                           select new ServiceModels.ProjectInfo.FollowupTrackingDocumentList
-                            {
-                                ProjectID = tracking.ProjectID,
-                                ReportTrackingID = tracking.ReportTrackingID,
-                                ReportTrackingTypeName = tracking.ReportTrackingType.LOVName,
-                                ReportNo = tracking.ReportNo,
-                                ReportDate = tracking.ReportDate,
-                                LetterAttchmentID = tracking.LetterAttchmentID,
-                                LetterAttchmentName = (tracking.LetterAttchment != null) ? tracking.LetterAttchment.AttachmentFilename : null,
-                                LetterSize = (tracking.LetterAttchment != null) ? (decimal?)tracking.LetterAttchment.FileSize : (decimal?)null,
-                                LastedReportTrackingID = _db.ProjectPrintReportTrackings.Where(t => (t.ReportTrackingTypeID == tracking.ReportTrackingTypeID) && (t.ProjectID == tracking.ProjectID)).Max(x => x.ReportTrackingID)
-                            }).ToQueryData(p);
+                          {
+                              ProjectID = tracking.ProjectID,
+                              ReportTrackingID = tracking.ReportTrackingID,
+                              ReportTrackingTypeName = tracking.ReportTrackingType.LOVName,
+                              ReportNo = tracking.ReportNo,
+                              ReportDate = tracking.ReportDate,
+                              LetterAttchmentID = tracking.LetterAttchmentID,
+                              LetterAttchmentName = (tracking.LetterAttchment != null) ? tracking.LetterAttchment.AttachmentFilename : null,
+                              LetterSize = (tracking.LetterAttchment != null) ? (decimal?)tracking.LetterAttchment.FileSize : (decimal?)null,
+                              LastedReportTrackingID = _db.ProjectPrintReportTrackings.Where(t => (t.ReportTrackingTypeID == tracking.ReportTrackingTypeID) && (t.ProjectID == tracking.ProjectID)).Max(x => x.ReportTrackingID)
+                          }).ToQueryData(p);
 
                 //if((result != null) && (result.Data != null)){
                 //    List<ServiceModels.ProjectInfo.FollowupTrackingDocumentList> list = result.Data;
@@ -5456,7 +5566,7 @@ namespace Nep.Project.Business
                         dbTracking.LetterAttchmentID = SaveFile(newAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
 
                         if (dbTracking.ReportTrackingID > 0)
-                        {                            
+                        {
                             dbTracking.UpdatedBy = _user.UserName;
                             dbTracking.UpdatedByID = _user.UserID;
                             dbTracking.UpdatedDate = DateTime.Now;
@@ -5469,7 +5579,8 @@ namespace Nep.Project.Business
                             _db.ProjectPrintReportTrackings.Add(dbTracking);
                         }
 
-                        if(genInfo != null){
+                        if (genInfo != null)
+                        {
                             genInfo.FollowUpStatus = followupTrakingID;
                             genInfo.LastedFollowupDate = DateTime.Today;
                             genInfo.UpdatedBy = _user.UserName;
@@ -5484,7 +5595,7 @@ namespace Nep.Project.Business
                                 id = oldAttachment.AttachmentID.ToString()
                             };
                             RemoveFile(removeAttachment, rootDestinationFolderPath);
-                        }                        
+                        }
 
                         _db.SaveChanges();
 
@@ -5493,7 +5604,7 @@ namespace Nep.Project.Business
                         result.IsCompleted = true;
                         result.Data = GetFollowupTrackingDocumentFormFromDb(dbTracking.ReportTrackingID);
                         result.Message.Add(Resources.Message.SaveSuccess);
-                    }                   
+                    }
                 }
                 else
                 {
@@ -5528,7 +5639,7 @@ namespace Nep.Project.Business
 
                     String projectName = genInfo.ProjectInformation.ProjectNameTH;
                     String orgName = genInfo.OrganizationNameTH;
-                    String orgUnderSupportName = (!String.IsNullOrEmpty(genInfo.OrgUnderSupport))? String.Format(" ภายใต้การรับรองของ{0}", genInfo.OrgUnderSupport) : "";
+                    String orgUnderSupportName = (!String.IsNullOrEmpty(genInfo.OrgUnderSupport)) ? String.Format(" ภายใต้การรับรองของ{0}", genInfo.OrgUnderSupport) : "";
                     String budgetAmount = Common.Web.WebUtility.ToThaiAmountNumber(genInfo.BudgetReviseValue, "N2");
                     String budgetAmountWord = Common.Web.WebUtility.ToThaiBath(genInfo.BudgetReviseValue);
                     String deadlineResponseDate = (model.DeadlineResponseDate.HasValue) ? Common.Web.WebUtility.ToThaiDateDDMMMMYYYY((DateTime)model.DeadlineResponseDate) : "";
@@ -5882,7 +5993,7 @@ namespace Nep.Project.Business
                 {
                     ProjectID = y.ProjectID,
                     ReportTrackingID = y.ReportTrackingID,
-                    ReportTrackingTypeID = y.ReportTrackingTypeID,                  
+                    ReportTrackingTypeID = y.ReportTrackingTypeID,
                     ReportTrackingTypeCode = y.ReportTrackingType.LOVCode,
                     ReportNo = y.ReportNo,
                     ReportDate = y.ReportDate,
@@ -5890,17 +6001,19 @@ namespace Nep.Project.Business
                     ReferenceInfo = y.ReferenceInfo,
                     ReferenceInfo1 = y.ReferenceInfo1,
                     LetterAttchmentID = y.LetterAttchmentID,
-                    LetterAttchmentName = (y.LetterAttchment != null)? y.LetterAttchment.AttachmentFilename : null,
-                    LetterAttchmentSize = (y.LetterAttchment != null)? y.LetterAttchment.FileSize : (decimal?)null
-                    
+                    LetterAttchmentName = (y.LetterAttchment != null) ? y.LetterAttchment.AttachmentFilename : null,
+                    LetterAttchmentSize = (y.LetterAttchment != null) ? y.LetterAttchment.FileSize : (decimal?)null
+
                 }).FirstOrDefault();
 
-            if(obj != null){
+            if (obj != null)
+            {
                 bool isEditable = true;
                 List<Common.ProjectFunction> fList = GetProjectFunction(obj.ProjectID).Data;
                 isEditable = fList.Contains(Common.ProjectFunction.PrintTrackingDocument);
 
-                if(obj.LetterAttchmentID.HasValue){
+                if (obj.LetterAttchmentID.HasValue)
+                {
                     obj.LetterAttchment = new ServiceModels.KendoAttachment
                     {
                         id = obj.LetterAttchmentID.ToString(),
@@ -5926,7 +6039,7 @@ namespace Nep.Project.Business
                 {
                     obj.IsCreateFirstTime = true;
                 }
-            }          
+            }
 
             return obj;
         }
@@ -5941,28 +6054,28 @@ namespace Nep.Project.Business
             {
                 ServiceModels.ProjectInfo.AssessmentProject data = (from p in _db.ProjectGeneralInfoes
                                                                     where p.ProjectID == projectID
-                                                                    select new ServiceModels.ProjectInfo.AssessmentProject                                                                       
+                                                                    select new ServiceModels.ProjectInfo.AssessmentProject
                                                                     {
                                                                         ProjectID = p.ProjectID,
                                                                         OrganizationID = p.OrganizationID,
                                                                         ProjectApprovalStatusID = p.ProjectApprovalStatusID,
                                                                         ProjectApprovalStatusCode = p.ProjectApprovalStatus.LOVCode,
 
-                                                                        AssessmentProvinceID = (p.ProjectEvaluation != null)? p.ProjectEvaluation.ProvinceID : p.ProvinceID,
+                                                                        AssessmentProvinceID = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ProvinceID : p.ProvinceID,
                                                                         AssessmentProvinceName = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Province.ProvinceName : _db.MT_Province.Where(gProv => (gProv.ProvinceID == p.ProvinceID)).Select(rProv => rProv.ProvinceName).FirstOrDefault(),
 
                                                                         OrganizationNameTH = p.OrganizationNameTH,
                                                                         OrganizationNameEN = p.OrganizationNameEN,
 
-                                                                        ProjectNameTH = (p.ProjectInformation != null)? p.ProjectInformation.ProjectNameTH : null,
-                                                                        ProjectNameEN = (p.ProjectInformation != null)? p.ProjectInformation.ProjectNameEN : null,
-                                                                       
+                                                                        ProjectNameTH = (p.ProjectInformation != null) ? p.ProjectInformation.ProjectNameTH : null,
+                                                                        ProjectNameEN = (p.ProjectInformation != null) ? p.ProjectInformation.ProjectNameEN : null,
+
                                                                         BudgetRequest = p.BudgetReviseValue,
 
                                                                         IsPassAss4 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassAss4 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassAss5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassAss5 == "1" ? true :false) : (bool?)null,
+                                                                        IsPassAss5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassAss5 == "1" ? true : false) : (bool?)null,
 
-                                                                        Assessment61 = (p.ProjectEvaluation != null)? p.ProjectEvaluation.Assessment61 : (decimal?)null,
+                                                                        Assessment61 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment61 : (decimal?)null,
                                                                         Assessment62 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment62 : (decimal?)null,
                                                                         Assessment63 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment63 : (decimal?)null,
                                                                         Assessment64 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment64 : (decimal?)null,
@@ -5979,28 +6092,28 @@ namespace Nep.Project.Business
                                                                         IsPassMission5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission5 == "1" ? true : false) : (bool?)null,
                                                                         IsPassMission6 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.ISPASSMISSION6 == "1" ? true : false) : (bool?)null,
 
-                                                                        TotalScore = (p.ProjectEvaluation != null)? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
+                                                                        TotalScore = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
 
-                                                                        EvaluationStatusID = (p.ProjectEvaluation != null)? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
+                                                                        EvaluationStatusID = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
                                                                         EvaluationScoreDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.EvaluationStatus.LOVName : null,
-                                                                        AssessmentDesc = (p.ProjectEvaluation != null)? p.ProjectEvaluation.AssessmentDesc : null,
+                                                                        AssessmentDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.AssessmentDesc : null,
 
-                                                                        ProvinceMissionDesc = (p.ProjectEvaluation != null)? p.ProjectEvaluation.ProvinceMissionDesc  : null,
+                                                                        ProvinceMissionDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ProvinceMissionDesc : null,
 
                                                                         ProvinceID = p.ProvinceID,
 
                                                                         CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault()
 
                                                                     }).SingleOrDefault();
-               
+
                 result.Data = data;
                 result.IsCompleted = true;
             }
             catch (Exception ex)
             {
-               result.IsCompleted = false;
-               result.Message.Add(ex.Message);
-               Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }
             return result;
         }
@@ -6026,12 +6139,13 @@ namespace Nep.Project.Business
                 using (var tran = _db.Database.BeginTransaction())
                 {
                     DBModels.Model.ProjectEvaluation dbEval = _db.ProjectEvaluations.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
-                    
+
                     if (dbEval == null)
                     {
                         dbEval = new DBModels.Model.ProjectEvaluation();
-                      
-                    }else
+
+                    }
+                    else
                     {
                         evaluationID = dbEval.ProjectID;
                     }
@@ -6041,7 +6155,8 @@ namespace Nep.Project.Business
                     dbEval.IsPassAss4 = (model.IsPassAss4 == true) ? "1" : "0";
                     dbEval.IsPassAss5 = (model.IsPassAss5 == true) ? "1" : "0";
 
-                    if((model.IsPassAss4 == true) && (model.IsPassAss5 == true)){
+                    if ((model.IsPassAss4 == true) && (model.IsPassAss5 == true))
+                    {
                         dbEval.Assessment61 = (decimal)model.Assessment61;
                         dbEval.Assessment62 = (decimal)model.Assessment62;
                         dbEval.Assessment63 = (decimal)model.Assessment63;
@@ -6052,7 +6167,9 @@ namespace Nep.Project.Business
                         dbEval.Assessment68 = (decimal)model.Assessment68;
                         dbEval.Assessment69 = (decimal)model.Assessment69;
                         dbEval.EvaluationValue = (decimal)model.TotalScore;
-                    }else{
+                    }
+                    else
+                    {
                         dbEval.Assessment61 = 0;
                         dbEval.Assessment62 = 0;
                         dbEval.Assessment63 = 0;
@@ -6063,7 +6180,7 @@ namespace Nep.Project.Business
                         dbEval.Assessment68 = 0;
                         dbEval.Assessment69 = 0;
                         dbEval.EvaluationValue = 0;
-                    }                    
+                    }
 
                     dbEval.IsPassMission1 = (model.IsPassMission1 == true) ? "1" : "0";
                     dbEval.IsPassMission2 = (model.IsPassMission2 == true) ? "1" : "0";
@@ -6081,10 +6198,10 @@ namespace Nep.Project.Business
                     DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน, Common.LOVGroup.ProjectApprovalStatus);
                     DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => (x.ProjectID == model.ProjectID) && (
                            x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ)).SingleOrDefault();
-                    
+
                     if (evaluationID == 0)
-                    {                       
-                        
+                    {
+
                         dbEval.ProjectID = model.ProjectID;
                         dbEval.CreatedBy = _user.UserName;
                         dbEval.CreatedByID = (decimal)_user.UserID;
@@ -6114,7 +6231,7 @@ namespace Nep.Project.Business
                             genInfo.RESPONSEPOSITION = u.Position;
                             genInfo.RESPONSETEL = u.TelephoneNo;
                         }
-                  
+
                     }
 
                     _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "2", _user.UserID.Value, model.IPAddress));
@@ -6125,7 +6242,7 @@ namespace Nep.Project.Business
 
                     tran.Commit();
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -6150,7 +6267,7 @@ namespace Nep.Project.Business
         //        // Instructor File
         //        if (addFiles != null)
         //        {
-                     
+
         //            foreach (KendoAttachment k in addFiles)
         //            {
         //                var attID = SaveFile(k, rootFolderPath, rootDestinationFolderPath, folder, attachTypeID);
@@ -6167,8 +6284,8 @@ namespace Nep.Project.Business
         //        }
         //        if (removeFiles != null)
         //        {
-                    
-                   
+
+
         //            foreach (KendoAttachment k in removeFiles)
         //            {
         //                RemoveFile(k, rootDestinationFolderPath);
@@ -6187,7 +6304,7 @@ namespace Nep.Project.Business
         //        return ret;
         //    }
 
-  
+
         //}
         private decimal? SaveFile(KendoAttachment kendoAttachment, String rootFolderPath, String rootDestinationFolderPath, String projectFolder, decimal attachmentTypeID)
         {
@@ -6206,9 +6323,9 @@ namespace Nep.Project.Business
                 if (!File.Exists(destinationFilePath))
                 {
                     File.Copy(sourceFilePath, destinationFilePath);
-                }   
+                }
 
-                
+
                 DBModels.Model.MT_Attachment attac = new DBModels.Model.MT_Attachment();
                 attac.AttachmentFilename = kendoAttachment.name;
                 attac.FileSize = kendoAttachment.size;
@@ -6222,14 +6339,14 @@ namespace Nep.Project.Business
                 _db.SaveChanges();
 
                 fileID = attac.AttachmentID;
-                                
-            }  
+
+            }
             return fileID;
         }
 
         private DBModels.Model.MT_Attachment CopyFile(KendoAttachment kendoAttachment, String rootFolderPath, String rootDestinationFolderPath, String projectFolder, decimal attachmentTypeID)
         {
-             DBModels.Model.MT_Attachment attac = null;
+            DBModels.Model.MT_Attachment attac = null;
 
             if ((kendoAttachment != null) && (String.IsNullOrEmpty(kendoAttachment.id)))
             {
@@ -6247,7 +6364,7 @@ namespace Nep.Project.Business
                     File.Copy(sourceFilePath, destinationFilePath);
                 }
 
-                
+
                 attac = new DBModels.Model.MT_Attachment();
                 attac.AttachmentFilename = kendoAttachment.name;
                 attac.FileSize = kendoAttachment.size;
@@ -6255,8 +6372,8 @@ namespace Nep.Project.Business
                 attac.AttachmentTypeID = attachmentTypeID;
                 attac.CreatedBy = _user.UserName;
                 attac.CreatedByID = (decimal)_user.UserID;
-                attac.CreatedDate = DateTime.Now;  
-                
+                attac.CreatedDate = DateTime.Now;
+
             }
             return attac;
         }
@@ -6265,23 +6382,25 @@ namespace Nep.Project.Business
         {
             if (kendoAttachment != null)
             {
-                
 
-                if(!String.IsNullOrEmpty(kendoAttachment.id)){
+
+                if (!String.IsNullOrEmpty(kendoAttachment.id))
+                {
                     decimal oldAttachmentID = Decimal.Parse(kendoAttachment.id);
-                   
+
                     var oldAttachment = _db.MT_Attachment.Where(x => x.AttachmentID == oldAttachmentID).FirstOrDefault();
                     if (oldAttachment != null)
                     {
                         String destinationFilePath = rootDestinationFolderPath + oldAttachment.PathName;
                         File.Delete(destinationFilePath);
 
-                        if(isRemoveAttachment){
+                        if (isRemoveAttachment)
+                        {
                             _db.MT_Attachment.Remove(oldAttachment);
-                        }                        
-                    }                    
-                }                
-            }            
+                        }
+                    }
+                }
+            }
         }
 
         private String GetAttachmentRootFolder()
@@ -6289,29 +6408,30 @@ namespace Nep.Project.Business
             String folder = "";
             folder = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.AttachFilePath)
                 .Select(y => y.ParameterValue).FirstOrDefault();
-           
+
 
             return folder;
         }
         #endregion Attachment
-           
+
         public ServiceModels.ReturnObject<decimal> GetTotalIsFollowup(ServiceModels.QueryParameter p)
         {
             ServiceModels.ReturnObject<decimal> result = new ReturnObject<decimal>();
             try
             {
                 var searchResult = ListProjectInfoList(p);
-               
+
                 result.IsCompleted = searchResult.IsCompleted;
                 result.Message = searchResult.Message;
 
                 if (searchResult.IsCompleted)
                 {
                     result.Data = searchResult.TotalRow;
-                }else
-                {                   
-                    result.Data = 0;                    
-                }                           
+                }
+                else
+                {
+                    result.Data = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -6332,8 +6452,8 @@ namespace Nep.Project.Business
                                                             ProjectApprovalStatus = p.ProjectApprovalStatus.LOVCode,
                                                             CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                                             ProjectProvinceID = p.ProvinceID,
-                                                            FolloupStatusCode = (p.FollowUpStatus != null)? _db.MT_ListOfValue.Where(fs => fs.LOVID == p.FollowUpStatus).Select(fsr=> fsr.LOVCode).FirstOrDefault() : null,
-                                                            ApprovalStatus = (p.ProjectApproval != null)? p.ProjectApproval.ApprovalStatus : null,
+                                                            FolloupStatusCode = (p.FollowUpStatus != null) ? _db.MT_ListOfValue.Where(fs => fs.LOVID == p.FollowUpStatus).Select(fsr => fsr.LOVCode).FirstOrDefault() : null,
+                                                            ApprovalStatus = (p.ProjectApproval != null) ? p.ProjectApproval.ApprovalStatus : null,
                                                             ProjectOrgID = p.OrganizationID,
                                                             HasReportedResult = (p.ProjectReport != null)
                                                         }).FirstOrDefault();
@@ -6430,12 +6550,12 @@ namespace Nep.Project.Business
                 }
                 else if (param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง ||
                    param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_1_ชะลอการพิจารณา  ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา  ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง  ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด  ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง  ||
-                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด 
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_1_ชะลอการพิจารณา ||
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา ||
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง ||
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด ||
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง ||
+                   param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด
                    )
                 {
                     if ((_user.IsAdministrator) || (userRoles.Contains(Common.FunctionCode.MANAGE_PROJECT) && userProvinceId.HasValue && (userProvinceId == param.ProjectProvinceID)))
@@ -6564,8 +6684,8 @@ namespace Nep.Project.Business
             {
                 result.IsCompleted = false;
                 result.Message.Add(Nep.Project.Resources.Message.NoRecord);
-            }       
-            
+            }
+
             return result;
         }
 
@@ -6799,9 +6919,9 @@ namespace Nep.Project.Business
                     ret.Message.Add("ไม่พบโครงการที่ระบุ");
                     return ret;
                 }
-               
-      
-               
+
+
+
                 decimal expense = 0;
                 var result = GetProjectReportResult(projectID);
                 if (!result.IsCompleted)
@@ -6821,14 +6941,14 @@ namespace Nep.Project.Business
                     {
                         expense += b.ActualExpense.Value;
                     }
-                   
+
                 }
                 if (expense == 0)
                 {
                     ret.Message.Add("ยังไม่มีการระบุค่าใช้จ่ายจริง");
                     return ret;
                 }
-                if (!result.Data.Interest.HasValue )
+                if (!result.Data.Interest.HasValue)
                 {
                     ret.Message.Add("ยังไม่มีการระบุดอกเบี้ย");
                     return ret;
@@ -6845,23 +6965,24 @@ namespace Nep.Project.Business
                 data.ActualExpense = expense;
                 data.Balance = data.ReviseBudgetAmount - data.ActualExpense;
 
-                data.TotalBalance =  data.Balance + data.Interest;
-                data.TransactionCode = projectID.ToString().PadLeft(10,'0');
+                data.TotalBalance = data.Balance + data.Interest;
+                data.TransactionCode = projectID.ToString().PadLeft(10, '0');
                 barcode.CodeToEncode = data.TransactionCode;
                 barcode.ImageFormat = System.Drawing.Imaging.ImageFormat.Png;
                 data.Barcode = barcode.generateBarcodeToByteArray();
                 data.TransactionDate = DateTime.Now;
                 data.ThaiBaht = Nep.Project.Common.Report.Utility.ToThaiBath(data.TotalBalance);
                 data.User = "test";
-              
+
                 ret.Data = data;
                 ret.IsCompleted = true;
                 return ret;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 ret.IsCompleted = false;
                 ret.Message.Add(ex.Message);
-               
+
                 return ret;
             }
         }
@@ -6879,9 +7000,9 @@ namespace Nep.Project.Business
 
                                 ProjectProvinceID = g.ProvinceID,
 
-                                ApprovalStatus = (g.ProjectApproval != null)? g.ProjectApproval.ApprovalStatus : null,
+                                ApprovalStatus = (g.ProjectApproval != null) ? g.ProjectApproval.ApprovalStatus : null,
                                 ProjectApprovalStatus = g.ProjectApprovalStatus.LOVCode,
-                                BudgetYear = (g.ProjectInformation != null)? g.ProjectInformation.BudgetYear : 0,
+                                BudgetYear = (g.ProjectInformation != null) ? g.ProjectInformation.BudgetYear : 0,
                                 CreatorOrganizationID = _db.SC_User.Where(user => user.UserID == g.CreatedByID).Select(userObj => userObj.OrganizationID).FirstOrDefault(),
 
                                 OganizationID = g.OrganizationID,
@@ -6918,29 +7039,29 @@ namespace Nep.Project.Business
                                 GotSupportLastResult = g.GotSupportLastResult,
                                 GotSupportLastProblems = g.GotSupportLastProblems,
 
-                                ProjectNameTH = (g.ProjectInformation != null)? g.ProjectInformation.ProjectNameTH : null,
-                                ProjectNameEN = (g.ProjectInformation != null)? g.ProjectInformation.ProjectNameEN : null,
+                                ProjectNameTH = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectNameTH : null,
+                                ProjectNameEN = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectNameEN : null,
 
-                                DisabilityTypeID = (g.ProjectInformation != null)? g.ProjectInformation.DisabilityTypeID : null,
-                                DisabilityTypeCode = ((g.ProjectInformation != null) && (g.ProjectInformation.DisabilityTypeID != null))? 
+                                DisabilityTypeID = (g.ProjectInformation != null) ? g.ProjectInformation.DisabilityTypeID : null,
+                                DisabilityTypeCode = ((g.ProjectInformation != null) && (g.ProjectInformation.DisabilityTypeID != null)) ?
                                     _db.MT_ListOfValue.Where(dist => dist.LOVID == (decimal)g.ProjectInformation.DisabilityTypeID).Select(distObj => distObj.LOVCode).FirstOrDefault() : null,
 
-                                PrefixName1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Prefix1Personel.LOVName : null,
-                                Firstname1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Firstname1 : null,
-                                Lastname1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Lastname1 : null,
-                                Address1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Address1 : null,
-                                Building1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Building1 : null,
-                                Moo1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Moo1 : null,
-                                Soi1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Soi1 : null,
-                                Road1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Road1 : null,
-                                SubDistrict1 = (g.ProjectPersonel != null)? g.ProjectPersonel.SubDistrict1 : null,
-                                District1 = (g.ProjectPersonel != null)? g.ProjectPersonel.District1 : null,
-                                ProvinceName1 = (g.ProjectPersonel != null)? _db.MT_Province.Where(prov1 => prov1.ProvinceID == g.ProjectPersonel.ProvinceID1)
+                                PrefixName1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix1Personel.LOVName : null,
+                                Firstname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname1 : null,
+                                Lastname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname1 : null,
+                                Address1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Address1 : null,
+                                Building1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Building1 : null,
+                                Moo1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Moo1 : null,
+                                Soi1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Soi1 : null,
+                                Road1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Road1 : null,
+                                SubDistrict1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.SubDistrict1 : null,
+                                District1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.District1 : null,
+                                ProvinceName1 = (g.ProjectPersonel != null) ? _db.MT_Province.Where(prov1 => prov1.ProvinceID == g.ProjectPersonel.ProvinceID1)
                                     .Select(prov1Obj => prov1Obj.ProvinceName).FirstOrDefault() : null,
-                                PostCode1 = (g.ProjectPersonel != null)? g.ProjectPersonel.PostCode1 : null,
-                                Telephone1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Telephone1 : null,
-                                Fax1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Fax1 : null,
-                                Email1 = (g.ProjectPersonel != null)? g.ProjectPersonel.Email1 : null,
+                                PostCode1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.PostCode1 : null,
+                                Telephone1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Telephone1 : null,
+                                Fax1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Fax1 : null,
+                                Email1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Email1 : null,
 
                                 PrefixName2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix2Personel.LOVName : null,
                                 Firstname2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname2 : null,
@@ -6969,7 +7090,7 @@ namespace Nep.Project.Business
                                 Road3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Road3 : null,
                                 SubDistrict3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.SubDistrict3 : null,
                                 District3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.District3 : null,
-                                ProvinceName3 = ((g.ProjectPersonel != null) && (g.ProjectPersonel.ProvinceID3 != null)) ? 
+                                ProvinceName3 = ((g.ProjectPersonel != null) && (g.ProjectPersonel.ProvinceID3 != null)) ?
                                     _db.MT_Province.Where(prov3 => prov3.ProvinceID == g.ProjectPersonel.ProvinceID3)
                                     .Select(prov3Obj => prov3Obj.ProvinceName).FirstOrDefault() : null,
                                 PostCode3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.PostCode3 : null,
@@ -6977,37 +7098,37 @@ namespace Nep.Project.Business
                                 Fax3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Fax3 : null,
                                 Email3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Email3 : null,
 
-                                ProjectReason = (g.ProjectInformation != null)? g.ProjectInformation.ProjectReason : null,
+                                ProjectReason = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectReason : null,
 
-                                ProjectPurpose = (g.ProjectInformation != null)? g.ProjectInformation.ProjectPurpose : null,
+                                ProjectPurpose = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectPurpose : null,
 
-                                OperationAddress = (g.ProjectOperation != null)? g.ProjectOperation.Address : null,
-                                OperationBuilding = (g.ProjectOperation != null)? g.ProjectOperation.Building : null,
-                                OperationMoo = (g.ProjectOperation != null)? g.ProjectOperation.Moo : null,
-                                OperationSoi = (g.ProjectOperation != null)? g.ProjectOperation.Soi : null,
-                                OperationRoad = (g.ProjectOperation != null)? g.ProjectOperation.Road : null,
-                                OperationSubDistrict = (g.ProjectOperation != null)? g.ProjectOperation.SubDistrict : null,
-                                OperationDistrict = (g.ProjectOperation != null)? g.ProjectOperation.District : null,
-                                OperationProvince = (g.ProjectOperation != null)? g.ProjectOperation.MT_Province.ProvinceName : null,
+                                OperationAddress = (g.ProjectOperation != null) ? g.ProjectOperation.Address : null,
+                                OperationBuilding = (g.ProjectOperation != null) ? g.ProjectOperation.Building : null,
+                                OperationMoo = (g.ProjectOperation != null) ? g.ProjectOperation.Moo : null,
+                                OperationSoi = (g.ProjectOperation != null) ? g.ProjectOperation.Soi : null,
+                                OperationRoad = (g.ProjectOperation != null) ? g.ProjectOperation.Road : null,
+                                OperationSubDistrict = (g.ProjectOperation != null) ? g.ProjectOperation.SubDistrict : null,
+                                OperationDistrict = (g.ProjectOperation != null) ? g.ProjectOperation.District : null,
+                                OperationProvince = (g.ProjectOperation != null) ? g.ProjectOperation.MT_Province.ProvinceName : null,
 
                                 StartDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.StartDate : (DateTime?)null,
                                 EndDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.EndDate : (DateTime?)null,
                                 TotalDay = (g.ProjectOperation != null) ? (Decimal?)g.ProjectOperation.TotalDay : (Decimal?)null,
-                                TimeDesc = (g.ProjectOperation != null)? g.ProjectOperation.TimeDesc : null,
+                                TimeDesc = (g.ProjectOperation != null) ? g.ProjectOperation.TimeDesc : null,
 
-                                Method = (g.ProjectOperation != null)? g.ProjectOperation.Method : null,
+                                Method = (g.ProjectOperation != null) ? g.ProjectOperation.Method : null,
 
                                 BudgetValue = g.BudgetValue,
 
-                                BudgetFromOtherFlag = (g.BudgetFromOtherFlag == "1")? true : false,
+                                BudgetFromOtherFlag = (g.BudgetFromOtherFlag == "1") ? true : false,
                                 BudgetFromOtherName = g.BudgetFromOtherName,
                                 BudgetFromOtherAmount = g.BudgetFromOtherAmount,
 
                                 ProjectKPI = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectKPI : null,
 
-                                ProjectResult = (g.ProjectInformation != null)? g.ProjectInformation.ProjectResult : null,
+                                ProjectResult = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectResult : null,
 
-                                AssessmentDesc = (g.ProjectEvaluation != null)? g.ProjectEvaluation.AssessmentDesc : null
+                                AssessmentDesc = (g.ProjectEvaluation != null) ? g.ProjectEvaluation.AssessmentDesc : null
 
                             }).FirstOrDefault();
 
@@ -7018,7 +7139,7 @@ namespace Nep.Project.Business
                     List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;
                     bool canPrint = functions.Contains(Common.ProjectFunction.PrintDataForm);
 
-                    
+
 
                     if (canPrint)
                     {
@@ -7037,7 +7158,7 @@ namespace Nep.Project.Business
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
                 }
 
-               
+
             }
             catch (Exception ex)
             {
@@ -7070,7 +7191,7 @@ namespace Nep.Project.Business
 
             //1.6
             model.Purpose = Common.Web.WebUtility.ParseToThaiNumber(model.Purpose);
-            
+
             //1.7
             model.CurrentProject = Common.Web.WebUtility.ParseToThaiNumber(model.CurrentProject);
 
@@ -7151,7 +7272,7 @@ namespace Nep.Project.Business
 
             //2.10
             model.Method = Common.Web.WebUtility.ParseToThaiNumber(model.Method);
-            
+
             //2.11
             model.BudgetFromOtherName = Common.Web.WebUtility.ParseToThaiNumber(model.BudgetFromOtherName);
 
@@ -7163,7 +7284,7 @@ namespace Nep.Project.Business
 
             //ความเห็นประกอบการพิจารณา
             model.AssessmentDesc = Common.Web.WebUtility.ParseToThaiNumber(model.AssessmentDesc);
-            
+
 
             return model;
         }
@@ -7179,7 +7300,8 @@ namespace Nep.Project.Business
                     List<ServiceModels.Report.ReportProjectRequest.OrganizationAssistance> list = new List<ServiceModels.Report.ReportProjectRequest.OrganizationAssistance>();
                     int no = 0;
                     no++;
-                    if(!String.IsNullOrEmpty(dbGenInfo.SourceName1)){
+                    if (!String.IsNullOrEmpty(dbGenInfo.SourceName1))
+                    {
                         list.Add(new ServiceModels.Report.ReportProjectRequest.OrganizationAssistance
                         {
                             No = no,
@@ -7216,21 +7338,21 @@ namespace Nep.Project.Business
                         list.Add(new ServiceModels.Report.ReportProjectRequest.OrganizationAssistance
                         {
                             No = no,
-                            OrganizationName = Common.Web.WebUtility.ParseToThaiNumber( dbGenInfo.SourceName4),
+                            OrganizationName = Common.Web.WebUtility.ParseToThaiNumber(dbGenInfo.SourceName4),
                             Amount = dbGenInfo.MoneySupport4,
                         });
                     }
 
                     result.IsCompleted = true;
-                    result.Data = list;                    
-                                    
+                    result.Data = list;
+
                 }
                 else
                 {
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
                 }
-                           
+
             }
             catch (Exception ex)
             {
@@ -7256,7 +7378,7 @@ namespace Nep.Project.Business
                     DBModels.Model.MT_ListOfValue lov;
                     String lovName;
                     String lovCode;
-                   // bool hasAttachment = false;
+                    // bool hasAttachment = false;
                     int no;
 
                     for (int i = 0; i < lovAtts.Count; i++)
@@ -7269,7 +7391,7 @@ namespace Nep.Project.Business
                         //hasAttachment = false;
                         var found = attnew.Where(w => w.FIELDNAME == fieldname).FirstOrDefault();
 
-                        if (hasProjectAttachment )
+                        if (hasProjectAttachment)
                         {
                             attList.Add(new ServiceModels.Report.ReportProjectRequest.ProjectAttachment
                             {
@@ -7305,11 +7427,11 @@ namespace Nep.Project.Business
             try
             {
                 List<ServiceModels.Report.ReportProjectRequest.ProjectAttachment> attList = new List<ServiceModels.Report.ReportProjectRequest.ProjectAttachment>();
-                var att = _db.ProjectDocuments.Where(x => x.ProjectID  == projectID).FirstOrDefault();
+                var att = _db.ProjectDocuments.Where(x => x.ProjectID == projectID).FirstOrDefault();
                 var lovAtts = _db.MT_ListOfValue.Where(x => x.LOVGroup == Common.LOVGroup.ProjectAttachment).OrderBy(or => or.OrderNo).ToList();
                 bool hasProjectAttachment = (att != null);
                 if (lovAtts != null)
-                {                    
+                {
                     DBModels.Model.MT_ListOfValue lov;
                     String lovName;
                     String lovCode;
@@ -7399,15 +7521,15 @@ namespace Nep.Project.Business
                                     }
                             }
                         }
-                        
+
 
                         attList.Add(new ServiceModels.Report.ReportProjectRequest.ProjectAttachment
-                        {                            
+                        {
                             HasAttachment = hasAttachment,
                             ProjectAttachmentName = Common.Web.WebUtility.ParseToThaiNumber(lov.LOVName)
-                        });                        
+                        });
                     }
-                    
+
                     result.IsCompleted = true;
                     result.Data = attList;
                 }
@@ -7415,7 +7537,7 @@ namespace Nep.Project.Business
                 {
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
-                }      
+                }
             }
             catch (Exception ex)
             {
@@ -7440,9 +7562,10 @@ namespace Nep.Project.Business
                                 BudgetValue = b.BudgetValue
                             }).OrderBy(or => or.ProjectBudgetID).ToList();
 
-                if(data != null){
+                if (data != null)
+                {
                     ServiceModels.Report.ReportProjectRequest.ProjectBudget item;
-                    for (int i = 0; i < data.Count; i++ )
+                    for (int i = 0; i < data.Count; i++)
                     {
                         item = data[i];
                         item.BudgetDetail = Common.Web.WebUtility.ParseToThaiNumber(item.BudgetDetail);
@@ -7467,13 +7590,13 @@ namespace Nep.Project.Business
             {
                 var data = (from b in _db.ProjectBudgets
                             where b.ProjectID == projectID
-                            orderby  b.ACTIVITYID, b.ProjectBudgetID
+                            orderby b.ACTIVITYID, b.ProjectBudgetID
                             select new ServiceModels.Report.ReportProjectRequest.ProjectBudget
                             {
                                 ProjectBudgetID = b.ProjectBudgetID,
                                 BudgetDetail = b.BudgetDetail,
                                 BudgetValue = b.BudgetValue
-                            }) .ToList();
+                            }).ToList();
 
                 if (data != null)
                 {
@@ -7585,13 +7708,14 @@ namespace Nep.Project.Business
                 int commPos3Count = 0;
                 int commPos3No = 0;
                 String firstName = "";
-                for (int i = 0; i < dbComm.Count; i++ )
+                for (int i = 0; i < dbComm.Count; i++)
                 {
                     obj = new ServiceModels.Report.ReportProjectRequest.ProjectCommittee();
                     dbObj = dbComm[i];
                     firstName = Common.Web.WebUtility.ParseToThaiNumber(dbObj.Firstname);
                     commPos = dbObj.CommitteePosition;
-                    if(commPos == "1"){
+                    if (commPos == "1")
+                    {
                         obj.No = (i + 1);
                         firstName = String.Format("ประธาน/นายก {0}", firstName);
                     }
@@ -7599,7 +7723,8 @@ namespace Nep.Project.Business
                     {
                         obj.No = (i + 1);
                         firstName = String.Format("กรรมการ {0}", firstName);
-                    }else if (commPos == "3")
+                    }
+                    else if (commPos == "3")
                     {
                         commPos3Count++;
                         commPos3No++;
@@ -7616,7 +7741,7 @@ namespace Nep.Project.Business
                     }
                     else
                     {
-                        obj.No = (i + 1);                        
+                        obj.No = (i + 1);
                     }
 
                     obj.FirstName = firstName;
@@ -7624,15 +7749,16 @@ namespace Nep.Project.Business
                     if (string.IsNullOrEmpty(dbObj.Position.Trim()) && dbObj.POSCODE != null)
                     {
                         obj.Position = Common.Web.WebUtility.ParseToThaiNumber(dbObj.K_MT_POSITION.POSNAME);
-                    } else
+                    }
+                    else
                     {
                         obj.Position = Common.Web.WebUtility.ParseToThaiNumber(dbObj.Position);
                     }
-                    
-                    
+
+
                     list.Add(obj);
-                }               
-               
+                }
+
                 result.Data = list;
                 result.IsCompleted = true;
             }
@@ -7661,7 +7787,8 @@ namespace Nep.Project.Business
                                 TargetGroupAmt = tg.TargetGroupAmt
                             }).ToList();
 
-                if(data != null){
+                if (data != null)
+                {
                     ServiceModels.Report.ReportProjectRequest.ProjectTargetGroup item;
                     for (int i = 0; i < data.Count; i++)
                     {
@@ -7670,7 +7797,7 @@ namespace Nep.Project.Business
                         item.TargetGroupEtc = Common.Web.WebUtility.ParseToThaiNumber(item.TargetGroupEtc);
                     }
                 }
-                
+
 
                 result.IsCompleted = true;
                 result.Data = data;
@@ -7706,7 +7833,8 @@ namespace Nep.Project.Business
                         }
                        ).ToList();
 
-                if(list != null){
+                if (list != null)
+                {
                     ServiceModels.Report.ReportProjectRequest.ProjectOperationAddress item;
                     for (int i = 0; i < list.Count; i++)
                     {
@@ -7728,7 +7856,7 @@ namespace Nep.Project.Business
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }
-            
+
             return result;
         }
         #endregion Project Request Report
@@ -7766,7 +7894,7 @@ namespace Nep.Project.Business
 
                                 StartDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.StartDate : null,
 
-                                EndDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.EndDate : null,                              
+                                EndDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.EndDate : null,
 
                                 ProjectResult = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectResult : null,
 
@@ -7778,12 +7906,12 @@ namespace Nep.Project.Business
 
                                 DisabilityTypeCode = (g.ProjectInformation != null) ? _db.MT_ListOfValue.Where(dis => dis.LOVID == g.ProjectInformation.DisabilityTypeID).Select(disObj => disObj.LOVCode).FirstOrDefault() : null,
 
-                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1")) ? Resources.UI.LabelStandardStrategic1:
+                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1")) ? Resources.UI.LabelStandardStrategic1 :
                                             ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "2")) ? Resources.UI.LabelStandardStrategic2 :
                                             ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "3")) ? Resources.UI.LabelStandardStrategic3 :
                                             ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "4")) ? Resources.UI.LabelStandardStrategic4 :
                                             ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "5")) ? Resources.UI.LabelStandardStrategic5 : null
-    
+
                             }).FirstOrDefault();
 
                 if (data != null)
@@ -7796,7 +7924,7 @@ namespace Nep.Project.Business
                         data.ProjectTargetGroup = GetProjectTargetGroupText(projectID);
                         data.CommitteeApprovalResult = GetCommitteeApprovalResultText(projectID, data.ProjectProvinceID);
                         data.DisabledCommitteePrositionName = GetDisabledCommitteePrositionName(data.DisabilityTypeCode, data.ProjectProvinceID);
-                       
+
                         result.IsCompleted = true;
                         result.Data = data;
                     }
@@ -7822,7 +7950,7 @@ namespace Nep.Project.Business
             return result;
         }
 
-       
+
         #endregion Project Report Summary Info Report1
 
         #region Project Report Summary Info Report
@@ -7837,44 +7965,44 @@ namespace Nep.Project.Business
                             {
                                 ProjectID = g.ProjectID,
 
-                                ApprovalStatus = (g.ProjectApproval != null)? g.ProjectApproval.ApprovalStatus : null,
+                                ApprovalStatus = (g.ProjectApproval != null) ? g.ProjectApproval.ApprovalStatus : null,
 
                                 ProjectApprovalStatus = g.ProjectApprovalStatus.LOVCode,
                                 CreatorOrganizationID = _db.SC_User.Where(x => x.UserID == g.CreatedByID).Select(y => y.OrganizationID).FirstOrDefault(),
                                 ProjectProvinceID = g.ProvinceID,
 
-                                ProjectNameTH = (g.ProjectInformation != null)? g.ProjectInformation.ProjectNameTH : null,
+                                ProjectNameTH = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectNameTH : null,
                                 ProjectNameEN = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectNameEN : null,
 
                                 OrganizationID = g.OrganizationID,
                                 OrganizationNameTH = g.OrganizationNameTH,
                                 OrganizationNameEN = g.OrganizationNameEN,
 
-                                ProjectReason = (g.ProjectInformation != null)? g.ProjectInformation.ProjectReason : null,
-                                
-                                ProjectPurpose = (g.ProjectInformation != null)? g.ProjectInformation.ProjectPurpose : null,
+                                ProjectReason = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectReason : null,
 
-                                Method = (g.ProjectOperation != null)? g.ProjectOperation.Method : null,
+                                ProjectPurpose = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectPurpose : null,
 
-                                StartDate = (g.ProjectOperation != null)? (DateTime?)g.ProjectOperation.StartDate : null,
+                                Method = (g.ProjectOperation != null) ? g.ProjectOperation.Method : null,
+
+                                StartDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.StartDate : null,
 
                                 EndDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.EndDate : null,
-                               
 
-                                ProjectResult = (g.ProjectInformation != null)? g.ProjectInformation.ProjectResult : null,
 
-                                ProjectKPI = (g.ProjectInformation != null)? g.ProjectInformation.ProjectKPI : null,
+                                ProjectResult = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectResult : null,
 
-                                BudgetValue = g.BudgetValue, 
+                                ProjectKPI = (g.ProjectInformation != null) ? g.ProjectInformation.ProjectKPI : null,
+
+                                BudgetValue = g.BudgetValue,
 
                                 BudgetReviseValue = g.BudgetReviseValue,
 
-                                DisabilityTypeCode = (g.ProjectInformation != null)? _db.MT_ListOfValue.Where(dis => dis.LOVID == g.ProjectInformation.DisabilityTypeID).Select(disObj => disObj.LOVCode).FirstOrDefault() : null
+                                DisabilityTypeCode = (g.ProjectInformation != null) ? _db.MT_ListOfValue.Where(dis => dis.LOVID == g.ProjectInformation.DisabilityTypeID).Select(disObj => disObj.LOVCode).FirstOrDefault() : null
 
                             }).FirstOrDefault();
 
                 if (data != null)
-                {                    
+                {
                     List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;
                     bool canView = functions.Contains(Common.ProjectFunction.CanViewProjectInfo);
                     if (canView)
@@ -7913,8 +8041,9 @@ namespace Nep.Project.Business
             StringBuilder address = new StringBuilder();
             List<ServiceModels.ProjectInfo.ProjectOperationAddress> list = MappProjectOperationAddress(projectID);
             ServiceModels.ProjectInfo.ProjectOperationAddress item;
-            if(list != null){
-                for (int i = 0; i < list.Count; i++ )
+            if (list != null)
+            {
+                for (int i = 0; i < list.Count; i++)
                 {
                     item = list[i];
                     address.AppendFormat("เลขที่/สถานที่ดำเนินการ {0}", item.Address);
@@ -7965,21 +8094,21 @@ namespace Nep.Project.Business
         {
             StringBuilder text = new StringBuilder();
             List<DBModels.Model.ProjectTargetGroup> list = _db.ProjectTargetGroups.Where(x => x.ProjectID == projectID).ToList();
-           
+
 
             var data = (from tg in _db.ProjectTargetGroups
                         join tgName in _db.MT_ListOfValue on tg.TargetGroupID equals tgName.LOVID
                         where tg.ProjectID == projectID
                         select new ServiceModels.ProjectInfo.ProjectTarget
-                         {                          
+                        {
                             TargetName = tgName.LOVName,
                             TargetOtherName = tg.TargetGroupEtc,
                             Amount = tg.TargetGroupAmt,
                             ProjectTargetID = tg.ProjectTargetGroupID
-                         }                         
+                        }
                         ).OrderBy(or => or.ProjectTargetID).ToList();
-            
-            
+
+
 
             ServiceModels.ProjectInfo.ProjectTarget obj;
             string etc = "";
@@ -8019,7 +8148,8 @@ namespace Nep.Project.Business
             StringBuilder text = new StringBuilder();
             bool isCenterReviseProject = IsCenterReviseProject(projectProvinceID);
             var data = _db.ProjectApprovals.Where(x => x.ProjectID == projectID).FirstOrDefault();
-            if(data != null){
+            if (data != null)
+            {
                 if (isCenterReviseProject)
                 {
                     text.Append(data.ApprovalStatus2.LOVName);
@@ -8028,7 +8158,9 @@ namespace Nep.Project.Business
                         text.Append("\n");
                         text.Append(data.ApprovalDesc2);
                     }
-                }else{
+                }
+                else
+                {
                     text.Append(data.ApprovalStatus1.LOVName);
                     if (!String.IsNullOrEmpty(data.ApprovalDesc1))
                     {
@@ -8048,7 +8180,8 @@ namespace Nep.Project.Business
 
             if (isCenterReviseProject)
             {
-                if(disabledTypeCode == Common.LOVCode.Disabilitytype.ทุกประเภทความพิการ){
+                if (disabledTypeCode == Common.LOVCode.Disabilitytype.ทุกประเภทความพิการ)
+                {
                     disabilityCommitteeCode = Common.LOVCode.Disabilitycommittee.คณะอนุกรรมการบุคคลพิการทุกประเภท;
                 }
                 else if (disabledTypeCode == Common.LOVCode.Disabilitytype.ประเภททางการเคลื่อนไหวหรือร่างกาย)
@@ -8078,8 +8211,10 @@ namespace Nep.Project.Business
                 else if (disabledTypeCode == Common.LOVCode.Disabilitytype.ประเภททางออทิสติก)
                 {
                     disabilityCommitteeCode = Common.LOVCode.Disabilitycommittee.คณะอนุกรรมการบุคคลออทิสติ;
-                }                
-            }else{
+                }
+            }
+            else
+            {
                 disabilityCommitteeCode = Common.LOVCode.Disabilitycommittee.คณะกรรมการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด;
             }
 
@@ -8089,7 +8224,8 @@ namespace Nep.Project.Business
             {
                 var data = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.DisabilityCommittee) && (x.LOVCode == disabilityCommitteeCode))
                         .Select(y => y.LOVName).FirstOrDefault();
-                if(data != null){
+                if (data != null)
+                {
                     text = data;
                 }
             }
@@ -8108,14 +8244,14 @@ namespace Nep.Project.Business
             {
                 var data = _db.ProjectBudgets.Where(x => x.ProjectID == projectID).Select(y => new ServiceModels.Report.ReportSummaryProjectInfoBudgetDetail
                 {
-                   ProjectBudgetID = y.ProjectBudgetID,
-                   Detail = y.BudgetDetail,
-                   RevisedDetail = y.BudgetDetailRevise,
-                   RequestValue = y.BudgetValue,
-                   ReviseValue = y.BudgetReviseValue,
-                   ReviseValue1 = y.BudgetReviseValue1,
-                   ReviseValue2 = y.BudgetReviseValue2,
-                   RemarkApproval = y.RemarkApproval
+                    ProjectBudgetID = y.ProjectBudgetID,
+                    Detail = y.BudgetDetail,
+                    RevisedDetail = y.BudgetDetailRevise,
+                    RequestValue = y.BudgetValue,
+                    ReviseValue = y.BudgetReviseValue,
+                    ReviseValue1 = y.BudgetReviseValue1,
+                    ReviseValue2 = y.BudgetReviseValue2,
+                    RemarkApproval = y.RemarkApproval
                 }).OrderBy(or => or.ProjectBudgetID).ToList();
 
                 result.IsCompleted = true;
@@ -8143,12 +8279,12 @@ namespace Nep.Project.Business
                             where g.ProjectID == projectID
                             select new ServiceModels.Report.ReportProjectResult.GeneralProjectInfo
                             {
-                                ProjectID = g.ProjectID,                                
+                                ProjectID = g.ProjectID,
 
-                                ApprovalStatus = (g.ProjectApproval != null)? g.ProjectApproval.ApprovalStatus : null,
-                                
-                                ProjectApprovalStatus = g.ProjectApprovalStatus.LOVCode,    
-                                FollowupStatusCode = (g.FollowUpStatus != null)? _db.MT_ListOfValue.Where(followup => followup.LOVID == (decimal)g.FollowUpStatus).Select(fObj => fObj.LOVCode).FirstOrDefault() : null,
+                                ApprovalStatus = (g.ProjectApproval != null) ? g.ProjectApproval.ApprovalStatus : null,
+
+                                ProjectApprovalStatus = g.ProjectApprovalStatus.LOVCode,
+                                FollowupStatusCode = (g.FollowUpStatus != null) ? _db.MT_ListOfValue.Where(followup => followup.LOVID == (decimal)g.FollowUpStatus).Select(fObj => fObj.LOVCode).FirstOrDefault() : null,
                                 CreatorOrganizationID = _db.SC_User.Where(user => user.UserID == g.CreatedByID).Select(userObj => userObj.OrganizationID).FirstOrDefault(),
                                 ProjectProvinceID = g.ProvinceID,
 
@@ -8167,8 +8303,8 @@ namespace Nep.Project.Business
                                 Postcode = g.Postcode,
                                 Telephone = g.Telephone,
                                 Fax = g.Fax,
-                                Email = g.Email,                              
-                                
+                                Email = g.Email,
+
                                 PrefixName1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix1Personel.LOVName : null,
                                 Firstname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname1 : null,
                                 Lastname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname1 : null,
@@ -8202,27 +8338,27 @@ namespace Nep.Project.Business
                                 EndDate = (g.ProjectOperation != null) ? (DateTime?)g.ProjectOperation.EndDate : (DateTime?)null,
                                 TotalDay = (g.ProjectOperation != null) ? (Decimal?)g.ProjectOperation.TotalDay : (Decimal?)null,
 
-                                ActivityDescription = (g.ProjectReport != null)? g.ProjectReport.ActivityDescription : null,
+                                ActivityDescription = (g.ProjectReport != null) ? g.ProjectReport.ActivityDescription : null,
 
-                                BudgetRequest = (g.BudgetValue != null)? (Decimal)g.BudgetValue : 0,
+                                BudgetRequest = (g.BudgetValue != null) ? (Decimal)g.BudgetValue : 0,
                                 BudgetRevised = (g.BudgetReviseValue != null) ? (Decimal)g.BudgetReviseValue : 0,
                                 ActualExpense = ((g.ProjectReport != null) && (g.ProjectReport.ActualExpense != null)) ? (Decimal)g.ProjectReport.ActualExpense : 0,
 
-                                Benefit = (g.ProjectReport != null)? g.ProjectReport.Benefit : null,
+                                Benefit = (g.ProjectReport != null) ? g.ProjectReport.Benefit : null,
 
-                                MaleParticipant = (g.ProjectReport != null)? g.ProjectReport.MaleParticipant : (Decimal?)null,
+                                MaleParticipant = (g.ProjectReport != null) ? g.ProjectReport.MaleParticipant : (Decimal?)null,
                                 FemaleParticipant = (g.ProjectReport != null) ? g.ProjectReport.FemaleParticipant : (Decimal?)null,
 
-                                ProblemsAndObstacle = (g.ProjectReport != null)? g.ProjectReport.ProblemsAndObstacle : null,
+                                ProblemsAndObstacle = (g.ProjectReport != null) ? g.ProjectReport.ProblemsAndObstacle : null,
 
-                                Suggestion = (g.ProjectReport != null)? g.ProjectReport.Suggestion : null,
+                                Suggestion = (g.ProjectReport != null) ? g.ProjectReport.Suggestion : null,
 
-                                ReporterName1 = (g.ProjectReport != null)? g.ProjectReport.ReporterName1 : null,
-                                ReporterLastname1 = (g.ProjectReport != null)? g.ProjectReport.ReporterLastname1 : null,
-                                Position1 = (g.ProjectReport != null)? g.ProjectReport.Position1 : null,
-                                ReportDate1 = (g.ProjectReport != null)? g.ProjectReport.RepotDate1 : null,
-                                ReporterTelephone1 = (g.ProjectReport != null)? g.ProjectReport.Telephone1 : null,
-                                
+                                ReporterName1 = (g.ProjectReport != null) ? g.ProjectReport.ReporterName1 : null,
+                                ReporterLastname1 = (g.ProjectReport != null) ? g.ProjectReport.ReporterLastname1 : null,
+                                Position1 = (g.ProjectReport != null) ? g.ProjectReport.Position1 : null,
+                                ReportDate1 = (g.ProjectReport != null) ? g.ProjectReport.RepotDate1 : null,
+                                ReporterTelephone1 = (g.ProjectReport != null) ? g.ProjectReport.Telephone1 : null,
+
                                 SuggestionDesc = (g.ProjectReport != null) ? g.ProjectReport.SuggestionDesc : null,
                                 ReporterName2 = (g.ProjectReport != null) ? g.ProjectReport.ReporterName2 : null,
                                 ReporterLastname2 = (g.ProjectReport != null) ? g.ProjectReport.ReporterLastname2 : null,
@@ -8267,7 +8403,8 @@ namespace Nep.Project.Business
             return result;
         }
 
-        private String GetOrganizationHeadName(decimal projectID) {
+        private String GetOrganizationHeadName(decimal projectID)
+        {
             string name = "-";
             var data = _db.ProjectCommittees.Where(x => (x.ProjectID == projectID) && (x.CommitteePosition == "1")).FirstOrDefault();
             if (data != null)
@@ -8287,13 +8424,14 @@ namespace Nep.Project.Business
 
                 var tmpProjectTypeID = _db.ProjectInformations.Where(x => x.ProjectID == projectID).Select(y => y.ProjectTypeID).FirstOrDefault();
                 var projectTypes = _db.MT_ListOfValue.Where(x => x.LOVGroup == Common.LOVGroup.ProjectType).OrderBy(or => or.OrderNo).ToList();
-                
-                decimal projectTypeId = (tmpProjectTypeID != null)? (decimal)tmpProjectTypeID : -1;
+
+                decimal projectTypeId = (tmpProjectTypeID != null) ? (decimal)tmpProjectTypeID : -1;
                 bool isSelected = false;
                 DBModels.Model.MT_ListOfValue dbType;
                 ServiceModels.Report.ReportProjectResult.ProjectType pType;
-                if(projectTypes != null){
-                    for (int i = 0; i < projectTypes.Count; i++ )
+                if (projectTypes != null)
+                {
+                    for (int i = 0; i < projectTypes.Count; i++)
                     {
                         dbType = projectTypes[i];
                         isSelected = (dbType.LOVID == projectTypeId);
@@ -8332,13 +8470,14 @@ namespace Nep.Project.Business
                 DBModels.Model.ProjectReport pReport = _db.ProjectReports.Where(x => x.ProjectID == projectID).FirstOrDefault();
                 decimal? tmpOperationResultID = (pReport != null) ? ((summaryResultCode == Common.LOVGroup.OperationResult) ? pReport.OperationResult : pReport.OperationLevel) : (decimal?)null;
                 decimal operationResultID = (tmpOperationResultID.HasValue) ? (decimal)tmpOperationResultID : 0;
-                
+
                 DBModels.Model.MT_ListOfValue dbObj;
                 ServiceModels.Report.ReportProjectResult.SummaryProjectResult summary;
                 bool isSelect = false;
                 string summaryDesc;
-                if(dbSummaryResults != null){
-                    for (int i = 0; i < dbSummaryResults.Count; i++ )
+                if (dbSummaryResults != null)
+                {
+                    for (int i = 0; i < dbSummaryResults.Count; i++)
                     {
                         dbObj = dbSummaryResults[i];
                         isSelect = (dbObj.LOVID == operationResultID);
@@ -8361,7 +8500,7 @@ namespace Nep.Project.Business
                 }
 
                 result.Data = summaryList;
-                result.IsCompleted = true;               
+                result.IsCompleted = true;
             }
             catch (Exception ex)
             {
@@ -8388,7 +8527,8 @@ namespace Nep.Project.Business
 
 
                     list = _db.MT_Province.Where(x => x.ProvinceAbbr != centerProvince.ProvinceAbbr)
-                        .Select(y => new ServiceModels.GenericDropDownListData { 
+                        .Select(y => new ServiceModels.GenericDropDownListData
+                        {
                             Value = y.ProvinceID.ToString(),
                             Text = y.ProvinceName
                         }).OrderBy(or => or.Text).ToList();
@@ -8396,19 +8536,19 @@ namespace Nep.Project.Business
                 }
                 else
                 {
-                    
+
                     DBModels.Model.MT_Province userProvince = _db.MT_Province.Where(x => x.ProvinceID == _user.ProvinceID).FirstOrDefault();
 
                     if (!_user.IsProvinceOfficer)
                     {
                         list.Add(new ServiceModels.GenericDropDownListData { Text = centerProvince.ProvinceName, Value = centerProvince.ProvinceID.ToString() });
                     }
-                    
+
                     list.Add(new ServiceModels.GenericDropDownListData { Text = userProvince.ProvinceName, Value = userProvince.ProvinceID.ToString() });
                 }
 
                 result.IsCompleted = true;
-                result.Data = list;                
+                result.Data = list;
             }
             catch (Exception ex)
             {
@@ -8427,7 +8567,7 @@ namespace Nep.Project.Business
             try
             {
                 result.Data = (from g in _db.ProjectGeneralInfoes
-                               join prov in _db.MT_Province on g.AddressProvinceID equals prov.ProvinceID    
+                               join prov in _db.MT_Province on g.AddressProvinceID equals prov.ProvinceID
                                where g.ProjectID == projectid
                                select new ServiceModels.GenericDropDownListData
                                {
@@ -8496,7 +8636,7 @@ namespace Nep.Project.Business
                 DBModels.Model.ProjectInformation dbInfo = _db.ProjectInformations.Where(x => x.ProjectID == projectID).FirstOrDefault();
                 DBModels.Model.ProjectGeneralInfo dbGenInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();
                 decimal projectApprovalStatusID = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.ProjectApprovalStatus) && (x.LOVCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง)).Select(y => y.LOVID).FirstOrDefault();
-                decimal? currentAttachmentID = ((attachment != null) && (!String.IsNullOrEmpty(attachment.id)))? Convert.ToDecimal(attachment.id) : (decimal?)null;
+                decimal? currentAttachmentID = ((attachment != null) && (!String.IsNullOrEmpty(attachment.id))) ? Convert.ToDecimal(attachment.id) : (decimal?)null;
                 decimal? cancelledAttachmentID = (decimal?)null;
                 if (dbInfo != null)
                 {
@@ -8517,10 +8657,11 @@ namespace Nep.Project.Business
                                 cancelledAttachmentID = (decimal)SaveFile(attachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
                                 dbInfo.CancelledDocumentID = cancelledAttachmentID;
                             }
-                            
+
                             dbGenInfo.ProjectApprovalStatusID = projectApprovalStatusID;
 
-                            if(oldAttachment != null){
+                            if (oldAttachment != null)
+                            {
                                 ServiceModels.KendoAttachment removeAttachment = new KendoAttachment
                                 {
                                     id = oldAttachment.AttachmentID.ToString()
@@ -8536,18 +8677,18 @@ namespace Nep.Project.Business
                                 newAttach.id = (cancelledAttachmentID.HasValue) ? cancelledAttachmentID.ToString() : null;
                                 result.Data = newAttach;
                             }
-                            
+
                             result.IsCompleted = true;
                             result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);
                             tran.Commit();
                         }
-                    }                    
+                    }
                 }
                 else
                 {
                     result.IsCompleted = false;
                     result.Message.Add(Nep.Project.Resources.Message.NoRecord);
-                }  
+                }
             }
             catch (Exception ex)
             {
@@ -8683,7 +8824,7 @@ namespace Nep.Project.Business
             {
                 result.RequiredSubmitData = GetKeyRequiredSubmitData(result.ProjectID);
             }
-            
+
             return result;
         }
 
@@ -8699,7 +8840,7 @@ namespace Nep.Project.Business
             }
 
             result.ProjectID = id;
-           
+
             result.ProjectNameTH = model.ProjectInfoNameTH;
             result.ProjectNameEN = model.ProjectInfoNameEN;
             result.ProjectTypeID = model.ProjectInfoType;
@@ -8718,7 +8859,7 @@ namespace Nep.Project.Business
         {
             ServiceModels.ProjectInfo.TabProjectInfo result = new ServiceModels.ProjectInfo.TabProjectInfo();
             result.ProjectID = dbModel.ProjectID;
-            
+
             result.ProjectNo = dbModel.ProjectNo;
             result.ProjectInfoNameTH = dbModel.ProjectNameTH;
             result.ProjectInfoNameEN = dbModel.ProjectNameEN;
@@ -8742,13 +8883,14 @@ namespace Nep.Project.Business
             result.ApprovalStatus = _db.ProjectApprovals.Where(x => x.ProjectID == dbModel.ProjectID).Select(y => y.ApprovalStatus).FirstOrDefault();
 
             var folloupstatus = (from g in _db.ProjectGeneralInfoes.Where(x => x.ProjectID == dbModel.ProjectID)
-                                    join fStaus in _db.MT_ListOfValue on g.FollowUpStatus equals fStaus.LOVID
-                                    select fStaus
+                                 join fStaus in _db.MT_ListOfValue on g.FollowUpStatus equals fStaus.LOVID
+                                 select fStaus
                                 ).FirstOrDefault();
             result.FollowupStatusCode = (folloupstatus != null) ? folloupstatus.LOVCode : null;
 
             result.CancelledAttachmentID = dbModel.CancelledDocumentID;
-            if(result.CancelledAttachmentID.HasValue){
+            if (result.CancelledAttachmentID.HasValue)
+            {
                 DBModels.Model.MT_Attachment dbAttachment = dbModel.CancelledDocument;
                 result.CancelledAttachment = new KendoAttachment
                 {
@@ -8760,13 +8902,13 @@ namespace Nep.Project.Business
             }
 
             if (result.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
-            { 
+            {
                 result.RequiredSubmitData = GetKeyRequiredSubmitData(result.ProjectID);
-            }            
+            }
 
             var projectOrgResult = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == dbModel.ProjectID).FirstOrDefault();
             result.ProjectOrganizationID = projectOrgResult.OrganizationID;
-            result.SubmitedDate = projectOrgResult.SubmitedDate;          
+            result.SubmitedDate = projectOrgResult.SubmitedDate;
 
             bool isReported = (!String.IsNullOrEmpty(result.FollowupStatusCode) && (result.FollowupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว));
             result.ProjectRole = GetProjectFunction(result.ProjectID).Data;
@@ -8775,7 +8917,7 @@ namespace Nep.Project.Business
             result.HasApprovalInfo = (_db.ProjectApprovals.Where(x => x.ProjectID == dbModel.ProjectID).Count() > 0);
             return result;
         }
-        
+
         //private List<ServiceModels.ProjectInfo.ProjectTarget> MappDBProjectTargetGroupToProjectTarget(List<DBModels.Model.ProjectTargetGroup> targetGroups)
         //{
         //    List<ServiceModels.ProjectInfo.ProjectTarget> result = new List<ServiceModels.ProjectInfo.ProjectTarget>();
@@ -8804,7 +8946,8 @@ namespace Nep.Project.Business
             if (string.IsNullOrEmpty(s))
             {
                 return " ";
-            }else
+            }
+            else
             {
                 return s;
             }
@@ -8824,13 +8967,13 @@ namespace Nep.Project.Business
             {
                 result = new DBModels.Model.ProjectPersonel();
             }
-            
+
             result.IDCardNo = model.IDCardNo;
 
             if (model.Address1 != null)
             {
                 result.Prefix1 = model.Address1.Prefix1;
-                result.Firstname1 = SaveDraftText( model.Address1.Firstname1);
+                result.Firstname1 = SaveDraftText(model.Address1.Firstname1);
                 result.Lastname1 = SaveDraftText(model.Address1.Lastname1);
                 result.Address1 = SaveDraftText(model.Address1.Address1);
                 result.Moo1 = model.Address1.Moo1;
@@ -8847,7 +8990,7 @@ namespace Nep.Project.Business
                 //save draft
                 if (result.DistrictID1 != null)
                     result.District1 = districtList.Where(x => x.DistrictID == (decimal)model.Address1.DistrictID1).Select(y => y.DistrictName).FirstOrDefault();
-                else 
+                else
                     result.District1 = " ";
                 result.ProvinceID1 = model.Address1.ProvinceID1;
                 result.PostCode1 = model.Address1.PostCode1;
@@ -8872,7 +9015,7 @@ namespace Nep.Project.Business
                 if (result.SubDistrictID2 != null)
                     result.SubDistrict2 = subDistrictList.Where(x => x.SubDistrictID == (decimal)model.Address2.SubDistrictID2).Select(y => y.SubDistrictName).FirstOrDefault();
                 else
-                    result.SubDistrict2 =  " ";
+                    result.SubDistrict2 = " ";
                 result.DistrictID2 = model.Address2.DistrictID2;
                 if (result.DistrictID2 != null)
                     result.District2 = districtList.Where(x => x.DistrictID == (decimal)model.Address2.DistrictID2).Select(y => y.DistrictName).FirstOrDefault();
@@ -8954,11 +9097,16 @@ namespace Nep.Project.Business
 
                 //result.InstructorListFileID2 = SaveFile(model.AddedInstructorAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
                 foreach (KendoAttachment k in model.AddedInstructorAttachments)
-                { 
+                {
                     var attID = SaveFile(k, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
-                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE { ATTACHMENTID = attID.Value , FIELDNAME = PERSON_INSTRUCTOR ,
-                     TABLENAME = TABLE_PROJECTPERSONEL , TABLEROWID = model.ProjectID });
-                } 
+                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
+                    {
+                        ATTACHMENTID = attID.Value,
+                        FIELDNAME = PERSON_INSTRUCTOR,
+                        TABLENAME = TABLE_PROJECTPERSONEL,
+                        TABLEROWID = model.ProjectID
+                    });
+                }
 
                 //End kenghot
             }
@@ -8975,7 +9123,7 @@ namespace Nep.Project.Business
             }
 
             // VehicleAttachment File
-            
+
             if (model.RemovedVehicleAttachment != null)
             {
                 RemoveFile(model.RemovedVehicleAttachment, rootDestinationFolderPath);
@@ -8999,7 +9147,7 @@ namespace Nep.Project.Business
 
             return result;
         }
-       
+
         private ServiceModels.ProjectInfo.TabPersonal MappDBProjectPersonalToTabPersonal(DBModels.Model.ProjectPersonel dbModel)
         {
             ServiceModels.ProjectInfo.TabPersonal result = new ServiceModels.ProjectInfo.TabPersonal();
@@ -9036,7 +9184,7 @@ namespace Nep.Project.Business
                 address1.Email1 = model.Email1;
                 result.Address1 = address1;
             }
-            
+
             ServiceModels.ProjectInfo.AddressTabPersonal2 address2 = null;
             if (!String.IsNullOrEmpty(model.Firstname2))
             {
@@ -9060,7 +9208,7 @@ namespace Nep.Project.Business
                 address2.Email2 = model.Email2;
                 result.Address2 = address2;
             }
-            
+
 
             ServiceModels.ProjectInfo.AddressTabPersonal3 address3 = null;
             if (model.Prefix3 != null)
@@ -9094,11 +9242,12 @@ namespace Nep.Project.Business
             result.InstructorListFileID2 = model.InstructorListFileID2;
 
             ///kenghot
-            result.InstructorAttachments  = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_INSTRUCTOR, result.ProjectID);
-            result.VehicleAttachments  = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_VEHICLE , result.ProjectID);
-            result.ValunteerAttachments  = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_VALUNTEER , result.ProjectID);
+            result.InstructorAttachments = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_INSTRUCTOR, result.ProjectID);
+            result.VehicleAttachments = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_VEHICLE, result.ProjectID);
+            result.ValunteerAttachments = att.GetAttachmentOfTable(TABLE_PROJECTPERSONEL, PERSON_VALUNTEER, result.ProjectID);
             ///end kenghot
-            if (model.InstructorListFileID2.HasValue){
+            if (model.InstructorListFileID2.HasValue)
+            {
                 var dbAttachment = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)model.InstructorListFileID2).FirstOrDefault();
                 if (dbAttachment != null)
                 {
@@ -9111,9 +9260,9 @@ namespace Nep.Project.Business
                     };
 
                     result.InstructorAttachment = attch;
-                }               
-            }          
-                        
+                }
+            }
+
             result.SupportBudgetAmt3 = model.SupportBudgetAmt3;
             result.SupportOrgName3 = model.SupportOrgName3;
 
@@ -9200,14 +9349,14 @@ namespace Nep.Project.Business
             {
                 result.RequiredSubmitData = GetKeyRequiredSubmitData(result.ProjectID);
             }
-            
+
 
             return result;
         }
 
         private DBModels.Model.ProjectOperation MappTabProcessingPlanToDBProjectOperation(ServiceModels.ProjectInfo.TabProcessingPlan model)
         {
-            
+
             String rootFolderPath = Common.Constants.UPLOAD_TEMP_PATH;
             String rootDestinationFolderPath = GetAttachmentRootFolder();
             String folder = PROJECT_FOLDER_NAME + model.ProjectID + "\\";
@@ -9221,7 +9370,7 @@ namespace Nep.Project.Business
             {
                 result = new DBModels.Model.ProjectOperation();
             }
-            
+
             result.Address = model.Address;
             result.Building = model.Building;
             result.Moo = model.Moo;
@@ -9243,21 +9392,21 @@ namespace Nep.Project.Business
             {
                 RemoveFile(model.RemovedLocationMapAttachment, rootDestinationFolderPath);
                 result.LocationMapID = (decimal?)null;
-            } 
+            }
 
             if (model.AddedLocationMapAttachment != null)
             {
                 result.LocationMapID = SaveFile(model.AddedLocationMapAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
             }
-                      
-            
+
+
 
             return result;
         }
 
         private ServiceModels.ProjectInfo.TabProcessingPlan MappDBProjectOperationToTabProcessingPlan(DBModels.Model.ProjectOperation dbModel)
         {
-           
+
 
             ServiceModels.ProjectInfo.TabProcessingPlan result = new ServiceModels.ProjectInfo.TabProcessingPlan();
             DBModels.Model.ProjectOperation model = dbModel;
@@ -9285,7 +9434,8 @@ namespace Nep.Project.Business
             result.ProjectApprovalStatusCode = status.LOVCode;
             result.ProjectApprovalStatusName = status.LOVName;
 
-            if(result.LocationMapID.HasValue){
+            if (result.LocationMapID.HasValue)
+            {
                 DBModels.Model.MT_Attachment dbAttach = _db.MT_Attachment.Where(x => x.AttachmentID == (decimal)result.LocationMapID).FirstOrDefault();
                 if (dbAttach != null)
                 {
@@ -9325,15 +9475,15 @@ namespace Nep.Project.Business
                              DistrictID = d.DISTRICTID,
                              District = d.DISTRICT,
                              ProvinceID = d.PROVINCEID,
-                             Description = d.DESCRIPTION, 
+                             Description = d.DESCRIPTION,
                              ProcessEnd = d.PROCESSEND,
                              ProcessStart = d.PROCESSSTART,
                              LocationMapID = d.LOCATIONMAPID,
                              Latitude = d.LATITUDE,
                              Longitude = d.LONGITUDE
-                             
+
                              //FileName = (d. != null) ? d.MapAttachment.AttachmentFilename : null,
-                            // FileSize = (d.MapAttachment != null) ? d.MapAttachment.FileSize : (decimal?)null,
+                             // FileSize = (d.MapAttachment != null) ? d.MapAttachment.FileSize : (decimal?)null,
                          }
                     ).ToList();
             if ((addresses != null) && (addresses.Count > 0))
@@ -9343,7 +9493,7 @@ namespace Nep.Project.Business
                 {
                     var pid = addresses[i].ProvinceID;
                     var pv = (from p in _db.MT_Province where p.ProvinceID == pid select p).FirstOrDefault();
-                    if (pv!= null)
+                    if (pv != null)
                     {
                         addresses[i].Province = pv.ProvinceName;
                     }
@@ -9396,7 +9546,7 @@ namespace Nep.Project.Business
                             name = s.DATA
                         })
                         .ToList();
-                    
+
                 }
             }
 
@@ -9406,28 +9556,28 @@ namespace Nep.Project.Business
         private List<ServiceModels.ProjectInfo.ProjectOperationAddress> MappProjectOperationAddress(decimal projectID)
         {
             List<ServiceModels.ProjectInfo.ProjectOperationAddress> addresses = null;
-           
+
             addresses = (from d in _db.ProjectOperationAddresses
-                            where d.ProjectID == projectID
-                            select new ServiceModels.ProjectInfo.ProjectOperationAddress
-                            {
-                                ProjectID = d.ProjectID,
-                                OperationAddressID = d.OperationAddressID,
-                                Address = d.Address,
-                                Moo = d.Moo,
-                                Building = d.Building,
-                                Soi = d.Soi,
-                                Road = d.Road,
-                                SubDistrictID = d.SubDistrictID,
-                                SubDistrict = d.SubDistrict,
-                                DistrictID = d.DistrictID,
-                                District = d.District,
-                                ProvinceID = d.ProvinceID,
-                                Province = d.MT_Province.ProvinceName,
-                                LocationMapID = d.LocationMapID,
-                                FileName = (d.MapAttachment != null) ? d.MapAttachment.AttachmentFilename : null,
-                                FileSize = (d.MapAttachment != null) ? d.MapAttachment.FileSize : (decimal?)null,
-                            }
+                         where d.ProjectID == projectID
+                         select new ServiceModels.ProjectInfo.ProjectOperationAddress
+                         {
+                             ProjectID = d.ProjectID,
+                             OperationAddressID = d.OperationAddressID,
+                             Address = d.Address,
+                             Moo = d.Moo,
+                             Building = d.Building,
+                             Soi = d.Soi,
+                             Road = d.Road,
+                             SubDistrictID = d.SubDistrictID,
+                             SubDistrict = d.SubDistrict,
+                             DistrictID = d.DistrictID,
+                             District = d.District,
+                             ProvinceID = d.ProvinceID,
+                             Province = d.MT_Province.ProvinceName,
+                             LocationMapID = d.LocationMapID,
+                             FileName = (d.MapAttachment != null) ? d.MapAttachment.AttachmentFilename : null,
+                             FileSize = (d.MapAttachment != null) ? d.MapAttachment.FileSize : (decimal?)null,
+                         }
                     ).ToList();
             if ((addresses != null) && (addresses.Count > 0))
             {
@@ -9448,7 +9598,7 @@ namespace Nep.Project.Business
                     }
                 }
             }
-                      
+
 
             return addresses;
         }
@@ -9459,7 +9609,7 @@ namespace Nep.Project.Business
             List<ServiceModels.ProjectInfo.BudgetDetail> result = new List<ServiceModels.ProjectInfo.BudgetDetail>();
             //List<DBModels.Model.ProjectBudget> list = _db.ProjectBudgets.Where(x => x.ProjectID == id).ToList();
 
-            for(int i =0;i < list.Count ;i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 ServiceModels.ProjectInfo.BudgetDetail model = new ServiceModels.ProjectInfo.BudgetDetail();
                 model.ProjectBudgetID = list[i].ProjectBudgetID;
@@ -9483,7 +9633,7 @@ namespace Nep.Project.Business
 
                 if (list[i].BudgetReviseValue2 >= 0)
                     model.Revise2Amount = list[i].BudgetReviseValue2;
-                
+
                 result.Add(model);
             }
 
@@ -9501,7 +9651,7 @@ namespace Nep.Project.Business
                 result = new DBModels.Model.ProjectContract();
             }
 
-            result.ProjectID = id;            
+            result.ProjectID = id;
             result.ContractYear = (Decimal)model.ContractYear;
             result.ContractDate = (DateTime)model.ContractDate;
             result.ContractStartDate = (DateTime)model.ContractStartDate;
@@ -9556,7 +9706,7 @@ namespace Nep.Project.Business
             decimal attachmentTypeID = GetAttachmentTypeID(Common.LOVCode.Attachmenttype.PROJECT_CONTRACT);
 
             //Attachment 
-            
+
             if (model.RemovedAuthorizeDocAttachment != null)
             {
                 RemoveFile(model.RemovedAuthorizeDocAttachment, rootDestinationFolderPath);
@@ -9629,7 +9779,7 @@ namespace Nep.Project.Business
             return result;
         }
         #endregion
-                  
+
 
         public DBModels.Model.MT_ListOfValue GetListOfValue(string code, string group)
         {
@@ -9637,7 +9787,7 @@ namespace Nep.Project.Business
             return obj;
         }
         //kenghot
-        public DBModels.Model.MT_ListOfValue GetListOfValueByKey(decimal LOVID )
+        public DBModels.Model.MT_ListOfValue GetListOfValueByKey(decimal LOVID)
         {
             DBModels.Model.MT_ListOfValue obj = _db.MT_ListOfValue.Where(x => x.LOVID == LOVID).SingleOrDefault();
             return obj;
@@ -9649,7 +9799,9 @@ namespace Nep.Project.Business
             {
                 id = _db.MT_ListOfValue.Where(x => (x.LOVCode == Common.LOVCode.Evaluationstatus.ผ่าน) && (x.LOVGroup == Common.LOVGroup.EvaluationStatus))
                     .Select(y => y.LOVID).SingleOrDefault();
-            }else{
+            }
+            else
+            {
                 id = _db.MT_ListOfValue.Where(x => (x.LOVCode == Common.LOVCode.Evaluationstatus.ไม่ผ่าน) && (x.LOVGroup == Common.LOVGroup.EvaluationStatus))
                     .Select(y => y.LOVID).SingleOrDefault();
             }
@@ -9659,13 +9811,13 @@ namespace Nep.Project.Business
         private bool IsCenterReviseProject(decimal projectProvinceID)
         {
             bool isCenter = false;
-           
+
             string centerProvinceAbbr = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.CENTER_PROVINCE_ABBR).Select(y => y.ParameterValue).FirstOrDefault();
             string provinceAbbr = _db.MT_Province.Where(x => x.ProvinceID == projectProvinceID).Select(y => y.ProvinceAbbr).FirstOrDefault();
             if ((!String.IsNullOrEmpty(provinceAbbr)) && (!String.IsNullOrEmpty(centerProvinceAbbr)) && (provinceAbbr == centerProvinceAbbr))
             {
                 isCenter = true;
-            }           
+            }
 
             return isCenter;
         }
@@ -9678,10 +9830,11 @@ namespace Nep.Project.Business
         private int GetBudgetYear(DateTime? date)
         {
             int budgetYear = 0;
-            if(date.HasValue){
+            if (date.HasValue)
+            {
                 DateTime tempRequestDate = (DateTime)date;
-                DateTime requestDate = new DateTime(tempRequestDate.Year, tempRequestDate.Month, tempRequestDate.Day, 0 ,0, 0);
-                DateTime endBudgetDate = new DateTime(tempRequestDate.Year, 9, 30, 0, 0, 0);               
+                DateTime requestDate = new DateTime(tempRequestDate.Year, tempRequestDate.Month, tempRequestDate.Day, 0, 0, 0);
+                DateTime endBudgetDate = new DateTime(tempRequestDate.Year, 9, 30, 0, 0, 0);
                 int requestYear = requestDate.Year;
                 int endBudgetYear = endBudgetDate.Year;
 
@@ -9689,7 +9842,7 @@ namespace Nep.Project.Business
                 {
                     budgetYear = (requestYear + 1);
                 }
-                else 
+                else
                 {
                     budgetYear = requestYear;
                 }
@@ -9767,7 +9920,8 @@ namespace Nep.Project.Business
             if (personel == null)
             {
                 required.Add("ProjectPersonel", String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.UI.TabTitlePersonal));
-            }else if((personel != null) && (budgetYear > 2016))
+            }
+            else if ((personel != null) && (budgetYear > 2016))
             {
                 if (String.IsNullOrEmpty(personel.IDCardNo) || String.IsNullOrEmpty(personel.Email1) || String.IsNullOrEmpty(personel.Email2))
                 {
@@ -9801,8 +9955,8 @@ namespace Nep.Project.Business
                 else
                 {
                     //kenghot
-                   // DBModels.Model.ProjectDocument doc = _db.ProjectDocuments.Where(x => x.ProjectID == projectID).FirstOrDefault();
-                   
+                    // DBModels.Model.ProjectDocument doc = _db.ProjectDocuments.Where(x => x.ProjectID == projectID).FirstOrDefault();
+
                     //if (doc.DocumentID1.HasValue || doc.DocumentID2.HasValue || doc.DocumentID3.HasValue || doc.DocumentID4.HasValue || doc.DocumentID5.HasValue ||
                     //    doc.DocumentID6.HasValue || doc.DocumentID7.HasValue || doc.DocumentID8.HasValue || doc.DocumentID9.HasValue || doc.DocumentID10.HasValue ||
                     //    doc.DocumentID11.HasValue || doc.DocumentID12.HasValue || doc.DocumentID13.HasValue || doc.DocumentID14.HasValue)
@@ -9822,30 +9976,30 @@ namespace Nep.Project.Business
                     }
                 }
             }
-            
+
             return required;
         }
 
         private List<String> GetKeyRequiredSubmitData(decimal projectID)
         {
-            
+
             Dictionary<string, string> required = GetRequiredSubmitData(projectID);
             List<String> keys = new List<string>();
             foreach (string key in required.Keys)
             {
                 keys.Add(key);
             }
-           
-            return (keys.Count > 0)? keys : null;
+
+            return (keys.Count > 0) ? keys : null;
         }
 
         public ReturnQueryData<GenericDropDownListData> ListPosition()
-    
+
         {
             ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData>();
             try
             {
-               
+
                 result.IsCompleted = true;
                 result.Data = (from p in _db.K_MT_POSITION
                                orderby p.SORTORDER
@@ -9883,23 +10037,24 @@ namespace Nep.Project.Business
             pie.series.Add(s);
             s.type = "pie";
             s.data = new List<ServiceModels.KendoChartData>();
-            var all = ListProjectInfoList( new QueryParameter() { PageSize = 9999999 }) ;  //(from a in  _db.View_ProjectList select a ).ToList();
+            var all = ListProjectInfoList(new QueryParameter() { PageSize = 9999999 });  //(from a in  _db.View_ProjectList select a ).ToList();
             int follow, expire, newreq, notreport;
             follow = expire = newreq = notreport = 0;
             var today = DateTime.Now.Date;
             var lov = new ListOfValueService(_db);
-            var l =  lov.GetListOfValueByCode(Common.LOVGroup.FollowupStatus, Common.LOVCode.Followupstatus.รายงานผลแล้ว);
+            var l = lov.GetListOfValueByCode(Common.LOVGroup.FollowupStatus, Common.LOVCode.Followupstatus.รายงานผลแล้ว);
 
-            foreach (ServiceModels.ProjectInfo.ProjectInfoList  p in all.Data) {
+            foreach (ServiceModels.ProjectInfo.ProjectInfoList p in all.Data)
+            {
                 if (p.SubmitedDate.HasValue && p.ApprovalStatus == null)
                 {
                     newreq++;
                 }
-                if (p.IsFollowup.HasValue && p.IsFollowup.Value )
+                if (p.IsFollowup.HasValue && p.IsFollowup.Value)
                 {
                     follow++;
                 }
-                if  (p.ProjectEndDate != null &&  p.ProjectEndDate >= today && (today  - p.ProjectEndDate.Value.Date ).TotalDays < 30 )
+                if (p.ProjectEndDate != null && p.ProjectEndDate >= today && (today - p.ProjectEndDate.Value.Date).TotalDays < 30)
                 {
                     expire++;
                 }
@@ -9908,28 +10063,28 @@ namespace Nep.Project.Business
                     notreport++;
                 }
             }
-            
+
             s.data.Add(new ServiceModels.KendoChartData { category = "ที่เสนอมาใหม่", value = newreq });
             s.data.Add(new ServiceModels.KendoChartData { category = "ใกล้หมดเวลา", value = expire });
             s.data.Add(new ServiceModels.KendoChartData { category = "ไม่ส่งรายงานการประเมินผล", value = notreport });
-            s.data.Add(new ServiceModels.KendoChartData { category = "รอการติดตามประเมินผล", value = follow  });
+            s.data.Add(new ServiceModels.KendoChartData { category = "รอการติดตามประเมินผล", value = follow });
             return pie;
         }
 
         public ServiceModels.ProjectInfo.DashBoard GetDashBoardData(QueryParameter q)
         {
             ServiceModels.ProjectInfo.DashBoard ret = new ServiceModels.ProjectInfo.DashBoard();
-            
+
             //ret.Add(new List<ProjectInfoList>()); //all
             //ret.Add(new List<ProjectInfoList>()); //almost expire
             //ret.Add(new List<ProjectInfoList>()); //not report
             //ret.Add(new List<ProjectInfoList>()); // follow
             //ret.Add(new List<ProjectInfoList>()); // new
             var all = ListProjectInfoList(q);  //(from a in  _db.View_ProjectList select a ).ToList();
-             
-            int follow, expire, newreq, notreport, allNotexp,other;
+
+            int follow, expire, newreq, notreport, allNotexp, other;
             decimal followAmt, expireAmt, newreqAmt, notreportAmt, allNotexpAmt, otherAmt;
-            follow = expire = newreq = notreport= allNotexp =other= 0;
+            follow = expire = newreq = notreport = allNotexp = other = 0;
             followAmt = expireAmt = newreqAmt = notreportAmt = allNotexpAmt = otherAmt = 0;
             var today = DateTime.Now.Date;
             var lov = new ListOfValueService(_db);
@@ -9970,21 +10125,22 @@ namespace Nep.Project.Business
                         notreport++;
                         notreportAmt += BudVal;
                         continue;
-                    } else
+                    }
+                    else
                     {
                         p.RecStatus = "1";
                         allNotexp++;
                         allNotexpAmt += BudVal;
                         continue;
                     }
-                    
+
                 }
                 p.RecStatus = "6";
                 otherAmt += BudVal;
                 other++;
             }
             ret.ProjectInfoList = all.Data;
-            ret.ProjectCountByStatus = new int[] { allNotexp, expire, notreport, follow, newreq,other };
+            ret.ProjectCountByStatus = new int[] { allNotexp, expire, notreport, follow, newreq, other };
 
             ServiceModels.KendoChart pie = new KendoChart();
             ServiceModels.KendoChartSerie s = new ServiceModels.KendoChartSerie();
@@ -9992,31 +10148,33 @@ namespace Nep.Project.Business
             pie.series.Add(s);
             s.type = "pie";
             s.data = new List<ServiceModels.KendoChartData>();
-            s.data.Add(new ServiceModels.KendoChartData { category = "ทั้งหมด", value = allNotexpAmt, color = "LightBlue",remark = "1" });
+            s.data.Add(new ServiceModels.KendoChartData { category = "ทั้งหมด", value = allNotexpAmt, color = "LightBlue", remark = "1" });
             s.data.Add(new ServiceModels.KendoChartData { category = "ใกล้หมดเวลา", value = expireAmt, color = "Yellow", remark = "2" });
             s.data.Add(new ServiceModels.KendoChartData { category = "ไม่ส่งรายงานการประเมินผล", value = notreportAmt, color = "Orange", remark = "3" });
             s.data.Add(new ServiceModels.KendoChartData { category = "รอการติดตามประเมินผล", value = followAmt, color = "Fuchsia", remark = "4" });
-            s.data.Add(new ServiceModels.KendoChartData { category = "ที่เสนอมาใหม่", value = newreqAmt,color = "Lime", remark = "5" });
+            s.data.Add(new ServiceModels.KendoChartData { category = "ที่เสนอมาใหม่", value = newreqAmt, color = "Lime", remark = "5" });
             s.data.Add(new ServiceModels.KendoChartData { category = "อื่นๆ", value = newreqAmt, color = "Silver", remark = "6" });
             ret.BudgetChart = pie;
             return ret;
         }
-      
+
         public NepProjectDBEntities GetDB()
         {
             return _db;
         }
-        
+
         public ReturnObject<List<ServiceModels.ProjectInfo.ProjectHistory>> GetProjectHistoryList(decimal projID)
         {
             ReturnObject<List<ServiceModels.ProjectInfo.ProjectHistory>> ph = new ReturnObject<List<ServiceModels.ProjectInfo.ProjectHistory>>();
             try
             {
-                var hist = (from h in _db.PROJECTHISTORies where h.PROJECTID == projID
-                           orderby h.HISTORYTYPE, h.ENTRYDT descending select h).ToList() ;
+                var hist = (from h in _db.PROJECTHISTORies
+                            where h.PROJECTID == projID
+                            orderby h.HISTORYTYPE, h.ENTRYDT descending
+                            select h).ToList();
                 var hlist = new List<ServiceModels.ProjectInfo.ProjectHistory>();
                 string hname = "";
-                for (int i=1; i<=8; i++)
+                for (int i = 1; i <= 8; i++)
                 {
                     var last = hist.Where(w => w.HISTORYTYPE == i.ToString()).FirstOrDefault();
                     ph.Data = hlist;
@@ -10036,34 +10194,39 @@ namespace Nep.Project.Business
                                 case 7: { hname = "บันทึกแบบประเมินตนเอง"; break; }
                                 case 8: { hname = "บันทึกแบบรายงานผลปฎิบัติงาน"; break; }
                             }
-                            hlist.Add(new ProjectHistory() { History = last, HistoryName = hname ,
-                                userName = string.Format("{0} {1}",user.FirstName , user.LastName)  });
+                            hlist.Add(new ProjectHistory()
+                            {
+                                History = last,
+                                HistoryName = hname,
+                                userName = string.Format("{0} {1}", user.FirstName, user.LastName)
+                            });
 
                         }
 
                     }
                 }
-               //// var qg  = new string[] { "SELF", "SATISFY"};
-               // var qs = (from q in GetDB().PROJECTQUESTIONHDs where q.PROJECTID == projID && q.QUESTGROUP == "SATISFY" orderby q.QUESTHDID descending select q).FirstOrDefault() ;
-               // if (qs != null)
-               // {
-               //     hlist.Add(new ProjectHistory()
-               //     {
-               //         History = last,
-               //         HistoryName = hname,
-               //         userName = string.Format("{0} {1}", user.FirstName, user.LastName)
-               //     });
-               // }
-               // qs = (from q in GetDB().PROJECTQUESTIONHDs where q.PROJECTID == projID && q.QUESTGROUP == "SELF" orderby q.QUESTHDID descending select q).FirstOrDefault();
-               // if (qs != null)
-               // {
+                //// var qg  = new string[] { "SELF", "SATISFY"};
+                // var qs = (from q in GetDB().PROJECTQUESTIONHDs where q.PROJECTID == projID && q.QUESTGROUP == "SATISFY" orderby q.QUESTHDID descending select q).FirstOrDefault() ;
+                // if (qs != null)
+                // {
+                //     hlist.Add(new ProjectHistory()
+                //     {
+                //         History = last,
+                //         HistoryName = hname,
+                //         userName = string.Format("{0} {1}", user.FirstName, user.LastName)
+                //     });
+                // }
+                // qs = (from q in GetDB().PROJECTQUESTIONHDs where q.PROJECTID == projID && q.QUESTGROUP == "SELF" orderby q.QUESTHDID descending select q).FirstOrDefault();
+                // if (qs != null)
+                // {
 
-               // }
+                // }
 
                 ph.IsCompleted = true;
-    
 
-            } catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 ph.IsCompleted = false;
                 ph.Message.Add(ex.Message);
@@ -10071,7 +10234,7 @@ namespace Nep.Project.Business
             return ph;
         }
 
-        public ReturnObject<bool> SendReportToRevise(decimal projecID , string comment)
+        public ReturnObject<bool> SendReportToRevise(decimal projecID, string comment)
         {
             var result = new ReturnObject<bool>();
             try
@@ -10103,7 +10266,8 @@ namespace Nep.Project.Business
                     }
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
@@ -10113,7 +10277,7 @@ namespace Nep.Project.Business
         public ServiceModels.ReturnMessage SaveLogAccess(decimal? userId, string accessCode, string accessType, string ipAddress)
         {
             var result = new ReturnMessage();
-            result.IsCompleted = false; 
+            result.IsCompleted = false;
             try
             {
                 var lov = _db.MT_ListOfValue.Where(w => w.LOVCode == accessCode && w.LOVGroup == "LogAccess").FirstOrDefault();
@@ -10130,11 +10294,11 @@ namespace Nep.Project.Business
             }
             catch (Exception ex)
             {
- 
+
                 result.Message.Add(ex.Message);
             }
             return result;
         }
     }
-   
+
 }

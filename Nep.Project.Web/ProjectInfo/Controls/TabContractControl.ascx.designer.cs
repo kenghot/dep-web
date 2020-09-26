@@ -868,5 +868,14 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonEditContractNo;
+
+        /// <summary>
+        /// ImageButtonRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButtonRefresh;
     }
 }

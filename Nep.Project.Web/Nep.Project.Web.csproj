@@ -334,6 +334,9 @@
     <Content Include="html\Contract\ContractVue.js" />
     <Content Include="html\DashBoard\DashBoard.html" />
     <Content Include="html\DashBoard\DashBoard.js" />
+    <Content Include="html\ParticipantSurvey\ParticipantSurvey.aspx" />
+    <Content Include="html\ParticipantSurvey\ParticipantSurvey.html" />
+    <Content Include="html\ParticipantSurvey\ParticipantSurvey.js" />
     <Content Include="Images\Approval\ApprovalStatus1_1.png" />
     <Content Include="Images\Approval\ApprovalStatus1_2.png" />
     <Content Include="Images\Approval\ApprovalStatus1_3.png" />
@@ -646,6 +649,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="html\ParticipantSurvey\ParticipantSurvey.aspx.cs">
+      <DependentUpon>ParticipantSurvey.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="html\ParticipantSurvey\ParticipantSurvey.aspx.designer.cs">
+      <DependentUpon>ParticipantSurvey.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Infra\AttachmentHandler.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

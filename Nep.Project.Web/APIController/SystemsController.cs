@@ -1,4 +1,6 @@
-﻿using Nep.Project.ServiceModels;
+﻿using Nep.Project.DBModels.Model;
+using Nep.Project.ServiceModels;
+using Nep.Project.ServiceModels.API.Requests;
 using Nep.Project.ServiceModels.Security;
 using System;
 using System.Collections.Generic;
@@ -26,14 +28,16 @@ namespace Nep.Project.Web.APIController
             projService = proj;
             userInfo = UserInfo;
         }
+        #region contract
         [Route("EditContractNo/{projId}")]
+        [HttpGet]
         public ReturnObject<string> EditContractNo([FromUri]decimal projId)
         {
             var result = new ReturnObject<string>();
             result.IsCompleted = false;
             try
             {
-                if (userInfo.UserGroupCode != "41")
+                if (userInfo.UserGroupCode != "G6")
                 {
                     result.Message.Add("ขั้นตอนนี้สำหรับผู้ดูแลระบบเท่านั้น");
                     return result;
@@ -45,13 +49,86 @@ namespace Nep.Project.Web.APIController
                     result.Message.Add("ยังไม่มีการตั้งรหัสสำหรับแก้ไขเลขที่สัญญา");
                     return result;
                 }
+                var proj = db.ProjectInformations.Where(w => w.ProjectID == projId).FirstOrDefault();
+                if (proj == null)
+                {
+                    result.Message.Add("ไม่พบโครงการที่ระบุ");
+                    return result;
+                }
+                if (proj.BudgetYear >= DateTime.Now.Year)
+                {
+                    result.Message.Add("อนุญาตให้แก้ไขได้เฉพาะปีงบประมาณก่อนหน้าเท่านั้น");
+                    return result;
+                }
                 var contract = db.ProjectContracts.Where(w => w.ProjectID == projId).FirstOrDefault();
-            }catch (Exception ex)
+                if (proj == null)
+                {
+                    result.Message.Add("ไม่พบสัญญาโครงการที่ระบุ");
+                    return result;
+                }
+                result.Data = contract.ContractNo;
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
             {
-                result.Message.Add(ex.Message);
+                result.SetExceptionMessage(ex);
             }
             return result;
         }
-     
+        [Route("SaveContractNo/{projId}")]
+        [HttpPost]
+        public ReturnObject<string> SaveContractNo([FromUri] decimal projId,[FromBody] SaveContractNoRequest p)
+        {
+            var result = new ReturnObject<string>();
+            result.IsCompleted = false;
+            try
+            {
+                if (userInfo.UserGroupCode != "G6")
+                {
+                    result.Message.Add("ขั้นตอนนี้สำหรับผู้ดูแลระบบเท่านั้น");
+                    return result;
+                }
+                var db = projService.GetDB();
+                var pass = db.PROJECTQUESTIONHDs.Where(w => w.QUESTGROUP == "CONTRACTPWD" && w.PROJECTID == userInfo.UserID).Select(s => s.DATA).FirstOrDefault();
+                if (string.IsNullOrEmpty(pass))
+                {
+                    result.Message.Add("ยังไม่มีการตั้งรหัสสำหรับแก้ไขเลขที่สัญญา");
+                    return result;
+                }
+                if ( pass != p.Password)
+                {
+                    result.Message.Add("รหัสไม่ถูกต้อง");
+                    return result;
+                }
+                var proj = db.ProjectInformations.Where(w => w.ProjectID == projId).FirstOrDefault();
+                if (proj == null)
+                {
+                    result.Message.Add("ไม่พบโครงการที่ระบุ");
+                    return result;
+                }
+                if (proj.BudgetYear >= DateTime.Now.Year)
+                {
+                    result.Message.Add("อนุญาตให้แก้ไขได้เฉพาะปีงบประมาณก่อนหน้าเท่านั้น");
+                    return result;
+                }
+                var contract = db.ProjectContracts.Where(w => w.ProjectID == projId).FirstOrDefault();
+                if (proj == null)
+                {
+                    result.Message.Add("ไม่พบสัญญาโครงการที่ระบุ");
+                    return result;
+                }
+                contract.ContractNo = p.ContractNo;
+
+                db.SaveChanges();
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        #endregion
+        
     }
 }

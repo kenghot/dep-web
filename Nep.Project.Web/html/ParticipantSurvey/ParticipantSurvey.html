@@ -1,0 +1,58 @@
+﻿<template id="k-radio">
+
+    <v-container fluid>
+        {{topic}}
+        <v-radio-group v-model="obj[fld]" row>
+            <v-radio label="มากที่สุด" value="5"></v-radio>
+            <v-radio label="มาก" value="4"></v-radio>
+            <v-radio label="ปานกลาง" value="3"></v-radio>
+            <v-radio label="น้อย" value="2"></v-radio>
+            <v-radio label="น้อยที่สุด" value="1"></v-radio>
+        </v-radio-group>
+    </v-container>
+</template>
+<style>
+    .v-application--wrap {
+        min-height: 0px;
+    }
+</style>
+<div id="appParticipantSurvey">
+    <v-app id="inspire" style="min-height: 0px">
+        <div>
+            <v-app-bar dense
+                       dark
+                       fixed>
+
+
+                <v-toolbar-title>
+                    แบบติดตามประเมินผลโครงการ (สำหรับผู้เข้าร่วมโครงการ)
+                </v-toolbar-title>
+
+                <v-spacer></v-spacer>
+
+                <v-btn icon @click="SaveData">
+                    <v-icon>mdi-content-save</v-icon>
+                </v-btn>
+
+            </v-app-bar>
+            <br />
+            <br />
+            <k-radio topic="1.1 โครงการสามารถตอบสนองความต้องการและแก้ไข ปัญหาของกลุ่มเป้าหมายได้" :obj="result" fld="radio1_1"></k-radio>
+            <k-radio topic="1.2 โครงการนี้มีความสำคัญต่อการแก้ไขกับปัญหาที่ กลุ่มเป้าหมายกำลังเผชิญอยู่" :obj="result" fld="radio1_2"></k-radio>
+            <k-radio topic="1.3 โครงการนี้ได้ส่งผลดีต่อกลุ่มบุคคล ชุมชน และสังคม" :obj="result" fld="radio1_3"></k-radio>
+
+        </div>
+
+        <v-fab-transition>
+            <v-btn color="blue"
+                   fab
+                   dark
+                   small
+                   absolute
+                   bottom
+                   left>
+                <v-icon>mdi-content-save</v-icon>
+            </v-btn>
+        </v-fab-transition>
+    </v-app>
+</div>

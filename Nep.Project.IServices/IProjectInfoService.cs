@@ -104,6 +104,9 @@ namespace Nep.Project.IServices
        
         ServiceModels.ReturnMessage SaveProjectReportResult(ServiceModels.ProjectInfo.ProjectReportResult model, bool isSaveOfficerReport, bool isSendReport);
         ServiceModels.ReturnMessage SaveProjectQuestionareResult(decimal projID,string QNGroup,string controls, bool isSaveOfficerReport, bool isSendReport,string ipAddress);
+ 
+        ServiceModels.ReturnObject<decimal?> SaveDocument(decimal projID, string QNGroup, string data);
+        ServiceModels.ReturnObject<string> GetDocument(decimal projID, string QNGroup);
         ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType, List<ServiceModels.KendoAttachment> removeFiles, List<ServiceModels.KendoAttachment> addFiles, string tableName, string fieldName);
         ServiceModels.ReturnMessage SaveOfficerProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
 
