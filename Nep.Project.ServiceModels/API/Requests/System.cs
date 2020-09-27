@@ -16,12 +16,12 @@ namespace Nep.Project.ServiceModels.API.Requests
         /// <summary>
         /// PK of ProjectQuestionHD
         /// </summary>
-        public decimal? docId { get; set; }
+        public decimal? DocId { get; set; }
         /// <summary>
         /// this is ProjectID in ProjectQuestionHD
         /// </summary>
-        public decimal keyId { get; set; }
-        public string docGroup { get; set; }
+        public decimal KeyId { get; set; }
+        public string DocGroup { get; set; }
         /// <summary>
         /// Json string
         /// </summary>

@@ -3868,7 +3868,7 @@ namespace Nep.Project.Business
                     _db.PROJECTQUESTIONHDs.Add(data);
                     data.PROJECTID = projectID;
                     data.CREATEDBY = _user.UserName;
-                    data.CREATEDBYID = _user.UserID.HasValue? _user.UserID.Value : 0;
+                    data.CREATEDBYID = _user.UserID.HasValue ? _user.UserID.Value : 0;
                     data.CREATEDDATE = DateTime.Now;
 
                     data.QUESTGROUP = qGroup;
@@ -4094,12 +4094,48 @@ namespace Nep.Project.Business
             }
             return result;
         }
+        public ServiceModels.ReturnObject<decimal?> InsertDocument(decimal projID, string QNGroup, string data)
+        {
+            var result = new ReturnObject<decimal?>();
+            try
+            {
+
+                PROJECTQUESTIONHD doc = null;
+
+
+                doc = new PROJECTQUESTIONHD
+                {
+                    CREATEDBY = "system",
+                    CREATEDBYID = 1,
+                    CREATEDDATE = DateTime.Now,
+                    ISREPORTED = "1",
+                    PROJECTID = projID,
+                    QUESTGROUP = QNGroup
+                };
+                _db.PROJECTQUESTIONHDs.Add(doc);
+
+                doc.UPDATEDBY = "system";
+                doc.UPDATEDBYID = 1;
+                doc.UPDATEDDATE = DateTime.Now;
+                doc.DATA = data;
+                _db.SaveChanges();
+                result.Data = doc.QUESTHDID;
+                result.IsCompleted = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
         public ServiceModels.ReturnObject<string> GetDocument(decimal projID, string QNGroup)
         {
             var result = new ReturnObject<string>();
             try
             {
-          
+
                 var doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
                 if (doc == null)
                 {

@@ -1,22 +1,29 @@
 ﻿Vue.component('k-radio', {
     template: '#k-radio',
-    props: ['topic', 'obj', 'fld'],
+    props: ['topic', 'obj', 'fld','viewmode'],
     data() {
         return {
             myVal : this.val,
         }
-    }
+    },
+ 
 })
 var VueParticipantSurvey = new Vue({
     el: '#appParticipantSurvey',
     vuetify: new Vuetify(),
     data() {
         return {
+            panel: 0,
+            formValid: true,
+            formDisabled: false,
             projId: null,
             defaultResult: {
-                radio1_1: "",
-                radio1_2: "",
-                radio1_3: "",
+                radio_g_1_1: "",
+                radio_g_1_2: "",
+                radio_g_1_3: "",
+                radio_g_2_1: "",
+                radio_g_2_2: "",
+                radio_g_2_3: "",
             },
             result: {},
         }
@@ -57,12 +64,14 @@ var VueParticipantSurvey = new Vue({
 
         },
         SaveData() {
-            console.log('save')
+            if (!this.$refs.form.validate()) {
+                return
+            }
             if (!this.projId) {
                 alert("ไม่พบข้อมูลโครงการ (no project id)")
                 return
             }
-            var j = { "ProjID": this.projId, "QNGroup": "EVALUATE", IsReported: "0", "QNData": JSON.stringify(this.result) }
+            var j = { "KeyId": this.projId, "DocGroup": "PARTICIPANTSV", IsReported: "0", "Data": JSON.stringify(this.result) }
             //var t = this
             //this.validData()
             //if (this.errors.length > 0) {
@@ -72,7 +81,7 @@ var VueParticipantSurvey = new Vue({
 
             //}
 
-            axios.post(this.VueUrl + 'savedata', j)
+            axios.post(this.VueUrl + 'InsertDocument', j)
                 .then(response => {
                     //console.log(j);
                     console.log(response.data);
@@ -110,12 +119,20 @@ var VueParticipantSurvey = new Vue({
     },
     computed: {
         VueUrl: function () {
-            return window.location.protocol + '//' + window.location.host + '/Questionarehandler/';
+            return window.location.protocol + '//' + window.location.host + '/api/systems/';
         },
 
     },
     mounted() {
         let searchParams = new URLSearchParams(window.location.search)
         this.projId = searchParams.get('projId')
+        let mode = searchParams.get('mode')
+        this.formDisabled = true
+        if (mode === "edit") {
+            this.formDisabled = false
+
+        } else {
+            this.formDisabled = true
+        }
     }
 })

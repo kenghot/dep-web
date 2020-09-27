@@ -129,6 +129,24 @@ namespace Nep.Project.Web.APIController
             return result;
         }
         #endregion
-        
+        #region Document
+        [Route("InsertDocument")]
+        [HttpPost]
+        public ReturnObject<decimal?> InsertDocument([FromBody]SaveDocRequest p)
+        {
+            var result = new ReturnObject<decimal?>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.InsertDocument(p.KeyId, p.DocGroup, p.Data);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+
+        }
+        #endregion
     }
 }
