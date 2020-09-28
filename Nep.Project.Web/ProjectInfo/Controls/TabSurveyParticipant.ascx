@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TabSurveyParticipant.ascx.cs" Inherits="Nep.Project.Web.ProjectInfo.Controls.TabSurveyParticipant"
     %>
 <%@ Import Namespace="Nep.Project.Resources"  %>
- <!-- #include file="~/Html/ParticipantSurvey/Form.html" -->
+
 <asp:UpdatePanel ID="UpdatePanelContract" 
                     UpdateMode="Conditional" 
                     runat="server" >
     <ContentTemplate>      
-       
+        <!-- #include file="~/Html/ParticipantSurvey/Form.html" -->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><%= UI.TabTitleContract %></h3>

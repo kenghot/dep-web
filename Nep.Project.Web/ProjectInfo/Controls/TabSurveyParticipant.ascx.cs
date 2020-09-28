@@ -720,8 +720,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                      args.IsValid = isValid;  
                 }
             ";
-            var vue = System.IO.File.ReadAllText($"{Server.MapPath("\\html\\contract\\contractvue.js")}");
-            script += vue + $"\nVueContract.refreshButton = '{ImageButtonRefresh.ClientID}'";
+            var vue = System.IO.File.ReadAllText($"{Server.MapPath("\\html\\participantsurvey\\form.js")}");
+            script += vue;//+ $"\nVueContract.refreshButton = '{ImageButtonRefresh.ClientID}'";
             ScriptManager.RegisterClientScriptBlock(
                        UpdatePanelContract,
                        this.GetType(),
