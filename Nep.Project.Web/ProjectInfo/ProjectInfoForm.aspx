@@ -22,6 +22,7 @@
 <%@ Register TagPrefix="nep" TagName="Follow5MControl" Src="~/ProjectInfo/Controls/TabFollow5MControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="FollowUnder5MControl" Src="~/ProjectInfo/Controls/TabFollowUnder5MControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="SelfEvaluateControl" Src="~/ProjectInfo/Controls/TabSelfEvaluateControl.ascx" %>
+<%@ Register TagPrefix="nep" TagName="SurveyParticipant" Src="~/ProjectInfo/Controls/TabSurveyParticipant.ascx" %>
 <%@ Register TagPrefix="nep" TagName="FollowupControl" Src="~/ProjectInfo/Controls/TabFollowupControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="ProjectBudgetForSecretaryControl" Src="~/ProjectInfo/Controls/TabProjectBudgetForSecretaryControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="ProsecuteControl" Src="~/ProjectInfo/Controls/TabProsecuteControl.ascx" %>
@@ -256,6 +257,12 @@
                         <ContentTemplate>   
                             <!--ประเมินตนเอง--> 
                             <nep:SelfEvaluateControl ID="SelfEvaluateControl" runat="server"  Visible="false" />            
+                        </ContentTemplate>
+                    </ajaxToolkit:TabPanel>
+                    <ajaxToolkit:TabPanel ID="TabSurveyParticipant" runat="server" HeaderText="แบบประเมิน(ผู้เข้าร่วม)"  Visible="false">
+                        <ContentTemplate>   
+                            <!--survey--> 
+                            <nep:SurveyParticipant ID="SurveyParticipant" runat="server"  Visible="false" />            
                         </ContentTemplate>
                     </ajaxToolkit:TabPanel>
                     <ajaxToolkit:TabPanel ID="TabPanelFollowup" runat="server" HeaderText="<%$ code:Nep.Project.Resources.UI.TitleFollowup %>"   Visible="true">

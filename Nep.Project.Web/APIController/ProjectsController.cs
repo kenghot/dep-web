@@ -135,12 +135,25 @@ namespace Nep.Project.Web.APIController
             }
             catch (Exception ex)
             {
-                result.Message.Add(ex.Message);
-                result.Message.Add(ex.InnerException.Message);
+                result.SetExceptionMessage(ex);
             }
             return result;
         }
-
+        [Route("GetProjectInformation/{id}")]
+        [HttpGet]
+        public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> GetProjectInformation([FromUri]Decimal id)
+        {
+            var result = new ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.GetProjectInformationByProjecctID(id);
+            }catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
         private List<ServiceModels.IFilterDescriptor> CreateFilter(bool isFilterFollowup)
         {
             List<ServiceModels.IFilterDescriptor> fields = new List<ServiceModels.IFilterDescriptor>();

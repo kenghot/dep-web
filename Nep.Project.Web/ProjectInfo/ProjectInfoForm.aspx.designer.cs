@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.ProjectInfo {
-    
-    
-    public partial class ProjectInfoForm {
-        
+namespace Nep.Project.Web.ProjectInfo
+{
+
+
+    public partial class ProjectInfoForm
+    {
+
         /// <summary>
         /// DataContainer control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DataContainer;
-        
+
         /// <summary>
         /// UpdatePanelProjectInfoForm control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelProjectInfoForm;
-        
+
         /// <summary>
         /// HiddenFieldProjectID control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenFieldProjectID;
-        
+
         /// <summary>
         /// LableSuggestion control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LableSuggestion;
-        
+
         /// <summary>
         /// btnShowSuggestion control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnShowSuggestion;
-        
+
         /// <summary>
         /// LabelApprovalStatus control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelApprovalStatus;
-        
+
         /// <summary>
         /// TabContainerProjectInfoForm control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabContainer TabContainerProjectInfoForm;
-        
+
         /// <summary>
         /// TabPanelGeneralInfo control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelGeneralInfo;
-        
+
         /// <summary>
         /// DisplayGeneralInfoControl control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabGeneralInfoControl DisplayGeneralInfoControl;
-        
+
         /// <summary>
         /// TabPanelProjectInfo control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelProjectInfo;
-        
+
         /// <summary>
         /// DisplayProjectInfoControl control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabProjectInfoControl DisplayProjectInfoControl;
-        
+
         /// <summary>
         /// TabPersonal control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPersonal;
-        
+
         /// <summary>
         /// PersonalControl control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabPersonalControl PersonalControl;
-        
+
         /// <summary>
         /// TabProcessingPlan control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabProcessingPlan;
-        
+
         /// <summary>
         /// ProcessingPlanControl control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabProcessingPlanControl ProcessingPlanControl;
-        
+
         /// <summary>
         /// TabPanelProjectBudget control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelProjectBudget;
-        
+
         /// <summary>
         /// ProjectBudgetControl control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.ProjectBudgetControl ProjectBudgetControl;
-        
+
         /// <summary>
         /// ProjectBudgetForSecretaryControl control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabProjectBudgetForSecretaryControl ProjectBudgetForSecretaryControl;
-        
+
         /// <summary>
         /// TabPanelAttachment control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelAttachment;
-        
+
         /// <summary>
         /// DisplayAttachmentControl control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabAttachmentControl DisplayAttachmentControl;
-        
+
         /// <summary>
         /// TabPanelResponse control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelResponse;
-        
+
         /// <summary>
         /// ResponseControl control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabResponseControl ResponseControl;
-        
+
         /// <summary>
         /// TabPanelAssessment control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelAssessment;
-        
+
         /// <summary>
         /// DisplayAssessmentControl control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabAssessmentControl DisplayAssessmentControl;
-        
+
         /// <summary>
         /// TabPanelProjectApproval control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelProjectApproval;
-        
+
         /// <summary>
         /// ApprovalControl control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabApprovalControl ApprovalControl;
-        
+
         /// <summary>
         /// TabPanelContract control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelContract;
-        
+
         /// <summary>
         /// ContractControl control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabContractControl ContractControl;
-        
+
         /// <summary>
         /// TabPanelProcessed control.
         /// </summary>
@@ -272,7 +274,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelProcessed;
-        
+
         /// <summary>
         /// ProcessedControl control.
         /// </summary>
@@ -281,7 +283,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabProcessedControl ProcessedControl;
-        
+
         /// <summary>
         /// TabPanelSatisfy control.
         /// </summary>
@@ -290,7 +292,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelSatisfy;
-        
+
         /// <summary>
         /// SatisfyControl control.
         /// </summary>
@@ -299,7 +301,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabSatisfyControl SatisfyControl;
-        
+
         /// <summary>
         /// TabPanelSelfEvaluate control.
         /// </summary>
@@ -308,7 +310,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelSelfEvaluate;
-        
+
         /// <summary>
         /// SelfEvaluateControl control.
         /// </summary>
@@ -317,7 +319,25 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabSelfEvaluateControl SelfEvaluateControl;
-        
+
+        /// <summary>
+        /// TabSurveyParticipant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabSurveyParticipant;
+
+        /// <summary>
+        /// SurveyParticipant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.ProjectInfo.Controls.TabSurveyParticipant SurveyParticipant;
+
         /// <summary>
         /// TabPanelFollowup control.
         /// </summary>
@@ -326,7 +346,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelFollowup;
-        
+
         /// <summary>
         /// FollowupControl control.
         /// </summary>
@@ -335,7 +355,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabFollowupControl FollowupControl;
-        
+
         /// <summary>
         /// Follow5MControl control.
         /// </summary>
@@ -344,7 +364,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabFollow5MControl Follow5MControl;
-        
+
         /// <summary>
         /// FollowUnder5MControl control.
         /// </summary>
@@ -353,7 +373,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabFollowUnder5MControl FollowUnder5MControl;
-        
+
         /// <summary>
         /// TabPanelReportResult control.
         /// </summary>
@@ -362,7 +382,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanelReportResult;
-        
+
         /// <summary>
         /// ReportResultControl control.
         /// </summary>
@@ -371,7 +391,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabReportResultControl ReportResultControl;
-        
+
         /// <summary>
         /// TabProsecute control.
         /// </summary>
@@ -380,7 +400,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabProsecute;
-        
+
         /// <summary>
         /// ProsecuteControl control.
         /// </summary>
@@ -389,7 +409,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabProsecuteControl ProsecuteControl;
-        
+
         /// <summary>
         /// PanelHistory control.
         /// </summary>
@@ -398,7 +418,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PanelHistory;
-        
+
         /// <summary>
         /// LabelProjectHistory control.
         /// </summary>

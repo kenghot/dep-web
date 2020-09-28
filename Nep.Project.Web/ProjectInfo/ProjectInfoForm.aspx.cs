@@ -229,6 +229,7 @@ namespace Nep.Project.Web.ProjectInfo
             TabPanelReportResult.Visible = false;
             TabPanelSatisfy.Visible = false;
             TabPanelSelfEvaluate.Visible = false;
+            TabSurveyParticipant.Visible = false;
             TabPanelFollowup.Visible = false;
             TabProsecute.Visible = false;
             //kenghot18
@@ -335,17 +336,20 @@ namespace Nep.Project.Web.ProjectInfo
                     TabPanelReportResult.Visible = true;
                     TabPanelSatisfy.Visible = true;
                 TabPanelSelfEvaluate.Visible = true;
+                TabSurveyParticipant.Visible = true;
                 }
             else if ((followupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว) && (roles.Contains(Common.ProjectFunction.CanViewProjectInfo) || UserInfo.UserGroupCode == Common.UserGroupCode.องค์กรภายนอก) )
             {
                 TabPanelReportResult.Visible = true;
                 TabPanelSatisfy.Visible = true;
                 TabPanelSelfEvaluate.Visible = true;
+                TabSurveyParticipant.Visible = true;
             }
             string tabRequired = "";
             tabRequired += IsTabRequired("SATISFY", TabPanelSatisfy);
              
             tabRequired += IsTabRequired("SELF", TabPanelSelfEvaluate);
+            tabRequired += IsTabRequired("SELF", TabSurveyParticipant);
             // การดำเนินการ
             var proc = (from pc in _projectInfoService.GetDB().PROJECTPROCESSEDs where pc.PROJECTID == ProjectID select pc ).FirstOrDefault();
             if (proc == null)
@@ -418,6 +422,7 @@ namespace Nep.Project.Web.ProjectInfo
             ReportResultControl.Visible = false;
             SatisfyControl.Visible = false;
             SelfEvaluateControl.Visible = false;
+            SurveyParticipant.Visible = false;
             FollowupControl.Visible = false;
             Follow5MControl.Visible = false;
             FollowUnder5MControl.Visible = false;
@@ -517,6 +522,13 @@ namespace Nep.Project.Web.ProjectInfo
                         SelfEvaluateControl.Visible = true;
 
                         SelfEvaluateControl.BindData();
+                        break;
+                    }
+                case "TabSurveyParticipant":
+                    {
+                        SurveyParticipant.Visible = true;
+
+                        SurveyParticipant.BindData();
                         break;
                     }
                 case "TabPanelFollowup":
@@ -632,6 +644,12 @@ namespace Nep.Project.Web.ProjectInfo
                     {
 
                         SelfEvaluateControl.BindData();
+                        break;
+                    }
+                case "TabSurveyParticipant":
+                    {
+
+                        SurveyParticipant.BindData();
                         break;
                     }
                 case "TabPanelFollowup":

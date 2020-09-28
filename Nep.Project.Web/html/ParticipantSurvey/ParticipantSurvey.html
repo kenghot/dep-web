@@ -28,7 +28,7 @@
 
 
                     <v-toolbar-title>
-                        แบบติดตามประเมินผลโครงการ (สำหรับผู้เข้าร่วมโครงการ)
+                        แบบติดตามประเมินผลโครงการ (สำหรับผู้เข้าร่วมโครงการ) โครงการที่ได้รับการสนับสนุนจากกองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ
                     </v-toolbar-title>
 
                     <v-spacer></v-spacer>
@@ -40,60 +40,162 @@
                 </v-app-bar>
                 <br />
                 <br />
-                <v-expansion-panels multiple
+                <br />
+                <br />
+                <span style="font-size:large;color:red">{{errorMessage}}</span>
+                <v-expansion-panels multiple :value="[0,1]"
                                     :disabled="formDisabled">
                     <v-expansion-panel>
-                        <v-expansion-panel-header>เกณฑ์ทั่วไป</v-expansion-panel-header>
+                        <v-expansion-panel-header>ประเด็นคำถามทั่วไป</v-expansion-panel-header>
                         <v-expansion-panel-content>
-                            <v-expansion-panels multiple
-                                                :disabled="formDisabled">
-
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header>1. ความสอดคล้อง</v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <k-radio topic="1.1 โครงการสามารถตอบสนองความต้องการและแก้ไข ปัญหาของกลุ่มเป้าหมายได้" :obj="result" fld="radio_g_1_1" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="1.2 โครงการนี้มีความสำคัญต่อการแก้ไขกับปัญหาที่ กลุ่มเป้าหมายกำลังเผชิญอยู่" :obj="result" fld="radio_g_1_2" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="1.3 โครงการนี้ได้ส่งผลดีต่อกลุ่มบุคคล ชุมชน และสังคม" :obj="result" fld="radio_g_1_3" :viewmode.sync="formDisabled"></k-radio>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                                <v-expansion-panel>
-                                    <v-expansion-panel-header>2. ประสิทธิภาพ</v-expansion-panel-header>
-                                    <v-expansion-panel-content>
-                                        <k-radio ref="test" topic="2.1 การดำเนินงานของโครงการนี้มีความเหมาะสม คุ้มค่าในระดับใด" :obj="result" fld="radio_g_1_1" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="2.2 โครงการนี้มีการจัดสรรทรัพยากร (เงิน, คน, วัสดุอุปกรณ์,วิธีการ) ในการดำเนินโครงการได้อย่างเป็นระบบ" :obj="result" fld="radio_g_1_2" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="2.3 โครงการนี้มีการวางแผนการดำเนินงานโดยใช้ทรัพยากรที่มีอยู่อย่างจำกัดให้เกิดประโยชน์สูงสุด" :obj="result" fld="radio_g_1_3" :viewmode.sync="formDisabled"></k-radio>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panels>
+                            <v-container fluid>
+                                <v-col cols="12"
+                                       sm="12">
+                                    <v-text-field v-model="result.projectName" outlined
+                                                  label="ชื่อโครงการ" :disabled="true"
+                                                  clearable></v-text-field>
+                                </v-col>
+                                <v-col cols="12"
+                                       sm="12">
+                                    <v-text-field v-model="result.activity" :rules="[v => !!v || 'กรุณาระบุกิจกรรม']"
+                                                  label="กิจกรรม" :disabled="formDisabled" outlined
+                                                  clearable></v-text-field>
+                                </v-col>
+                                1. เพศ
+                                <v-radio-group v-model="result.gender" row required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                    <v-radio label="1) ชาย" value="M"></v-radio>
+                                    <v-radio label="2) หญิง" value="F"></v-radio>
+                                </v-radio-group>
+                                2. อายุ
+                                <v-radio-group v-model="result.age" row required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                    <v-radio label="1) 15 – 20 ปี" value="1"></v-radio>
+                                    <v-radio label="2) 21 – 30 ปี" value="2"></v-radio>
+                                    <v-radio label="3) 31 – 40 ปี" value="3"></v-radio>
+                                    <v-radio label="4) 41 – 50 ปี" value="4"></v-radio>
+                                    <v-radio label="5) 51 – 60 ปี" value="5"></v-radio>
+                                    <v-radio label="6) 60 ปีขึ้นไป" value="6"></v-radio>
+                                </v-radio-group>
+                                3. สถานะของท่าน
+                                <v-radio-group v-model="result.position" column required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                    <v-radio label="1) ผู้ดำเนินโครงการ (หัวหน้าโครงการคนพิการ, เจ้าหน้าที่โครงการ ฯลฯ)" value="1"></v-radio>
+                                    <v-radio label="2) กลุ่มเป้าหมายหลัก (คนพิการ, ผู้ดูแลคนพิการ ฯลฯ)" value="2"></v-radio>
+                                    <v-radio label="3) ผู้มีส่วนได้ส่วนเสีย (ประชาชนทั่วไป, ผู้นำชุมชน, เจ้าหน้าที่รัฐ/เอกชน ฯลฯ)" value="3"></v-radio>
+                                </v-radio-group>
+                                4. ภูมิภาค (สถานที่ดำเนินโครงการ)
+                                <v-radio-group v-model="result.area" column required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                    <v-radio label="1) ภาคกลางและกรุงเทพมหานคร 2) ภาคใต้" value="1"></v-radio>
+                                    <v-radio label="3) ภาคตะวันออกเฉียงเหนือ (อีสาน) 4) ภาคเหนือ" value="2"></v-radio>
+                                </v-radio-group>
+                            </v-container>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                     <v-expansion-panel>
-                        <v-expansion-panel-header>เกณฑ์เฉพาะ</v-expansion-panel-header>
+                        <v-expansion-panel-header>ประเด็นการประเมินผล</v-expansion-panel-header>
                         <v-expansion-panel-content>
-                            <v-expansion-panels multiple
+                            <v-expansion-panels multiple :value="[0,1]"
                                                 :disabled="formDisabled">
-
                                 <v-expansion-panel>
-                                    <v-expansion-panel-header>1. ความสอดคล้อง</v-expansion-panel-header>
+                                    <v-expansion-panel-header>เกณฑ์ทั่วไป</v-expansion-panel-header>
                                     <v-expansion-panel-content>
-                                        <k-radio topic="1.1 โครงการสามารถตอบสนองความต้องการและแก้ไข ปัญหาของกลุ่มเป้าหมายได้" :obj="result" fld="radio_g_1_1" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="1.2 โครงการนี้มีความสำคัญต่อการแก้ไขกับปัญหาที่ กลุ่มเป้าหมายกำลังเผชิญอยู่" :obj="result" fld="radio_g_1_2" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="1.3 โครงการนี้ได้ส่งผลดีต่อกลุ่มบุคคล ชุมชน และสังคม" :obj="result" fld="radio_g_1_3" :viewmode.sync="formDisabled"></k-radio>
+                                        <v-expansion-panels multiple :value="[0,1,2,3,4]"
+                                                            :disabled="formDisabled">
+
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>1. ความสอดคล้อง</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="1.1 โครงการสามารถตอบสนองความต้องการและแก้ไข ปัญหาของกลุ่มเป้าหมายได้" :obj="result" fld="radio_g_1_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="1.2 โครงการนี้มีความสำคัญต่อการแก้ไขกับปัญหาที่ กลุ่มเป้าหมายกำลังเผชิญอยู่" :obj="result" fld="radio_g_1_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="1.3 โครงการนี้ได้ส่งผลดีต่อกลุ่มบุคคล ชุมชน และสังคม" :obj="result" fld="radio_g_1_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>2. ประสิทธิภาพ</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="2.1 การดำเนินงานของโครงการนี้มีความเหมาะสม คุ้มค่าในระดับใด" :obj="result" fld="radio_g_2_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="2.2 โครงการนี้มีการจัดสรรทรัพยากร (เงิน, คน, วัสดุอุปกรณ์,วิธีการ) ในการดำเนินโครงการได้อย่างเป็นระบบ" :obj="result" fld="radio_g_2_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="2.3 โครงการนี้มีการวางแผนการดำเนินงานโดยใช้ทรัพยากรที่มีอยู่อย่างจำกัดให้เกิดประโยชน์สูงสุด" :obj="result" fld="radio_g_2_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>3. ประสิทธิผล</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio ref="test" topic="3.1 โครงการนี้ทำให้ท่านมีความรู้ความสามารถมากขึ้นและเป็นประโยชน์ต่อตัวท่านเองในอนาคต" :obj="result" fld="radio_g_3_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="3.2 โครงการนี้ตรงกับความต้องการที่แท้จริงของท่าน" :obj="result" fld="radio_g_3_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="3.3 โครงการนี้ประสบความสำเร็จในระดับใด" :obj="result" fld="radio_g_3_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>4. ผลกระทบ</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="4.1 โครงการนี้ดีต่อสังคม เศรษฐกิจ การเมือง และวัฒนธรรมของประเทศ" :obj="result" fld="radio_g_4_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="4.2 โครงการนี้ก่อให้เกิดการส่งเสริมสิทธิคนพิการ" :obj="result" fld="radio_g_4_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="4.3 ผลการดำเนินงานของโครงการนี้ก่อให้เกิดการเปลี่ยนแปลงต่อกลุ่มคนพิการไปในทิศทางที่ดีขึ้น" :obj="result" fld="radio_g_4_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>5. ความยั่งยืน</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="5.1 เมื่อสิ้นสุดการดำเนินโครงการ ท่านจะนำความรู้ที่ได้รับไปใช้เป็นประโยชน์อย่างต่อเนื่อง" :obj="result" fld="radio_g_5_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="5.2 ท่านจะนำความรู้ที่ได้รับจากโครงการนี้ไปใช้ให้เกิดประโยชน์ทั้งทางเศรษฐกิจ สิ่งแวดล้อม สังคม และวัฒนธรรม" :obj="result" fld="radio_g_5_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="5.3 เมื่อสิ้นสุดโครงการ ท่านจะนำความรู้ที่ได้จากโครงการนี้ไปถ่ายทอดแก่ผู้อื่น" :obj="result" fld="radio_g_5_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
                                 <v-expansion-panel>
-                                    <v-expansion-panel-header>2. ประสิทธิภาพ</v-expansion-panel-header>
+                                    <v-expansion-panel-header>เกณฑ์เฉพาะ</v-expansion-panel-header>
                                     <v-expansion-panel-content>
-                                        <k-radio ref="test" topic="2.1 การดำเนินงานของโครงการนี้มีความเหมาะสม คุ้มค่าในระดับใด" :obj="result" fld="radio_g_1_1" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="2.2 โครงการนี้มีการจัดสรรทรัพยากร (เงิน, คน, วัสดุอุปกรณ์,วิธีการ) ในการดำเนินโครงการได้อย่างเป็นระบบ" :obj="result" fld="radio_g_1_2" :viewmode.sync="formDisabled"></k-radio>
-                                        <k-radio topic="2.3 โครงการนี้มีการวางแผนการดำเนินงานโดยใช้ทรัพยากรที่มีอยู่อย่างจำกัดให้เกิดประโยชน์สูงสุด" :obj="result" fld="radio_g_1_3" :viewmode.sync="formDisabled"></k-radio>
+                                        <v-expansion-panels multiple :value="[0,1,2,3,4]"
+                                                            :disabled="formDisabled">
+
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>1. ความเหมาะสม</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="1.1 โครงการให้ความสำคัญถึงความแตกต่างของกลุ่มเป้าหมาย เช่น เพศ ประเภทความพิการ ฯลฯ เพื่อประโยชน์ในการจัดกิจกรรมต่างๆ ได้อย่างเหมาะสม" :obj="result" fld="radio_s_1_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="1.2 การดำเนินโครงการพิจารณาถึงความสามารถและศักยภาพของกลุ่มเป้าหมาย" :obj="result" fld="radio_s_1_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="1.3 การดำเนินโครงการและกิจกรรมของโครงการมีความเหมาะสมและสอดคล้องกับความต้องการ ของกลุ่มเป้าหมาย" :obj="result" fld="radio_s_1_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>2. ความสมเหตุสมผล</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="2.1 โครงการช่วยให้คนพิการมีคุณภาพชีวิตที่ดีขึ้น" :obj="result" fld="radio_s_2_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="2.2 ระยะเวลาการดำเนินโครงการมีความสมเหตุสมผล" :obj="result" fld="radio_s_2_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="2.3 รูปแบบและลักษณะกิจกรรมมีความสมเหตุสมผล" :obj="result" fld="radio_s_2_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>3. การประสานงาน</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="3.1 โครงการนี้มีการประสานงานที่ดี มีการเชิญผู้ที่เกี่ยวข้องครบทุกภาคส่วน" :obj="result" fld="radio_s_3_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="3.2 เมื่อเกิดปัญหาขึ้น โครงการสามารถแก้ไขปัญหาได้อย่างเป็นระบบ" :obj="result" fld="radio_s_3_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="3.3 โครงการสามารถสื่อสารกับผู้เกี่ยวข้องทุกภาคส่วนได้รับทราบข้อมูลอย่างทั่วถึง" :obj="result" fld="radio_s_3_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>4. ความเชื่อมโยง</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="4.1 โครงการสามารถสนับสนุนให้คนพิการเกิดการรวมกลุ่มกัน" :obj="result" fld="radio_s_4_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="4.2 โครงการมีการดำเนินงานที่สนับสนุนการมีส่วนร่วมกับภาคีเครือข่ายอื่นๆ" :obj="result" fld="radio_s_4_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="4.3 โครงการนี้สามารถทำให้คนพิการสามารถอยู่ร่วมกับบุคคลอื่นในสังคมได้" :obj="result" fld="radio_s_4_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>5. ความยั่งยืน</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <k-radio topic="5.1 ผู้เข้าร่วมโครงการได้มีส่วนในการแสดงความคิดเห็น" :obj="result" fld="radio_s_5_1" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="5.2 โครงการนี้สามารถให้ประโยชน์แก่กลุ่มคนพิการประเภทอื่นๆ" :obj="result" fld="radio_s_5_2" :viewmode.sync="formDisabled"></k-radio>
+                                                    <k-radio topic="5.3 โครงการนี้สามารถประยุกต์ใช้ได้ครอบคลุมกับคนพิการทุกพื้นที่" :obj="result" fld="radio_s_5_3" :viewmode.sync="formDisabled"></k-radio>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
-
             </v-form>
 
         </div>

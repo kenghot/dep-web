@@ -16,34 +16,99 @@ var VueParticipantSurvey = new Vue({
             panel: 0,
             formValid: true,
             formDisabled: false,
+            errorMessage: "",
             projId: null,
             defaultResult: {
+                projectName: "",
+                activity:"",
+                gender: "",
+                age: "",
+                position: "",
+                area:"",
                 radio_g_1_1: "",
                 radio_g_1_2: "",
                 radio_g_1_3: "",
                 radio_g_2_1: "",
                 radio_g_2_2: "",
                 radio_g_2_3: "",
+                radio_g_3_1: "",
+                radio_g_3_2: "",
+                radio_g_3_3: "",
+                radio_g_4_1: "",
+                radio_g_4_2: "",
+                radio_g_4_3: "",
+                radio_g_5_1: "",
+                radio_g_5_2: "",
+                radio_g_5_3: "",
+                radio_s_1_1: "",
+                radio_s_1_2: "",
+                radio_s_1_3: "",
+                radio_s_2_1: "",
+                radio_s_2_2: "",
+                radio_s_2_3: "",
+                radio_s_3_1: "",
+                radio_s_3_2: "",
+                radio_s_3_3: "",
+                radio_s_4_1: "",
+                radio_s_4_2: "",
+                radio_s_4_3: "",
+                radio_s_5_1: "",
+                radio_s_5_2: "",
+                radio_s_5_3: "",
             },
             result: {},
         }
     },
     methods: {
-        DisplayData(projId) {
+        DisplayData() {
 
-            var j = { "ProjID": projId, "QNGroup": "EVALUATE" };
+            var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
-            axios.post(this.VueUrl + 'getqndata', j)
+            //axios.post(this.VueUrl + 'getqndata', j)
+            //    .then(response => {
+            //        //console.log(j);
+            //        console.log(response.data);
+
+            //        if (response.data != "") {
+            //            if (response.data.IsCompleted) {
+            //                if (response.data.Data && response.data.Data != "null") {
+            //                    this.result = JSON.parse(response.data.Data)
+            //                } else {
+            //                    this.result = JSON.parse(JSON.stringify(this.defaultResult))
+            //                }
+
+
+            //                window.setTimeout(function () {
+
+            //                }, 300)
+
+            //            } else {
+            //                this.result = JSON.parse(JSON.stringify(this.defaultResult))
+            //            }
+
+            //        } else {
+            //            VueMaster.showSnack("ระบบขัดข้อง โปรดลองอีกครั้ง", "error")
+            //        }
+
+            //    }
+            //)
+            let id = this.projId
+            let data = this.$data
+            axios.get(this.VueUrl + '/api/projects/GetProjectInformation/' + id)
                 .then(response => {
-                    //console.log(j);
+                    console.log(j);
                     console.log(response.data);
 
                     if (response.data != "") {
                         if (response.data.IsCompleted) {
-                            if (response.data.Data && response.data.Data != "null") {
-                                this.result = JSON.parse(response.data.Data)
+                            var pinfo = response.data.Data
+                            if (response.data.Data && response.data.Data && pinfo.ProjectInfoNameTH) {
+
+
+                                this.result.projectName = pinfo.ProjectInfoNameTH
                             } else {
-                                this.result = JSON.parse(JSON.stringify(this.defaultResult))
+                                data.errorMessage = "ไม่พบข้อมูลโครงการ"
+                                this.formDisabled = true
                             }
 
 
@@ -52,11 +117,13 @@ var VueParticipantSurvey = new Vue({
                             }, 300)
 
                         } else {
-                            this.result = JSON.parse(JSON.stringify(this.defaultResult))
+                            data.errorMessage = response.data.Message[0]
+                            this.formDisabled = true
                         }
 
                     } else {
-                        VueMaster.showSnack("ระบบขัดข้อง โปรดลองอีกครั้ง", "error")
+                        data.errorMessage = "ระบบขัดข้อง โปรดลองอีกครั้ง"
+                        this.formDisabled = true
                     }
 
                 }
@@ -81,7 +148,7 @@ var VueParticipantSurvey = new Vue({
 
             //}
 
-            axios.post(this.VueUrl + 'InsertDocument', j)
+            axios.post(this.VueUrl + '/api/systems/InsertDocument', j)
                 .then(response => {
                     //console.log(j);
                     console.log(response.data);
@@ -119,13 +186,20 @@ var VueParticipantSurvey = new Vue({
     },
     computed: {
         VueUrl: function () {
-            return window.location.protocol + '//' + window.location.host + '/api/systems/';
+            return window.location.protocol + '//' + window.location.host  ;
         },
 
     },
     mounted() {
         let searchParams = new URLSearchParams(window.location.search)
         this.projId = searchParams.get('projId')
+
+        if (!this.projId) {
+            this.errorMessage = "ไม่ได้ระบุ projId"
+
+            this.formDisabled = true
+            return
+        }
         let mode = searchParams.get('mode')
         this.formDisabled = true
         if (mode === "edit") {
@@ -134,5 +208,6 @@ var VueParticipantSurvey = new Vue({
         } else {
             this.formDisabled = true
         }
+        this.DisplayData()
     }
 })
