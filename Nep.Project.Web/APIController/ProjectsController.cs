@@ -4,6 +4,7 @@ using Nep.Project.ServiceModels.API.Requests;
 using Nep.Project.ServiceModels.API.Responses;
 using Nep.Project.ServiceModels.Report.ReportProjectRequest;
 using Nep.Project.ServiceModels.Security;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -247,6 +248,45 @@ namespace Nep.Project.Web.APIController
             return filters;
 
         }
+
+        #region Participant Survey 
+        [Route("GetParticipantSurvey/{projId}")]
+        [HttpGet]
+        public ReturnObject<ParticipantSurvey> GetParticipantSurvey([FromUri]decimal projId)
+        {
+            var result = new ServiceModels.ReturnObject<ParticipantSurvey>();
+            result.IsCompleted = false;
+            try
+            {
+                result.Data = new ParticipantSurvey();
+                var db = projService.GetDB();
+                var svs = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == projId && w.QUESTGROUP == "PARTICIPANTSV").ToList();
+                var details = new List<ParticipantSurveyDetail>();
+                result.Data.Surveys = details;
+                foreach (var sv in svs)
+                {
+                    var detail = new ParticipantSurveyDetail
+                    {
+                        DocId = sv.QUESTHDID,
+                        CreateDatetime = sv.CREATEDDATE
+                    };
+                    JObject json = JObject.Parse(sv.DATA);
+                    JToken activity;
+                     if (json.TryGetValue("activity",out activity))
+                    {
+                        detail.Activity = json.GetValue( "activity").ToString();
+                    }
+                    details.Add(detail);
+                }
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        #endregion
     }
 
 }

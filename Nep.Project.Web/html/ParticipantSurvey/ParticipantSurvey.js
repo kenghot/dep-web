@@ -18,6 +18,8 @@ var VueParticipantSurvey = new Vue({
             formDisabled: false,
             errorMessage: "",
             projId: null,
+            docId: null,
+            mode: "",
             defaultResult: {
                 projectName: "",
                 activity:"",
@@ -64,48 +66,65 @@ var VueParticipantSurvey = new Vue({
 
             var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
-            //axios.post(this.VueUrl + 'getqndata', j)
-            //    .then(response => {
-            //        //console.log(j);
-            //        console.log(response.data);
-
-            //        if (response.data != "") {
-            //            if (response.data.IsCompleted) {
-            //                if (response.data.Data && response.data.Data != "null") {
-            //                    this.result = JSON.parse(response.data.Data)
-            //                } else {
-            //                    this.result = JSON.parse(JSON.stringify(this.defaultResult))
-            //                }
-
-
-            //                window.setTimeout(function () {
-
-            //                }, 300)
-
-            //            } else {
-            //                this.result = JSON.parse(JSON.stringify(this.defaultResult))
-            //            }
-
-            //        } else {
-            //            VueMaster.showSnack("ระบบขัดข้อง โปรดลองอีกครั้ง", "error")
-            //        }
-
-            //    }
-            //)
             let id = this.projId
             let data = this.$data
+            if (this.mode === "view") {
+                axios.get(this.VueUrl + '/api/systems/GetDocumentByDocId/' + this.docId + '/PARTICIPANTSV')
+                    .then(response => {
+
+                        if (response.data != "") {
+                            if (response.data.IsCompleted) {
+                                var result = response.data.Data
+                                
+                                if (response.data.Data) {
+
+                                    data.result = JSON.parse( result.DATA)
+                                    data.projId = result.PROJECTID
+                                    this.GetProject()
+                                } else {
+                                    data.errorMessage = "ไม่พบข้อมูล"
+                                    this.formDisabled = true
+                                }
+
+
+                                window.setTimeout(function () {
+
+                                }, 300)
+
+                            } else {
+                                data.errorMessage = response.data.Message[0]
+                                this.formDisabled = true
+                            }
+
+                        } else {
+                            data.errorMessage = "ระบบขัดข้อง โปรดลองอีกครั้ง"
+                            this.formDisabled = true
+                        }
+
+                    }
+                    )
+            } else {
+                this.GetProject()
+            }
+
+
+        },
+        GetProject() {
+
+            var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
+
+            let id = this.projId
+            let data = this.$data
+ 
             axios.get(this.VueUrl + '/api/projects/GetProjectInformation/' + id)
                 .then(response => {
-                    console.log(j);
-                    console.log(response.data);
+ 
 
                     if (response.data != "") {
                         if (response.data.IsCompleted) {
                             var pinfo = response.data.Data
                             if (response.data.Data && response.data.Data && pinfo.ProjectInfoNameTH) {
-
-
-                                this.result.projectName = pinfo.ProjectInfoNameTH
+                                data.result.projectName = pinfo.ProjectInfoNameTH
                             } else {
                                 data.errorMessage = "ไม่พบข้อมูลโครงการ"
                                 this.formDisabled = true
@@ -192,20 +211,33 @@ var VueParticipantSurvey = new Vue({
     },
     mounted() {
         let searchParams = new URLSearchParams(window.location.search)
+        this.result = JSON.parse(JSON.stringify(this.defaultResult))
+        console.log(this.result)
         this.projId = searchParams.get('projId')
-
-        if (!this.projId) {
-            this.errorMessage = "ไม่ได้ระบุ projId"
-
-            this.formDisabled = true
-            return
-        }
-        let mode = searchParams.get('mode')
+        this.docId = searchParams.get('docId')
+        this.mode = searchParams.get('mode')
         this.formDisabled = true
-        if (mode === "edit") {
+        if (this.mode === "new") {
             this.formDisabled = false
+            
+            if (!this.projId) {
+                this.errorMessage = "ไม่ได้ระบุ projId"
 
-        } else {
+                this.formDisabled = true
+                return
+            }
+
+        } else if (this.mode === "view") {
+            if (!this.docId) {
+                this.errorMessage = "ไม่ได้ระบุ docId"
+
+                this.formDisabled = true
+                return
+            }
+            this.formDisabled = true
+        }
+        else {
+            this.errorMessage = "mode ไม่ถูกต้อง"
             this.formDisabled = true
         }
         this.DisplayData()

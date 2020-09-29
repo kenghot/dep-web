@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nep.Project.DBModels.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,7 +108,8 @@ namespace Nep.Project.IServices
  
         ServiceModels.ReturnObject<decimal?> SaveDocument(decimal projID, string QNGroup, string data);
         ServiceModels.ReturnObject<decimal?> InsertDocument(decimal projID, string QNGroup, string data);
-        ServiceModels.ReturnObject<string> GetDocument(decimal projID, string QNGroup);
+        ServiceModels.ReturnObject<string> GetDocumentByKey(decimal projID, string QNGroup);
+        ServiceModels.ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId(decimal docID, string QNGroup);
         ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType, List<ServiceModels.KendoAttachment> removeFiles, List<ServiceModels.KendoAttachment> addFiles, string tableName, string fieldName);
         ServiceModels.ReturnMessage SaveOfficerProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
 

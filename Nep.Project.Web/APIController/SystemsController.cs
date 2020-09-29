@@ -147,6 +147,23 @@ namespace Nep.Project.Web.APIController
             return result;
 
         }
+        [Route("GetDocumentByDocId/{id}/{docGroup}")]
+        [HttpGet]
+        public ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId([FromUri]decimal id,[FromUri]string docGroup)
+        {
+            var result = new ReturnObject<PROJECTQUESTIONHD>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.GetDocumentByDocId(id , docGroup);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+
+        }
         #endregion
     }
 }

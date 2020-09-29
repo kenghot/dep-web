@@ -15,7 +15,7 @@ using Nep.Project.ServiceModels.ProjectInfo;
 using Nep.Project.DBModels.Model;
 using Nep.Project.Business;
 using Nep.Project.Common.Web;
-
+ 
 namespace Nep.Project.Business
 {
     public class ProjectInfoService : IServices.IProjectInfoService
@@ -4130,19 +4130,42 @@ namespace Nep.Project.Business
             }
             return result;
         }
-        public ServiceModels.ReturnObject<string> GetDocument(decimal projID, string QNGroup)
+        public ServiceModels.ReturnObject<string> GetDocumentByKey(decimal projID, string QNGroup)
         {
             var result = new ReturnObject<string>();
             try
             {
 
-                var doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                var doc = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
                 if (doc == null)
                 {
                     result.Message.Add("ไม่พบข้อมูล");
                     return result;
                 }
                 result.Data = doc.DATA;
+                result.IsCompleted = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        public ServiceModels.ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId(decimal docID, string QNGroup)
+        {
+            var result = new ReturnObject<PROJECTQUESTIONHD>();
+            try
+            {
+
+                var doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == docID && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                if (doc == null)
+                {
+                    result.Message.Add("ไม่พบข้อมูล");
+                    return result;
+                }
+                result.Data = doc;
                 result.IsCompleted = true;
 
 

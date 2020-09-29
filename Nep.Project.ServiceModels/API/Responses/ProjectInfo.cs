@@ -1,4 +1,5 @@
-﻿using Nep.Project.ServiceModels.ProjectInfo;
+﻿using Nep.Project.DBModels.Model;
+using Nep.Project.ServiceModels.ProjectInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,5 +54,20 @@ namespace Nep.Project.ServiceModels.API.Responses
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
     }
+    #endregion
+    #region Participant Survey
+    public class ParticipantSurvey 
+    {
+        public decimal ProjectId { get; set; }
+        public string ProjectTHName { get; set; }
+        public List<ParticipantSurveyDetail> Surveys { get; set; }
+    }
+    public class ParticipantSurveyDetail
+    {
+        public decimal DocId { get; set; }
+        public DateTime CreateDatetime { get; set; }
+        public string Activity { get; set; }
+    }
+
     #endregion
 }

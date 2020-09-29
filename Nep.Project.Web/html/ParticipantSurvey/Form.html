@@ -2,7 +2,7 @@
 <div id="appParticipantSVForm">
 
     <v-app id="inspire" style="min-height: 0px">
-        <v-expansion-panels :value="0">
+        <v-expansion-panels multiple :value="[0,1,2,3]">
             <v-expansion-panel>
                 <v-expansion-panel-header>แบบติดตามประเมินผลโครงการ (สำหรับผู้เข้าร่วมโครงการ)</v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -11,13 +11,35 @@
                             <v-col cols="12" sm="4">
                                 <qrcode v-model="surveyUrl" :options="{ width: 200 }"></qrcode>
 
-                                <br />แสกน QR หรือ<br/>
-                                <v-btn icon :href="surveyUrl" target="_blank">
+                                <br />แสกน QR หรือ<br />
+                                <v-btn :href="surveyUrl" target="_blank">
                                     คลิ๊กที่นี่ เพื่อทำแบบสอบถาม
                                 </v-btn>
                             </v-col>
                         </v-row>
                     </v-container>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+            <v-expansion-panel>
+                <v-expansion-panel-header>รายการแบบสอบถาม</v-expansion-panel-header>
+
+                <v-expansion-panel-content>
+                    <v-data-table :headers="headers"
+                                  :items="surveys"
+                                  class="elevation-1"
+                                  hide-default-footer>
+                        <template v-slot:item.actions="{ item }">
+                            <v-btn small icon
+                                    class="mr-2"
+                                    :href="viewSurvey(item)" target="_blank">
+                                <v-icon>mdi-eye</v-icon> 
+                            </v-btn>
+                            <!--<v-icon small
+                                    @click="deleteItem(item)">
+                                mdi-delete
+                            </v-icon>-->
+                        </template>
+                    </v-data-table>
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
