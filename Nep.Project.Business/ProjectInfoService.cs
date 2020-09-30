@@ -2520,11 +2520,21 @@ namespace Nep.Project.Business
                                 MeetingNo = pro.ProjectContract.MEETINGNO,
                                 LastApproveStatus = pro.ProjectContract.APPROVESTATUS,
                                 ExtendJson = pro.ProjectContract.EXTENDDATA
-
+                      
                             }).SingleOrDefault();
 
                 if (data != null)
                 {
+                    var dues = _db.CONTRACTDUEs.Where(w => w.PROJECTID == id).Select(s => new ContractDue
+                    {
+                        Amount = s.AMOUNT,
+                        DueId = s.DUEID,
+                        EndDate = s.ENDDATE,
+                        ProjectId = s.PROJECTID,
+                        StartDate = s.STARTDATE
+                    }).ToList();
+                    data.Dues = dues;
+
                     data.IsCenterContract = IsCenterReviseProject((decimal)data.ProvinceID);
                     try
                     {
@@ -2655,7 +2665,23 @@ namespace Nep.Project.Business
                             }
                             dataDBModel.ContractNo = contractNo;
                         }
-
+                        _db.CONTRACTDUEs.RemoveRange(dataDBModel.CONTRACTDUEs);
+                        short i = 1;
+                        foreach (var due in dataServiceModel.Dues)
+                        {
+                            var newDue = new CONTRACTDUE
+                            {
+                                AMOUNT = due.Amount,
+                                ENDDATE = due.EndDate,
+                                PROJECTID = model.ProvinceID,
+                                STARTDATE = due.StartDate,
+                                DUENO = i
+                            };
+                            dataDBModel.CONTRACTDUEs.Add(newDue);
+                            i++;
+                        }
+                        
+                        
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
@@ -2695,6 +2721,20 @@ namespace Nep.Project.Business
                         dataDBModel.CreatedDate = DateTime.Now;
                         dataDBModel.CreatedBy = _user.UserName;
                         dataDBModel.CreatedByID = (decimal)_user.UserID;
+                        short i = 0;
+                        foreach (var due in dataServiceModel.Dues)
+                        {
+                            var newDue = new CONTRACTDUE
+                            {
+                                AMOUNT = due.Amount,
+                                ENDDATE = due.EndDate,
+                                PROJECTID = model.ProvinceID,
+                                STARTDATE = due.StartDate,
+                                DUENO = i
+                            };
+                            dataDBModel.CONTRACTDUEs.Add(newDue);
+                            i++;
+                        }
                         _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "4", _user.UserID.Value, model.ipAddress));
                         _db.ProjectContracts.Add(dataDBModel);
                         _db.SaveChanges();

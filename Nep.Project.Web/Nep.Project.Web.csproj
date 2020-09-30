@@ -831,6 +831,9 @@
     <Compile Include="ProjectInfo\Controls\TabAttachmentControl.ascx.designer.cs">
       <DependentUpon>TabAttachmentControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectInfo\Controls\TabContractControl.ascx.designer.cs">
+      <DependentUpon>TabContractControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectInfo\Controls\TabSurveyParticipant.ascx.cs">
       <DependentUpon>TabSurveyParticipant.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -841,9 +844,6 @@
     <Compile Include="ProjectInfo\Controls\TabContractControl.ascx.cs">
       <DependentUpon>TabContractControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ProjectInfo\Controls\TabContractControl.ascx.designer.cs">
-      <DependentUpon>TabContractControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\Controls\TabFollow5MControlOld.ascx.cs">
       <DependentUpon>TabFollow5MControlOld.ascx</DependentUpon>

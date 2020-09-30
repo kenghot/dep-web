@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CONTRACTDUE.cs">
+      <DependentUpon>NepProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\K_FILEINTABLE.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>

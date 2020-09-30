@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONTRACTDUE">
+          <Key>
+            <PropertyRef Name="DUEID" />
+          </Key>
+          <Property Name="DUEID" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="STARTDATE" Type="date" />
+          <Property Name="AMOUNT" Type="number" Precision="11" Scale="2" />
+          <Property Name="ENDDATE" Type="date" />
+          <Property Name="PROJECTID" Type="number" Precision="38" Scale="0" />
+          <Property Name="MAILSENT" Type="char" MaxLength="1" />
+          <Property Name="DUENO" Type="number" Precision="5" Scale="0" />
+        </EntityType>
         <EntityType Name="K_FILEINTABLE">
           <Key>
             <PropertyRef Name="FILEINTABLEID" />
@@ -1068,6 +1080,20 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <Property Name="ISREJECT" Type="number" Precision="38" Scale="0" />
           <Property Name="REJECTCOMMENT" Type="varchar2" MaxLength="4000" />
         </EntityType>
+        <Association Name="CONTRACTDUE_FK1">
+          <End Role="PROJECTCONTRACT" Type="Self.PROJECTCONTRACT" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CONTRACTDUE" Type="Self.CONTRACTDUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROJECTCONTRACT">
+              <PropertyRef Name="PROJECTID" />
+            </Principal>
+            <Dependent Role="CONTRACTDUE">
+              <PropertyRef Name="PROJECTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ATT_PROJECTFOLLOWUPATT">
           <End Role="MT_ATTACHMENT" Type="Self.MT_ATTACHMENT" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2107,6 +2133,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="CONTRACTDUE" EntityType="Self.CONTRACTDUE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="K_FILEINTABLE" EntityType="Self.K_FILEINTABLE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="K_MT_POSITION" EntityType="Self.K_MT_POSITION" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="LOG_ACCESS" EntityType="Self.LOG_ACCESS" Schema="NEP_APP02" store:Type="Tables" />
@@ -2223,6 +2250,10 @@ FROM "NEP_APP02"."VIEW_PARTICIPANTPROVINCEDUP" "VIEW_PARTICIPANTPROVINCEDUP"</De
 "VIEW_PROJECTLIST"."REJECTCOMMENT" AS "REJECTCOMMENT"
 FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="CONTRACTDUE_FK1" Association="Self.CONTRACTDUE_FK1">
+            <End Role="PROJECTCONTRACT" EntitySet="PROJECTCONTRACT" />
+            <End Role="CONTRACTDUE" EntitySet="CONTRACTDUE" />
+          </AssociationSet>
           <AssociationSet Name="FK_ATT_PROJECTFOLLOWUPATT" Association="Self.FK_ATT_PROJECTFOLLOWUPATT">
             <End Role="MT_ATTACHMENT" EntitySet="MT_ATTACHMENT" />
             <End Role="PROJECTFOLLOWUPATT" EntitySet="PROJECTFOLLOWUPATT" />
@@ -2889,6 +2920,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="REMARK" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="APPROVESTATUS" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRACTDUEs" Relationship="Model.CONTRACTDUE_FK1" FromRole="ProjectContract" ToRole="CONTRACTDUE" />
         </EntityType>
         <EntityType Name="ProjectDocument">
           <Key>
@@ -4159,6 +4191,11 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="MT_ListOfValue" EntitySet="MT_ListOfValue" />
             <End Role="LOG_ACCESS" EntitySet="LOG_ACCESS" />
           </AssociationSet>
+          <EntitySet Name="CONTRACTDUEs" EntityType="Model.CONTRACTDUE" />
+          <AssociationSet Name="CONTRACTDUE_FK1" Association="Model.CONTRACTDUE_FK1">
+            <End Role="ProjectContract" EntitySet="ProjectContracts" />
+            <End Role="CONTRACTDUE" EntitySet="CONTRACTDUEs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="MT_OrganizationParameter">
           <Key>
@@ -5156,6 +5193,33 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             </Principal>
             <Dependent Role="LOG_ACCESS">
               <PropertyRef Name="ACCESSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONTRACTDUE">
+          <Key>
+            <PropertyRef Name="DUEID" />
+          </Key>
+          <Property Name="DUEID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STARTDATE" Type="DateTime" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="ENDDATE" Type="DateTime" />
+          <Property Name="PROJECTID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MAILSENT" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DUENO" Type="Int16" />
+          <NavigationProperty Name="PROJECTCONTRACT" Relationship="Model.CONTRACTDUE_FK1" FromRole="CONTRACTDUE" ToRole="ProjectContract" />
+        </EntityType>
+        <Association Name="CONTRACTDUE_FK1">
+          <End Type="Model.ProjectContract" Role="ProjectContract" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.CONTRACTDUE" Role="CONTRACTDUE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectContract">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="CONTRACTDUE">
+              <PropertyRef Name="PROJECTID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6251,6 +6315,19 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
                 <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="CREATEDATETIME" ColumnName="CREATEDATETIME" />
                 <ScalarProperty Name="LOGID" ColumnName="LOGID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRACTDUEs">
+            <EntityTypeMapping TypeName="Model.CONTRACTDUE">
+              <MappingFragment StoreEntitySet="CONTRACTDUE">
+                <ScalarProperty Name="DUENO" ColumnName="DUENO" />
+                <ScalarProperty Name="MAILSENT" ColumnName="MAILSENT" />
+                <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
+                <ScalarProperty Name="DUEID" ColumnName="DUEID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

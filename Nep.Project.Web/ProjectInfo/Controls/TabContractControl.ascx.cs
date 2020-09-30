@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using Nep.Project.Resources;
 using Nep.Project.ServiceModels;
 using Nep.Project.Common;
+using Nep.Project.DBModels.Model;
+using Nep.Project.ServiceModels.ProjectInfo;
 
 namespace Nep.Project.Web.ProjectInfo.Controls
 {
@@ -203,6 +205,9 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             TextBoxAttachPage2.Text = model.AttachPage2?.ToString();
                             TextBoxAttachPage3.Text = model.AttachPage3?.ToString();
                             //TextboxMeetingNo.Text = model.MeetingNo?.ToString();
+                            StoerDue(0, model.Dues, DatePickerStartDue1, DatePickerEndDue1, TextBoxDueAmount1);
+                            StoerDue(1, model.Dues, DatePickerStartDue2, DatePickerEndDue2, TextBoxDueAmount2);
+                            StoerDue(2, model.Dues, DatePickerStartDue3, DatePickerEndDue3, TextBoxDueAmount3);
                             List<ServiceModels.KendoAttachment> SupportFiles = model.SupportAttachments;
                             if (model.ExtendData != null)
                             {
@@ -332,7 +337,33 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             RegisterClientScript();
         }
-
+        private void StoerDue(int no, List<ContractDue> dues, Nep.Project.Web.UserControls.DatePicker start, Nep.Project.Web.UserControls.DatePicker end , Nep.Project.Web.UserControls.TextBox amt  )
+        {
+            start.SelectedDate = null;
+            end.SelectedDate = null;
+            amt.Text = "";
+            if (no < dues.Count)
+            {
+                var due = dues[no];
+                start.SelectedDate = due.StartDate;
+                end.SelectedDate = due.EndDate;
+                amt.Text = due.Amount.ToString();
+            }
+        }
+        private void LoadDue( List<ContractDue> dues, Nep.Project.Web.UserControls.DatePicker start, Nep.Project.Web.UserControls.DatePicker end, Nep.Project.Web.UserControls.TextBox amt)
+        {
+            if (start.SelectedDate.HasValue && end.SelectedDate.HasValue && decimal.Parse(amt.Text) > 0)
+            {
+                var due = new ContractDue
+                {
+                    StartDate = start.SelectedDate,
+                    EndDate = end.SelectedDate,
+                    Amount = decimal.Parse(amt.Text)
+                };
+                dues.Add(due);
+            }
+             
+        }
         protected void ButtonSave_Click(object sender, EventArgs e)
         {
             ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
@@ -497,7 +528,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             ad.ProvinceId = provID;
             ad.DistrictId = distID;
             ad.SubDistrictId = subDistID;
-
+            result.Dues = new List<ContractDue>();
+            LoadDue(result.Dues, DatePickerStartDue1, DatePickerEndDue1, TextBoxDueAmount1);
+            LoadDue(result.Dues, DatePickerStartDue2, DatePickerEndDue2, TextBoxDueAmount2);
+            LoadDue(result.Dues, DatePickerStartDue3, DatePickerEndDue3, TextBoxDueAmount3);
             //ad = new ServiceModels.ProjectInfo.Address();
             //result.ExtendData.AddressAuth = ad;
             //ad.AddressNo = TextBoxAddressNo2.Text.Trim();
@@ -508,7 +542,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //ad.ZipCode = TextBoxPostCode2.Text.Trim();
             //provValue = DdlProvince2.Value;
             //provID = 0;
-            //Int32.TryParse(provValue, out provID);
+            //Int32.TryParse(provValue, out provID);d
 
             //distValue = DdlDistrict2.Value;
             //distID = 0;

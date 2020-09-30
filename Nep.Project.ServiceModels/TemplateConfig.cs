@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace Nep.Project.ServiceModels.TemplateConfig
 {
+    public class ContractDueWarning
+    {
+        public string ProjectTHName { get; set; }
+        public string OrganizationTHName { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public decimal? Amount { get; set; }
+
+    }
     public class OrgWaringReportParam
     {
         public Decimal ProjectID { get; set; }

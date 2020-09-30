@@ -807,6 +807,87 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::Nep.Project.Web.UserControls.C2XFileUpload FileUploadSupport;
 
         /// <summary>
+        /// DatePickerStartDue1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerStartDue1;
+
+        /// <summary>
+        /// DatePickerEndDue1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerEndDue1;
+
+        /// <summary>
+        /// TextBoxDueAmount1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxDueAmount1;
+
+        /// <summary>
+        /// DatePickerStartDue2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerStartDue2;
+
+        /// <summary>
+        /// DatePickerEndDue2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerEndDue2;
+
+        /// <summary>
+        /// TextBoxDueAmount2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxDueAmount2;
+
+        /// <summary>
+        /// DatePickerStartDue3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerStartDue3;
+
+        /// <summary>
+        /// DatePickerEndDue3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerEndDue3;
+
+        /// <summary>
+        /// TextBoxDueAmount3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxDueAmount3;
+
+        /// <summary>
         /// Div1 control.
         /// </summary>
         /// <remarks>

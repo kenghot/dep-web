@@ -14,6 +14,11 @@ namespace Nep.Project.DBModels.Model
     
     public partial class ProjectContract
     {
+        public ProjectContract()
+        {
+            this.CONTRACTDUEs = new HashSet<CONTRACTDUE>();
+        }
+    
         public decimal ProjectID { get; set; }
         public string ContractNo { get; set; }
         public decimal ContractYear { get; set; }
@@ -58,5 +63,6 @@ namespace Nep.Project.DBModels.Model
     
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }
         public virtual MT_Attachment AuthorizeDoc { get; set; }
+        public virtual ICollection<CONTRACTDUE> CONTRACTDUEs { get; set; }
     }
 }

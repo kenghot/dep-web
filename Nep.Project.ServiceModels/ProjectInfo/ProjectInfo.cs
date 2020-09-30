@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Nep.Project.Resources;
 using Nep.Project.DBModels;
-
+using Nep.Project.DBModels.Model;
 
 namespace Nep.Project.ServiceModels.ProjectInfo
 {
@@ -1914,6 +1914,15 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public ContractExtend ExtendData { get; set; }
         public string ExtendJson { get; set; }
 
+        public List<ContractDue> Dues { get; set; }
+    }
+    public class ContractDue
+    {
+        public decimal? Amount { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public decimal? ProjectId { get; set; }
+        public decimal DueId { get; set; }
     }
     public class ContractExtend
     {

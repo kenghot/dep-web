@@ -93,6 +93,7 @@ namespace Nep.Project.DBModels.Model
         public virtual DbSet<PROJECTPROCESSED> PROJECTPROCESSEDs { get; set; }
         public virtual DbSet<PROJECTBUDGETACTIVITY> PROJECTBUDGETACTIVITies { get; set; }
         public virtual DbSet<LOG_ACCESS> LOG_ACCESS { get; set; }
+        public virtual DbSet<CONTRACTDUE> CONTRACTDUEs { get; set; }
     
         public virtual int ClearUserAccess()
         {
