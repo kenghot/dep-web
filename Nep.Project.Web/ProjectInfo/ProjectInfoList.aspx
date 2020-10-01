@@ -596,8 +596,10 @@
                                <asp:HyperLink ID="ImageButton2" alt="report" runat="server" ImageUrl="~/Images/icon/excel_small.jpg"                                    
                                    NavigateUrl='<%# "~/Report/ReportSummaryProjectInfo1?id="+ Eval("ProjectInfoID").ToString() + "&provinceabbr=" + Eval("ProvinceAbbr").ToString() %>'
                                    Target="_blank" ToolTip="<%$ code:UI.ToolTipViewProjectInfo1Click %>" visible='<%# ( (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer) && (Eval("ProjectApprovalStatusCode").ToString() != Nep.Project.Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร) )? true : false %>' />                           
-                               <asp:ImageButton ID="BudgetDetailButtonDelete" alt="delete" ToolTip="<%$ code:UI.ButtonDelete %>" runat="server" ImageUrl="~/Images/icon/round_delete_icon_16.png" 
-                                      CommandName="del" CommandArgument='<%# Eval("ProjectInfoID") %>' Visible='<%# (Convert.ToBoolean(Eval("IsDeletable")) && IsDeleteRole)%>' OnClientClick="return ConfirmToDelete()" /> 
+                               <asp:ImageButton ID="ImageButton3" alt="delete" ToolTip="<%$ code:UI.ButtonDelete %>" runat="server" ImageUrl="~/Images/icon/round_delete_icon_16.png" 
+                                      CommandName="del" CommandArgument='<%# Eval("ProjectInfoID") %>' Visible='<%#  IsDeleteRole%>' OnClientClick="return ConfirmToDelete()" />                                
+                              <%-- <asp:ImageButton ID="BudgetDetailButtonDelete" alt="delete" ToolTip="<%$ code:UI.ButtonDelete %>" runat="server" ImageUrl="~/Images/icon/round_delete_icon_16.png" 
+                                      CommandName="del" CommandArgument='<%# Eval("ProjectInfoID") %>' Visible='<%# (Convert.ToBoolean(Eval("IsDeletable")) && IsDeleteRole)%>' OnClientClick="return ConfirmToDelete()" /> --%>
                            </td>
                            <td style="text-align:center;vertical-align:central">
                                <asp:Image ID="imgApprovalStatus" alt="approve" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />

@@ -30,7 +30,7 @@ namespace Nep.Project.Business
             SendTrackingWarning30Days();
             SendTrackingWarning45Days();
             ResendTrackingWarning30Days();
-            SendTrackingWarningContract()
+            SendTrackingWarningContract();
         }
 
         private void SendTrackingWarningContract()
@@ -47,32 +47,83 @@ namespace Nep.Project.Business
                 int cDay = compareDate.Day;
 
                 var dues = _db.CONTRACTDUEs.Where(w => w.STARTDATE == compareDate && w.MAILSENT != "1").ToList();
-                var data = new List<ServiceModels.TemplateConfig.ContractDueWarning>();
-                foreach (var item in dues)
-                {
-                    var due = new ServiceModels.TemplateConfig.ContractDueWarning
-                    {
-                        Amount = item.AMOUNT,
-                        EndDate = item.ENDDATE,
-                        StartDate = item.STARTDATE
-                    };
-                    var proj = _db.ProjectInformations.Where(w => w.ProjectID == item.PROJECTID).FirstOrDefault();
-                    if (proj != null)
-                    {
-                        due.ProjectTHName = proj.ProjectNameTH;
-                        due.OrganizationTHName = proj.ProjectGeneralInfo.OrganizationNameTH;
-                    }
-                }
+                var data = (from d in _db.CONTRACTDUEs
+                             join i in _db.ProjectInformations on d.PROJECTID equals i.ProjectID
+                             join g in _db.ProjectGeneralInfoes on i.ProjectID equals g.ProjectID
+                             join person in _db.ProjectPersonels on i.ProjectID equals person.ProjectID
+                             join c in _db.ProjectContracts on i.ProjectID equals c.ProjectID
+                             join org in _db.MT_Organization on g.OrganizationID equals org.OrganizationID
+                             where d.STARTDATE == compareDate && d.MAILSENT != "1"
+                             select new ServiceModels.TemplateConfig.ContractDueWarning
+                             {
+                                 Amount = d.AMOUNT,
+                                 DueId = d.DUEID,
+                                 EndDate = d.ENDDATE,
+                                 OrganizationTHName = org.OrganizationNameTH,
+                                 ProjectTHName = i.ProjectNameTH,
+                                 StartDate = d.STARTDATE,
+                                 Email1 = person.Email1,
+                                 Email = org.Email,
+                                 DueNo = d.DUENO,
+
+                             }).ToList();
+     
 
 
-                SendTrackingWarning(projectList, followupStatus.LOVID);
+                SendContractWarning(data);
             }
             catch (Exception ex)
             {
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Contract Due", ex);
             }
         }
+        private void SendContractWarning(List<ServiceModels.TemplateConfig.ContractDueWarning> datas)
+        {
+            var folloupContact = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.FOLLOWUP_CONTACT).Select(y => y.ParameterValue).FirstOrDefault();
+            var nepProjectDirectorPosition = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_PROJECT_DIRECTOR_POSITION).Select(y => y.ParameterValue).FirstOrDefault();
 
+            ServiceModels.TemplateConfig.ContractDueWarning param;
+            String smsFormat = Nep.Project.Resources.Message.WarningProjectReportResultSMS;
+            //String sms;
+            //String endDateProjectReport;
+            //String errorSendTracking = Nep.Project.Resources.Error.TrackingProjectReportError;
+            //String orgName = "";
+ 
+
+
+            if (datas != null)
+            {
+                for (int i = 0; i < datas.Count; i++)
+                {
+                    try
+                    {
+                        param = datas[i];
+
+                        _mailService.SendWarningContractDue(folloupContact, param ,param.Email);
+
+                        if (param.Email.ToLower() == param.Email1.ToLower())
+                        {
+                            _mailService.SendWarningContractDue(folloupContact, param, param.Email1);
+                            //_smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
+                        }
+                      
+
+
+                        var due = _db.CONTRACTDUEs.Where(w => w.DUEID == param.DueId).FirstOrDefault();
+                        if (due != null)
+                        {
+                            due.MAILSENT = "1";
+                            _db.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", String.Format(errorSendTracking, orgName));
+                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", ex);
+                    }
+                }
+            }
+        }
         private void SendTrackingWarning30Days()
         {
             try
@@ -343,59 +394,7 @@ namespace Nep.Project.Business
             }
         }
 
-        private void SendContractWarning(List<ServiceModels.TemplateConfig.OrgWaringReportParam> projectList, decimal? followupStatusID)
-        {
-            var folloupContact = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.FOLLOWUP_CONTACT).Select(y => y.ParameterValue).FirstOrDefault();
-            var nepProjectDirectorPosition = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_PROJECT_DIRECTOR_POSITION).Select(y => y.ParameterValue).FirstOrDefault();
-
-            ServiceModels.TemplateConfig.OrgWaringReportParam param;
-            String smsFormat = Nep.Project.Resources.Message.WarningProjectReportResultSMS;
-            String sms;
-            String endDateProjectReport;
-            String errorSendTracking = Nep.Project.Resources.Error.TrackingProjectReportError;
-            String orgName = "";
-            String orgMobile = "";
-            String personMobile = "";
-
-
-            if (projectList != null)
-            {
-                for (int i = 0; i < projectList.Count; i++)
-                {
-                    try
-                    {
-                        param = projectList[i];
-                        param.ContractNo = Common.Web.WebUtility.ParseToThaiNumber(param.ContractNo);
-                        orgName = param.OrganizationNameTH;
-                        orgMobile = param.Mobile;
-                        personMobile = param.Mobile1;
-                        endDateProjectReport = Common.Web.WebUtility.ToBuddhaDateFormat(param.EnddateProjectReport, "dMMMyy", "");
-                        endDateProjectReport = endDateProjectReport.Replace(".", "");
-                        sms = String.Format(smsFormat, endDateProjectReport);
-
-                        if (param.Email.ToLower() == param.Email1.ToLower())
-                        {
-                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
-                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
-                        }
-                        else
-                        {
-                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
-                            _mailService.SendWarningProjectReportResultToPerson(folloupContact, nepProjectDirectorPosition, param);
-                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
-                        }
-
-                        _smsService.Send(sms, param.Mobile, param.Mobile1);
-                        UpdateFollowupStatus(param.ProjectID, followupStatusID);
-                    }
-                    catch (Exception ex)
-                    {
-                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", String.Format(errorSendTracking, orgName));
-                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", ex);
-                    }
-                }
-            }
-        }
+   
         private void UpdateFollowupStatus(decimal projectID, decimal? followupStautsID)
         {           
             DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == projectID).FirstOrDefault();

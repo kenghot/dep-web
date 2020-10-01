@@ -204,7 +204,29 @@ namespace Nep.Project.Business
                 SendMailWithTemplate("RejectProjectNotify", parameters, email);
             }
         }
+        public void SendWarningContractDue(String folloupContact, ServiceModels.TemplateConfig.ContractDueWarning param,string email)
+        {
+            var diffM = 0;
+            if (param.StartDate.HasValue && param.EndDate.HasValue)
+            {
+               diffM = (param.EndDate.Value.Year * 12 + param.EndDate.Value.Month) - (param.StartDate.Value.Year * 12 + param.StartDate.Value.Month);
+            }
+             
+            var parameters = new Dictionary<String, String>()
+            {
+                {"dueNo", Common.Web.WebUtility.ToThaiNumber(param.DueNo, "##")},
+                {"organizationNameTH", param.OrganizationTHName},
+                {"fromDate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.StartDate)},
+                {"toDate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EndDate)},
+                {"projectNameTH", param.ProjectTHName},
+                {"nAmount", Common.Web.WebUtility.ToThaiNumber(param.Amount, "#,###.00")},
+                {"strAmount", Common.Web.WebUtility.ToThaiBath(param.Amount)},
+                {"months", Common.Web.WebUtility.ToThaiNumber(diffM, "##")},
+                {"followupcontact", folloupContact}
+            };
 
+            SendMailWithTemplate("WarningContractDue", parameters, email);
+        }
         public void SendWarningProjectReportResultToOrg(String folloupContact, String nepProjectDirectorPosition,  ServiceModels.TemplateConfig.OrgWaringReportParam param)
         {
             string email = param.Email;

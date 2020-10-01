@@ -136,7 +136,11 @@ namespace Nep.Project.Business
                     _db.ProjectOperationAddresses.RemoveRange(opAddress);
                 }
                 #endregion ลบข้อมูลสถานที่ดำเนินโครงการ
-
+                var contracts = _db.ProjectContracts.Where(w => w.ProjectID == id).ToList();
+                if (contracts != null && contracts.Count > 0)
+                {
+                    _db.ProjectContracts.RemoveRange(contracts);
+                }
                 #region ลบข้อมูลทั่วไป
                 DBModels.Model.ProjectGeneralInfo proGen = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == id).FirstOrDefault();
                 if (proGen != null)
@@ -153,6 +157,10 @@ namespace Nep.Project.Business
             catch (Exception ex)
             {
                 result.IsCompleted = false;
+                if (ex.InnerException != null)
+                {
+                    result.Message.Add(ex.InnerException.Message);
+                }
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
             }

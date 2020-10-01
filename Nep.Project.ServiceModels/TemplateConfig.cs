@@ -8,11 +8,15 @@ namespace Nep.Project.ServiceModels.TemplateConfig
 {
     public class ContractDueWarning
     {
+        public short? DueNo { get; set; }
+        public decimal DueId { get; set; }
         public string ProjectTHName { get; set; }
         public string OrganizationTHName { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public decimal? Amount { get; set; }
+        public string Email1 { get; set; }
+        public string Email { get; set; }
 
     }
     public class OrgWaringReportParam

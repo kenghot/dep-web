@@ -24,7 +24,7 @@ namespace Nep.Project.Web
             get { return _containerProvider; }
         }
 
-        //List<Infra.JobHost> _jobs = new List<Infra.JobHost>();
+        List<Infra.JobHost> _jobs = new List<Infra.JobHost>();
 
         //List<Infra.JobHost<>> job = new List<Infra.JobHost<>>();
 
@@ -40,9 +40,9 @@ namespace Nep.Project.Web
             //DependencyResolver.SetResolver(new AutofacDependencyResolver(_containerProvider)); //Set the MVC DependencyResolver
             //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)_containerProvider); //Set the WebApi DependencyResolver
             //Clear UserAccess every 10 minutes
-            //_jobs.Add(Infra.JobHost.CreateJobHost<Infra.ClearUserAccessJob>(10 * 60 * 1000L, true));
+            _jobs.Add(Infra.JobHost.CreateJobHost<Infra.ClearUserAccessJob>(10 * 60 * 1000L, true));
 
-           // _jobs.Add(Infra.JobHost.CreateJobHost<Infra.SetFollowupStatusJob>(new TimeSpan(0, 0, 0)));
+           _jobs.Add(Infra.JobHost.CreateJobHost<Infra.SetFollowupStatusJob>(new TimeSpan(0, 0,0)));
             //_jobs.Add(Infra.JobHost.CreateJobHost<Infra.SetFollowupStatusJob>(new TimeSpan(16,55, 10)));
         }
 
