@@ -24,7 +24,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string ProjectNameTH { get; set; }
         public string OrganizationNameTH { get; set; }
         public string ProvinceName { get; set; }
-        public decimal BudgetYear { get; set; }
+        public decimal? BudgetYear { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string FollowUp { get; set; }

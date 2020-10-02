@@ -167,8 +167,8 @@ namespace Nep.Project.Web.Report
             bool isProvince = UserInfo.IsProvinceOfficer;
             decimal? budgetYear = null;
             decimal? provinceId = null;
-            String name = null;
-            String idcardno = null;
+            List<String> names = new List<string>();
+            List<String> idcardnos = new List<string>();
 
             //ปีงบประมาณ
             if (DatePickerStartBudgetYear.SelectedDate.HasValue)
@@ -195,15 +195,15 @@ namespace Nep.Project.Web.Report
             //ชื่อ นามสกุล
             if (!String.IsNullOrEmpty(TextBoxName.Text))
             {
-                name = TextBoxName.Text.Trim();
+                names = TextBoxName.Text.Trim().Split(',').ToList();
             }
 
             //เลขที่บัตรประชากร
             if (!String.IsNullOrEmpty(TextBoxIdCardNo.Text))
             {
-                idcardno = TextBoxIdCardNo.Text.Trim();
+                idcardnos = TextBoxIdCardNo.Text.Trim().Split(',').ToList();
             }
-            var result = this._service.ListReportOverlap(budgetYear, provinceId, name, idcardno);
+            var result = this._service.ListReportOverlap(budgetYear, provinceId, names, idcardnos);
             if (result.IsCompleted)
             {
                 data = result.Data;

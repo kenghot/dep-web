@@ -915,7 +915,7 @@ namespace Nep.Project.Web.ProjectInfo
         #region Grid Project Info
         public List<ServiceModels.ProjectInfo.ProjectInfoList> GridProjectInfo_GetData(int startRowIndex, int maximumRows, string sortByExpression, out int totalRowCount)
         {
-            var result = this.ProjectService.ListProjectInfoList(GridProjectInfo.QueryParameter);
+            var result = this.ProjectService.ListProjectInfoList(GridProjectInfo.QueryParameter,false);
             List<ServiceModels.ProjectInfo.ProjectInfoList> data = new List<ServiceModels.ProjectInfo.ProjectInfoList>();
             totalRowCount = 0;
             if (result.IsCompleted)

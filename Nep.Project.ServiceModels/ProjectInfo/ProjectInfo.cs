@@ -766,7 +766,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                 String desc = this.ProjectName;
                 if ((this.IsFollowup.HasValue) && (this.IsFollowup == true))
                 {
-                    desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", FollowupStatusName) ;
+                    desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", FollowupStatusName);
                 }
 
                 if ((this.IsCancelContract.HasValue) && (this.IsCancelContract == true))
@@ -774,16 +774,18 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                     desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", Nep.Project.Resources.UI.LabelCancelContractStatus);
                 }
 
-                if(!String.IsNullOrEmpty(this.ApprovalStatus) && (this.ApprovalStatus == "0"))
+                if (!String.IsNullOrEmpty(this.ApprovalStatus) && (this.ApprovalStatus == "0"))
                 {
                     desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", Nep.Project.Resources.UI.LabelNotApprovalStatus);
                 }
 
-                if(this.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง){
+                if (this.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง)
+                {
                     desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", Nep.Project.Resources.UI.LabelCancelledProjectRequest);
                 }
 
-                if(this.IsReject){
+                if (this.IsReject)
+                {
                     desc += String.Format("<span class='alert-reject-desc'> ({0}) </span>", Nep.Project.Resources.UI.LabelRejectedProject);
                 }
                 if (this.IsReportRevise)
@@ -806,13 +808,20 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public String ProvinceName { get; set; }
         public String ProvinceAbbr { get; set; }
 
-        public Decimal BudgetYear { get; set; }
+        public Decimal? BudgetYear { get; set; }
         public Int32 BudgetYearThai
         {
             get
             {
-                DateTime date = new DateTime((Int32)BudgetYear, 1, 1, 0, 0, 0, Common.Constants.CULTUREINFO.Calendar);
-                return Convert.ToInt32(date.ToString("yyyy", Common.Constants.UI_CULTUREINFO));
+                if (this.BudgetYear.HasValue)
+                {
+                    DateTime date = new DateTime((Int32)BudgetYear, 1, 1, 0, 0, 0, Common.Constants.CULTUREINFO.Calendar);
+                    return Convert.ToInt32(date.ToString("yyyy", Common.Constants.UI_CULTUREINFO));
+                }else
+                {
+                    return 0;
+                }
+                
             }
         }
         public Decimal? BudgetValue { get; set; }

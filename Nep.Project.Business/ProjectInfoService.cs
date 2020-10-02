@@ -125,7 +125,7 @@ namespace Nep.Project.Business
                 if (eval != null)
                 {
                     _db.ProjectEvaluations.Remove(eval);
-                    _db.SaveChanges();
+                    //_db.SaveChanges();
                 }
                 #endregion ลบข้อมูลการประเมิน
 
@@ -140,6 +140,11 @@ namespace Nep.Project.Business
                 if (contracts != null && contracts.Count > 0)
                 {
                     _db.ProjectContracts.RemoveRange(contracts);
+                }
+                var approvals = _db.ProjectApprovals.Where(w => w.ProjectID == id).ToList();
+                if (approvals != null && approvals.Count > 0)
+                {
+                    _db.ProjectApprovals.RemoveRange(approvals);
                 }
                 #region ลบข้อมูลทั่วไป
                 DBModels.Model.ProjectGeneralInfo proGen = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == id).FirstOrDefault();
@@ -4801,7 +4806,7 @@ namespace Nep.Project.Business
             else
                 return null;
         }
-        public ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> ListProjectInfoList(ServiceModels.QueryParameter p)
+        public ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> ListProjectInfoList(ServiceModels.QueryParameter p, bool isCountOnly)
         {
             ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> result = new ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList>();
             try
@@ -4876,6 +4881,7 @@ namespace Nep.Project.Business
                               FollowupStatusID = proj.FollowupStatusID,
                               //ApprovalBudget1 = GetApprovalBudgetByProjecID(proj.ProjectID)
                               RejectComment = proj.REJECTCOMMENT
+
                           }).ToQueryData(p);
             }
             catch (Exception ex)
@@ -4886,10 +4892,14 @@ namespace Nep.Project.Business
             }
             if (result.IsCompleted)
             {
-                foreach (ServiceModels.ProjectInfo.ProjectInfoList pl in result.Data)
+                if (!isCountOnly)
                 {
-                    pl.ApprovalStatus1 = GetApprovalBudgetByProjecID(pl.ProjectInfoID);
+                    foreach (ServiceModels.ProjectInfo.ProjectInfoList pl in result.Data)
+                    {
+                        pl.ApprovalStatus1 = GetApprovalBudgetByProjecID(pl.ProjectInfoID);
+                    }
                 }
+
             }
 
             return result;
@@ -6526,7 +6536,7 @@ namespace Nep.Project.Business
             ServiceModels.ReturnObject<decimal> result = new ReturnObject<decimal>();
             try
             {
-                var searchResult = ListProjectInfoList(p);
+                var searchResult = ListProjectInfoList(p, true);
 
                 result.IsCompleted = searchResult.IsCompleted;
                 result.Message = searchResult.Message;
@@ -10144,7 +10154,7 @@ namespace Nep.Project.Business
             pie.series.Add(s);
             s.type = "pie";
             s.data = new List<ServiceModels.KendoChartData>();
-            var all = ListProjectInfoList(new QueryParameter() { PageSize = 9999999 });  //(from a in  _db.View_ProjectList select a ).ToList();
+            var all = ListProjectInfoList(new QueryParameter() { PageSize = 9999999 },false);  //(from a in  _db.View_ProjectList select a ).ToList();
             int follow, expire, newreq, notreport;
             follow = expire = newreq = notreport = 0;
             var today = DateTime.Now.Date;
@@ -10187,7 +10197,7 @@ namespace Nep.Project.Business
             //ret.Add(new List<ProjectInfoList>()); //not report
             //ret.Add(new List<ProjectInfoList>()); // follow
             //ret.Add(new List<ProjectInfoList>()); // new
-            var all = ListProjectInfoList(q);  //(from a in  _db.View_ProjectList select a ).ToList();
+            var all = ListProjectInfoList(q,false);  //(from a in  _db.View_ProjectList select a ).ToList();
 
             int follow, expire, newreq, notreport, allNotexp, other;
             decimal followAmt, expireAmt, newreqAmt, notreportAmt, allNotexpAmt, otherAmt;

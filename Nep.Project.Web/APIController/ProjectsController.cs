@@ -94,7 +94,7 @@ namespace Nep.Project.Web.APIController
 
                 System.Web.UI.WebControls.SortDirection sort = (System.Web.UI.WebControls.SortDirection)p.SortDirection;
                 ServiceModels.QueryParameter QueryParameter =  Nep.Project.Common.Web.NepHelper.ToQueryParameter(filter, p.PageIndex, p.PageSize, "ProjectInfoID", System.Web.UI.WebControls.SortDirection.Descending);
-                var pjs = projService.ListProjectInfoList(QueryParameter);
+                var pjs = projService.ListProjectInfoList(QueryParameter,false);
                 if (pjs.IsCompleted)
                 {
                     result.Data = new  ProjectScreen ();

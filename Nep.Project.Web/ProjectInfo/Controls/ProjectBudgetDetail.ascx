@@ -1758,7 +1758,7 @@
                                 อัตราค่าจ้างขั้นต่ำของแต่ละพื้นที่ตามประกาศ คณะกรรมการค่าจ้าง  <span id="b21_message_error4" style="color:red"></span> <br />
                                 <input type="text" min="0" style="width:70px" id="B21_2_2_1" onblur="khProjBG.B21();"  data-bind="kendoNumericTextBox: { value: B21_2_2_1, spinners: false, format: '#,###.##' }" /> บาท x 
                                 <input type="text" min="0" onblur="khProjBG.B21();" style="width:60px"  id="B21_2_2_2"  data-bind="kendoNumericTextBox: { value: B21_2_2_2, spinners: false, format: '#,###.##' }" /> คน
-                                <input type="text" min="0" style="width:60px" onblur="khProjBG.B21();" id="B21_2_2_3"  data-bind="kendoNumericTextBox: { value: B21_2_2_3, spinners: false, format: '#,###.##' }" /> เดือน
+                                <input type="text" min="0" style="width:60px" onblur="khProjBG.B21();" id="B21_2_2_3"  data-bind="kendoNumericTextBox: { value: B21_2_2_3, spinners: false, format: '#,###.##' }" /> บาท
                             </td>
                             <td class="B22"> </td>
                         </tr>

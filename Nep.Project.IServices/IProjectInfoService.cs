@@ -25,7 +25,7 @@ namespace Nep.Project.IServices
 
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.OrganizationInfo> GetProjectGeneralInfoByProjectID(Decimal id);
 
-        ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> ListProjectInfoList(ServiceModels.QueryParameter p);
+        ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectInfoList> ListProjectInfoList(ServiceModels.QueryParameter p, bool isCountOnly);
 
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.OrganizationInfo> Update(ServiceModels.ProjectInfo.OrganizationInfo model);
 

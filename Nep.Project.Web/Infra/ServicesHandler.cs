@@ -803,7 +803,7 @@ namespace Nep.Project.Web.Infra
                 //}
                 //var pass = json["password"].ToString();
                 var param = Nep.Project.Common.Web.NepHelper.ToQueryParameter(fields, pageIndex, pageSize, "CreatedDate", System.Web.UI.WebControls.SortDirection.Descending);
-                var result = _projService.ListProjectInfoList(param);
+                var result = _projService.ListProjectInfoList(param,false);
                 if (result.IsCompleted)
                 {
                     ret.IsCompleted = true;

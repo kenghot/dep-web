@@ -4254,7 +4254,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CreatorProvinceID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="IsCreateByOfficer" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="BudgetYear" Type="Decimal" Nullable="false" />
+          <Property Name="BudgetYear" Type="Decimal" Nullable="true" />
           <Property Name="ProvinceAbbr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="ApprovalStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="SubmitedDate" Type="DateTime" Precision="6" />

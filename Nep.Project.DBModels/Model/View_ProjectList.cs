@@ -47,7 +47,7 @@ namespace Nep.Project.DBModels.Model
         public string CreatedBy { get; set; }
         public Nullable<decimal> CreatorProvinceID { get; set; }
         public Nullable<decimal> IsCreateByOfficer { get; set; }
-        public decimal BudgetYear { get; set; }
+        public Nullable<decimal> BudgetYear { get; set; }
         public string ProvinceAbbr { get; set; }
         public string ApprovalStatus { get; set; }
         public Nullable<System.DateTime> SubmitedDate { get; set; }
