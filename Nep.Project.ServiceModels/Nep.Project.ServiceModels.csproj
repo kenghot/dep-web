@@ -48,6 +48,7 @@
     <Compile Include="API\Requests\ProjectInfo.cs" />
     <Compile Include="API\Requests\System.cs" />
     <Compile Include="API\Responses\Common.cs" />
+    <Compile Include="API\Responses\DashBoard.cs" />
     <Compile Include="API\Responses\ProjectInfo.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="KendoChart.cs" />

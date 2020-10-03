@@ -12,6 +12,20 @@
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
+                   <div class="form-group form-group-sm">
+                        <label class="col-sm-2 control-label">เลขที่อ้างอิงสัญญา</label>
+                        <div class="col-sm-4 control-value">
+                            <nep:TextBox ID="TextBoxReferenceNo" runat="server" MaxLength="20" CssClass="form-control" />
+<%--                            <asp:CustomValidator ID="CustomValidator1" ControlToValidate="TextBoxContractNo"
+                                runat="server" CssClass="error-text" SetFocusOnError="true" ValidateEmptyText="true"
+                                ClientValidationFunction="validateContractNo"
+                                OnServerValidate="CustomValidatorContractNo_ServerValidate"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractNo) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractNo) %>"
+                                ValidationGroup="SaveContract" />--%>
+                        </div>
+ 
+                    </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.Contract_ContractNo %></label>
                         <div class="col-sm-4 control-value">

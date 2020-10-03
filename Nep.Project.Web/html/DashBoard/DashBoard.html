@@ -1,5 +1,6 @@
 ﻿<template id="base-material-stats-card">
     <base-material-card ref="bmc" :icon="icon"
+                        :color="color"
                         class="v-card--material-stats"
                         style="margin-top: 30px;margin-bottom: 15px;"
                         v-bind="$attrs"
@@ -7,8 +8,7 @@
 
         <template v-slot:after-heading>
             <div class="ml-auto text-right">
-                <div class="body-3 grey--text font-weight-light"
-                      >{{title}}</div>
+                <div class="body-3 grey--text font-weight-light">{{title}}</div>
 
                 <h3 class="display-2 font-weight-light text--primary" style="margin:0">
                     {{ value }} <small>{{ smallValue }}</small>
@@ -28,8 +28,7 @@
         </v-icon>
 
         <span :class="subTextColor"
-              class="caption grey--text font-weight-light"
-               >{{subText}}</span>
+              class="caption grey--text font-weight-light">{{subText}}</span>
     </base-material-card>
 
 </template>
@@ -62,16 +61,14 @@
                       name="image"></slot>
 
                 <div v-else-if="title && !icon"
-                     class="display-1 font-weight-light"
-                     >{{title}}</div>
+                     class="display-1 font-weight-light">{{title}}</div>
 
                 <v-icon v-else-if="icon"
                         size="32"
                         v-text="icon"></v-icon>
 
                 <div v-if="text"
-                     class="headline font-weight-thin"
-                     >{{text}}</div>
+                     class="headline font-weight-thin">{{text}}</div>
             </v-sheet>
 
             <div v-if="$slots['after-heading']"
@@ -103,37 +100,89 @@
         <v-container id="dashboard"
                      fluid
                      tag="section">
-            <v-col cols="12"
-                   sm="3"
-                   lg="4">
-                <base-material-stats-card ref="statCard" color="info"
-                                          icon="mdi-twitter"
-                                          title="Followers"
-                                          value="+245"
-                                          sub-icon="mdi-clock"
-                                          sub-text="จำนวนโครงการบลา บลา บลา" />
-            </v-col>
-            <v-col cols="12"
-                   sm="3"
-                   lg="4">
-                <base-material-stats-card ref="statCard" color="info"
-                                          icon="mdi-twitter"
-                                          title="Followers"
-                                          value="+245"
-                                          sub-icon="mdi-clock"
-                                          sub-text="จำนวนโครงการบลา บลา บลา" />
-            </v-col>
-            <v-col cols="12"
-                   sm="3"
-                   lg="4">
-                <base-material-stats-card ref="statCard" color="info"
-                                          icon="mdi-twitter"
-                                          title="Followers"
-                                          value="+245"
-                                          sub-icon="mdi-clock"
-                                          sub-text="จำนวนโครงการบลา บลา บลา" />
-            </v-col>
-        </v-container>
+            <v-expansion-panels multiple :value="[0,1]">
+                <v-expansion-panel>
+                    <v-expansion-panel-header>ภาพรวม</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard1" color="info"
+                                                      icon="mdi-office-building"
+                                                      title="จำนวนองค์กร"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="องค์การส่งคำร้องขอโครงการเข้ามาใหม่" />
+                        </v-col>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard2" color="lime"
+                                                      icon="mdi-account-multiple-plus-outline"
+                                                      title="จำนวนองค์กร"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="องค์กรสมัครขอเปิดใช้ User ใหม่" />
+                        </v-col>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard3" color="red"
+                                                      icon="mdi-file-alert-outline"
+                                                      title="จำนวนโครงการ"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="องค์กรยังไม่ได้ยื่นผลการดำเนินงานและประเมิน" />
+                        </v-col>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard4" color="grey"
+                                                      icon="mdi-battery-charging-outline"
+                                                      title="จำนวนโครงการ"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="โครงการที่ยังไม่ได้ดำเนินการใดๆ (รับเรื่อง)" />
+                        </v-col>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard5" color="green"
+                                                      icon="mdi-battery-charging-high"
+                                                      title="จำนวนโครงการ"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="โครงการที่ส่งแบบรายงานผลการปฎิบัติงานเรียบร้อยแล้ว" />
+                        </v-col>
+                        <v-col cols="12"
+                               sm="3"
+                               lg="4">
+                            <base-material-stats-card ref="statCard6" color="purple"
+                                                      icon="mdi-sync"
+                                                      title="จำนวนโครงการ"
+                                                      value="+245"
+                                                      sub-icon="mdi-clock"
+                                                      sub-text="โครงการที่ถูกแก้ไขและส่งกลับมาเข้าระบบใหม่" />
+                        </v-col>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+                <v-expansion-panel>
+                    <v-expansion-panel-header>จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <v-col cols="12">
+                            <bar-chart ref="bar" :chartdata="lineData1" :options="lineOption1" />
+                        </v-col>
+                        <div>
+                            
+                        </div>
+                        <div>
+                            <polar-chart :chartdata="lineData1" :options="lineOption1" />
+                        </div>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+</v-container>
+  
 
     </v-app>
 </div>

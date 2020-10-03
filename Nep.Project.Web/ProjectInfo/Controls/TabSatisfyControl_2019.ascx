@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TabSatisfyControl.ascx.cs" Inherits="Nep.Project.Web.ProjectInfo.Controls.TabSatisfyControl"  %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TabSatisfyControl_2019.ascx.cs" Inherits="Nep.Project.Web.ProjectInfo.Controls.TabSatisfyControl_2019"  %>
 <%@ Import Namespace="Nep.Project.Resources" %>
 
 
@@ -160,11 +160,11 @@
 
               
                     <p></p>
-<%--                    <div class="form-group form-group-sm">
+                    <div class="form-group form-group-sm">
                          <div class="col-sm-12">
                         จำนวนที่สำรวจ <input type="number"  v-model.number="items[field.fAll].v" onblur="CalAllSatisfy()" /> ชุด
                              </div>
-                    </div>--%>
+                    </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-12 form-group-title">ส่วนที่ 2 : ระดับความพึงพอใจของผู้รับบริการ</label>
                     </div>
@@ -179,14 +179,14 @@
 <thead class="k-grid-header" role="rowgroup">
                         <tr role="row">
                                  <%--<th scope="col" role="columnheader" data-field="No" rowspan="1" data-title="ลำดับ" data-index="0" id="efdc983f-8432-4625-9261-e515c41db2c6" class="k-header">ลำดับ</th>--%>
-                                <th scope="col" role="columnheader" class="k-header" >ประเด็นการสารวจความพึงพอใจ</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">มากที่สุด</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">มาก</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">ปานกลาง</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">น้อย</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">น้อยที่สุด</th>
+                                <th rowspan="2" scope="col" role="columnheader" class="k-header" >ประเด็นการสารวจความพึงพอใจ</th>
+                                <th colspan="2" scope="col" role="columnheader" class="k-header" style="width:50px">มากที่สุด</th>
+                                <th colspan="2" scope="col" role="columnheader" class="k-header" style="width:50px">มาก</th>
+                                <th colspan="2" scope="col" role="columnheader" class="k-header" style="width:50px">ปานกลาง</th>
+                                <th colspan="2" scope="col" role="columnheader" class="k-header" style="width:50px">น้อย</th>
+                                <th colspan="2" scope="col" role="columnheader" class="k-header" style="width:50px">น้อยที่สุด</th>
                         </tr>
-  <%--                      <tr role="row">
+                        <tr role="row">
                                
                                 <th scope="col" role="columnheader" class="k-header" >ราย</th>
                                 <th scope="col" role="columnheader" class="k-header" >%</th>
@@ -198,8 +198,8 @@
                                 <th scope="col" role="columnheader" class="k-header" >%</th>
                                 <th scope="col" role="columnheader" class="k-header" >ราย</th>
                                 <th scope="col" role="columnheader" class="k-header" >%</th>
-                     
-                        </tr>--%>
+                                <%--<th scope="col" role="columnheader" class="k-header" style="width:150px">ไม่ตามแผน</th>--%>
+                        </tr>
 
 
                          </thead>
@@ -210,35 +210,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="1" v-model="items[field.QN1_0].v"  />
-<%--<input type="number" :id="items[field.QN1_0_0].n" title="QN1_0_0" v-model.number="items[field.QN1_0_0].v" onblur="CalSastisfy(this)" />--%>
+<input type="number" :id="items[field.QN1_0_0].n" title="QN1_0_0" v-model.number="items[field.QN1_0_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="2" v-model="items[field.QN1_0].v"  />
-<%--<input type="number" :id="items[field.QN1_0_1].n" title="QN1_0_1" v-model.number="items[field.QN1_0_1].v" onblur="CalSastisfy(this)" />--%>
+<span title="pQN1_0_0">{{items[field.pQN1_0_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_0_1].n" title="QN1_0_1" v-model.number="items[field.QN1_0_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="3" v-model="items[field.QN1_0].v"  />
-<%--<input type="number" :id="items[field.QN1_0_2].n" title="QN1_0_2" v-model.number="items[field.QN1_0_2].v" onblur="CalSastisfy(this)" />--%>
+<span title="pQN1_0_1">{{items[field.pQN1_0_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_0_2].n" title="QN1_0_2" v-model.number="items[field.QN1_0_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="4" v-model="items[field.QN1_0].v"  />
-<%--<input type="number" :id="items[field.QN1_0_3].n" title="QN1_0_3" v-model.number="items[field.QN1_0_3].v" onblur="CalSastisfy(this)" />--%>
+<span title="pQN1_0_2">{{items[field.pQN1_0_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_0_3].n" title="QN1_0_3" v-model.number="items[field.QN1_0_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="5" v-model="items[field.QN1_0].v"  />
-<%--<input type="number" :id="items[field.QN1_0_4].n" title="QN1_0_4" v-model.number="items[field.QN1_0_4].v" onblur="CalSastisfy(this)" />--%>
+<span title="pQN1_0_3">{{items[field.pQN1_0_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_0_4].n" title="QN1_0_4" v-model.number="items[field.QN1_0_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_0_4">{{items[field.pQN1_0_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -246,27 +261,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_1" value="1" v-model="items[field.QN1_1].v"  />
+<input type="number" :id="items[field.QN1_1_0].n" title="QN1_1_0" v-model.number="items[field.QN1_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_1" value="2" v-model="items[field.QN1_1].v"  />
+<span title="pQN1_1_0">{{items[field.pQN1_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_1_1].n" title="QN1_1_1" v-model.number="items[field.QN1_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_1" value="3" v-model="items[field.QN1_1].v"  />
+<span title="pQN1_1_1">{{items[field.pQN1_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_1_2].n" title="QN1_1_2" v-model.number="items[field.QN1_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_1" value="4" v-model="items[field.QN1_1].v"  />
+<span title="pQN1_1_2">{{items[field.pQN1_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_1_3].n" title="QN1_1_3" v-model.number="items[field.QN1_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_1" value="5" v-model="items[field.QN1_1].v"  />
+<span title="pQN1_1_3">{{items[field.pQN1_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_1_4].n" title="QN1_1_4" v-model.number="items[field.QN1_1_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_1_4">{{items[field.pQN1_1_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -276,27 +312,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_2" value="1" v-model="items[field.QN1_2].v"  />
+<input type="number" :id="items[field.QN1_2_0].n" title="QN1_2_0" v-model.number="items[field.QN1_2_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_2" value="2" v-model="items[field.QN1_2].v"  />
+<span title="pQN1_2_0">{{items[field.pQN1_2_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_2_1].n" title="QN1_2_1" v-model.number="items[field.QN1_2_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_2" value="3" v-model="items[field.QN1_2].v"  />
+<span title="pQN1_2_1">{{items[field.pQN1_2_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_2_2].n" title="QN1_2_2" v-model.number="items[field.QN1_2_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_2" value="4" v-model="items[field.QN1_2].v"  />
+<span title="pQN1_2_2">{{items[field.pQN1_2_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_2_3].n" title="QN1_2_3" v-model.number="items[field.QN1_2_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_2" value="5" v-model="items[field.QN1_2].v"  />
+<span title="pQN1_2_3">{{items[field.pQN1_2_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_2_4].n" title="QN1_2_4" v-model.number="items[field.QN1_2_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_2_4">{{items[field.pQN1_2_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -306,30 +363,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_3" value="1" v-model="items[field.QN1_3].v"  />
+<input type="number" :id="items[field.QN1_3_0].n" title="QN1_3_0" v-model.number="items[field.QN1_3_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_3" value="2" v-model="items[field.QN1_3].v"  />
+<span title="pQN1_3_0">{{items[field.pQN1_3_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_3_1].n" title="QN1_3_1" v-model.number="items[field.QN1_3_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_3" value="3" v-model="items[field.QN1_3].v"  />
+<span title="pQN1_3_1">{{items[field.pQN1_3_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_3_2].n" title="QN1_3_2" v-model.number="items[field.QN1_3_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_3" value="4" v-model="items[field.QN1_3].v"  />
+<span title="pQN1_3_2">{{items[field.pQN1_3_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_3_3].n" title="QN1_3_3" v-model.number="items[field.QN1_3_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_3" value="5" v-model="items[field.QN1_3].v"  />
+<span title="pQN1_3_3">{{items[field.pQN1_3_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_3_4].n" title="QN1_3_4" v-model.number="items[field.QN1_3_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_3_4">{{items[field.pQN1_3_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -337,27 +414,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_4" value="1" v-model="items[field.QN1_4].v"  />
+<input type="number" :id="items[field.QN1_4_0].n" title="QN1_4_0" v-model.number="items[field.QN1_4_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_4" value="2" v-model="items[field.QN1_4].v"  />
+<span title="pQN1_4_0">{{items[field.pQN1_4_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_4_1].n" title="QN1_4_1" v-model.number="items[field.QN1_4_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_4" value="3" v-model="items[field.QN1_4].v"  />
+<span title="pQN1_4_1">{{items[field.pQN1_4_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_4_2].n" title="QN1_4_2" v-model.number="items[field.QN1_4_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_4" value="4" v-model="items[field.QN1_4].v"  />
+<span title="pQN1_4_2">{{items[field.pQN1_4_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_4_3].n" title="QN1_4_3" v-model.number="items[field.QN1_4_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_4" value="5" v-model="items[field.QN1_4].v"  />
+<span title="pQN1_4_3">{{items[field.pQN1_4_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_4_4].n" title="QN1_4_4" v-model.number="items[field.QN1_4_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_4_4">{{items[field.pQN1_4_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -367,27 +465,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_5" value="1" v-model="items[field.QN1_5].v"  />
+<input type="number" :id="items[field.QN1_5_0].n" title="QN1_5_0" v-model.number="items[field.QN1_5_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_5" value="2" v-model="items[field.QN1_5].v"  />
+<span title="pQN1_5_0">{{items[field.pQN1_5_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_5_1].n" title="QN1_5_1" v-model.number="items[field.QN1_5_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_5" value="3" v-model="items[field.QN1_5].v"  />
+<span title="pQN1_5_1">{{items[field.pQN1_5_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_5_2].n" title="QN1_5_2" v-model.number="items[field.QN1_5_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_5" value="4" v-model="items[field.QN1_5].v"  />
+<span title="pQN1_5_2">{{items[field.pQN1_5_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_5_3].n" title="QN1_5_3" v-model.number="items[field.QN1_5_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_5" value="5" v-model="items[field.QN1_5].v"  />
+<span title="pQN1_5_3">{{items[field.pQN1_5_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN1_5_4].n" title="QN1_5_4" v-model.number="items[field.QN1_5_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN1_5_4">{{items[field.pQN1_5_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -397,30 +516,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_0" value="1" v-model="items[field.QN2_0].v"  />
+<input type="number" :id="items[field.QN2_0_0].n" title="QN2_0_0" v-model.number="items[field.QN2_0_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_0" value="2" v-model="items[field.QN2_0].v"  />
+<span title="pQN2_0_0">{{items[field.pQN2_0_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_0_1].n" title="QN2_0_1" v-model.number="items[field.QN2_0_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_0" value="3" v-model="items[field.QN2_0].v"  />
+<span title="pQN2_0_1">{{items[field.pQN2_0_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_0_2].n" title="QN2_0_2" v-model.number="items[field.QN2_0_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_0" value="4" v-model="items[field.QN2_0].v"  />
+<span title="pQN2_0_2">{{items[field.pQN2_0_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_0_3].n" title="QN2_0_3" v-model.number="items[field.QN2_0_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_0" value="5" v-model="items[field.QN2_0].v"  />
+<span title="pQN2_0_3">{{items[field.pQN2_0_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_0_4].n" title="QN2_0_4" v-model.number="items[field.QN2_0_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_0_4">{{items[field.pQN2_0_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -428,32 +567,53 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_1" value="1" v-model="items[field.QN2_1].v"  />
+<input type="number" :id="items[field.QN2_1_0].n" title="QN2_1_0" v-model.number="items[field.QN2_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_1" value="2" v-model="items[field.QN2_1].v"  />
+<span title="pQN2_1_0">{{items[field.pQN2_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_1_1].n" title="QN2_1_1" v-model.number="items[field.QN2_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_1" value="3" v-model="items[field.QN2_1].v"  />
+<span title="pQN2_1_1">{{items[field.pQN2_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_1_2].n" title="QN2_1_2" v-model.number="items[field.QN2_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_1" value="4" v-model="items[field.QN2_1].v"  />
+<span title="pQN2_1_2">{{items[field.pQN2_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_1_3].n" title="QN2_1_3" v-model.number="items[field.QN2_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_1" value="5" v-model="items[field.QN2_1].v"  />
+<span title="pQN2_1_3">{{items[field.pQN2_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_1_4].n" title="QN2_1_4" v-model.number="items[field.QN2_1_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_1_4">{{items[field.pQN2_1_4].v}}</span>
 </div>
 </td>
 </tr>
 <tr  role="row">
-<td colspan="5" role="gridcell">
+<td colspan="10" role="gridcell">
 2.2 ขั้นตอนการขอรับเงินสนับสนุนโครงการ
 </td>
 
@@ -464,30 +624,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_1" value="1" v-model="items[field.QN2_2_1].v"  />
+<input type="number" :id="items[field.QN2_2_1_0].n" title="QN2_2_1_0" v-model.number="items[field.QN2_2_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_1" value="2" v-model="items[field.QN2_2_1].v"  />
+<span title="pQN2_2_1_0">{{items[field.pQN2_2_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_1_1].n" title="QN2_2_1_1" v-model.number="items[field.QN2_2_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_1" value="3" v-model="items[field.QN2_2_1].v"  />
+<span title="pQN2_2_1_1">{{items[field.pQN2_2_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_1_2].n" title="QN2_2_1_2" v-model.number="items[field.QN2_2_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_1" value="4" v-model="items[field.QN2_2_1].v"  />
+<span title="pQN2_2_1_2">{{items[field.pQN2_2_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_1_3].n" title="QN2_2_1_3" v-model.number="items[field.QN2_2_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_1" value="5" v-model="items[field.QN2_2_1].v"  />
+<span title="pQN2_2_1_3">{{items[field.pQN2_2_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_1_4].n" title="QN2_2_1_4" v-model.number="items[field.QN2_2_1_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_2_1_4">{{items[field.pQN2_2_1_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -495,30 +675,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_2" value="1" v-model="items[field.QN2_2_2].v"  />
+<input type="number" :id="items[field.QN2_2_2_0].n" title="QN2_2_2_0" v-model.number="items[field.QN2_2_2_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_2" value="2" v-model="items[field.QN2_2_2].v"  />
+<span title="pQN2_2_2_0">{{items[field.pQN2_2_2_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_2_1].n" title="QN2_2_2_1" v-model.number="items[field.QN2_2_2_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_2" value="3" v-model="items[field.QN2_2_2].v"  />
+<span title="pQN2_2_2_1">{{items[field.pQN2_2_2_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_2_2].n" title="QN2_2_2_2" v-model.number="items[field.QN2_2_2_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_2" value="4" v-model="items[field.QN2_2_2].v"  />
+<span title="pQN2_2_2_2">{{items[field.pQN2_2_2_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_2_3].n" title="QN2_2_2_3" v-model.number="items[field.QN2_2_2_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_2" value="5" v-model="items[field.QN2_2_2].v"  />
+<span title="pQN2_2_2_3">{{items[field.pQN2_2_2_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_2_4].n" title="QN2_2_2_4" v-model.number="items[field.QN2_2_2_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_2_2_4">{{items[field.pQN2_2_2_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -526,27 +726,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_3" value="1" v-model="items[field.QN2_2_3].v"  />
+<input type="number" :id="items[field.QN2_2_3_0].n" title="QN2_2_3_0" v-model.number="items[field.QN2_2_3_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_3" value="2" v-model="items[field.QN2_2_3].v"  />
+<span title="pQN2_2_3_0">{{items[field.pQN2_2_3_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_3_1].n" title="QN2_2_3_1" v-model.number="items[field.QN2_2_3_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_3" value="3" v-model="items[field.QN2_2_3].v"  />
+<span title="pQN2_2_3_1">{{items[field.pQN2_2_3_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_3_2].n" title="QN2_2_3_2" v-model.number="items[field.QN2_2_3_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_3" value="4" v-model="items[field.QN2_2_3].v"  />
+<span title="pQN2_2_3_2">{{items[field.pQN2_2_3_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_3_3].n" title="QN2_2_3_3" v-model.number="items[field.QN2_2_3_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_3" value="5" v-model="items[field.QN2_2_3].v"  />
+<span title="pQN2_2_3_3">{{items[field.pQN2_2_3_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_3_4].n" title="QN2_2_3_4" v-model.number="items[field.QN2_2_3_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_2_3_4">{{items[field.pQN2_2_3_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -556,33 +777,53 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_4" value="1" v-model="items[field.QN2_2_4].v"  />
+<input type="number" :id="items[field.QN2_2_4_0].n" title="QN2_2_4_0" v-model.number="items[field.QN2_2_4_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_4" value="2" v-model="items[field.QN2_2_4].v"  />
+<span title="pQN2_2_4_0">{{items[field.pQN2_2_4_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_4_1].n" title="QN2_2_4_1" v-model.number="items[field.QN2_2_4_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_4" value="3" v-model="items[field.QN2_2_4].v"  />
+<span title="pQN2_2_4_1">{{items[field.pQN2_2_4_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_4_2].n" title="QN2_2_4_2" v-model.number="items[field.QN2_2_4_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_4" value="4" v-model="items[field.QN2_2_4].v"  />
+<span title="pQN2_2_4_2">{{items[field.pQN2_2_4_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_4_3].n" title="QN2_2_4_3" v-model.number="items[field.QN2_2_4_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_2_4" value="5" v-model="items[field.QN2_2_4].v"  />
+<span title="pQN2_2_4_3">{{items[field.pQN2_2_4_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_2_4_4].n" title="QN2_2_4_4" v-model.number="items[field.QN2_2_4_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_2_4_4">{{items[field.pQN2_2_4_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
-<td colspan="5" role="gridcell">
+<td colspan="10" role="gridcell">
 2.3 ระยะเวลาในการขอรับการสนับสนุนโครงการ 
 </td>
 
@@ -593,30 +834,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_1" value="1" v-model="items[field.QN2_3_1].v"  />
+<input type="number" :id="items[field.QN2_3_1_0].n" title="QN2_3_1_0" v-model.number="items[field.QN2_3_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_1" value="2" v-model="items[field.QN2_3_1].v"  />
+<span title="pQN2_3_1_0">{{items[field.pQN2_3_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_1_1].n" title="QN2_3_1_1" v-model.number="items[field.QN2_3_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_1" value="3" v-model="items[field.QN2_3_1].v"  />
+<span title="pQN2_3_1_1">{{items[field.pQN2_3_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_1_2].n" title="QN2_3_1_2" v-model.number="items[field.QN2_3_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_1" value="4" v-model="items[field.QN2_3_1].v"  />
+<span title="pQN2_3_1_2">{{items[field.pQN2_3_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_1_3].n" title="QN2_3_1_3" v-model.number="items[field.QN2_3_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_1" value="5" v-model="items[field.QN2_3_1].v"  />
+<span title="pQN2_3_1_3">{{items[field.pQN2_3_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_1_4].n" title="QN2_3_1_4" v-model.number="items[field.QN2_3_1_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_3_1_4">{{items[field.pQN2_3_1_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -624,31 +885,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_2" value="1" v-model="items[field.QN2_3_2].v"  />
+<input type="number" :id="items[field.QN2_3_2_0].n" title="QN2_3_2_0" v-model.number="items[field.QN2_3_2_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_2" value="2" v-model="items[field.QN2_3_2].v"  />
+<span title="pQN2_3_2_0">{{items[field.pQN2_3_2_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_2_1].n" title="QN2_3_2_1" v-model.number="items[field.QN2_3_2_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_2" value="3" v-model="items[field.QN2_3_2].v"  />
+<span title="pQN2_3_2_1">{{items[field.pQN2_3_2_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_2_2].n" title="QN2_3_2_2" v-model.number="items[field.QN2_3_2_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_2" value="4" v-model="items[field.QN2_3_2].v"  />
+<span title="pQN2_3_2_2">{{items[field.pQN2_3_2_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_2_3].n" title="QN2_3_2_3" v-model.number="items[field.QN2_3_2_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_2" value="5" v-model="items[field.QN2_3_2].v"  />
+<span title="pQN2_3_2_3">{{items[field.pQN2_3_2_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_2_4].n" title="QN2_3_2_4" v-model.number="items[field.QN2_3_2_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_3_2_4">{{items[field.pQN2_3_2_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -656,30 +936,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_3" value="1" v-model="items[field.QN2_3_3].v"  />
+<input type="number" :id="items[field.QN2_3_3_0].n" title="QN2_3_3_0" v-model.number="items[field.QN2_3_3_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_3" value="2" v-model="items[field.QN2_3_3].v"  />
+<span title="pQN2_3_3_0">{{items[field.pQN2_3_3_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_3_1].n" title="QN2_3_3_1" v-model.number="items[field.QN2_3_3_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_3" value="3" v-model="items[field.QN2_3_3].v"  />
+<span title="pQN2_3_3_1">{{items[field.pQN2_3_3_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_3_2].n" title="QN2_3_3_2" v-model.number="items[field.QN2_3_3_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_3" value="4" v-model="items[field.QN2_3_3].v"  />
+<span title="pQN2_3_3_2">{{items[field.pQN2_3_3_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_3_3].n" title="QN2_3_3_3" v-model.number="items[field.QN2_3_3_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_3" value="5" v-model="items[field.QN2_3_3].v"  />
+<span title="pQN2_3_3_3">{{items[field.pQN2_3_3_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_3_4].n" title="QN2_3_3_4" v-model.number="items[field.QN2_3_3_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_3_3_4">{{items[field.pQN2_3_3_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
 <td role="gridcell">
@@ -687,33 +987,53 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_4" value="1" v-model="items[field.QN2_3_4].v"  />
+<input type="number" :id="items[field.QN2_3_4_0].n" title="QN2_3_4_0" v-model.number="items[field.QN2_3_4_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_4" value="2" v-model="items[field.QN2_3_4].v"  />
+<span title="pQN2_3_4_0">{{items[field.pQN2_3_4_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_4_1].n" title="QN2_3_4_1" v-model.number="items[field.QN2_3_4_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_4" value="3" v-model="items[field.QN2_3_4].v"  />
+<span title="pQN2_3_4_1">{{items[field.pQN2_3_4_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_4_2].n" title="QN2_3_4_2" v-model.number="items[field.QN2_3_4_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_4" value="4" v-model="items[field.QN2_3_4].v"  />
+<span title="pQN2_3_4_2">{{items[field.pQN2_3_4_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_4_3].n" title="QN2_3_4_3" v-model.number="items[field.QN2_3_4_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN2_3_4" value="5" v-model="items[field.QN2_3_4].v"  />
+<span title="pQN2_3_4_3">{{items[field.pQN2_3_4_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN2_3_4_4].n" title="QN2_3_4_4" v-model.number="items[field.QN2_3_4_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN2_3_4_4">{{items[field.pQN2_3_4_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
-<td colspan="5" role="gridcell">
+<td colspan="10" role="gridcell">
 <b>3. ความพึงพอใจด้านสิ่งอานวยความสะดวก</b> 
 </td>
 
@@ -724,33 +1044,53 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN3_1" value="1" v-model="items[field.QN3_1].v"  />
+<input type="number" :id="items[field.QN3_1_0].n" title="QN3_1_0" v-model.number="items[field.QN3_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN3_1" value="2" v-model="items[field.QN3_1].v"  />
+<span title="pQN3_1_0">{{items[field.pQN3_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN3_1_1].n" title="QN3_1_1" v-model.number="items[field.QN3_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN3_1" value="3" v-model="items[field.QN3_1].v"  />
+<span title="pQN3_1_1">{{items[field.pQN3_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN3_1_2].n" title="QN3_1_2" v-model.number="items[field.QN3_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN3_1" value="4" v-model="items[field.QN3_1].v"  />
+<span title="pQN3_1_2">{{items[field.pQN3_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN3_1_3].n" title="QN3_1_3" v-model.number="items[field.QN3_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN3_1" value="5" v-model="items[field.QN3_1].v"  />
+<span title="pQN3_1_3">{{items[field.pQN3_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN3_1_4].n" title="QN3_1_4" v-model.number="items[field.QN3_1_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN3_1_4">{{items[field.pQN3_1_4].v}}</span>
+</div>
+</td>
 </tr>
 <tr  role="row">
-<td colspan="5" role="gridcell">
+<td colspan="10" role="gridcell">
 <b>4. ความพึงพอใจช่องทางการรับรู้ข้อมูลข่าวสาร และการติดต่อสื่อสาร</b>
 </td>
 
@@ -761,27 +1101,48 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_1" value="1" v-model="items[field.QN4_1].v"  />
+<input type="number" :id="items[field.QN4_1_0].n" title="QN4_1_0" v-model.number="items[field.QN4_1_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_1" value="2" v-model="items[field.QN4_1].v"  />
+<span title="pQN4_1_0">{{items[field.pQN4_1_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_1_1].n" title="QN4_1_1" v-model.number="items[field.QN4_1_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_1" value="3" v-model="items[field.QN4_1].v"  />
+<span title="pQN4_1_1">{{items[field.pQN4_1_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_1_2].n" title="QN4_1_2" v-model.number="items[field.QN4_1_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_1" value="4" v-model="items[field.QN4_1].v"  />
+<span title="pQN4_1_2">{{items[field.pQN4_1_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_1_3].n" title="QN4_1_3" v-model.number="items[field.QN4_1_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_1" value="5" v-model="items[field.QN4_1].v"  />
+<span title="pQN4_1_3">{{items[field.pQN4_1_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_1_4].n" title="QN4_1_4" v-model.number="items[field.QN4_1_4].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN4_1_4">{{items[field.pQN4_1_4].v}}</span>
 </div>
 </td>
 </tr>
@@ -791,30 +1152,50 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_2" value="1" v-model="items[field.QN4_2].v"  />
+<input type="number" :id="items[field.QN4_2_0].n" title="QN4_2_0" v-model.number="items[field.QN4_2_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_2" value="2" v-model="items[field.QN4_2].v"  />
+<span title="pQN4_2_0">{{items[field.pQN4_2_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_2_1].n" title="QN4_2_1" v-model.number="items[field.QN4_2_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_2" value="3" v-model="items[field.QN4_2].v"  />
+<span title="pQN4_2_1">{{items[field.pQN4_2_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_2_2].n" title="QN4_2_2" v-model.number="items[field.QN4_2_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_2" value="4" v-model="items[field.QN4_2].v"  />
+<span title="pQN4_2_2">{{items[field.pQN4_2_2].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_2_3].n" title="QN4_2_3" v-model.number="items[field.QN4_2_3].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_2" value="5" v-model="items[field.QN4_2].v"  />
+<span title="pQN4_2_3">{{items[field.pQN4_2_3].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_2_4].n" title="QN4_2_4" v-model.number="items[field.QN4_2_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN4_2_4">{{items[field.pQN4_2_4].v}}</span>
+</div>
+</td>
 </tr>
 
 <tr  role="row">
@@ -823,30 +1204,52 @@
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_3" value="1" v-model="items[field.QN4_3].v"  />
+<input type="number" :id="items[field.QN4_3_0].n" title="QN4_3_0" v-model.number="items[field.QN4_3_0].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_3" value="2" v-model="items[field.QN4_3].v"  />
+<span title="pQN4_3_0">{{items[field.pQN4_3_0].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_3_1].n" title="QN4_3_1" v-model.number="items[field.QN4_3_1].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_3" value="3" v-model="items[field.QN4_3].v"  />
+<span title="pQN4_3_1">{{items[field.pQN4_3_1].v}}</span>
+</div>
+</td><td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_3_2].n" title="QN4_3_2" v-model.number="items[field.QN4_3_2].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_3" value="4" v-model="items[field.QN4_3].v"  />
+<span title="pQN4_3_2">{{items[field.pQN4_3_2].v}}</span>
+</div>
+</td>
+  <td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<input type="number" :id="items[field.QN4_3_3].n" title="QN4_3_3" v-model.number="items[field.QN4_3_3].v" onblur="CalSastisfy(this)" />
+</div>
+</td>
+    <td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN4_3_3">{{items[field.pQN4_3_3].v}}</span>
 </div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN4_3" value="5" v-model="items[field.QN4_3].v"  />
+<input type="number" :id="items[field.QN4_3_4].n" title="QN4_3_4" v-model.number="items[field.QN4_3_4].v" onblur="CalSastisfy(this)" />
 </div>
 </td>
-
+<td  style="text-align:center;vertical-align:central" role="gridcell">
+<div class="input-count">
+<span title="pQN4_3_4">{{items[field.pQN4_3_4].v}}</span>
+</div>
+</td>
 </tr>
 
 

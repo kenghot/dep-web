@@ -9,6 +9,7 @@ using Nep.Project.ServiceModels;
 using Nep.Project.Common;
 using Nep.Project.DBModels.Model;
 using Nep.Project.ServiceModels.ProjectInfo;
+using System.Web.Mvc;
 
 namespace Nep.Project.Web.ProjectInfo.Controls
 {
@@ -224,6 +225,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 //TextBoxCommand.Text = model.ExtendData.Command;
                                 //DatePickerMeeting.SelectedDate = model.ExtendData.MeetingDate;
                                 //TextBoxMeetingOrder.Text = model.ExtendData.MeetingOrder.ToString();
+                                TextBoxReferenceNo.Text = model.ExtendData.ReferenceNo;
                                 if (model.ExtendData.AddressAt != null)
                                 {
                                     var data = model.ExtendData.AddressAt;
@@ -504,6 +506,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //result.ExtendData.Command = TextBoxCommand.Text;
             //result.ExtendData.MeetingDate = DatePickerMeeting.SelectedDate.Value;
             //result.ExtendData.MeetingOrder = int.Parse(TextBoxMeetingOrder.Text);
+            result.ExtendData.ReferenceNo = TextBoxReferenceNo.Text.Trim() ;
             var ad = new ServiceModels.ProjectInfo.Address();
             result.ExtendData.AddressAt = ad;
             ad.AddressNo = TextBoxAddressNo.Text.Trim();

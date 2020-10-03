@@ -579,6 +579,7 @@
           <Property Name="RESPONSEFIRSTNAME" Type="varchar2" MaxLength="50" />
           <Property Name="RESPONSEEMAIL" Type="varchar2" MaxLength="50" />
           <Property Name="RESPONSETEL" Type="varchar2" MaxLength="50" />
+          <Property Name="ACKNOWLEDGED" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="PROJECTHISTORY">
           <Key>
@@ -1079,6 +1080,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <Property Name="CREATEDDATE" Type="timestamp" Precision="6" Nullable="false" />
           <Property Name="ISREJECT" Type="number" Precision="38" Scale="0" />
           <Property Name="REJECTCOMMENT" Type="varchar2" MaxLength="4000" />
+          <Property Name="ACKNOWLEDGED" Type="char" MaxLength="1" />
         </EntityType>
         <Association Name="CONTRACTDUE_FK1">
           <End Role="PROJECTCONTRACT" Type="Self.PROJECTCONTRACT" Multiplicity="0..1">
@@ -2247,7 +2249,8 @@ FROM "NEP_APP02"."VIEW_PARTICIPANTPROVINCEDUP" "VIEW_PARTICIPANTPROVINCEDUP"</De
 "VIEW_PROJECTLIST"."SUBMITEDDATE" AS "SUBMITEDDATE", 
 "VIEW_PROJECTLIST"."CREATEDDATE" AS "CREATEDDATE", 
 "VIEW_PROJECTLIST"."ISREJECT" AS "ISREJECT", 
-"VIEW_PROJECTLIST"."REJECTCOMMENT" AS "REJECTCOMMENT"
+"VIEW_PROJECTLIST"."REJECTCOMMENT" AS "REJECTCOMMENT", 
+"VIEW_PROJECTLIST"."ACKNOWLEDGED" AS "ACKNOWLEDGED"
 FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="CONTRACTDUE_FK1" Association="Self.CONTRACTDUE_FK1">
@@ -3121,6 +3124,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="RESPONSEEMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESPONSELASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESPONSEPOSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACKNOWLEDGED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectInformation">
           <Key>
@@ -4263,6 +4267,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="6" />
           <Property Name="ProjectEndDate" Type="DateTime" Nullable="true" Precision="6" />
           <Property Name="REJECTCOMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ACKNOWLEDGED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <Association Name="FK_EMPCARD_USER">
           <End Type="Model.MT_Attachment" Role="MT_Attachment" Multiplicity="0..1" />
@@ -5581,6 +5586,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectGeneralInfoes">
             <EntityTypeMapping TypeName="Model.ProjectGeneralInfo">
               <MappingFragment StoreEntitySet="PROJECTGENERALINFO">
+                <ScalarProperty Name="ACKNOWLEDGED" ColumnName="ACKNOWLEDGED" />
                 <ScalarProperty Name="RESPONSEPOSITION" ColumnName="RESPONSEPOSITION" />
                 <ScalarProperty Name="RESPONSELASTNAME" ColumnName="RESPONSELASTNAME" />
                 <ScalarProperty Name="RESPONSEEMAIL" ColumnName="RESPONSEEMAIL" />
@@ -5981,6 +5987,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="View_ProjectList">
             <EntityTypeMapping TypeName="Model.View_ProjectList">
               <MappingFragment StoreEntitySet="VIEW_PROJECTLIST">
+                <ScalarProperty Name="ACKNOWLEDGED" ColumnName="ACKNOWLEDGED" />
                 <ScalarProperty Name="REJECTCOMMENT" ColumnName="REJECTCOMMENT" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CREATEDDATE" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />

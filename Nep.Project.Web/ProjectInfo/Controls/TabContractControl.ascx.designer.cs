@@ -24,6 +24,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.UpdatePanel UpdatePanelContract;
 
         /// <summary>
+        /// TextBoxReferenceNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxReferenceNo;
+
+        /// <summary>
         /// TextBoxContractNo control.
         /// </summary>
         /// <remarks>

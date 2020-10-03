@@ -4880,7 +4880,8 @@ namespace Nep.Project.Business
                               FollowupStatusName = proj.FollowupStatusName,
                               FollowupStatusID = proj.FollowupStatusID,
                               //ApprovalBudget1 = GetApprovalBudgetByProjecID(proj.ProjectID)
-                              RejectComment = proj.REJECTCOMMENT
+                              RejectComment = proj.REJECTCOMMENT,
+                              Acknowledged = proj.ACKNOWLEDGED
 
                           }).ToQueryData(p);
             }

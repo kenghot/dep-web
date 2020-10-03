@@ -364,6 +364,7 @@
     <Content Include="Images\icon\loading_throbber_icon_48.gif" />
     <Content Include="Images\icon\pdf_small.jpg" />
     <Content Include="Images\icon\reload_icon_16.png" />
+    <Content Include="Images\icon\reported.png" />
     <Content Include="Images\icon\round_delete_icon_16.png" />
     <Content Include="Images\icon\round_plus_icon_16.png" />
     <Content Include="Images\icon\save_icon_16.png" />
@@ -403,6 +404,7 @@
     <Content Include="ProjectInfo\Controls\TabApprovalControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabAssessmentControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabAttachmentControl.ascx" />
+    <Content Include="ProjectInfo\Controls\TabSatisfyControl_2019.ascx" />
     <Content Include="ProjectInfo\Controls\TabSurveyParticipant.ascx" />
     <Content Include="ProjectInfo\Controls\TabContractControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabFollow5MControlOld.ascx" />
@@ -507,6 +509,7 @@
     <Content Include="Scripts\VueQrcode\vue-qrcode.esm.js" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.js" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.min.js" />
+    <Content Include="Scripts\Vue\Satisfy_2019.js" />
     <Content Include="TelerikReport\TelerikRepContractProvince.aspx" />
     <Content Include="User\UserAccessList.aspx" />
     <Content Include="WebServices\NepService.asmx" />
@@ -641,6 +644,7 @@
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="APIController\CommonController.cs" />
+    <Compile Include="APIController\DashBoardController.cs" />
     <Compile Include="APIController\ProjectsController.cs" />
     <Compile Include="APIController\SystemsController.cs" />
     <Compile Include="API\APIHelper.cs" />
@@ -834,6 +838,13 @@
     </Compile>
     <Compile Include="ProjectInfo\Controls\TabContractControl.ascx.designer.cs">
       <DependentUpon>TabContractControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\TabSatisfyControl_2019.ascx.cs">
+      <DependentUpon>TabSatisfyControl_2019.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\TabSatisfyControl_2019.ascx.designer.cs">
+      <DependentUpon>TabSatisfyControl_2019.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\Controls\TabSurveyParticipant.ascx.cs">
       <DependentUpon>TabSurveyParticipant.ascx</DependentUpon>

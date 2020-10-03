@@ -28,40 +28,37 @@
    txtAddress: 196,
    txtTel: 197,
    txtEmail: 198,
-    QN4_3_0: 199, pQN4_3_0: 200, QN4_3_1: 201, pQN4_3_1: 202, QN4_3_2: 203, pQN4_3_2: 204, QN4_3_3: 205, pQN4_3_3: 206, QN4_3_4: 207, pQN4_3_4: 208,
-    QN1_0: 209, QN1_1: 210, QN1_2: 211, QN1_3: 212, QN1_4: 213, QN1_5: 214, QN2_0: 215, QN2_1: 216, QN2_2_1: 217,
-    QN2_2_2: 218, QN2_2_3: 219, QN2_2_4: 220, QN2_3_1: 221, QN2_3_2: 222, QN2_3_3: 223, QN2_3_4: 224,
-    QN3_1: 225, QN4_1: 226, QN4_2: 227, QN4_3: 228,
+   QN4_3_0: 199, pQN4_3_0: 200, QN4_3_1: 201, pQN4_3_1: 202, QN4_3_2: 203, pQN4_3_2: 204, QN4_3_3: 205, pQN4_3_3: 206, QN4_3_4: 207, pQN4_3_4: 208,
    }; // last running is 208
 
 function CalAllSatisfy() {
-    //Object.keys(screenField).forEach(function (a){
-    //    if (a.substring(0,2) == "QN"){
-    //        CalSastisfy({id:a})
-    //    }
-    //}
-    //);
+    Object.keys(screenField).forEach(function (a){
+        if (a.substring(0,2) == "QN"){
+            CalSastisfy({id:a})
+        }
+    }
+    );
 }
 function CalSastisfy(val) {
     
-    //var i = appVueQN.items;
-    //var f = screenField;
-    //var all = i[f.fAll].v;
-    //var isZero = 0;
-    //if (all != null) {
-    //    if (all == 0)
-    //    {
-    //        all = 1;
-    //        isZero = 0;
-    //    } else {
+    var i = appVueQN.items;
+    var f = screenField;
+    var all = i[f.fAll].v;
+    var isZero = 0;
+    if (all != null) {
+        if (all == 0)
+        {
+            all = 1;
+            isZero = 0;
+        } else {
            
-    //        isZero = 1;
-    //    }
+            isZero = 1;
+        }
 
-    //    i[eval("f.p" + val.id )].v = ((i[eval("f." + val.id )].v * 100 * isZero) / all).toFixed(2);
-    //} else {
-    //    c2x.writeSummaryResult(null, 'กรุณาระบุจำนวนชุดที่สำรวจ');
-    //}
+        i[eval("f.p" + val.id )].v = ((i[eval("f." + val.id )].v * 100 * isZero) / all).toFixed(2);
+    } else {
+        c2x.writeSummaryResult(null, 'กรุณาระบุจำนวนชุดที่สำรวจ');
+    }
 }
 function SaveSatisfy() {
     let params = new URLSearchParams(location.search);

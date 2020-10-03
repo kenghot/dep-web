@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Nep.Project.Resources;
 using System.Web.ModelBinding;
 using Nep.Project.Common.Web;
+using System.ComponentModel;
 
 namespace Nep.Project.Web.ProjectInfo
 {
@@ -98,7 +99,7 @@ namespace Nep.Project.Web.ProjectInfo
             set { ViewState["DisabilityALLTypeID"] = value; }
         }
         #endregion Properties
-
+        private DBModels.Model.MT_ListOfValue reportedLOV;
         protected void Page_Init(object sender, EventArgs e)
         {
             ServiceModels.Security.SecurityInfo userInfo = UserInfo;
@@ -915,6 +916,7 @@ namespace Nep.Project.Web.ProjectInfo
         #region Grid Project Info
         public List<ServiceModels.ProjectInfo.ProjectInfoList> GridProjectInfo_GetData(int startRowIndex, int maximumRows, string sortByExpression, out int totalRowCount)
         {
+            reportedLOV = ProjectService.GetListOfValue(Common.LOVCode.Followupstatus.รายงานผลแล้ว, Common.LOVGroup.FollowupStatus);
             var result = this.ProjectService.ListProjectInfoList(GridProjectInfo.QueryParameter,false);
             List<ServiceModels.ProjectInfo.ProjectInfoList> data = new List<ServiceModels.ProjectInfo.ProjectInfoList>();
             totalRowCount = 0;
@@ -957,6 +959,8 @@ namespace Nep.Project.Web.ProjectInfo
             {
                 ServiceModels.ProjectInfo.ProjectInfoList r = (ServiceModels.ProjectInfo.ProjectInfoList) e.Row.DataItem;
                 Image img = (Image)e.Row.FindControl("imgApprovalStatus");
+                Image imgReported = (Image)e.Row.FindControl("imgReported");
+                Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
                 if (img != null)
                 {
                     if (r.ApprovalStatus1 != null)
@@ -975,6 +979,14 @@ namespace Nep.Project.Web.ProjectInfo
                             img.ToolTip = "ส่งแก้ไข";
                         }
                     }
+                }
+                if (imgReported != null)
+                {
+                    imgReported.Visible = r.FollowupStatusID.HasValue && r.FollowupStatusID.Value == reportedLOV.LOVID;
+                }
+                if (btnAcknowledged != null)
+                {
+                    btnAcknowledged.Visible = r.Acknowledged != "1";
                 }
                 //kenghot18
                 var hist = ProjectService.GetProjectHistoryList(r.ProjectInfoID);
@@ -1217,6 +1229,17 @@ namespace Nep.Project.Web.ProjectInfo
                 else
                 {
                     ShowErrorMessage(result.Message);
+                }
+            }
+            if ((e.CommandName == "Acknowledged") && (projectInfoID > 0))
+            {
+                var db = ProjectService.GetDB();
+                var gen = db.ProjectGeneralInfoes.Where(w => w.ProjectID == projectInfoID).FirstOrDefault();
+                if (gen != null)
+                {
+                    gen.ACKNOWLEDGED = "1";
+                    db.SaveChanges();
+                    GridProjectInfo.DataBind();
                 }
             }
         }

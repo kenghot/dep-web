@@ -906,6 +906,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string Day6 { get; set; }
         public bool IsReportRevise { get; set; }
         public string RejectComment { get; set; }
+        public string Acknowledged { get; set; }
         //end kenghot
     }
 
@@ -1963,6 +1964,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         /// ผู้รับมอบอำนาจ
         /// </summary>
         public Address AddressAuth { get; set; }
+        public string ReferenceNo { get; set; }
     }
     public class Contact
     {

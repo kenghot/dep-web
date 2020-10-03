@@ -91,6 +91,7 @@ namespace Nep.Project.DBModels.Model
         public string RESPONSEEMAIL { get; set; }
         public string RESPONSELASTNAME { get; set; }
         public string RESPONSEPOSITION { get; set; }
+        public string ACKNOWLEDGED { get; set; }
     
         public virtual ProjectApproval ProjectApproval { get; set; }
         public virtual ICollection<ProjectBudget> ProjectBudgets { get; set; }
