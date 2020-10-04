@@ -100,6 +100,21 @@
         <v-container id="dashboard"
                      fluid
                      tag="section">
+            <v-col cols="3">
+                <v-subheader>
+                    ปีงบประมาณ
+                </v-subheader>
+            </v-col>
+            <v-col cols="3">
+                <v-select v-model="budgetYear"
+                          :items="budgetYears"
+                          @change="DisplayData"
+                          menu-props="auto"
+                          label="Select"
+                          hide-details
+                          prepend-icon="mdi-map"
+                          single-line></v-select>
+            </v-col>
             <v-expansion-panels multiple :value="[0,1]">
                 <v-expansion-panel>
                     <v-expansion-panel-header>ภาพรวม</v-expansion-panel-header>
@@ -110,7 +125,7 @@
                             <base-material-stats-card ref="statCard1" color="info"
                                                       icon="mdi-office-building"
                                                       title="จำนวนองค์กร"
-                                                      value="+245"
+                                                      :value="summary.newProject"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์การส่งคำร้องขอโครงการเข้ามาใหม่" />
                         </v-col>
@@ -120,7 +135,7 @@
                             <base-material-stats-card ref="statCard2" color="lime"
                                                       icon="mdi-account-multiple-plus-outline"
                                                       title="จำนวนองค์กร"
-                                                      value="+245"
+                                                      :value="summary.newOrganization"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์กรสมัครขอเปิดใช้ User ใหม่" />
                         </v-col>
@@ -130,7 +145,7 @@
                             <base-material-stats-card ref="statCard3" color="red"
                                                       icon="mdi-file-alert-outline"
                                                       title="จำนวนโครงการ"
-                                                      value="+245"
+                                                      :value="summary.notReported"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์กรยังไม่ได้ยื่นผลการดำเนินงานและประเมิน" />
                         </v-col>
@@ -140,7 +155,7 @@
                             <base-material-stats-card ref="statCard4" color="grey"
                                                       icon="mdi-battery-charging-outline"
                                                       title="จำนวนโครงการ"
-                                                      value="+245"
+                                                      :value="summary.noProcess"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ยังไม่ได้ดำเนินการใดๆ (รับเรื่อง)" />
                         </v-col>
@@ -150,7 +165,7 @@
                             <base-material-stats-card ref="statCard5" color="green"
                                                       icon="mdi-battery-charging-high"
                                                       title="จำนวนโครงการ"
-                                                      value="+245"
+                                                      :value="summary.reported"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ส่งแบบรายงานผลการปฎิบัติงานเรียบร้อยแล้ว" />
                         </v-col>
@@ -160,7 +175,7 @@
                             <base-material-stats-card ref="statCard6" color="purple"
                                                       icon="mdi-sync"
                                                       title="จำนวนโครงการ"
-                                                      value="+245"
+                                                      :value="summary.rePurpose"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ถูกแก้ไขและส่งกลับมาเข้าระบบใหม่" />
                         </v-col>
@@ -173,7 +188,7 @@
                             <bar-chart ref="bar" :chartdata="lineData1" :options="lineOption1" />
                         </v-col>
                         <div>
-                            
+
                         </div>
                         <div>
                             <polar-chart :chartdata="lineData1" :options="lineOption1" />
@@ -181,7 +196,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
-</v-container>
+        </v-container>
   
 
     </v-app>

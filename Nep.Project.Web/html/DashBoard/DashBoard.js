@@ -142,8 +142,10 @@ var VueDashBoard = new Vue({
     vuetify: new Vuetify(),
     data() {
         return {
-            message: "test1234",
+            budgetYear: 0,
+            budgetYears: [],
             errorMessage: "",
+            summary: {},
             lineData1: {
                 labels: ['หฟด', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -163,6 +165,14 @@ var VueDashBoard = new Vue({
                 }
             }
         }
+    },
+    created() {
+        this.budgetYear = new Date().getFullYear()
+        this.budgetYears = []
+        for (i = 0; i < 5; i++) {
+            this.budgetYears.push(this.budgetYear - i);
+        }
+        this.DisplayData()
     },
     computed: {
         VueUrl: function () {
@@ -184,7 +194,7 @@ var VueDashBoard = new Vue({
             var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/Get/1234')
+            axios.get(this.VueUrl + '/api/dashboard/Get/' + this.budgetYear)
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {
@@ -192,7 +202,7 @@ var VueDashBoard = new Vue({
                             var result = response.data.Data
 
                             if (response.data.Data) {
-
+                                data.summary = result.summary;
                                 data.lineData1 = result.projectTypeAmount;
              
                             } else {

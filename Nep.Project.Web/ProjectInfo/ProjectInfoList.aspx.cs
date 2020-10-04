@@ -11,13 +11,13 @@ using System.ComponentModel;
 
 namespace Nep.Project.Web.ProjectInfo
 {
-    
+
     public partial class ProjectInfoList : Nep.Project.Web.Infra.BasePage
     {
-        public IServices.IListOfValueService LovService {get; set;}
+        public IServices.IListOfValueService LovService { get; set; }
         public IServices.IOrganizationParameterService OrgParamService { get; set; }
         public IServices.IProviceService ProvinceService { get; set; }
-        public IServices.IProjectInfoService ProjectService {get; set;}
+        public IServices.IProjectInfoService ProjectService { get; set; }
         public IServices.IOrganizationService _orgService { get; set; }
         #region Properties
         public Boolean IsDeleteRole
@@ -37,7 +37,8 @@ namespace Nep.Project.Web.ProjectInfo
 
         public Boolean IsCenterOfficer
         {
-            get {
+            get
+            {
                 bool isCenter = false;
                 if (ViewState["IsCenterOfficer"] != null)
                 {
@@ -78,7 +79,8 @@ namespace Nep.Project.Web.ProjectInfo
 
         public Decimal DisabilityALLTypeID
         {
-            get {
+            get
+            {
                 decimal id = 0;
                 if (ViewState["DisabilityALLTypeID"] != null)
                 {
@@ -108,7 +110,7 @@ namespace Nep.Project.Web.ProjectInfo
             IsDeleteRole = (userInfo.Roles.Contains(Common.FunctionCode.MANAGE_PROJECT) || userInfo.Roles.Contains(Common.FunctionCode.REQUEST_PROJECT));
 
             CenterProvinceAbbr = OrgParamService.GetOrganizationParameter().Data.CenterProvinceAbbr;
-            
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -144,12 +146,12 @@ namespace Nep.Project.Web.ProjectInfo
                     FormGroupOrgName.Visible = false;
                     FormGroupOrgType.Visible = false;
                     //FormGroupProvince.Visible = false;
-                    gridViewCss += " view-data-org"; 
+                    gridViewCss += " view-data-org";
                 }
                 else if (isProvince)
                 {
                     FormGroupProvince.Visible = false;
-                    gridViewCss += " view-data-province"; 
+                    gridViewCss += " view-data-province";
                 }
                 if (base.UserInfo.IsAdministrator || base.UserInfo.IsCenterOfficer)
                 {
@@ -188,7 +190,7 @@ namespace Nep.Project.Web.ProjectInfo
         }
 
         public void ButtonSearch_Click(object sender, EventArgs e)
-        {       
+        {
             List<ServiceModels.IFilterDescriptor> filters = CreateFilter(false);
             this.GridProjectInfo.FilterDescriptors = filters;
             this.GridProjectInfo.DataBind();
@@ -197,7 +199,7 @@ namespace Nep.Project.Web.ProjectInfo
         }
 
         private List<ServiceModels.IFilterDescriptor> CreateFilter(bool isFilterFollowup)
-        {            
+        {
             List<ServiceModels.IFilterDescriptor> fields = new List<ServiceModels.IFilterDescriptor>();
             decimal valueId;
             //ชื่อองค์กร
@@ -206,14 +208,14 @@ namespace Nep.Project.Web.ProjectInfo
                 fields.Add(new ServiceModels.FilterDescriptor()
                 {
                     Field = "OrganizationName",
-                    Operator = ServiceModels.FilterOperator.Contains, 
+                    Operator = ServiceModels.FilterOperator.Contains,
                     Value = TextBoxContractOrgName.Text.Trim()
                 });
             }
 
             //ประเภทองค์กร
             if (DropDownListOrgType.SelectedIndex > 0)
-            {                
+            {
                 fields.Add(new ServiceModels.FilterDescriptor()
                 {
                     Field = "OrganizationToBeUnder",
@@ -259,7 +261,7 @@ namespace Nep.Project.Web.ProjectInfo
             //ปีงบประมาณ
             if (DatePickerBudgetYear.SelectedDate.HasValue)
             {
-                int approvalYear = ((DateTime)DatePickerBudgetYear.SelectedDate).Year;                
+                int approvalYear = ((DateTime)DatePickerBudgetYear.SelectedDate).Year;
                 fields.Add(new ServiceModels.FilterDescriptor()
                 {
                     Field = "BudgetYear",
@@ -377,8 +379,8 @@ namespace Nep.Project.Web.ProjectInfo
                     Field = "IsFollowup",
                     Operator = ServiceModels.FilterOperator.IsEqualTo,
                     Value = true
-                });                 
-            }  
+                });
+            }
 
             //ประเภทความพิการ
             List<ServiceModels.IFilterDescriptor> projDisabilityTypeFields = new List<ServiceModels.IFilterDescriptor>();
@@ -387,7 +389,8 @@ namespace Nep.Project.Web.ProjectInfo
                 ListItemCollection items = CheckBoxListTypeDisabilitys.Items;
                 foreach (ListItem item in CheckBoxListTypeDisabilitys.Items)
                 {
-                    if(item.Selected){
+                    if (item.Selected)
+                    {
                         Decimal.TryParse(item.Value, out valueId);
 
                         projDisabilityTypeFields.Add(new ServiceModels.FilterDescriptor()
@@ -407,7 +410,7 @@ namespace Nep.Project.Web.ProjectInfo
                 foreach (ListItem item in CheckBoxListStandardStrategics.Items)
                 {
                     if (item.Selected == true)
-                    {                        
+                    {
                         standardStrategicsFields.Add(new ServiceModels.FilterDescriptor()
                         {
                             Field = CheckBoxListStandardStrategics.Text,
@@ -416,7 +419,7 @@ namespace Nep.Project.Web.ProjectInfo
                         });
                     }
                 }
-                
+
             }
 
             //ไม่อนุมัติ
@@ -427,7 +430,7 @@ namespace Nep.Project.Web.ProjectInfo
                     Field = "ApprovalStatus",
                     Operator = ServiceModels.FilterOperator.IsEqualTo,
                     Value = "0"
-                });  
+                });
             }
 
             List<ServiceModels.IFilterDescriptor> projAppStatusFields = new List<ServiceModels.IFilterDescriptor>();
@@ -517,7 +520,7 @@ namespace Nep.Project.Web.ProjectInfo
                 {
                     if (item.Selected == true)
                     {
-                        Decimal.TryParse(item.Value, out valueId);  
+                        Decimal.TryParse(item.Value, out valueId);
                         projAppStatusFields.Add(new ServiceModels.FilterDescriptor()
                         {
                             Field = "ProjectApprovalStatusID",
@@ -533,7 +536,7 @@ namespace Nep.Project.Web.ProjectInfo
             if ((!IsProvinceOfficer) && (!IsCenterOfficer))
             {
                 #region Organization
-                decimal userOrgId = (UserInfo.OrganizationID.HasValue)? (decimal)UserInfo.OrganizationID : 0;
+                decimal userOrgId = (UserInfo.OrganizationID.HasValue) ? (decimal)UserInfo.OrganizationID : 0;
                 List<ServiceModels.IFilterDescriptor> productOrgFilter = new List<ServiceModels.IFilterDescriptor>();
                 List<ServiceModels.IFilterDescriptor> productOrgCreateByOfficerFilter = new List<ServiceModels.IFilterDescriptor>();
 
@@ -613,27 +616,27 @@ namespace Nep.Project.Web.ProjectInfo
                         Value = true
                     });
                     productCanViewFilter.Add(new ServiceModels.FilterDescriptor()
-                     {
-                         Field = "ProjectApprovalStatusCode",
-                         Operator = ServiceModels.FilterOperator.IsNotEqualTo,
-                         Value = Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร
-                     });
+                    {
+                        Field = "ProjectApprovalStatusCode",
+                        Operator = ServiceModels.FilterOperator.IsNotEqualTo,
+                        Value = Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร
+                    });
 
 
                     productFilters.Add(new ServiceModels.CompositeFilterDescriptor()
-                         {
-                             LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
-                             FilterDescriptors = productDraftCanViewFilter
-                         });
+                    {
+                        LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
+                        FilterDescriptors = productDraftCanViewFilter
+                    });
                     productFilters.Add(new ServiceModels.CompositeFilterDescriptor()
-                         {
-                             LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
-                             FilterDescriptors = productCanViewFilter
-                         });
+                    {
+                        LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
+                        FilterDescriptors = productCanViewFilter
+                    });
                 }
                 #endregion IsProvinceOfficer
-            }   
-            else if(UserInfo.IsAdministrator)
+            }
+            else if (UserInfo.IsAdministrator)
             {
                 #region IsAdministrator
                 if (projAppStatusFields.Count == 0)
@@ -657,7 +660,7 @@ namespace Nep.Project.Web.ProjectInfo
                         Field = "IsCreateByOfficer",
                         Operator = ServiceModels.FilterOperator.IsEqualTo,
                         Value = true
-                    });                   
+                    });
 
                     productCanViewFilter.Add(new ServiceModels.FilterDescriptor()
                     {
@@ -722,10 +725,10 @@ namespace Nep.Project.Web.ProjectInfo
 
                     List<ServiceModels.CompositeFilterDescriptor> productComposit = new List<ServiceModels.CompositeFilterDescriptor>();
                     productFilters.Add(new ServiceModels.CompositeFilterDescriptor()
-                        {
-                            LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
-                            FilterDescriptors = productDraftCanViewFilter
-                        });
+                    {
+                        LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
+                        FilterDescriptors = productDraftCanViewFilter
+                    });
                     productFilters.Add(new ServiceModels.CompositeFilterDescriptor()
                     {
                         LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
@@ -751,17 +754,17 @@ namespace Nep.Project.Web.ProjectInfo
             {
 
                 filterComposite.Add(new ServiceModels.CompositeFilterDescriptor()
-                {                   
+                {
                     LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.Or,
                     FilterDescriptors = projAppStatusFields
-                    
+
                 });
             }
 
             if (standardStrategicsFields.Count > 0)
             {
                 filterComposite.Add(new ServiceModels.CompositeFilterDescriptor()
-                {                   
+                {
                     LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.Or,
                     FilterDescriptors = standardStrategicsFields
                 });
@@ -797,25 +800,25 @@ namespace Nep.Project.Web.ProjectInfo
                     FilterDescriptors = filterComposite
                 });
             }
-            
-            
+
+
 
             return filters;
 
         }
-        private List<ServiceModels.IFilterDescriptor> CreateFilterForCannotAdd(decimal? userOrgId , decimal? provinceId)
+        private List<ServiceModels.IFilterDescriptor> CreateFilterForCannotAdd(decimal? userOrgId, decimal? provinceId)
         {
             List<ServiceModels.IFilterDescriptor> fields = new List<ServiceModels.IFilterDescriptor>();
-   
-       
-        
 
-                fields.Add(new ServiceModels.FilterDescriptor()
-                {
-                    Field = "IsFollowup",
-                    Operator = ServiceModels.FilterOperator.IsEqualTo,
-                    Value = true
-                });
+
+
+
+            fields.Add(new ServiceModels.FilterDescriptor()
+            {
+                Field = "IsFollowup",
+                Operator = ServiceModels.FilterOperator.IsEqualTo,
+                Value = true
+            });
             if (userOrgId.HasValue)
             {
                 fields.Add(new ServiceModels.FilterDescriptor()
@@ -839,15 +842,15 @@ namespace Nep.Project.Web.ProjectInfo
 
 
             List<ServiceModels.IFilterDescriptor> filters = new List<ServiceModels.IFilterDescriptor>();
-           
-                filters = new List<ServiceModels.IFilterDescriptor>();
+
+            filters = new List<ServiceModels.IFilterDescriptor>();
 
             filters.Add(new ServiceModels.CompositeFilterDescriptor()
             {
                 LogicalOperator = ServiceModels.FilterCompositionLogicalOperator.And,
                 FilterDescriptors = fields
-                });
-           
+            });
+
 
 
 
@@ -871,7 +874,7 @@ namespace Nep.Project.Web.ProjectInfo
             CheckBoxListTypeDisabilitys.ClearSelection();
             CheckBoxListStandardStrategics.ClearSelection();
             CheckBoxListApprovalProcess.ClearSelection();
-            
+
             DatePickerSubmitedDateStart.Clear();
             DatePickerSubmitedDateEnd.Clear();
 
@@ -879,7 +882,7 @@ namespace Nep.Project.Web.ProjectInfo
             DatePickerEndDateStart.Clear();
             DatePickerEndDateEnd.Clear();
             //end kenghot
-             
+
             /*
             UpdateTotalIsFollowup();
 
@@ -917,7 +920,7 @@ namespace Nep.Project.Web.ProjectInfo
         public List<ServiceModels.ProjectInfo.ProjectInfoList> GridProjectInfo_GetData(int startRowIndex, int maximumRows, string sortByExpression, out int totalRowCount)
         {
             reportedLOV = ProjectService.GetListOfValue(Common.LOVCode.Followupstatus.รายงานผลแล้ว, Common.LOVGroup.FollowupStatus);
-            var result = this.ProjectService.ListProjectInfoList(GridProjectInfo.QueryParameter,false);
+            var result = this.ProjectService.ListProjectInfoList(GridProjectInfo.QueryParameter, false);
             List<ServiceModels.ProjectInfo.ProjectInfoList> data = new List<ServiceModels.ProjectInfo.ProjectInfoList>();
             totalRowCount = 0;
             if (result.IsCompleted)
@@ -936,7 +939,8 @@ namespace Nep.Project.Web.ProjectInfo
                 }
                 totalRowCount = result.TotalRow;
                 GridProjectInfo.TotalRows = result.TotalRow;
-                if(result.TotalRow == 0){
+                if (result.TotalRow == 0)
+                {
                     ShowResultMessage(Nep.Project.Resources.Message.NoRecord);
                 }
             }
@@ -949,7 +953,7 @@ namespace Nep.Project.Web.ProjectInfo
         }
 
         protected void GridProjectInfo_RowDataBound(Object sender, GridViewRowEventArgs e)
-        { 
+        {
             if (e.Row.RowType == DataControlRowType.Pager)
             {
                 int colSpan = 13;
@@ -957,7 +961,7 @@ namespace Nep.Project.Web.ProjectInfo
             }
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                ServiceModels.ProjectInfo.ProjectInfoList r = (ServiceModels.ProjectInfo.ProjectInfoList) e.Row.DataItem;
+                ServiceModels.ProjectInfo.ProjectInfoList r = (ServiceModels.ProjectInfo.ProjectInfoList)e.Row.DataItem;
                 Image img = (Image)e.Row.FindControl("imgApprovalStatus");
                 Image imgReported = (Image)e.Row.FindControl("imgReported");
                 Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
@@ -965,20 +969,24 @@ namespace Nep.Project.Web.ProjectInfo
                 {
                     if (r.ApprovalStatus1 != null)
                     {
+
                         img.Visible = true;
                         img.ImageUrl = string.Format("~/Images/Approval/ApprovalStatus1_{0}.png", r.ApprovalStatus1.LOVCode.Trim());
                         img.AlternateText = r.ApprovalStatus1.LOVName;
                         img.ToolTip = r.ApprovalStatus1.LOVName;
-                    }else
+
+                    }
+                    else
                     {
-                        if (r.IsReject)
+                        if (!string.IsNullOrEmpty(r.RejectComment) && r.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ)
                         {
                             img.Visible = true;
-                            img.ImageUrl =  "~/Images/Approval/revise.jpg" ;
-                            img.AlternateText = "ส่งแก้ไข";
-                            img.ToolTip = "ส่งแก้ไข";
+                            img.ImageUrl = "~/Images/Approval/revise.jpg";
+                            img.AlternateText = "ถูกแก้ไขและส่งกลับมาเข้าระบบใหม่";
+                            img.ToolTip = "ถูกแก้ไขและส่งกลับมาเข้าระบบใหม่";
                         }
                     }
+
                 }
                 if (imgReported != null)
                 {
@@ -992,7 +1000,7 @@ namespace Nep.Project.Web.ProjectInfo
                 var hist = ProjectService.GetProjectHistoryList(r.ProjectInfoID);
                 if (hist.IsCompleted && hist.Data.Count() > 0)
                 {
-                    getHistDay(hist.Data,2,   (Label)e.Row.FindControl("LabelDay2"));
+                    getHistDay(hist.Data, 2, (Label)e.Row.FindControl("LabelDay2"));
                     getHistDay(hist.Data, 3, (Label)e.Row.FindControl("LabelDay3"));
                     getHistDay(hist.Data, 4, (Label)e.Row.FindControl("LabelDay4"));
                 }
@@ -1004,26 +1012,27 @@ namespace Nep.Project.Web.ProjectInfo
                 //        r.ProjectNameDesc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", "ส่งแก้ไขผลปฎิบัติงาน");
                 //    }
                 //}
-              
+
             }
         }
-        private  void  getHistDay(List<ServiceModels.ProjectInfo.ProjectHistory> h , int iNo, Label lb)
+        private void getHistDay(List<ServiceModels.ProjectInfo.ProjectHistory> h, int iNo, Label lb)
         {
             lb.Visible = false;
             var cur = h.Where(w => w.History.HISTORYTYPE == iNo.ToString()).FirstOrDefault();
             var prev = h.Where(w => w.History.HISTORYTYPE == (iNo - 1).ToString()).FirstOrDefault();
-            
+
             var dayText = "";
             if (cur != null && prev != null)
-            {   dayText = string.Format("{0:#0}วัน", Math.Floor( (cur.History.ENTRYDT.Value - prev.History.ENTRYDT.Value).TotalDays));
+            {
+                dayText = string.Format("{0:#0}วัน", Math.Floor((cur.History.ENTRYDT.Value - prev.History.ENTRYDT.Value).TotalDays));
                 lb.ToolTip = string.Format("จำนวนวันตั้งแต่ {0:dd/MM/yyyy} ถึง {1:dd/MM/yyyy}: {2} วัน",
-                    prev.History.ENTRYDT,cur.History.ENTRYDT,dayText);
+                    prev.History.ENTRYDT, cur.History.ENTRYDT, dayText);
                 lb.Text = dayText;
-                
+
                 lb.Visible = true;
             }
 
-            
+
         }
         #endregion Grid Project Info
 
@@ -1043,7 +1052,8 @@ namespace Nep.Project.Web.ProjectInfo
                 DropDownListProjectInfoType.DataSource = projectTypeList;
                 DropDownListProjectInfoType.DataBind();
             }
-            else {
+            else
+            {
                 errors.Add(projectTypeListResult.Message[0]);
             }
             #endregion Bind data to ประเภทโครงการ
@@ -1073,21 +1083,21 @@ namespace Nep.Project.Web.ProjectInfo
                 approvalProcessList = approvalProcessResult.Data;
                 ServiceModels.ListOfValue approvalStatusCancel = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา).FirstOrDefault();
                 ServiceModels.ListOfValue cancelledProjectRequestStatus = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง).FirstOrDefault();
-                
-                approvalProcessList = approvalProcessList.Where(x => 
+
+                approvalProcessList = approvalProcessList.Where(x =>
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ) ||
-                    (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน) || 
+                    (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน) ||
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน) ||
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)).ToList();
-                
-                
+
+
                 CheckBoxListApprovalProcess.DataSource = approvalProcessList;
                 CheckBoxListApprovalProcess.DataBind();
                 CheckBoxCancelContractStatus.Attributes.Add("Value", approvalStatusCancel.LovID.ToString());
                 CheckBoxCancelledProjectRequest.Attributes.Add("Value", cancelledProjectRequestStatus.LovID.ToString());
-                
+
 
                 for (int i = 0; i < approvalProcessList.Count; i++)
                 {
@@ -1119,7 +1129,7 @@ namespace Nep.Project.Web.ProjectInfo
             {
                 ButtonAdd.Visible = true;
             }
-            
+
             if (errors.Count > 0)
             {
                 ShowErrorMessage(errors);
@@ -1135,8 +1145,10 @@ namespace Nep.Project.Web.ProjectInfo
             string totalIsFollowup = "0";
             if (result.IsCompleted)
             {
-                totalIsFollowup = Nep.Project.Common.Web.WebUtility.DisplayInHtml(result.Data, "N0", "0");                
-            }else{
+                totalIsFollowup = Nep.Project.Common.Web.WebUtility.DisplayInHtml(result.Data, "N0", "0");
+            }
+            else
+            {
                 ShowErrorMessage(result.Message);
             }
 
@@ -1175,8 +1187,8 @@ namespace Nep.Project.Web.ProjectInfo
             }
 
             return list;
-        }        
-          
+        }
+
         private void BindChcekBoxStandardStrategics()
         {
             List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
@@ -1284,13 +1296,13 @@ namespace Nep.Project.Web.ProjectInfo
                     UpdateTotalIsFollowup();
                 }
                 //end kenghot
-               
+
             }
             if (canAdd)
             {
                 Response.Redirect("~/ProjectInfo/Create.aspx");
             }
-          
+
         }
 
         protected void btnRefreshDashBoard_Click(object sender, EventArgs e)
@@ -1304,6 +1316,6 @@ namespace Nep.Project.Web.ProjectInfo
             //ScriptManager.RegisterClientScriptBlock( UpdatePanel1 , UpdatePanel1.GetType(),"ScriptDashBoard", "createChart()", true);
             //  lblDashBoard.Text += "<script>createChart();</script>";
         }
-        
+
     }
 }
