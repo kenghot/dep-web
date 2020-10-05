@@ -117,6 +117,11 @@ Vue.component('polar-chart', {
             default: null
         }
     },
+    methods: {
+        refreshChart() {
+            this.renderChart(this.chartdata, this.options)
+        }
+    },
     mounted() {
         this.renderChart(this.chartdata, this.options)
     }
@@ -133,9 +138,46 @@ Vue.component('bar-chart', {
             default: null
         }
     },
+    methods: {
+        refreshChart() {
+            this.$refs.bar.renderChart(this.chartdata, this.options)
+            this.$refs.polar.renderChart(this.chartdata, this.options)
+        }
+    },
+
     mounted() {
         this.renderChart(this.chartdata, this.options)
     }
+})
+Vue.component('group-chart', {
+    template: '#group-chart',
+    data() {
+        return {
+            headers: [
+                { text: 'สี', value: 'color' },
+                { text: 'รายละเอียด', value: 'description' },
+                { text: 'โครงการ', value: 'projects' },
+                { text: 'จำนวนเงิน', value: 'amount' }
+            ],
+        }
+    },
+    props: {
+        title:"",
+        chartdata: {
+            type: Object,
+            default: null
+        },
+        options: {
+            type: Object,
+            default: null
+        }
+    },
+    methods: {
+        refreshChart() {
+            this.$refs.bar.renderChart(this.chartdata, this.options)
+            this.$refs.polar.renderChart(this.chartdata, this.options)
+        }
+    },
 })
 var VueDashBoard = new Vue({
     el: '#appDashBoard',
@@ -145,23 +187,46 @@ var VueDashBoard = new Vue({
             budgetYear: 0,
             budgetYears: [],
             errorMessage: "",
-            summary: {},
-            lineData1: {
-                labels: ['หฟด', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [
-                    {
-                        label: 'Data One',
-                        backgroundColor: [this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor()],
-                        data: [40, 39, 10, 40, 39, 80, 90]
-                    }
+
+            chartData: {},
+            dataDefault: {
+                projectData: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Data One',
+                            backgroundColor: [this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor()],
+                            data: [4, 3, 1, 4, 9, 8, 7]
+                        }
+                    ]
+                },
+                amountData: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Data One',
+                            backgroundColor: [this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor(), this.randomColor()],
+                            data: [40, 39, 10, 40, 39, 80, 90]
+                        }
+                    ]
+                },
+                legendDatas: [
+                    { color: this.randomColor(), description: 'd1', projects: 1, amount: 100 },
+                    { color: this.randomColor(), description: 'd2', projects: 2, amount: 200 },
+                    { color: this.randomColor(), description: 'd3', projects: 3, amount: 300 },
+                    { color: this.randomColor(), description: 'd4', projects: 4, amount: 400 },
                 ]
             },
+
             lineOption1:
             {
+                title: {
+                    displa: true,  
+                },
                 responsive: true,
                 maintainAspectRatio: false,
                 legend: {
-                    display: true,
+                    display: false,
                 }
             }
         }
@@ -202,8 +267,9 @@ var VueDashBoard = new Vue({
                             var result = response.data.Data
 
                             if (response.data.Data) {
-                                data.summary = result.summary;
-                                data.lineData1 = result.projectTypeAmount;
+                                //data.summary = result.summary;
+                                data.chartData = result;
+                             
              
                             } else {
                                 data.errorMessage = "ไม่พบข้อมูล"

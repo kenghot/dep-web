@@ -1,4 +1,54 @@
-﻿<template id="base-material-stats-card">
+﻿<template id="group-chart">
+    <v-expansion-panel>
+        <v-expansion-panel-header>{{title}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+            <v-row>
+                <v-col cols="12" lg="6">
+                    <v-card class="pa-2"
+                            outlined
+                            tile>
+                        <v-card-title>จำนวนโครงการ</v-card-title>
+                        <polar-chart ref="polar" :chartdata="chartdata.projectData" :options="options" />
+                        </v-card>
+                </v-col>
+                <v-col cols="12" lg="6">
+                    <v-card class="pa-2"
+                            outlined
+                            tile>
+                        <v-card-title>คำอธิบาย</v-card-title>
+                        <v-data-table :headers="headers"
+                                      :items="chartdata.legendDatas"
+                                      class="elevation-1">
+                            <template v-slot:item.color="{ item }">
+                                <v-chip :color="item.color"
+                                        dark>
+
+                                </v-chip>
+                            </template>
+                        </v-data-table>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card class="pa-2"
+                            outlined
+                            tile>
+                        <v-card-title>จำนวนเงิน</v-card-title>
+                        <bar-chart ref="bar" :chartdata="chartdata.amountData" :options="options" />
+                    </v-card>
+                </v-col>
+            </v-row>
+
+            <div>
+
+            </div>
+
+
+        </v-expansion-panel-content>
+    </v-expansion-panel>
+</template>
+<template id="base-material-stats-card">
     <base-material-card ref="bmc" :icon="icon"
                         :color="color"
                         class="v-card--material-stats"
@@ -115,7 +165,7 @@
                           prepend-icon="mdi-map"
                           single-line></v-select>
             </v-col>
-            <v-expansion-panels multiple :value="[0,1]">
+            <v-expansion-panels multiple :value="[0,1,2,3,4,5,6,7,8,9]">
                 <v-expansion-panel>
                     <v-expansion-panel-header>ภาพรวม</v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -125,7 +175,7 @@
                             <base-material-stats-card ref="statCard1" color="info"
                                                       icon="mdi-office-building"
                                                       title="จำนวนองค์กร"
-                                                      :value="summary.newProject"
+                                                      :value="chartData.summary.newProject"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์การส่งคำร้องขอโครงการเข้ามาใหม่" />
                         </v-col>
@@ -135,7 +185,7 @@
                             <base-material-stats-card ref="statCard2" color="lime"
                                                       icon="mdi-account-multiple-plus-outline"
                                                       title="จำนวนองค์กร"
-                                                      :value="summary.newOrganization"
+                                                      :value="chartData.summary.newOrganization"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์กรสมัครขอเปิดใช้ User ใหม่" />
                         </v-col>
@@ -145,7 +195,7 @@
                             <base-material-stats-card ref="statCard3" color="red"
                                                       icon="mdi-file-alert-outline"
                                                       title="จำนวนโครงการ"
-                                                      :value="summary.notReported"
+                                                      :value="chartData.summary.notReported"
                                                       sub-icon="mdi-clock"
                                                       sub-text="องค์กรยังไม่ได้ยื่นผลการดำเนินงานและประเมิน" />
                         </v-col>
@@ -155,7 +205,7 @@
                             <base-material-stats-card ref="statCard4" color="grey"
                                                       icon="mdi-battery-charging-outline"
                                                       title="จำนวนโครงการ"
-                                                      :value="summary.noProcess"
+                                                      :value="chartData.summary.noProcess"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ยังไม่ได้ดำเนินการใดๆ (รับเรื่อง)" />
                         </v-col>
@@ -165,7 +215,7 @@
                             <base-material-stats-card ref="statCard5" color="green"
                                                       icon="mdi-battery-charging-high"
                                                       title="จำนวนโครงการ"
-                                                      :value="summary.reported"
+                                                      :value="chartData.summary.reported"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ส่งแบบรายงานผลการปฎิบัติงานเรียบร้อยแล้ว" />
                         </v-col>
@@ -175,26 +225,39 @@
                             <base-material-stats-card ref="statCard6" color="purple"
                                                       icon="mdi-sync"
                                                       title="จำนวนโครงการ"
-                                                      :value="summary.rePurpose"
+                                                      :value="chartData.summary.rePurpose"
                                                       sub-icon="mdi-clock"
                                                       sub-text="โครงการที่ถูกแก้ไขและส่งกลับมาเข้าระบบใหม่" />
                         </v-col>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
-                <v-expansion-panel>
-                    <v-expansion-panel-header>จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <v-col cols="12">
-                            <bar-chart ref="bar" :chartdata="lineData1" :options="lineOption1" />
-                        </v-col>
-                        <div>
+                <group-chart ref="org" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทหน่วยงาน" :chartdata="chartData.orgTypeData" :options="lineOption1">
 
-                        </div>
-                        <div>
-                            <polar-chart :chartdata="lineData1" :options="lineOption1" />
-                        </div>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
+                </group-chart>
+                <group-chart ref="projType" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทโครงการ" :chartdata="chartData.projectTypeData" :options="lineOption1"></group-chart>
+                <group-chart ref="disabilityType" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทความพิการ" :chartdata="chartData.disabilityTypeData" :options="lineOption1"></group-chart>
+                <group-chart ref="missionType" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทยุทธศาสตร์" :chartdata="chartData.missionData" :options="lineOption1"></group-chart>
+                <!--<v-expansion-panel>
+        <v-expansion-panel-header>จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ</v-expansion-panel-header>
+        <v-expansion-panel-content>
+
+            <v-col cols="12">
+                <bar-chart ref="bar"  :chartdata="lineData1" :options="lineOption1" />
+            </v-col>
+            <div>
+
+            </div>
+            <v-row>
+                <div cols="6">
+                    <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
+                </div>
+                <div cols="6">
+                    <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
+                </div>
+            </v-row>
+
+        </v-expansion-panel-content>
+    </v-expansion-panel>-->
             </v-expansion-panels>
         </v-container>
   
