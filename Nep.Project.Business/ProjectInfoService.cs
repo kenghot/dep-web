@@ -15,7 +15,8 @@ using Nep.Project.ServiceModels.ProjectInfo;
 using Nep.Project.DBModels.Model;
 using Nep.Project.Business;
 using Nep.Project.Common.Web;
- 
+using System.Web;
+
 namespace Nep.Project.Business
 {
     public class ProjectInfoService : IServices.IProjectInfoService
@@ -2998,6 +2999,7 @@ namespace Nep.Project.Business
                         directProvinceNo = (!string.IsNullOrEmpty(contract.ProvinceContractNo)) ? (contract.ProvinceContractNo + "/" + Common.Web.WebUtility.ToBuddhaYear(contract.ProvinceContractYear)) : "";
 
                         ServiceModels.Report.ReportFormatContract obj = new ServiceModels.Report.ReportFormatContract();
+                        obj.QRCode = $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}/ProjectInfo/ProjectInfoForm?id={projectID}";
                         obj.ContractNo = contract.ContractNo;
                         obj.SignAt = contract.ContractLocation;
                         obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
@@ -7115,7 +7117,7 @@ namespace Nep.Project.Business
                             select new ServiceModels.Report.ReportProjectRequest.GeneralProjectInfo
                             {
                                 ProjectID = g.ProjectID,
-
+                                ProjectTypeCode = g.ProjectInformation.ProjectType.LOVCode,
                                 ProjectProvinceID = g.ProvinceID,
 
                                 ApprovalStatus = (g.ProjectApproval != null) ? g.ProjectApproval.ApprovalStatus : null,

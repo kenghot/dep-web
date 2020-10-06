@@ -636,7 +636,7 @@ namespace Nep.Project.ServiceModels.Report.ReportProjectRequest
             set { _assessmentDesc = value; }
         }
 
-
+        public string ProjectTypeCode { get; set; }
         
     }
 

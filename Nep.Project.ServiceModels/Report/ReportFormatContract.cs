@@ -12,6 +12,7 @@ namespace Nep.Project.ServiceModels.Report
     public class ReportFormatContract
     {
         public GeneralProjectInfo Info { get; set; }
+        public string QRCode { get; set; }
         public String ContractNo {get;set;}
         public String SignAt {get;set;}
         public String SignDistrict {get;set;}

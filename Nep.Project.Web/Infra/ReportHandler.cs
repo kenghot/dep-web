@@ -215,8 +215,9 @@ namespace Nep.Project.Web.Infra
 
                 if (rep.IsCompleted)
                 {
-
+                  
                     ServiceModels.Report.ReportFormatContract contract = rep.Data;
+                    
                     contract.ContractNo = WebUtility.ParseToThaiNumber(contract.ContractNo);
                     contract.ReceiverAddressNo = WebUtility.ParseToThaiNumber(contract.ReceiverAddressNo);
                     contract.ContractDate = WebUtility.ParseToThaiNumber(contract.ContractDate);
