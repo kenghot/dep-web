@@ -9659,13 +9659,21 @@ namespace Nep.Project.Business
                     //    size = 222,
                     //    tempId = "2"
                     //});
-                    addresses[i].ImageAttachments = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == addresses[i].ProcessID && w.QUESTGROUP == "ACTIVITYIMG")
-                        .Select(s => new KendoAttachment
+                    var path = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority + "/UploadImages/";
+                    var actId = addresses[i].ProcessID;
+                    addresses[i].ImageAttachments = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == actId  && w.QUESTGROUP == "ACTIVITYIMG")
+                        .Select(s => new ServiceModels.API.Responses.UploadImageResponse
                         {
-                            id = s.PROJECTID.ToString(),
-                            name = s.DATA
+
+                            ImageName = s.DATA,
+                            ImageId = s.QUESTHDID,
+                            //ImageFullPath = path + s.DATA
                         })
                         .ToList();
+                    foreach (var a in addresses[i].ImageAttachments)
+                    {
+                        a.ImageFullPath = path + a.ImageName;
+                    }
 
                 }
             }

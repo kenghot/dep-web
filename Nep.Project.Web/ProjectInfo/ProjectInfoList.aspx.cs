@@ -992,7 +992,7 @@ namespace Nep.Project.Web.ProjectInfo
                 {
                     imgReported.Visible = r.FollowupStatusID.HasValue && r.FollowupStatusID.Value == reportedLOV.LOVID;
                 }
-                if (btnAcknowledged != null)
+                if (btnAcknowledged != null && UserInfo.IsAdministrator)
                 {
                     btnAcknowledged.Visible = r.Acknowledged != "1";
                 }

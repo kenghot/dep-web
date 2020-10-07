@@ -154,6 +154,13 @@ namespace Nep.Project.Web.Organization
                 TextBoxStreet.Text = data.Road;
                 TextBoxTelephone.Text = data.Telephone;
                 TextBoxMobileOrganization.Text = data.Mobile;
+                if (data.ExtendData != null)
+                {
+                    TextBoxAccountName.Text = data.ExtendData.AccountName;
+                    TextBoxAccountNo.Text = data.ExtendData.AccountNo;
+                    TextBoxBankNo.Text = data.ExtendData.BankNo;
+                    TextBoxBranchNo.Text = data.ExtendData.BranchNo;
+                }
                 SetSelectedOrganizationType(data.OrganizationType, data.OrganizationTypeEtc);
                 ButtonDelete.Visible = (IsDeleteRole && data.IsDeleteable);
 
@@ -307,7 +314,13 @@ namespace Nep.Project.Web.Organization
             entry.Mobile = TextBoxMobileOrganization.Text.Trim();
             entry.Fax = TextBoxFax.Text.Trim();
             entry.Email = TextBoxEmail.Text.Trim();
-
+            entry.ExtendData = new ServiceModels.OrganizationExtend
+            {
+                AccountName = TextBoxAccountName.Text.Trim(),
+                AccountNo = TextBoxAccountNo.Text.Trim(),
+                BankNo = TextBoxBankNo.Text.Trim(),
+                BranchNo = TextBoxBranchNo.Text.Trim()
+            };
             ServiceModels.ReturnObject<ServiceModels.OrganizationProfile> result = null;
 
             if (this.OrganizationID.HasValue)

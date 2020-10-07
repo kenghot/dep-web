@@ -208,8 +208,14 @@ namespace Nep.Project.Web.ProjectInfo
                 }  
                 BindData();
                 DisplayGeneralInfoControl.BindData();
-
+                //int act;
+                //if (int.TryParse(Request.QueryString["ActiveTabIndex"], out act))
+                //{
+                //    TabContainerProjectInfoForm.ActiveTabIndex = act;
+                //    TabContainerProjectInfoForm_ActiveTabChanged(TabContainerProjectInfoForm, new EventArgs());
+                //}
             }
+ 
             
         }
 

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.Organization {
-    
-    
-    public partial class OrganizationForm {
-        
+namespace Nep.Project.Web.Organization
+{
+
+
+    public partial class OrganizationForm
+    {
+
         /// <summary>
         /// UpdatePanelRegister control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelRegister;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// TextBoxOrganizationNameTH control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxOrganizationNameTH;
-        
+
         /// <summary>
         /// RequiredFieldValidatorTextBoxProjectInfoNameTH control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTextBoxProjectInfoNameTH;
-        
+
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+
         /// <summary>
         /// TextBoxOrganizationNameEN control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxOrganizationNameEN;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType1 control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType1;
-        
+
         /// <summary>
         /// TextBoxDepartmentName control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxDepartmentName;
-        
+
         /// <summary>
         /// RequiredFieldValidatorDepartmentName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorDepartmentName;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType2 control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType2;
-        
+
         /// <summary>
         /// TextBoxMinistryName control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxMinistryName;
-        
+
         /// <summary>
         /// RequiredFieldValidatorMinistryName control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorMinistryName;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType3 control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType3;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType4 control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType4;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType5 control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType5;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType6 control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType6;
-        
+
         /// <summary>
         /// RadioButtonOrganizationType7 control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType7;
-        
+
         /// <summary>
         /// TextBoxOrganzationTypeETC control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxOrganzationTypeETC;
-        
+
         /// <summary>
         /// RequiredFieldValidatorOrganzationTypeETC control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorOrganzationTypeETC;
-        
+
         /// <summary>
         /// CustomValidator1 control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
-        
+
         /// <summary>
         /// TextBoxOrgUnderSupport control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxOrgUnderSupport;
-        
+
         /// <summary>
         /// DatePickerRegisterYear control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerRegisterYear;
-        
+
         /// <summary>
         /// RequiredFieldValidatorRegisterYear control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorRegisterYear;
-        
+
         /// <summary>
         /// DatePickerRegisterDate control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerRegisterDate;
-        
+
         /// <summary>
         /// CustomValidatorRegisterDate control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorRegisterDate;
-        
+
         /// <summary>
         /// TextBoxAddressNo control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxAddressNo;
-        
+
         /// <summary>
         /// RequiredFieldValidatorAddressNo control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorAddressNo;
-        
+
         /// <summary>
         /// TextBoxMoo control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxMoo;
-        
+
         /// <summary>
         /// TextBoxBuilding control.
         /// </summary>
@@ -272,7 +274,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxBuilding;
-        
+
         /// <summary>
         /// TextBoxSoi control.
         /// </summary>
@@ -281,7 +283,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxSoi;
-        
+
         /// <summary>
         /// TextBoxStreet control.
         /// </summary>
@@ -290,7 +292,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxStreet;
-        
+
         /// <summary>
         /// DdlProvince control.
         /// </summary>
@@ -299,7 +301,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText DdlProvince;
-        
+
         /// <summary>
         /// CustomValidatorProvince control.
         /// </summary>
@@ -308,7 +310,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorProvince;
-        
+
         /// <summary>
         /// DdlDistrict control.
         /// </summary>
@@ -317,7 +319,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText DdlDistrict;
-        
+
         /// <summary>
         /// CustomValidatorDistrict control.
         /// </summary>
@@ -326,7 +328,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorDistrict;
-        
+
         /// <summary>
         /// DdlSubDistrict control.
         /// </summary>
@@ -335,7 +337,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText DdlSubDistrict;
-        
+
         /// <summary>
         /// CustomValidatorSubDistrict control.
         /// </summary>
@@ -344,7 +346,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorSubDistrict;
-        
+
         /// <summary>
         /// TextBoxPostCode control.
         /// </summary>
@@ -353,7 +355,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.TextBox TextBoxPostCode;
-        
+
         /// <summary>
         /// RequiredFieldValidatorPostCode control.
         /// </summary>
@@ -362,7 +364,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPostCode;
-        
+
         /// <summary>
         /// MaskedEditExtenderPostCode control.
         /// </summary>
@@ -371,7 +373,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtenderPostCode;
-        
+
         /// <summary>
         /// RegularExpressionValidatorPostCode control.
         /// </summary>
@@ -380,7 +382,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorPostCode;
-        
+
         /// <summary>
         /// TextBoxTelephone control.
         /// </summary>
@@ -389,7 +391,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxTelephone;
-        
+
         /// <summary>
         /// RequiredFieldValidatorTelephone control.
         /// </summary>
@@ -398,7 +400,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTelephone;
-        
+
         /// <summary>
         /// TextBoxMobileOrganization control.
         /// </summary>
@@ -407,7 +409,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxMobileOrganization;
-        
+
         /// <summary>
         /// TextBoxFax control.
         /// </summary>
@@ -416,7 +418,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxFax;
-        
+
         /// <summary>
         /// TextBoxEmail control.
         /// </summary>
@@ -425,7 +427,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxEmail;
-        
+
         /// <summary>
         /// RequiredFieldValidatorEmail control.
         /// </summary>
@@ -434,7 +436,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorEmail;
-        
+
         /// <summary>
         /// RegularExpressionValidatorTextBoxEmail control.
         /// </summary>
@@ -443,7 +445,43 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorTextBoxEmail;
-        
+
+        /// <summary>
+        /// TextBoxBankNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBankNo;
+
+        /// <summary>
+        /// TextBoxBranchNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBranchNo;
+
+        /// <summary>
+        /// TextBoxAccountNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountNo;
+
+        /// <summary>
+        /// TextBoxAccountName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountName;
+
         /// <summary>
         /// ButtonSave control.
         /// </summary>
@@ -452,7 +490,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSave;
-        
+
         /// <summary>
         /// ButtonDelete control.
         /// </summary>
@@ -461,7 +499,7 @@ namespace Nep.Project.Web.Organization {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonDelete;
-        
+
         /// <summary>
         /// ButtonCancel control.
         /// </summary>

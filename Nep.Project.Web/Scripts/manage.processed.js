@@ -90,7 +90,11 @@
             text += "<br />ไฟล์แนบ <a href='' target='_blank' class='file-link' onclick='return c2xProc.openAttachment(\"" + attahc.tempId + "\", \"" + attahc.id + "\", \"" + attahc.name + "\");'>" + attahc.name + "</a>";
 
         }
+        if (data.Latitude && data.Longitude) {
+            text += "<br /> <a href='http://maps.google.com/maps?q=loc:" + data.Latitude.toString() + ',' + data.Longitude.toString() + "' target='_blank' class='file-link' >ที่ตั้งกิจกรรม</a>"
+        }
         if (data.ImageAttachments) {
+            text += "<br>รูปกิจกรรม"
             for (i = 0; i <= data.ImageAttachments.length - 1; i++) {
                 var img = data.ImageAttachments[i];
                 addlink = false;
@@ -104,7 +108,9 @@
 
                 }
                 if (addlink) {
-                    text += "<br />รูปที่ " + (i + 1) + " <a href='' target='_blank' class='file-link' onclick='return c2xProc.openAttachment(\"" + img.tempId + "\", \"" + img.id + "\", \"" + img.name + "\");'>" + img.name + "</a>";
+
+                   // text += "<br />รูปที่ " + (i + 1) + " <a href='' target='_blank' class='file-link' onclick='return c2xProc.openAttachment(\"" + img.tempId + "\", \"" + img.id + "\", \"" + img.name + "\");'>" + img.name + "</a>";
+                    text += "<br /><a href='" + img.ImageFullPath + "' target='_blank' class='file-link' >" + "รูปที่ " + (i + 1) + "</a>";
                 }
                 
             }

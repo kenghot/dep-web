@@ -98,9 +98,16 @@ namespace Nep.Project.ServiceModels
         //public string ConfirmPassword { get; set; }
 
         public bool IsDeleteable { get; set; }
-
+        public string ExtendJSON { get; set; }
+        public OrganizationExtend ExtendData { get; set; }
     }
-
+    public class OrganizationExtend
+    {
+        public string BankNo { get; set; }
+        public string BranchNo { get; set; }
+        public string AccountNo { get; set; }
+        public  string AccountName { get; set; }
+    }
 
     [Serializable]
     public class OrganizationList

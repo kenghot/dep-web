@@ -535,6 +535,7 @@
 
                         <ItemTemplate>
                             <td>
+                                <asp:CheckBox ID="CheckBoxSelect" runat="server" ProjecId='<%#Eval("ProjectInfoID") %>' />
                                 <%#Nep.Project.Common.Web.WebUtility.DisplayInHtml(Eval("ProjectNo"), "", "-") %>
                                 <br /><asp:Button ID="ButtonAcknowledged" alt="รับเรื่อง" ToolTip="รับเรื่อง" runat="server" Text="รับเรื่อง" CssClass="btn btn-default btn-sm"
                                     CommandName="Acknowledged" CommandArgument='<%# Eval("ProjectInfoID") %>' Visible="false" OnClientClick="return ConfirmToDelete('ยืนยันการรับเรื่อง')" />

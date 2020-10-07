@@ -121,6 +121,7 @@
           <Property Name="MOBILE" Type="varchar2" MaxLength="30" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="MT_ORGANIZATIONPARAMETER">
           <Key>
@@ -2733,6 +2734,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="Mobile" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MT_OrganizationType">
           <Key>
@@ -5280,6 +5282,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="MT_Organization">
             <EntityTypeMapping TypeName="Model.MT_Organization">
               <MappingFragment StoreEntitySet="MT_ORGANIZATION">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="Mobile" ColumnName="MOBILE" />

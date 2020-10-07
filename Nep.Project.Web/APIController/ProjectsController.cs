@@ -1,12 +1,15 @@
 ﻿using Autofac.Integration.Web.Forms;
+using Nep.Project.DBModels.Model;
 using Nep.Project.ServiceModels;
 using Nep.Project.ServiceModels.API.Requests;
 using Nep.Project.ServiceModels.API.Responses;
+using Nep.Project.ServiceModels.ProjectInfo;
 using Nep.Project.ServiceModels.Report.ReportProjectRequest;
 using Nep.Project.ServiceModels.Security;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,7 +29,90 @@ namespace Nep.Project.Web.APIController
             userInfo = UserInfo;
             attachService = attach;
         }
+        /// <summary>
+        /// update กิจกรรม
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Route("UpdateProcessActivity/{projId}/{processId}")]
+        [HttpPost]
+        public ReturnObject<decimal?> UpdateProcessActivity([Required][FromUri] decimal projId, [Required][FromUri] decimal processId, [FromBody] BaseActivity p)
+        {
+            var result = new ReturnObject<decimal?>();
+            result.IsCompleted = false;
+            try
+            {
 
+                var db = projService.GetDB();
+                var pc = db.PROJECTPROCESSEDs.Where(w => w.PROCESSID == processId && w.PROJECTID == projId).FirstOrDefault();
+                if (pc == null)
+                {
+                    result.Message.Add($"ไม่พบโครงการที่ระบุ (no. {projId})");
+                    return result;
+                }
+
+                copyProjectProcessed(p, pc);
+                //db.PROJECTPROCESSEDs.Add(pc);
+                db.SaveChanges();
+                result.Data = pc.PROCESSID;
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        /// <summary>
+        /// เพิ่ม กิจกรรม
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Route("AddProcessActivity/{projId}")]
+        [HttpPost]
+        public ReturnObject<decimal?> AddProcessActivity([FromUri]decimal projId, [FromBody]BaseActivity p)
+        {
+            var result = new ReturnObject<decimal?>();
+            result.IsCompleted = false;
+            try
+            {
+
+                var db = projService.GetDB();
+                var proj = db.ProjectGeneralInfoes.Where(w => w.ProjectID == projId).FirstOrDefault();
+                if (proj == null)
+                {
+                    result.Message.Add($"ไม่พบโครงการที่ระบุ (no. {projId})");
+                    return result;
+                }
+                var pc = new PROJECTPROCESSED();
+                pc.PROJECTID = projId;
+                copyProjectProcessed(p, pc);
+                db.PROJECTPROCESSEDs.Add(pc);
+                db.SaveChanges();
+                result.Data = pc.PROCESSID;
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        private void copyProjectProcessed(BaseActivity source, PROJECTPROCESSED dest)
+
+        {
+            var db = projService.GetDB();
+            var p = db.MT_Province.Where(w => w.SectionID == 1).FirstOrDefault();
+            
+            dest.PROVINCEID = p.ProvinceID;
+            dest.DESCRIPTION = source.Description;
+            dest.LATITUDE = source.Latitude;
+            dest.LONGITUDE = source.Longitude;
+            dest.PROCESSSTART = source.ProcessStart;
+            dest.PROCESSEND = source.ProcessEnd;
+           // dest.PROCESSID = source.ProcessID.Value;
+
+        }
         [Route("GetActivityListScreen/{id}")]
         [HttpPost]
         public ReturnObject<ActivityScreen> GetActivityListScreen([FromUri] decimal id)
@@ -73,8 +159,7 @@ namespace Nep.Project.Web.APIController
             }
             catch (Exception ex)
             {
-                result.Message.Add(ex.Message);
-                result.Message.Add(ex.InnerException.Message);
+                result.SetExceptionMessage(ex);
             }
             return result;
         }

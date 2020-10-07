@@ -52,6 +52,7 @@ namespace Nep.Project.DBModels.Model
         public string Mobile { get; set; }
         public Nullable<decimal> UpdatedByID { get; set; }
         public decimal CreatedByID { get; set; }
+        public string EXTENDDATA { get; set; }
     
         public virtual MT_District District { get; set; }
         public virtual ICollection<OrganizationCommittee> OrganizationCommittees { get; set; }

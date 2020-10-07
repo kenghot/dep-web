@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using Nep.Project.Resources;
 using Nep.Project.DBModels;
 using Nep.Project.DBModels.Model;
+using Nep.Project.ServiceModels.API.Responses;
 
 namespace Nep.Project.ServiceModels.ProjectInfo
 {
@@ -1676,7 +1677,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         /// <summary>
         /// kenghot
         /// </summary>
-        public List<ServiceModels.KendoAttachment> ImageAttachments { get; set; }
+        public List<UploadImageResponse> ImageAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> AddedImageAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> RemovedImageAttachments { get; set; }
         public decimal? Latitude { get; set; }
