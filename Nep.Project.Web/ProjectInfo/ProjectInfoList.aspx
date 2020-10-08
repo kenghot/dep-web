@@ -238,7 +238,8 @@
         <ContentTemplate>
 
             <div class="count-alert-followup">
-                <asp:Label ID="LabelTotalIsFollowup" runat="server" /></div>
+                <asp:Label ID="LabelTotalIsFollowup" runat="server" />
+            </div>
             <div class="panel panel-default panel-search">
                 <div class="panel-heading panel-heading-search"><%=UI.LabelSearch %></div>
                 <div class="panel-body">
@@ -434,18 +435,25 @@
 
             <asp:Label ID="lblCannotAdd" runat="server" ForeColor="#FF3300" Visible="false" Font-Size="Large" Text="ไม่สามารถยืนเสนอโครงการใหม่ได้เนื่องจากไม่ได้ส่งแบบรายผลการปฏิบัติงาน ดังรายการต่อไปนี้"></asp:Label>
             <div id="divHelpImg">
-                สถานะ 
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-default btn-sm" onclick="CreateEPayment()">สร้างไฟล์สำหรับ e-Payment</button>
+                    </div>
+                    <div class="col-sm-6">
+                        สถานะ 
                 <asp:Image ID="imgHelp" alt="help" onmouseover="$('#divHelpHover')[0].style.display = 'block' "
                     onmouseleave="$('#divHelpHover')[0].style.display = 'none'" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" runat="server" Width="20px" Height="20px" />
-                <div id="divHelpHover" style="display: none">
+                        <div id="divHelpHover" style="display: none">
 
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_1.png" />อนุมัติ ตามวงเงินที่โครงการขอสนับสนุน<br />
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_2.png" />อนุมัติ ปรับลดวงเงินสนับสนุน<br />
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_3.png" />ไม่อนุมัติ<br />
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_4.png" />ชะลอการพิจารณา<br />
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_5.png" />ยกเลิก<br />
-                    <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_1.png" />อนุมัติ ตามวงเงินที่โครงการขอสนับสนุน<br />
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_2.png" />อนุมัติ ปรับลดวงเงินสนับสนุน<br />
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_3.png" />ไม่อนุมัติ<br />
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_4.png" />ชะลอการพิจารณา<br />
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_5.png" />ยกเลิก<br />
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น
                     <br />
+                        </div>
+                    </div>
                 </div>
             </div>
             <nep:GridView runat="server" ID="GridProjectInfo" ItemType="Nep.Project.ServiceModels.ProjectInfo.ProjectInfoList"
@@ -459,6 +467,7 @@
                 <Columns>
                     <asp:TemplateField>
                         <HeaderTemplate>
+                            <th id="th0" rowspan="2" style="width: 2px"></th>
                             <th id="th1" rowspan="2" style="width: 80px">
                                 <asp:LinkButton ID="LinkButtonProjectNo" runat="server"
                                     Text="<%$ code:Model.Processing_ContractNo %>" CommandName="Sort" CommandArgument="ProjectNo" />
@@ -535,9 +544,13 @@
 
                         <ItemTemplate>
                             <td>
-                                <asp:CheckBox ID="CheckBoxSelect" runat="server" ProjecId='<%#Eval("ProjectInfoID") %>' />
+                                <input id="<%#Eval("ProjectInfoID") %>" type="checkbox" class="select-row" />
+                            </td>
+                            <td>
+
                                 <%#Nep.Project.Common.Web.WebUtility.DisplayInHtml(Eval("ProjectNo"), "", "-") %>
-                                <br /><asp:Button ID="ButtonAcknowledged" alt="รับเรื่อง" ToolTip="รับเรื่อง" runat="server" Text="รับเรื่อง" CssClass="btn btn-default btn-sm"
+                                <br />
+                                <asp:Button ID="ButtonAcknowledged" alt="รับเรื่อง" ToolTip="รับเรื่อง" runat="server" Text="รับเรื่อง" CssClass="btn btn-default btn-sm"
                                     CommandName="Acknowledged" CommandArgument='<%# Eval("ProjectInfoID") %>' Visible="false" OnClientClick="return ConfirmToDelete('ยืนยันการรับเรื่อง')" />
                             </td>
 
@@ -635,18 +648,50 @@
             <script type="text/javascript">
                 function ConfirmToDelete(msg) {
                     var message = <%=Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Message.DeleteConfirmation)%>;
-                                                                    if (msg) {
-                                                                        message = msg
-                                                                    }
+                    if (msg) {
+                        message = msg
+                    }
 
-                                                                    var isConfirm = window.confirm(message);
-                                                                    return isConfirm;
-                                                                }
-                                                                var col5 = $("tr.asp-pagination table td:contains('5')")
-                                                                if (col5.length != 0) {
-                                                                    console.log('ok');
-                                                                    col5[0].style.display = 'block';
-                                                                }
+                    var isConfirm = window.confirm(message);
+                    return isConfirm;
+                }
+                var col5 = $("tr.asp-pagination table td:contains('5')")
+                if (col5.length != 0) {
+                    console.log('ok');
+                    col5[0].style.display = 'block';
+                }
+                function CreateEPayment() {
+                    var sels = $.map($(".select-row:checked"), function (v) { return v.id })
+                    if (sels.length == 0) {
+                        alert("กรุณาเลือกโครงการที่จะดำเนินการ")
+                        return
+                    }
+                    if (confirm("ยืนยันการสร้างไฟล์ e-Payment จำนวน " + sels.length + " โครงการ")) {
+                        axios.post('http://localhost:8976/api/projects/CreateEPayment', sels).then(
+                            response => {
+                                console.log(response)
+                                if (response && response.status == 200) {
+                                    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/zip' }))
+                                    //const url = window.URL.createObjectURL(response.data)
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    const fileName = response.headers["content-disposition"].split("filename=")[1];
+                                    link.setAttribute('download', fileName);
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    link.remove();// you need to remove that elelment which is created before.
+                                } else {
+                                    alert(response.data)
+                                    return
+                                }
+
+                    }
+                        ).catch(function (err) {
+                            alert(err.response.data.Message)
+                            return
+                        } )
+                }
+                }
             </script>
         </ContentTemplate>
     </asp:UpdatePanel>
