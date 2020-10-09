@@ -9,42 +9,41 @@
     <ContentTemplate>
         <style type="text/css">
             #RadioButtonListComparePurpose > tbody > tr:first-child > td > input[type="radio"]:first-child {
-                position:absolute;
+                position: absolute;
             }
 
             #RadioButtonListComparePurpose > tbody > tr:first-child > td .control-label-radio.radio-block {
-                margin-left:18px;
+                margin-left: 18px;
             }
 
-            div.combobox-block{
-                position:relative !important;
+            div.combobox-block {
+                position: relative !important;
             }
 
-            .ajax__combobox_itemlist{
-                top:27px  !important;
-                left:7px !important;
+            .ajax__combobox_itemlist {
+                top: 27px !important;
+                left: 7px !important;
             }
 
-            
 
-             .btn-hide {
-                display:none;
+
+            .btn-hide {
+                display: none;
             }
 
             .button-add-participant, .button-clear-participant {
-                margin-top:6px;
-                margin-right:5px;
-                opacity:.6;
-
+                margin-top: 6px;
+                margin-right: 5px;
+                opacity: .6;
             }
 
-             .button-add-participant[disabled="disabled"]:hover, .button-clear-participant[disabled="disabled"]:hover {
-                opacity:.6;
-            }
-            
-            .button-add-participant:hover, .button-clear-participant:hover {
-                opacity:1;
-            }
+                .button-add-participant[disabled="disabled"]:hover, .button-clear-participant[disabled="disabled"]:hover {
+                    opacity: .6;
+                }
+
+                .button-add-participant:hover, .button-clear-participant:hover {
+                    opacity: 1;
+                }
             /*.k-grid-with-pager .k-grid-pager {
                  width:965px;
             }
@@ -53,15 +52,13 @@
                  width:900px !important;
             }*/
 
-            .maskedtextbox{
-                width:99%;
+            .maskedtextbox {
+                width: 99%;
             }
 
-            .k-grid .k-dropdown-wrap{
-               
-                padding-right:18px;
+            .k-grid .k-dropdown-wrap {
+                padding-right: 18px;
             }
-   
         </style>
         
         <div class="panel panel-default">
@@ -102,6 +99,18 @@
                              OnClientClick="window.open('../Content/Files/ProjectParticipantForm.xlsx','_blank');return false;" />
                        
                     </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-12">
+                            <div class="col-sm-2">
+                                        <nep:TextBox runat="server" CssClass="form-control" ID="TextBoxCheckId" MaxLength="13" 
+                                            PlaceHolder="ตรวจสอบบัตรประชาชน" ToolTip="ตรวจสอบบัตรประชาชน"/>
+
+                            </div>
+                            <div class="col-sm-3">
+
+                            <button type="button" class="btn btn-default btn-sm" onclick="objIMP.CheckIDFromDisability()">ตรวจสอบจากข้อมูลจากทะเบียนกลางคนพิการ</button>
+                            </div>
+                        </div>
                     <div class="form-group form-group-sm">
                         <div class="col-sm-12">
                             <div class="form-horizontal custom-padd">                            
@@ -809,5 +818,6 @@
                 </ContentTemplate>
                 </asp:UpdatePanel>
         <asp:Button OnClick="btn_Click" runat="server" ID="btn" Text="test" />--%>
+ 
     </ContentTemplate>
 </asp:UpdatePanel>

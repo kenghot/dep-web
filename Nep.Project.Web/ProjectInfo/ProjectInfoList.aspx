@@ -671,7 +671,8 @@
                             response => {
                                 console.log(response)
                                 if (response && response.status == 200) {
-                                    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/zip' }))
+                                    //const url = window.URL.createObjectURL(new Blob([response.data], { type: "application/zip" }))
+                                    const url = window.URL.createObjectURL(b64toBlob(response.data))
                                     //const url = window.URL.createObjectURL(response.data)
                                     const link = document.createElement('a');
                                     link.href = url;
@@ -679,6 +680,7 @@
                                     link.setAttribute('download', fileName);
                                     document.body.appendChild(link);
                                     link.click();
+                                    window.URL.revokeObjectURL(url);
                                     link.remove();// you need to remove that elelment which is created before.
                                 } else {
                                     alert(response.data)
@@ -691,6 +693,17 @@
                             return
                         } )
                 }
+                }
+                function b64toBlob(data) {
+
+                    var byteString = atob(data);
+                    var ab = new ArrayBuffer(byteString.length);
+                    var ia = new Uint8Array(ab);
+
+                    for (var i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    return new Blob([ab], { type: 'application/zip' });
                 }
             </script>
         </ContentTemplate>

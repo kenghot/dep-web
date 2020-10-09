@@ -471,18 +471,24 @@ namespace Nep.Project.Web.APIController
 
                     //Set the Name of Zip File.
                     string zipName = String.Format("ePayment_{0}.zip", DateTime.Now.ToString("yyyy-MMM-dd-HHmmss"));
-                    zip.Save("e:\\" + zipName);
+                    //zip.Save("e:\\" + zipName);
                     using (MemoryStream memoryStream = new MemoryStream())
                     {
                         //Save the Zip File to MemoryStream.
                         zip.Save(memoryStream);
+                        
+                        var bytes = memoryStream.ToArray();
+                        //File.WriteAllBytes("e:\\byte-" + zipName, bytes);
                         //memoryStream.Seek(0, SeekOrigin.Begin);
                         //Set the Response Content.
-                        response.Content = new ByteArrayContent(memoryStream.ToArray());
+                        //response.Content = new ByteArrayContent(bytes);
+                        var data = Convert.ToBase64String(bytes);
+                       // File.WriteAllText("e:\\base64-" + zipName, data);
+                        response.Content = new StringContent(data);
 
                         //Set the Response Content Length.
-                        response.Content.Headers.ContentLength = memoryStream.ToArray().LongLength;
-
+                        //response.Content.Headers.ContentLength = bytes.LongLength;
+                        response.Content.Headers.ContentLength = data.Length;
                         //Set the Content Disposition Header Value and FileName.
                         response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                         response.Content.Headers.ContentDisposition.FileName = zipName;

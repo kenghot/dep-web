@@ -163,5 +163,50 @@ var objIMP = null;
             }
             )
     }
+    ImportParticipants.prototype.CheckIDFromDisability = function (id) {
+  
+        axios
+            //.post('ajax_get_des_person.txt', "the_id=" + the_id)
+            .post('/Serviceshandler/CheckIDFromDisability', { "id": txtCheck.val() })
+            .then(response => {
+                var mm
+                try {
+                    mm = eval(response.data)
+
+                    txtFirstName.val('')
+                    txtLastName.val('')
+                    txtCardId.val('')
+                    let id = txtCheck.val()
+                    console.log(id)
+                    console.log(`${id[0]}-${id[1]}${id[2]}${id[3]}${id[4]}-${id[5]}${id[6]}${id[7]}${id[8]}${id[9]}-${id[10]}${id[11]}-${id[12]}`)
+                    if (mm) {
+                        //main_body.maimad_id = the_id;
+                        txtFirstName.val(someVar.FIRST_NAME_THAI)
+                        txtLastName.val(someVar.LAST_NAME_THAI)
+                        txtCardId.val(`${id[0]}-${id[1]}${id[2]}${id[3]}${id[4]}-${id[5]}${id[6]}${id[7]}${id[8]}${id[9]}-${id[10]}${id[11]}-${id[12]}`)
+                        //main_body.maimad_sex = someVar.SEX_CODE;
+                        //main_body.maimad_age = someVar.BIRTH_DATE;
+                        //main_body.maimad_disabled = someVar.DEFORM_ID;
+                        var ddl;
+                        var gender = "ชาย"
+                        if (someVar.SEX_CODE === "F") {
+                            gender = "หญิง"
+                        }
+                        ddl = selectDDL(_participantGenderCreate, gender, true, "kendoDropDownList");
+                      
+                    } else {
+                        alert("ไม่พบข้อมูล")
+                    }
+                } catch (err) {
+                    console.log(err)
+                    alert(err)
+                }
+
+
+
+            })
+    }
+
     objIMP = new ImportParticipants();
+
 })();

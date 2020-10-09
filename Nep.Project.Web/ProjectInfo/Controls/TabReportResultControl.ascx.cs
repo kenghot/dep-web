@@ -198,6 +198,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                        false);
 
             String participantScript = @" 
+                var txtCardId = $('#" + TextBoxParticipantIDCardNo.ClientID + @"')
+                var txtFirstName = $('#" + TextBoxParticipantFirstName.ClientID + @"')
+                var txtLastName = $('#" + TextBoxParticipantLastName.ClientID + @"')
+                var txtCheck = $('#" + TextBoxCheckId.ClientID + @"')
             $(function () {                   
                     
                     //c2xProjectReport.config({

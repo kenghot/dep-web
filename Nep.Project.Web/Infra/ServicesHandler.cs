@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using System.Drawing;
 using Nep.Project.DBModels;
 using Nep.Project.ServiceModels.ProjectInfo;
+using System.Threading.Tasks;
 
 namespace Nep.Project.Web.Infra
 {
@@ -93,6 +94,10 @@ namespace Nep.Project.Web.Infra
             {
                 CheckDESPerson(context);
             }
+            if (action.Equals("CheckIDFromDisability".ToLower()))
+            {
+               CheckIDFromDisability(context);
+            }
             if (action.Equals("saveqn"))
             {
                 SaveQNData(context);
@@ -175,6 +180,43 @@ namespace Nep.Project.Web.Infra
             { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
 
             context.Response.Write(responseText);
+            //context.Response.Write(json);
+            context.Response.End();
+        }
+        private void CheckIDFromDisability(HttpContext context)
+        {
+
+            string ret = "";
+
+            try
+            {
+                String strValues = ""; //= context.Request.Form[0];
+                using (StreamReader reader = new StreamReader(context.Request.InputStream))
+                {
+                    strValues = reader.ReadToEnd();
+                }
+                var json = Newtonsoft.Json.Linq.JObject.Parse(strValues);
+                var id = json["id"].ToString();
+                ret =   API.APIHelper.CheckIDFromDisability(id);
+ 
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                   
+                ret  = ex.Message;
+                //result.Data = new List<Int32>();
+                //result.Message.Add(ex.Message);
+
+            }
+            context.Response.ContentType = "application/json; charset=utf-8";
+            //String responseText = Nep.Project.Common.Web.WebUtility.ToJSON(ret);
+            //var responseText = Newtonsoft.Json.JsonConvert.SerializeObject(ret, Newtonsoft.Json.Formatting.None, new Newtonsoft.Json.JsonSerializerSettings()
+            //{ ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+            context.Response.Write(ret);
             //context.Response.Write(json);
             context.Response.End();
         }
