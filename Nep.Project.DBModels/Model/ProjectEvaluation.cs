@@ -45,6 +45,9 @@ namespace Nep.Project.DBModels.Model
         public decimal CreatedByID { get; set; }
         public Nullable<decimal> UpdatedByID { get; set; }
         public string ISPASSMISSION6 { get; set; }
+        public Nullable<decimal> ASSESSMENT610 { get; set; }
+        public Nullable<decimal> ASSESSMENT611 { get; set; }
+        public string EXTENDDATA { get; set; }
     
         public virtual MT_Province Province { get; set; }
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }

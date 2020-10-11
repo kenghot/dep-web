@@ -78,6 +78,7 @@
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReport4" ><a id="A1"  runat="server" href="~/Report/Report4">รายงานรายละเอียดโครงการที่ได้รับการสนับสนุน</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportReceiverFunding" ><a id="A2"  runat="server" href="~/Report/ReportBudgetApplicant">รายงานผู้ขอรับเงินสนับสนุนโครงการ</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportSummaryTracing"><a id="A3"  runat="server" href="~/Report/ReportSummaryTracing">รายงานสรุปการติดตามโครงการ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li4" ><a id="A18"  runat="server" href="~/Report/ReportSatisfy">รายงานแบบประเมินความพึงพอใจ</a></li>
                              <%--    <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportBudgetSummary"><a id="A7"  runat="server" href="~/Report/ReportBudgetSummary">รายงานสนับสนุนโครงการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportStatisticSupport"><a id="A11"  runat="server" href="~/Report/ReportStatisticSupport">รายงานสถิติเปรียบเทียบจำนวนเงินสนับสนุนโครงการ</a></li>--%> 
                             </ul>

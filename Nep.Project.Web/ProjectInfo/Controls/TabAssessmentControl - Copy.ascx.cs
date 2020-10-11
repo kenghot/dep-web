@@ -71,14 +71,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         }
 
        
-        private void addTargetToRadio(RadioButtonList r,string target)
-        {
-            foreach (var i in r.Items)
-            {
-                ((ListItem)i).Attributes.Add("target", target);
-                
-            }
-        }
+
         public void BindData()
         {
             BindDropdownList();
@@ -129,27 +122,9 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                         RadioButtonListIsPassAss5.SelectedValue = "1";
                     }
                     #endregion
-                    #region se radio data
-                    addTargetToRadio(rd6_1, lblScore61.ClientID);
-                    rd6_1.Items[0].Attributes.Add("data", "5");
-                    rd6_1.Items[1].Attributes.Add("data", "2");
 
-
-                    #endregion
                     #region เกณฑ์ชี้วัดข้อ 6
-                    if ((obj.IsPassAss4.HasValue && (obj.IsPassAss4 == true)) && (obj.IsPassAss5.HasValue && (obj.IsPassAss5 == true)) ){
-                        lblScore61.Text = obj.Assessment61.HasValue ? obj.Assessment61.Value.ToString() : "0";
-                        
-                        lblScore62.Text = obj.Assessment62.HasValue ? obj.Assessment62.Value.ToString() : "0";
-                        lblScore63.Text = obj.Assessment63.HasValue ? obj.Assessment63.Value.ToString() : "0";
-                        lblScore64.Text = obj.Assessment64.HasValue ? obj.Assessment64.Value.ToString() : "0";
-                        lblScore65.Text = obj.Assessment65.HasValue ? obj.Assessment65.Value.ToString() : "0";
-                        lblScore66.Text = obj.Assessment66.HasValue ? obj.Assessment66.Value.ToString() : "0";
-                        lblScore67.Text = obj.Assessment67.HasValue ? obj.Assessment67.Value.ToString() : "0";
-                        lblScore68.Text = obj.Assessment68.HasValue ? obj.Assessment68.Value.ToString() : "0";
-                        lblScore69.Text = obj.Assessment69.HasValue ? obj.Assessment69.Value.ToString() : "0";
-                        lblScore610.Text = obj.Assessment610.HasValue ? obj.Assessment610.Value.ToString() : "0";
-                        lblScore611.Text = obj.Assessment611.HasValue ? obj.Assessment611.Value.ToString() : "0";
+                    if((obj.IsPassAss4.HasValue && (obj.IsPassAss4 == true)) && (obj.IsPassAss5.HasValue && (obj.IsPassAss5 == true)) ){
                         // ข้อ ก
                         if (obj.Assessment61.HasValue)
                         {
@@ -590,38 +565,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         {
             string searchTd = "\"td\"";
             String script = @"
-                function calRadio() {
-var radios  =$('input[type = radio]:checked')
-  var labels = []
-  for (i = 0; i < radios.length; i++)
-            {
-                let span = radios[i].closest('span')
-      if (span)
-                {
-                    let data = span.getAttribute('data')
-        let target = span.getAttribute('target')
-        if (data && target)
-                    {
-
-                        labels.push({ 'target':target,'data':Number(data)})
-           
-        }
-        }
-    }
-    var result =[];
-    labels.reduce(function(res, value) {
-  if (!res[value.target]) {
-    res[value.target] = { target: value.target, data: 0 };
-result.push(res[value.target])
-  }
-  res[value.target].data += value.data;
-return res;
-}, { });
-for (j = 0; j < result.length; j++)
-{
-    $('#' + result[j].target).text(result[j].data)
-}
-                }
                 function handleStandardStrategicCheckbox() {              
 
                     var controls = $('.standard-strategic-checkbox').find(" + searchTd + @").get();

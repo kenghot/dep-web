@@ -92,6 +92,9 @@ namespace Nep.Project.DBModels.Model
         public string Mobile1 { get; set; }
         public decimal CreatedByID { get; set; }
         public Nullable<decimal> UpdatedByID { get; set; }
+        public string OTHERPREFIX1 { get; set; }
+        public string OTHERPREFIX2 { get; set; }
+        public string OTHERPREFIX3 { get; set; }
     
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }
         public virtual MT_ListOfValue Prefix1Personel { get; set; }

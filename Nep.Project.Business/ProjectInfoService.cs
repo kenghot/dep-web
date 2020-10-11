@@ -9094,6 +9094,7 @@ namespace Nep.Project.Business
             {
                 result.Prefix1 = model.Address1.Prefix1;
                 result.Firstname1 = SaveDraftText(model.Address1.Firstname1);
+                result.OTHERPREFIX1 = model.Address1.PrefixOther;
                 result.Lastname1 = SaveDraftText(model.Address1.Lastname1);
                 result.Address1 = SaveDraftText(model.Address1.Address1);
                 result.Moo1 = model.Address1.Moo1;
@@ -9123,6 +9124,7 @@ namespace Nep.Project.Business
             if (model.Address2 != null)
             {
                 result.Prefix2 = model.Address2.Prefix2;
+                result.OTHERPREFIX2 = model.Address2.PrefixOther;
                 result.Firstname2 = SaveDraftText(model.Address2.Firstname2);
                 result.Lastname2 = SaveDraftText(model.Address2.Lastname2);
                 result.Address2 = SaveDraftText(model.Address2.Address2);
@@ -9152,6 +9154,7 @@ namespace Nep.Project.Business
             if ((model.Address3 != null) && (!String.IsNullOrEmpty(model.Address3.Firstname3)))
             {
                 result.Prefix3 = model.Address3.Prefix3;
+                result.OTHERPREFIX3 = model.Address3.PrefixOther;
                 result.Firstname3 = model.Address3.Firstname3;
                 result.Lastname3 = model.Address3.Lastname3;
                 result.Address3 = model.Address3.Address3;
@@ -9284,6 +9287,7 @@ namespace Nep.Project.Business
             if (!String.IsNullOrEmpty(model.Firstname1))
             {
                 address1 = new ServiceModels.ProjectInfo.AddressTabPersonal1();
+                address1.PrefixOther = model.OTHERPREFIX1;
                 address1.Prefix1 = model.Prefix1;
                 address1.Firstname1 = model.Firstname1;
                 address1.Lastname1 = model.Lastname1;
@@ -9310,6 +9314,7 @@ namespace Nep.Project.Business
             {
                 address2 = new ServiceModels.ProjectInfo.AddressTabPersonal2();
                 address2.Prefix2 = model.Prefix2;
+                address2.PrefixOther = model.OTHERPREFIX2;
                 address2.Firstname2 = model.Firstname2;
                 address2.Lastname2 = model.Lastname2;
                 address2.Address2 = model.Address2;
@@ -9335,6 +9340,7 @@ namespace Nep.Project.Business
             {
                 address3 = new ServiceModels.ProjectInfo.AddressTabPersonal3();
                 address3.Prefix3 = model.Prefix3;
+                address3.PrefixOther = model.OTHERPREFIX3;
                 address3.Firstname3 = model.Firstname3;
                 address3.Lastname3 = model.Lastname3;
                 address3.Address3 = model.Address3;

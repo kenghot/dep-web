@@ -50,6 +50,7 @@ namespace Nep.Project.Web
             builder.RegisterService<Business.ReportStatisticSupportService>();
             builder.RegisterService<Business.ReportStatisticClientService>();
             builder.RegisterService<Business.Report4Service>();
+            builder.RegisterService<Business.ReportsService>();
 
             builder.RegisterType<Business.MailService>();
             builder.RegisterType<Business.SmsService>();

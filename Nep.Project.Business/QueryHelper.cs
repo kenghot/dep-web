@@ -9,6 +9,11 @@ using Nep.Project;
 
 namespace Nep.Project.Business
 {
+    public class QNData
+    {
+        public string n { get; set; }
+        public string v { get; set; }
+    }
     public static class QueryHelper
     {
         private static IQueryable<T> InnerApplyDefaultSort<T>(IQueryable<T> query)
@@ -93,5 +98,6 @@ namespace Nep.Project.Business
             }
             return output;
         }
+ 
     }
 }

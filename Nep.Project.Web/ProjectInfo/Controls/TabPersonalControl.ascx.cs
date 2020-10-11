@@ -577,6 +577,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 if (CheckBoxDupData1.Checked)
                 {
                     DropDownListPrefix2.SelectedValue = DropDownListPrefix1.SelectedValue;
+                    TextBoxPrefixOther2.Text = TextBoxPrefixOther1.Text;
                     TextBoxFirstName2.Text = TextBoxFirstName1.Text;
                     TextBoxLastName2.Text = TextBoxLastName1.Text;
                     TextBoxAddress2.Text = TextBoxAddress1.Text;
@@ -605,6 +606,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 else
                 {
                     DropDownListPrefix2.SelectedIndex = 0;
+                    TextBoxPrefixOther2.Text = string.Empty;
                     TextBoxFirstName2.Text = string.Empty;
                     TextBoxLastName2.Text = string.Empty;
                     TextBoxAddress2.Text = string.Empty;
@@ -635,6 +637,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 if (CheckBoxDupData2.Checked)
                 {
                     DropDownListPrefix3.SelectedValue = DropDownListPrefix1.SelectedValue;
+                    TextBoxPrefixOther3.Text = TextBoxPrefixOther1.Text;
                     TextBoxFirstName3.Text = TextBoxFirstName1.Text;
                     TextBoxLastName3.Text = TextBoxLastName1.Text;
                     TextBoxAddress3.Text = TextBoxAddress1.Text;
@@ -674,6 +677,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 else
                 {
                     DropDownListPrefix3.SelectedIndex = 0;
+                    TextBoxPrefixOther2.Text = string.Empty;
                     TextBoxFirstName3.Text = string.Empty;
                     TextBoxLastName3.Text = string.Empty;
                     TextBoxAddress3.Text = string.Empty;
@@ -843,6 +847,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         {
             ServiceModels.ProjectInfo.AddressTabPersonal1 result = new ServiceModels.ProjectInfo.AddressTabPersonal1();
             result.Prefix1 = Convert.ToDecimal(DropDownListPrefix1.SelectedValue);
+            result.PrefixOther = TextBoxPrefixOther1.Text.Trim();
             result.Firstname1 = TextBoxFirstName1.Text.Trim() ;
             result.Lastname1 = TextBoxLastName1.Text.Trim() ;
             result.Address1 = TextBoxAddress1.Text.Trim() ;
@@ -877,6 +882,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         {
             ServiceModels.ProjectInfo.AddressTabPersonal2 result = new ServiceModels.ProjectInfo.AddressTabPersonal2();
             result.Prefix2 = Convert.ToDecimal(DropDownListPrefix2.SelectedValue);
+            result.PrefixOther = TextBoxPrefixOther2.Text.Trim();
             result.Firstname2 = TextBoxFirstName2.Text.Trim() == "" ? string.Empty : TextBoxFirstName2.Text.Trim();
             result.Lastname2 = TextBoxLastName2.Text.Trim() == "" ? string.Empty : TextBoxLastName2.Text.Trim();
             result.Address2 = TextBoxAddress2.Text.Trim() == "" ? string.Empty : TextBoxAddress2.Text.Trim();
@@ -909,6 +915,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         private ServiceModels.ProjectInfo.AddressTabPersonal3 KeepAddressTabPersonal3()
         {
             ServiceModels.ProjectInfo.AddressTabPersonal3 result = null;
+            
             string firstname3 = TextBoxFirstName3.Text.Trim();
             string lastname3 = TextBoxLastName3.Text.Trim();
             string address3 = TextBoxAddress3.Text.Trim();
@@ -926,6 +933,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             {
                 result = new ServiceModels.ProjectInfo.AddressTabPersonal3();
                 result.Prefix3 = Convert.ToDecimal(DropDownListPrefix3.SelectedValue);
+                result.PrefixOther = TextBoxPrefixOther3.Text.Trim();
                 result.Firstname3 = firstname3;
                 result.Lastname3 = lastname3;
                 result.Address3 = address3;
@@ -990,6 +998,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             if (model.Address1 != null)
             {
                 DropDownListPrefix1.SelectedValue = model.Address1.Prefix1.ToString();
+                TextBoxPrefixOther1.Text = model.Address1.PrefixOther;
                 TextBoxFirstName1.Text = model.Address1.Firstname1;
                 TextBoxLastName1.Text = model.Address1.Lastname1;
                 TextBoxAddress1.Text = model.Address1.Address1;
@@ -1020,6 +1029,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             if (model.Address2 != null)
             {
                 DropDownListPrefix2.SelectedValue = model.Address2.Prefix2.ToString();
+                TextBoxPrefixOther2.Text = model.Address2.PrefixOther;
                 TextBoxFirstName2.Text = model.Address2.Firstname2;
                 TextBoxLastName2.Text = model.Address2.Lastname2;
                 TextBoxAddress2.Text = model.Address2.Address2;
@@ -1050,6 +1060,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             if (model.Address3 != null)
             {
                 DropDownListPrefix3.SelectedValue = model.Address3.Prefix3.ToString();
+                TextBoxPrefixOther3.Text = model.Address3.PrefixOther;
                 TextBoxFirstName3.Text = model.Address3.Firstname3;
                 TextBoxLastName3.Text = model.Address3.Lastname3;
                 TextBoxAddress3.Text = model.Address3.Address3;
@@ -1313,9 +1324,34 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             string subDistrict3Selected = (!String.IsNullOrEmpty(DdlSubDistrict3.Text)) ? DdlSubDistrict3.Text : "";
 
             string provinceList = Nep.Project.Common.Web.WebUtility.ToJSON(GetProvince());
-
+            var prefix = _service.GetListOfValue("4", "Prefix");
+            decimal otherId = 0;
+            if (prefix != null)
+            {
+                otherId = prefix.LOVID;
+            }
             String script = @"
-                $(function () {                 
+                 function PrefixChange(sender,ref) { 
+                        console.log(sender.value)
+                        var obj = $('#' + ref)
+                        console.log(obj)
+                        if (sender.value != '" + otherId.ToString() + @"'){
+                            obj.hide()
+                        }else {
+                            obj.show()
+                        }
+                }
+                function RefreshPrefix() {
+                    $('#" + DropDownListPrefix1.ClientID + @"').change()
+                    $('#" + DropDownListPrefix2.ClientID + @"').change()
+                    $('#" + DropDownListPrefix3.ClientID + @"').change()
+                }
+                $(function () {   
+                    //prefix
+                    $('#" + DropDownListPrefix1.ClientID + @"').change(function() {PrefixChange(this,'" + TextBoxPrefixOther1.ClientID + @"')})
+                    $('#" + DropDownListPrefix2.ClientID + @"').change(function() {PrefixChange(this,'" + TextBoxPrefixOther2.ClientID + @"')})
+                    $('#" + DropDownListPrefix3.ClientID + @"').change(function() {PrefixChange(this,'" + TextBoxPrefixOther3.ClientID + @"')})
+                    RefreshPrefix()
                     // Address 1
                     c2x.createLocalCombobox({                       
                         ControlID: '" + DdlProvince1.ClientID + @"',

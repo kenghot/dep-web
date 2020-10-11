@@ -1,1 +1,15 @@
-DotNetZip
+DotNetZipNep.Project.Common
+
+Installing:
+
+DocumentFormat.OpenXml.2.7.2
+ExcelNumberFormat.1.0.10
+ClosedXML.0.95.3
+ClosedXML.Extensions.WebApi.0.2.1
+System.Linq.Dynamic.Core.1.1.1
+System.ValueTuple.4.4.0
+morelinq.2.9.0
+ClosedXML.Report.0.2.1
+
+
+

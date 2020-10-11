@@ -61,6 +61,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2020", "2020", "{412DA5CD-D
 		alter.txt = alter.txt
 		content.txt = content.txt
 		lib.txt = lib.txt
+		lov.txt = lov.txt
 	EndProjectSection
 EndProject
 Global

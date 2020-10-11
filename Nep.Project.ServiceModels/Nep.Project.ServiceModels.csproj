@@ -54,6 +54,7 @@
     <Compile Include="KendoChart.cs" />
     <Compile Include="ProjectFunctionParam.cs" />
     <Compile Include="Report\ReportPaymentSlip.cs" />
+    <Compile Include="Report\SatisfyReportModel.cs" />
     <Compile Include="Security\ConfirmForgetPassword.cs" />
     <Compile Include="RegisteredOrganizationList.cs" />
     <Compile Include="OrganizationRegisterEntry.cs" />

@@ -40,13 +40,13 @@
                     </div> <!-- เลขที่บัตรประชาชน -->
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Firstname %><span class="required"></span></label>                        
-                        <div class="col-sm-4 control-block">
-                            <asp:DropDownList ID="DropDownListPrefix1" runat="server" CssClass="form-control" Width="90"></asp:DropDownList>
+                        <div class="col-sm-5 control-block">
+                            <asp:DropDownList ID="DropDownListPrefix1" runat="server" CssClass="form-control" Width="90" ></asp:DropDownList>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPrefix1" ControlToValidate="DropDownListPrefix1" runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Prefix) %>" 
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Prefix) %>"
                                 ValidationGroup="SavePersonal" SetFocusOnError="true"/>
-
+                            <asp:TextBox ID="TextBoxPrefixOther1" placeholder="คำนำหน้า" runat="server" MaxLength="50" CssClass="form-control" Width="90"></asp:TextBox>
                             <asp:TextBox ID="TextBoxFirstName1" runat="server" MaxLength="100" CssClass="form-control" Width="195"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorFirstName1" ControlToValidate="TextBoxFirstName1" runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Firstname) %>" 
@@ -54,7 +54,7 @@
                                 ValidationGroup="SavePersonal" SetFocusOnError="true"/>
                         </div>
                         
-                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Lastname %><span class="required"></span></label>
+                        <label class="col-sm-1 control-label"><%= Model.ProjectInfo_Lastname %><span class="required"></span></label>
                         <div class="col-sm-4">
                             <asp:TextBox ID="TextBoxLastName1" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorLastName1" ControlToValidate="TextBoxLastName1" runat="server" CssClass="error-text"
@@ -213,8 +213,9 @@
                     
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Firstname %><span class="required"></span></label>                        
-                        <div class="col-sm-4 control-block">
+                        <div class="col-sm-5 control-block">
                             <asp:DropDownList ID="DropDownListPrefix2" runat="server" CssClass="form-control" Width="90"></asp:DropDownList>
+                             <asp:TextBox ID="TextBoxPrefixOther2" placeholder="คำนำหน้า" runat="server" MaxLength="50" CssClass="form-control" Width="90"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorPrefix2" ControlToValidate="DropDownListPrefix2" runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Prefix) %>" 
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Prefix) %>"
@@ -227,7 +228,7 @@
                                 ValidationGroup="SavePersonal" SetFocusOnError="true"/>
                         </div>
                         
-                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Lastname %><span class="required"></span></label>
+                        <label class="col-sm-1 control-label"><%= Model.ProjectInfo_Lastname %><span class="required"></span></label>
                         <div class="col-sm-4">
                             <asp:TextBox ID="TextBoxLastName2" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorLastName2" ControlToValidate="TextBoxLastName2" runat="server" CssClass="error-text"
@@ -374,10 +375,10 @@
 
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Firstname %></label>                        
-                        <div class="col-sm-4 control-block">
+                        <div class="col-sm-5 control-block">
                             <asp:DropDownList ID="DropDownListPrefix3" runat="server" CssClass="form-control" Width="90"></asp:DropDownList>
                             
-
+                             <asp:TextBox ID="TextBoxPrefixOther3" placeholder="คำนำหน้า" runat="server" MaxLength="50" CssClass="form-control" Width="90"></asp:TextBox>
                             <asp:TextBox ID="TextBoxFirstName3" runat="server" MaxLength="100" CssClass="form-control" Width="195"></asp:TextBox>
                             <asp:CustomValidator id="CustomValidatorFirstName3" runat="server" ControlToValidate = "TextBoxFirstName3"
                                 CssClass="error-text" ValidationGroup="SavePersonal" ValidateEmptyText="true"
@@ -387,7 +388,7 @@
                             </asp:CustomValidator>
                         </div>
                         
-                        <label class="col-sm-2 control-label"><%= Model.ProjectInfo_Lastname %></label>
+                        <label class="col-sm-1 control-label"><%= Model.ProjectInfo_Lastname %></label>
                         <div class="col-sm-4">
                             <asp:TextBox ID="TextBoxLastName3" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
                             <asp:CustomValidator id="CustomValidatorLastName3" runat="server" ControlToValidate = "TextBoxLastName3" 

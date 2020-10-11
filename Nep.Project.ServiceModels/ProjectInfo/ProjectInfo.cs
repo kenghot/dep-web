@@ -545,6 +545,8 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public Decimal? Assessment67 { get; set; }
         public Decimal? Assessment68 { get; set; }
         public Decimal? Assessment69 { get; set; }
+        public Decimal? Assessment610 { get; set; }
+        public Decimal? Assessment611 { get; set; }
 
         public Decimal? TotalScore { get; set; }
         public String TotalScoreDesc { get; set; }
@@ -1277,7 +1279,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
         [Display(Name = "ProjectInfo_Prefix", ResourceType = typeof(Nep.Project.Resources.Model))]
         public Decimal Prefix1 { get; set; }
-
+        public string PrefixOther { get; set; }
         // ชื่อ
         [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
         [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
@@ -1375,7 +1377,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
         [Display(Name = "ProjectInfo_Prefix", ResourceType = typeof(Nep.Project.Resources.Model))]
         public Decimal Prefix2 { get; set; }
-
+        public string PrefixOther { get; set; }
         // ชื่อ
         [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
         [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
@@ -1465,7 +1467,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         // คำนำหน้า
         [Display(Name = "ProjectInfo_Prefix", ResourceType = typeof(Nep.Project.Resources.Model))]
         public Decimal? Prefix3 { get; set; }
-
+        public string PrefixOther { get; set; }
         // ชื่อ
         [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
         [Display(Name = "ProjectInfo_Firstname", ResourceType = typeof(Nep.Project.Resources.Model))]

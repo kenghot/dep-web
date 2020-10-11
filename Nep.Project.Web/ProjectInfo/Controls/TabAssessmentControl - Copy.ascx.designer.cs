@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.ProjectInfo.Controls
-{
-
-
-    public partial class TabAssessmentControl
-    {
-
+namespace Nep.Project.Web.ProjectInfo.Controls {
+    
+    
+    public partial class TabAssessmentControl {
+        
         /// <summary>
         /// UpdatePanelAssessment control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelAssessment;
-
+        
         /// <summary>
         /// LabelOfficerProvince control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelOfficerProvince;
-
+        
         /// <summary>
         /// HiddenFieldOfficerProvince control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenFieldOfficerProvince;
-
+        
         /// <summary>
         /// LabelProjectNo control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelProjectNo;
-
+        
         /// <summary>
         /// OrganizationName control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label OrganizationName;
-
+        
         /// <summary>
         /// LabelProjectName control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelProjectName;
-
+        
         /// <summary>
         /// LabelBudget control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelBudget;
-
+        
         /// <summary>
         /// RadioButtonListIsPassAss4 control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListIsPassAss4;
-
+        
         /// <summary>
         /// RadioButtonListIsPassAss5 control.
         /// </summary>
@@ -94,34 +92,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListIsPassAss5;
-
-        /// <summary>
-        /// TotalScore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalScore;
-
-        /// <summary>
-        /// TotalScoreDesc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TotalScoreDesc;
-
-        /// <summary>
-        /// lblScore61 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore61;
-
+        
         /// <summary>
         /// DropDownListAssessmentProjectName control.
         /// </summary>
@@ -130,34 +101,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentProjectName;
-
-        /// <summary>
-        /// rd6_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rd6_1;
-
-        /// <summary>
-        /// txt6_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt6_1;
-
-        /// <summary>
-        /// lblScore62 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore62;
-
+        
         /// <summary>
         /// DropDownListAssessmentReason control.
         /// </summary>
@@ -166,16 +110,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentReason;
-
-        /// <summary>
-        /// lblScore63 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore63;
-
+        
         /// <summary>
         /// DropDownListAssessmentObjective control.
         /// </summary>
@@ -184,16 +119,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentObjective;
-
-        /// <summary>
-        /// lblScore64 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore64;
-
+        
         /// <summary>
         /// DropDownListAssessmentTargetGroup control.
         /// </summary>
@@ -202,16 +128,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentTargetGroup;
-
-        /// <summary>
-        /// lblScore65 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore65;
-
+        
         /// <summary>
         /// DropDownListAssessmentLocation control.
         /// </summary>
@@ -220,16 +137,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentLocation;
-
-        /// <summary>
-        /// lblScore66 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore66;
-
+        
         /// <summary>
         /// DropDownListAssessmentTiming control.
         /// </summary>
@@ -238,16 +146,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentTiming;
-
-        /// <summary>
-        /// lblScore67 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore67;
-
+        
         /// <summary>
         /// DropDownListAssessmentOperationMethod control.
         /// </summary>
@@ -256,16 +155,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentOperationMethod;
-
-        /// <summary>
-        /// lblScore68 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore68;
-
+        
         /// <summary>
         /// DropDownListAssessmentBudget control.
         /// </summary>
@@ -274,7 +164,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentBudget;
-
+        
         /// <summary>
         /// HiddenField7 control.
         /// </summary>
@@ -283,16 +173,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenField7;
-
-        /// <summary>
-        /// lblScore69 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore69;
-
+        
         /// <summary>
         /// DropDownListAssessmentExpection control.
         /// </summary>
@@ -301,43 +182,25 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListAssessmentExpection;
-
+        
         /// <summary>
-        /// lblScore610 control.
+        /// TotalScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore610;
-
+        protected global::System.Web.UI.WebControls.Label TotalScore;
+        
         /// <summary>
-        /// DropDownList1 control.
+        /// TotalScoreDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-
-        /// <summary>
-        /// lblScore611 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScore611;
-
-        /// <summary>
-        /// DropDownList2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
-
+        protected global::System.Web.UI.WebControls.Label TotalScoreDesc;
+        
         /// <summary>
         /// TextBoxAssessmentDesc control.
         /// </summary>
@@ -346,7 +209,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxAssessmentDesc;
-
+        
         /// <summary>
         /// RadioButtonListStandardStrategics control.
         /// </summary>
@@ -355,7 +218,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListStandardStrategics;
-
+        
         /// <summary>
         /// RequiredFieldValidatorStandardStrategics control.
         /// </summary>
@@ -364,7 +227,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorStandardStrategics;
-
+        
         /// <summary>
         /// TextBoxProvinceMissionDesc control.
         /// </summary>
@@ -373,7 +236,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxProvinceMissionDesc;
-
+        
         /// <summary>
         /// ButtonSave control.
         /// </summary>
@@ -382,7 +245,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSave;
-
+        
         /// <summary>
         /// HyperLink1 control.
         /// </summary>

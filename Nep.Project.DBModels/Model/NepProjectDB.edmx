@@ -431,6 +431,9 @@
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
           <Property Name="ISPASSMISSION6" Type="char" MaxLength="1" />
+          <Property Name="ASSESSMENT610" Type="number" Precision="38" Scale="0" />
+          <Property Name="ASSESSMENT611" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="PROJECTFOLLOWUP">
           <Key>
@@ -775,6 +778,9 @@
           <Property Name="MOBILE1" Type="varchar2" MaxLength="30" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="OTHERPREFIX1" Type="varchar2" MaxLength="50" />
+          <Property Name="OTHERPREFIX2" Type="varchar2" MaxLength="50" />
+          <Property Name="OTHERPREFIX3" Type="varchar2" MaxLength="50" />
         </EntityType>
         <EntityType Name="PROJECTPRINTREPORTTRACKING">
           <Key>
@@ -3006,6 +3012,9 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="ISPASSMISSION6" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ASSESSMENT610" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ASSESSMENT611" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectFollowup">
           <Key>
@@ -3289,6 +3298,9 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="Mobile1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="OTHERPREFIX1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHERPREFIX2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHERPREFIX3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectPrintReportTracking">
           <Key>
@@ -5521,6 +5533,9 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectEvaluations">
             <EntityTypeMapping TypeName="Model.ProjectEvaluation">
               <MappingFragment StoreEntitySet="PROJECTEVALUATION">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
+                <ScalarProperty Name="ASSESSMENT611" ColumnName="ASSESSMENT611" />
+                <ScalarProperty Name="ASSESSMENT610" ColumnName="ASSESSMENT610" />
                 <ScalarProperty Name="ISPASSMISSION6" ColumnName="ISPASSMISSION6" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
@@ -5731,6 +5746,9 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectPersonels">
             <EntityTypeMapping TypeName="Model.ProjectPersonel">
               <MappingFragment StoreEntitySet="PROJECTPERSONEL">
+                <ScalarProperty Name="OTHERPREFIX3" ColumnName="OTHERPREFIX3" />
+                <ScalarProperty Name="OTHERPREFIX2" ColumnName="OTHERPREFIX2" />
+                <ScalarProperty Name="OTHERPREFIX1" ColumnName="OTHERPREFIX1" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
                 <ScalarProperty Name="Mobile1" ColumnName="MOBILE1" />
