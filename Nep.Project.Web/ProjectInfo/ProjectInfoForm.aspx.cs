@@ -238,6 +238,7 @@ namespace Nep.Project.Web.ProjectInfo
             TabSurveyParticipant.Visible = false;
             TabPanelFollowup.Visible = false;
             TabProsecute.Visible = false;
+            TabPanelFollowUpProcess.Visible = false;
             //kenghot18
             TabPanelResponse.Visible = true;
             if (UserInfo.UserGroupCode  == Common.UserGroupCode.องค์กรภายนอก)
@@ -308,8 +309,12 @@ namespace Nep.Project.Web.ProjectInfo
                     TabPanelProcessed.Visible = true;
                     TabPanelContract.Visible = true;                    
                     TabPanelFollowup.Visible = true;
-
+                    
                     TabProsecute.Visible = true;
+                    if (BudgetAmount.Value > 5000000)
+                    {
+                        TabPanelFollowUpProcess.Visible = true;
+                    }
                 }
                 else if(projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา){
                     TabPanelAssessment.Visible = true;
@@ -510,6 +515,14 @@ namespace Nep.Project.Web.ProjectInfo
                         ContractControl.BindData();
                         break;
                     }
+                case "TabPanelFollowUpProcess":
+                    {
+                        
+                        FollowProcessingControl.Visible = true;
+
+                        FollowProcessingControl.BindData();
+                        break;
+                    }
                 case "TabPanelReportResult":
                     {
                         ReportResultControl.Visible = true;
@@ -633,6 +646,12 @@ namespace Nep.Project.Web.ProjectInfo
                 case "TabPanelContract":
                     {
                         ContractControl.BindData();
+                        break;
+                    }
+                case "TabPanelFollowUpProcess":
+                    {
+                        
+                        FollowProcessingControl.BindData();
                         break;
                     }
                 case "TabPanelReportResult":

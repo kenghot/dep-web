@@ -267,6 +267,24 @@ namespace Nep.Project.Web.ProjectInfo
         protected global::Nep.Project.Web.ProjectInfo.Controls.TabContractControl ContractControl;
 
         /// <summary>
+        /// TabPanelFollowUpProcess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanelFollowUpProcess;
+
+        /// <summary>
+        /// FollowProcessingControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.ProjectInfo.Controls.TabFollowProcessing FollowProcessingControl;
+
+        /// <summary>
         /// TabPanelProcessed control.
         /// </summary>
         /// <remarks>

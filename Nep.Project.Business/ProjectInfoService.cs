@@ -6204,6 +6204,8 @@ namespace Nep.Project.Business
                                                                         Assessment67 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment67 : (decimal?)null,
                                                                         Assessment68 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment68 : (decimal?)null,
                                                                         Assessment69 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.Assessment69 : (decimal?)null,
+                                                                        Assessment610 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT610 : (decimal?)null,
+                                                                        Assessment611 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT611 : (decimal?)null,
 
                                                                         IsPassMission1 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission1 == "1" ? true : false) : (bool?)null,
                                                                         IsPassMission2 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission2 == "1" ? true : false) : (bool?)null,
@@ -6222,9 +6224,27 @@ namespace Nep.Project.Business
 
                                                                         ProvinceID = p.ProvinceID,
 
-                                                                        CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault()
+                                                                        CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
+                                                                        ExtendJSON = p.ProjectEvaluation.EXTENDDATA
+
 
                                                                     }).SingleOrDefault();
+                if (data != null)
+                {
+                    data.ExtendData = new AssessmentExtend();
+                    if (!string.IsNullOrEmpty(data.ExtendJSON))
+                    {
+                        try
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<AssessmentExtend>(data.ExtendJSON);
+                        }catch(Exception ex)
+                        {
+                            
+                        }
+                       
+                    }
+                     
+                }
 
                 result.Data = data;
                 result.IsCompleted = true;
@@ -6286,6 +6306,8 @@ namespace Nep.Project.Business
                         dbEval.Assessment67 = (decimal)model.Assessment67;
                         dbEval.Assessment68 = (decimal)model.Assessment68;
                         dbEval.Assessment69 = (decimal)model.Assessment69;
+                        dbEval.ASSESSMENT610 = (decimal)model.Assessment610;
+                        dbEval.ASSESSMENT611 = (decimal)model.Assessment611;
                         dbEval.EvaluationValue = (decimal)model.TotalScore;
                     }
                     else
@@ -6299,6 +6321,8 @@ namespace Nep.Project.Business
                         dbEval.Assessment67 = 0;
                         dbEval.Assessment68 = 0;
                         dbEval.Assessment69 = 0;
+                        dbEval.ASSESSMENT610 = 0;
+                        dbEval.ASSESSMENT611 = 0;
                         dbEval.EvaluationValue = 0;
                     }
 
@@ -6313,7 +6337,10 @@ namespace Nep.Project.Business
                     dbEval.ProvinceMissionDesc = model.ProvinceMissionDesc;
 
                     dbEval.EvaluationStatusID = GetEvaluationStatusID(model.IsPassAss4, model.IsPassAss5, model.TotalScore);
-
+                    if (model.ExtendData != null)
+                    {
+                        dbEval.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
 
                     DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน, Common.LOVGroup.ProjectApprovalStatus);
                     DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => (x.ProjectID == model.ProjectID) && (

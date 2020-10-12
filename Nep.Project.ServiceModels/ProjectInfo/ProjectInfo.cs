@@ -571,6 +571,44 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public Decimal? CreatorOrganizationID { get; set; }
         public Decimal? ProvinceID { get; set; }
         public string IPAddress { get; set; }
+        public string ExtendJSON { get; set; }
+        public AssessmentExtend ExtendData { get; set; }
+    }
+    public class AssessmentExtend
+    {
+        public string rd6_1 { get; set; }
+        public string txt6_1 { get; set; }
+        public string rd6_2_1 { get; set; }
+        public string txt6_2_1 { get; set; }
+        public string rd6_2_2 { get; set; }
+        public string txt6_2_2 { get; set; }
+        public string rd6_3 { get; set; }
+        public string txt6_3 { get; set; }
+        public string rd6_4 { get; set; }
+        public string txt6_4 { get; set; }
+        public string rd6_5 { get; set; }
+        public string txt6_5 { get; set; }
+        public string rd6_6 { get; set; }
+        public string txt6_6 { get; set; }
+        public string rd6_7_1 { get; set; }
+        public string txt6_7_1 { get; set; }
+        public string rd6_7_2 { get; set; }
+        public string txt6_7_2 { get; set; }
+        public string rd6_7_3 { get; set; }
+        public string txt6_7_3 { get; set; }
+        public string rd6_8 { get; set; }
+        public string txt6_8 { get; set; }
+        public string rd6_9_1 { get; set; }
+        public string txt6_9_1 { get; set; }
+        public string rd6_9_2 { get; set; }
+        public string txt6_9_2 { get; set; }
+        public string rd6_10_1 { get; set; }
+        public string txt6_10_1 { get; set; }
+        public string rd6_10_2 { get; set; }
+        public string txt6_10_2 { get; set; }
+        public string rd6_11 { get; set; }
+        public string txt6_11 { get; set; }
+
     }
 
     public class StandardCriterionNo6

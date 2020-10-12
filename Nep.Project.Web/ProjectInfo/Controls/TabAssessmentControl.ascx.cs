@@ -129,117 +129,224 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                         RadioButtonListIsPassAss5.SelectedValue = "1";
                     }
                     #endregion
-                    #region se radio data
-                    addTargetToRadio(rd6_1, lblScore61.ClientID);
+                    #region  radio data
+                    addTargetToRadio(rd6_1, txtScore61.ClientID);
                     rd6_1.Items[0].Attributes.Add("data", "5");
                     rd6_1.Items[1].Attributes.Add("data", "2");
 
+                    addTargetToRadio(rd6_2_1, txtScore62.ClientID);
+                    rd6_2_1.Items[0].Attributes.Add("data", "15");
+                    rd6_2_1.Items[1].Attributes.Add("data", "5");
+                    addTargetToRadio(rd6_2_2, txtScore62.ClientID);
+                    rd6_2_2.Items[0].Attributes.Add("data", "5");
+                    rd6_2_2.Items[1].Attributes.Add("data", "0");
 
+                    addTargetToRadio(rd6_3, txtScore63.ClientID);
+                    rd6_3.Items[0].Attributes.Add("data", "15");
+                    rd6_3.Items[1].Attributes.Add("data", "15");
+                    rd6_3.Items[2].Attributes.Add("data", "0");
+
+                    addTargetToRadio(rd6_4, txtScore64.ClientID);
+                    rd6_4.Items[0].Attributes.Add("data", "10");
+                    rd6_4.Items[1].Attributes.Add("data", "10");
+                    rd6_4.Items[2].Attributes.Add("data", "10");
+                    rd6_4.Items[3].Attributes.Add("data", "10");
+                    rd6_4.Items[4].Attributes.Add("data", "10");
+                    rd6_4.Items[5].Attributes.Add("data", "0");
+
+                    addTargetToRadio(rd6_5, txtScore65.ClientID);
+                    rd6_5.Items[0].Attributes.Add("data", "10");
+                    rd6_5.Items[1].Attributes.Add("data", "10");
+                    rd6_5.Items[2].Attributes.Add("data", "10");
+                    rd6_5.Items[3].Attributes.Add("data", "10");
+                    rd6_5.Items[4].Attributes.Add("data", "0");
+
+                    addTargetToRadio(rd6_6, txtScore66.ClientID);
+                    rd6_6.Items[0].Attributes.Add("data", "10");
+                    rd6_6.Items[1].Attributes.Add("data", "10");
+                    rd6_6.Items[2].Attributes.Add("data", "10");
+                    rd6_6.Items[3].Attributes.Add("data", "0");
+
+
+                    addTargetToRadio(rd6_7_1, txtScore67.ClientID);
+                    rd6_7_1.Items[0].Attributes.Add("data", "10");
+                    rd6_7_1.Items[1].Attributes.Add("data", "10");
+                    rd6_7_1.Items[2].Attributes.Add("data", "0");
+                    addTargetToRadio(rd6_7_2, txtScore67.ClientID);
+                    rd6_7_2.Items[0].Attributes.Add("data", "5");
+                    rd6_7_2.Items[1].Attributes.Add("data", "3");
+                    addTargetToRadio(rd6_7_3, txtScore67.ClientID);
+                    rd6_7_3.Items[0].Attributes.Add("data", "5");
+                    rd6_7_3.Items[1].Attributes.Add("data", "3");
+
+                    addTargetToRadio(rd6_8, txtScore68.ClientID);
+                    rd6_8.Items[0].Attributes.Add("data", "10");
+                    rd6_8.Items[1].Attributes.Add("data", "10");
+                    rd6_8.Items[2].Attributes.Add("data", "0");
+
+                    addTargetToRadio(rd6_9_1, txtScore69.ClientID);
+                    rd6_9_1.Items[0].Attributes.Add("data", "15");
+                    rd6_9_1.Items[1].Attributes.Add("data", "15");
+                    rd6_9_1.Items[2].Attributes.Add("data", "0");
+                    addTargetToRadio(rd6_9_2, txtScore69.ClientID);
+                    rd6_9_2.Items[0].Attributes.Add("data", "5");
+                    rd6_9_2.Items[1].Attributes.Add("data", "0");
+
+                    addTargetToRadio(rd6_10_1, txtScore610.ClientID);
+                    rd6_10_1.Items[0].Attributes.Add("data", "5");
+                    rd6_10_1.Items[1].Attributes.Add("data", "3");
+                    rd6_10_1.Items[2].Attributes.Add("data", "0");
+                    addTargetToRadio(rd6_10_2, txtScore610.ClientID);
+                    rd6_10_2.Items[0].Attributes.Add("data", "5");
+                    rd6_10_2.Items[1].Attributes.Add("data", "3");
+                    rd6_10_2.Items[2].Attributes.Add("data", "0");
+
+                    //addTargetToRadio(rd6_11, txtScore611.ClientID);
+                    //rd6_11.Items[0].Attributes.Add("data", "100");
+                    //rd6_11.Items[1].Attributes.Add("data", "80");
+                    //rd6_11.Items[2].Attributes.Add("data", "60");
+                    //rd6_11.Items[3].Attributes.Add("data", "40");
+                    //rd6_11.Items[4].Attributes.Add("data", "20");
                     #endregion
                     #region เกณฑ์ชี้วัดข้อ 6
+
+                    rd6_1.SelectedValue = obj.ExtendData.rd6_1;
+                    txt6_1.Text = obj.ExtendData.txt6_1;
+                    rd6_2_1.SelectedValue = obj.ExtendData.rd6_2_1;
+                    txt6_2_1.Text = obj.ExtendData.txt6_2_1;
+                    rd6_2_2.SelectedValue = obj.ExtendData.rd6_2_2;
+                    txt6_2_2.Text = obj.ExtendData.txt6_2_2;
+                    rd6_3.SelectedValue = obj.ExtendData.rd6_3;
+                    txt6_3.Text = obj.ExtendData.txt6_3;
+                    rd6_4.SelectedValue = obj.ExtendData.rd6_4;
+                    txt6_4.Text = obj.ExtendData.txt6_4;
+                    rd6_5.SelectedValue = obj.ExtendData.rd6_5;
+                    txt6_5.Text = obj.ExtendData.txt6_5;
+                    rd6_6.SelectedValue = obj.ExtendData.rd6_6;
+                    txt6_6.Text = obj.ExtendData.txt6_6;
+                    rd6_7_1.SelectedValue = obj.ExtendData.rd6_7_1;
+                    txt6_7_1.Text = obj.ExtendData.txt6_7_1;
+                    rd6_7_2.SelectedValue = obj.ExtendData.rd6_7_2;
+                    txt6_7_2.Text = obj.ExtendData.txt6_7_2;
+                    rd6_7_3.SelectedValue = obj.ExtendData.rd6_7_3;
+                    txt6_7_3.Text = obj.ExtendData.txt6_7_3;
+                    rd6_8.SelectedValue = obj.ExtendData.rd6_8;
+                    txt6_8.Text = obj.ExtendData.txt6_8;
+                    rd6_9_1.SelectedValue = obj.ExtendData.rd6_9_1;
+                    txt6_9_1.Text = obj.ExtendData.txt6_9_1;
+                    rd6_9_2.SelectedValue = obj.ExtendData.rd6_9_2;
+                    txt6_9_2.Text = obj.ExtendData.txt6_9_2;
+                    rd6_10_1.SelectedValue = obj.ExtendData.rd6_10_1;
+                    txt6_10_1.Text = obj.ExtendData.txt6_10_1;
+                    rd6_10_2.SelectedValue = obj.ExtendData.rd6_10_2;
+                    txt6_10_2.Text = obj.ExtendData.txt6_10_2;
+                    rd6_11.SelectedValue = obj.ExtendData.rd6_11;
+                    txt6_11.Text = obj.ExtendData.txt6_11;
+
+
+
                     if ((obj.IsPassAss4.HasValue && (obj.IsPassAss4 == true)) && (obj.IsPassAss5.HasValue && (obj.IsPassAss5 == true)) ){
-                        lblScore61.Text = obj.Assessment61.HasValue ? obj.Assessment61.Value.ToString() : "0";
-                        
-                        lblScore62.Text = obj.Assessment62.HasValue ? obj.Assessment62.Value.ToString() : "0";
-                        lblScore63.Text = obj.Assessment63.HasValue ? obj.Assessment63.Value.ToString() : "0";
-                        lblScore64.Text = obj.Assessment64.HasValue ? obj.Assessment64.Value.ToString() : "0";
-                        lblScore65.Text = obj.Assessment65.HasValue ? obj.Assessment65.Value.ToString() : "0";
-                        lblScore66.Text = obj.Assessment66.HasValue ? obj.Assessment66.Value.ToString() : "0";
-                        lblScore67.Text = obj.Assessment67.HasValue ? obj.Assessment67.Value.ToString() : "0";
-                        lblScore68.Text = obj.Assessment68.HasValue ? obj.Assessment68.Value.ToString() : "0";
-                        lblScore69.Text = obj.Assessment69.HasValue ? obj.Assessment69.Value.ToString() : "0";
-                        lblScore610.Text = obj.Assessment610.HasValue ? obj.Assessment610.Value.ToString() : "0";
-                        lblScore611.Text = obj.Assessment611.HasValue ? obj.Assessment611.Value.ToString() : "0";
+
                         // ข้อ ก
-                        if (obj.Assessment61.HasValue)
-                        {
-                            DropDownListAssessmentProjectName.SelectedValue = obj.Assessment61.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentProjectName.SelectedIndex = 0;
-                        }
+                        //if (obj.Assessment61.HasValue)
+                        //{
+                        //    DropDownListAssessmentProjectName.SelectedValue = obj.Assessment61.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentProjectName.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ข
-                        if (obj.Assessment62.HasValue)
-                        {
-                            DropDownListAssessmentReason.SelectedValue = obj.Assessment62.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentReason.SelectedIndex = 0;
-                        }
+                        //// ข้อ ข
+                        //if (obj.Assessment62.HasValue)
+                        //{
+                        //    DropDownListAssessmentReason.SelectedValue = obj.Assessment62.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentReason.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ค
-                        if (obj.Assessment63.HasValue)
-                        {
-                            DropDownListAssessmentObjective.SelectedValue = obj.Assessment63.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentObjective.SelectedIndex = 0;
-                        }
+                        //// ข้อ ค
+                        //if (obj.Assessment63.HasValue)
+                        //{
+                        //    DropDownListAssessmentObjective.SelectedValue = obj.Assessment63.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentObjective.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ง
-                        if (obj.Assessment64.HasValue)
-                        {
-                            DropDownListAssessmentTargetGroup.SelectedValue = obj.Assessment64.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentTargetGroup.SelectedIndex = 0;
-                        }
+                        //// ข้อ ง
+                        //if (obj.Assessment64.HasValue)
+                        //{
+                        //    DropDownListAssessmentTargetGroup.SelectedValue = obj.Assessment64.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentTargetGroup.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ จ
-                        if (obj.Assessment65.HasValue)
-                        {
-                            DropDownListAssessmentLocation.SelectedValue = obj.Assessment65.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentLocation.SelectedIndex = 0;
-                        }
+                        //// ข้อ จ
+                        //if (obj.Assessment65.HasValue)
+                        //{
+                        //    DropDownListAssessmentLocation.SelectedValue = obj.Assessment65.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentLocation.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ฉ
-                        if (obj.Assessment66.HasValue)
-                        {
-                            DropDownListAssessmentTiming.SelectedValue = obj.Assessment66.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentTiming.SelectedIndex = 0;
-                        }
+                        //// ข้อ ฉ
+                        //if (obj.Assessment66.HasValue)
+                        //{
+                        //    DropDownListAssessmentTiming.SelectedValue = obj.Assessment66.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentTiming.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ช
-                        if (obj.Assessment67.HasValue)
-                        {
-                            DropDownListAssessmentOperationMethod.SelectedValue = obj.Assessment67.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentOperationMethod.SelectedIndex = 0;
-                        }
+                        //// ข้อ ช
+                        //if (obj.Assessment67.HasValue)
+                        //{
+                        //    DropDownListAssessmentOperationMethod.SelectedValue = obj.Assessment67.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentOperationMethod.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ซ
-                        if (obj.Assessment68.HasValue)
-                        {
-                            DropDownListAssessmentBudget.SelectedValue = obj.Assessment68.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentBudget.SelectedIndex = 0;
-                        }
+                        //// ข้อ ซ
+                        //if (obj.Assessment68.HasValue)
+                        //{
+                        //    DropDownListAssessmentBudget.SelectedValue = obj.Assessment68.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentBudget.SelectedIndex = 0;
+                        //}
 
-                        // ข้อ ณ
-                        if (obj.Assessment69.HasValue)
-                        {
-                            DropDownListAssessmentExpection.SelectedValue = obj.Assessment69.ToString();
-                        }
-                        else
-                        {
-                            DropDownListAssessmentExpection.SelectedIndex = 0;
-                        }
-
+                        //// ข้อ ณ
+                        //if (obj.Assessment69.HasValue)
+                        //{
+                        //    DropDownListAssessmentExpection.SelectedValue = obj.Assessment69.ToString();
+                        //}
+                        //else
+                        //{
+                        //    DropDownListAssessmentExpection.SelectedIndex = 0;
+                        //}
+                        txtScore61.Text = obj.Assessment61.ToString();
+                        txtScore62.Text = obj.Assessment62.ToString();
+                        txtScore63.Text = obj.Assessment63.ToString();
+                        txtScore64.Text = obj.Assessment64.ToString();
+                        txtScore65.Text = obj.Assessment65.ToString();
+                        txtScore66.Text = obj.Assessment66.ToString();
+                        txtScore67.Text = obj.Assessment67.ToString();
+                        txtScore68.Text = obj.Assessment68.ToString();
+                        txtScore69.Text = obj.Assessment69.ToString();
+                        txtScore610.Text = obj.Assessment610.ToString();
+                        txtScore611.Text = obj.Assessment611.ToString();
                         TotalScore.Text = (obj.TotalScore.HasValue) ? obj.TotalScore.ToString() : "-";
                         TotalScoreDesc.Text = Common.Web.WebUtility.DisplayInHtml(obj.EvaluationScoreDesc, null, "");
                     }
@@ -496,41 +603,84 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             obj.IsPassAss5 = (RadioButtonListIsPassAss5.SelectedValue == "1") ? true : false;
 
             #region เกณฑ์ชี้วัดข้อ 6
-            Decimal.TryParse(DropDownListAssessmentProjectName.SelectedValue, out num);
+            //Decimal.TryParse(DropDownListAssessmentProjectName.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment61 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentReason.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment62 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentObjective.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment63 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentTargetGroup.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment64 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentLocation.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment65 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentTiming.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment66 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentOperationMethod.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment67 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentBudget.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment68 = num;
+
+            //Decimal.TryParse(DropDownListAssessmentExpection.SelectedValue, out num);
+            //totalScore += num;
+            //obj.Assessment69 = num;
+            Decimal.TryParse(txtScore61.Text, out num);
             totalScore += num;
             obj.Assessment61 = num;
 
-            Decimal.TryParse(DropDownListAssessmentReason.SelectedValue, out num);
+            Decimal.TryParse(txtScore62.Text, out num);
             totalScore += num;
             obj.Assessment62 = num;
 
-            Decimal.TryParse(DropDownListAssessmentObjective.SelectedValue, out num);
+            Decimal.TryParse(txtScore63.Text, out num);
             totalScore += num;
             obj.Assessment63 = num;
 
-            Decimal.TryParse(DropDownListAssessmentTargetGroup.SelectedValue, out num);
+            Decimal.TryParse(txtScore64.Text, out num);
             totalScore += num;
             obj.Assessment64 = num;
 
-            Decimal.TryParse(DropDownListAssessmentLocation.SelectedValue, out num);
+            Decimal.TryParse(txtScore65.Text, out num);
             totalScore += num;
             obj.Assessment65 = num;
 
-            Decimal.TryParse(DropDownListAssessmentTiming.SelectedValue, out num);
+            Decimal.TryParse(txtScore66.Text, out num);
             totalScore += num;
             obj.Assessment66 = num;
 
-            Decimal.TryParse(DropDownListAssessmentOperationMethod.SelectedValue, out num);
+            Decimal.TryParse(txtScore67.Text, out num);
             totalScore += num;
             obj.Assessment67 = num;
 
-            Decimal.TryParse(DropDownListAssessmentBudget.SelectedValue, out num);
+            Decimal.TryParse(txtScore68.Text, out num);
             totalScore += num;
             obj.Assessment68 = num;
 
-            Decimal.TryParse(DropDownListAssessmentExpection.SelectedValue, out num);
+            Decimal.TryParse(txtScore69.Text, out num);
             totalScore += num;
             obj.Assessment69 = num;
+
+            Decimal.TryParse(txtScore610.Text, out num);
+            totalScore += num;
+            obj.Assessment610 = num;
+
+           // Decimal.TryParse(txtScore611.Text, out num);
+           // totalScore += num;
+            obj.Assessment611 = 0;
 
             obj.TotalScore = totalScore;
             #endregion 
@@ -562,6 +712,42 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             }
             #endregion
 
+            #region radio
+            obj.ExtendData = new ServiceModels.ProjectInfo.AssessmentExtend();
+            obj.ExtendData.rd6_1 = rd6_1.SelectedValue;
+            obj.ExtendData.txt6_1 = txt6_1.Text;
+            obj.ExtendData.rd6_2_1 = rd6_2_1.SelectedValue;
+            obj.ExtendData.txt6_2_1 = txt6_2_1.Text;
+            obj.ExtendData.rd6_2_2 = rd6_2_2.SelectedValue;
+            obj.ExtendData.txt6_2_2 = txt6_2_2.Text;
+            obj.ExtendData.rd6_3 = rd6_3.SelectedValue;
+            obj.ExtendData.txt6_3 = txt6_3.Text;
+            obj.ExtendData.rd6_4 = rd6_4.SelectedValue;
+            obj.ExtendData.txt6_4 = txt6_4.Text;
+            obj.ExtendData.rd6_5 = rd6_5.SelectedValue;
+            obj.ExtendData.txt6_5 = txt6_5.Text;
+            obj.ExtendData.rd6_6 = rd6_6.SelectedValue;
+            obj.ExtendData.txt6_6 = txt6_6.Text;
+            obj.ExtendData.rd6_7_1 = rd6_7_1.SelectedValue;
+            obj.ExtendData.txt6_7_1 = txt6_7_1.Text;
+            obj.ExtendData.rd6_7_2 = rd6_7_2.SelectedValue;
+            obj.ExtendData.txt6_7_2 = txt6_7_2.Text;
+            obj.ExtendData.rd6_7_3 = rd6_7_3.SelectedValue;
+            obj.ExtendData.txt6_7_3 = txt6_7_3.Text;
+            obj.ExtendData.rd6_8 = rd6_8.SelectedValue;
+            obj.ExtendData.txt6_8 = txt6_8.Text;
+            obj.ExtendData.rd6_9_1 = rd6_9_1.SelectedValue;
+            obj.ExtendData.txt6_9_1 = txt6_9_1.Text;
+            obj.ExtendData.rd6_9_2 = rd6_9_2.SelectedValue;
+            obj.ExtendData.txt6_9_2 = txt6_9_2.Text;
+            obj.ExtendData.rd6_10_1 = rd6_10_1.SelectedValue;
+            obj.ExtendData.txt6_10_1 = txt6_10_1.Text;
+            obj.ExtendData.rd6_10_2 = rd6_10_2.SelectedValue;
+            obj.ExtendData.txt6_10_2 = txt6_10_2.Text;
+            obj.ExtendData.rd6_11 = rd6_11.SelectedValue;
+            obj.ExtendData.txt6_11 = txt6_11.Text;
+
+            #endregion
             obj.AssessmentDesc = TextBoxAssessmentDesc.Text.TrimEnd();
 
             //ยุทธศาสตร์
@@ -617,10 +803,19 @@ result.push(res[value.target])
   res[value.target].data += value.data;
 return res;
 }, { });
+var total = 0
 for (j = 0; j < result.length; j++)
-{
-    $('#' + result[j].target).text(result[j].data)
+{  
+    total += result[j].data
+    $('#' + result[j].target).val(result[j].data)
 }
+                var scoreDescLabel = $('.total-score-desc').get(0);
+                var scoreDesc = '';
+                    var scoreLabel = $('.total-score').get(0);
+                    $(scoreLabel).text(total);
+
+                    scoreDesc = (total >= 91) ? 'ผ่าน' : 'ไม่ผ่าน';
+                    $(scoreDescLabel).text(scoreDesc);
                 }
                 function handleStandardStrategicCheckbox() {              
 

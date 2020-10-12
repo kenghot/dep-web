@@ -21,6 +21,7 @@
 <%@ Register TagPrefix="nep" TagName="SatisfyControl" Src="~/ProjectInfo/Controls/TabSatisfyControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="Follow5MControl" Src="~/ProjectInfo/Controls/TabFollow5MControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="FollowUnder5MControl" Src="~/ProjectInfo/Controls/TabFollowUnder5MControl.ascx" %>
+<%@ Register TagPrefix="nep" TagName="FollowProcessing" Src="~/ProjectInfo/Controls/TabFollowProcessing.ascx" %>
 <%@ Register TagPrefix="nep" TagName="SelfEvaluateControl" Src="~/ProjectInfo/Controls/TabSelfEvaluateControl.ascx" %>
 <%@ Register TagPrefix="nep" TagName="SurveyParticipant" Src="~/ProjectInfo/Controls/TabSurveyParticipant.ascx" %>
 <%@ Register TagPrefix="nep" TagName="FollowupControl" Src="~/ProjectInfo/Controls/TabFollowupControl.ascx" %>
@@ -238,6 +239,12 @@
                         <ContentTemplate> 
                             <!--ข้อมูลสัญญา-->
                             <nep:ContractControl ID="ContractControl" runat="server"   Visible="false"/>
+                        </ContentTemplate>
+                    </ajaxToolkit:TabPanel> 
+                    <ajaxToolkit:TabPanel ID="TabPanelFollowUpProcess" runat="server" HeaderText="ประเมินผลโครงการ (ระหว่างดำเนินโครงการ)"  Visible="false">
+                        <ContentTemplate> 
+                            <!--ประเมินผลโครงการ (ระหว่างดำเนินโครงการ)-->
+                            <nep:FollowProcessing ID="FollowProcessingControl" runat="server"   Visible="false"/>
                         </ContentTemplate>
                     </ajaxToolkit:TabPanel> 
                     <ajaxToolkit:TabPanel ID="TabPanelProcessed" runat="server" HeaderText="การดำเนินการ"  Visible="false">
