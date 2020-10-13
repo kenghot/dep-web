@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Nep.Project.Web.ProjectInfo.Controls
 {
-    public partial class TabFollowUnder5MControl : Nep.Project.Web.Infra.BaseUserControl
+    public partial class TabFollowUnder5MControl_2019 : Nep.Project.Web.Infra.BaseUserControl
     {
         private string PROJECTPARTICIPANT_LIST_VIEWSTATE_KEY = "PROJECTPARTICIPANT_LIST";
         private const String GENDER_MALE = "M";
@@ -215,11 +215,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
            // var result = _projectService.GetProjectReportResult(ProjectID);
             var db = _projectService.GetDB();
-            //var qnh = (from q in db.PROJECTQUESTIONHDs where q.PROJECTID == ProjectID && q.QUESTGROUP == QuestionareGroup select q).FirstOrDefault();
-            var oper = (from op in db.ProjectOperations where op.ProjectID == ProjectID select op).FirstOrDefault();
-            var con = (from c in db.ProjectContracts where c.ProjectID == ProjectID select c).FirstOrDefault();
-            var gen = (from i in db.ProjectGeneralInfoes where i.ProjectID == ProjectID select i).FirstOrDefault();
-            
             //var attach = new Business.AttachmentService(db);
             //var f = attach.GetAttachmentOfTable("FOLLOWU5", "FOLLOWU5", ProjectID);
             //FileUploadAttachment.ClearChanges();
@@ -255,27 +250,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 
                                 //});  
                                 ";
-            if (gen != null)
-            {
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'projectTHName','{0}');", gen.ProjectInformation.ProjectNameTH);
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'budgetRate','{0}');", (gen.BudgetReviseValue > 5000000) ? "1" : "2");
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'name1','{0}');", $"{gen.ProjectPersonel.Firstname1} {gen.ProjectPersonel.Lastname1}");
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'name2','{0}');", $"{gen.ProjectPersonel.Firstname2} {gen.ProjectPersonel.Lastname2}");
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'tel1','{0}');", gen.ProjectPersonel.Telephone1);
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'tel2','{0}');", gen.ProjectPersonel.Telephone2);
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'approvedBudget','{0:##,#0.#0}');", gen.BudgetReviseValue);
-            }
-          
-            if (con != null)
-            {
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'organization','{0}');", con.ProjectGeneralInfo.OrganizationNameTH);
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'contractEndDate','{0:dd/MM/yyyy}');", con.ContractEndDate);
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'contractStartDate','{0:dd/MM/yyyy}');", con.ContractStartDate);
-            }
-            if (oper != null)
-            {
-                setVueParam += string.Format("Vue.set(appVueQN.extend,'startDate','{0:dd/MM/yyyy}');", oper.StartDate);
-            }
             setVueParam += @"          
                 function SaveAttachmentFiles() {
                    SaveAttachmentToDB(" + ProjectID.ToString() + "," + FileUploadAttachment.Controls[1].ClientID + "," + FileUploadAttachment.Controls[0].ClientID + @", '" + TableAttach + @"', '" + FieldAttach + @"');

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.ProjectInfo.Controls {
-    
-    
-    public partial class TabFollowUnder5MControl {
-        
+namespace Nep.Project.Web.ProjectInfo.Controls
+{
+
+
+    public partial class TabFollowUnder5MControl
+    {
+
         /// <summary>
         /// UpdatePanelReportResult control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelReportResult;
-        
+
         /// <summary>
         /// hdfQViewModel control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfQViewModel;
-        
+
         /// <summary>
         /// hdfQContols control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfQContols;
-        
+
         /// <summary>
         /// hdfIsDisable control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfIsDisable;
-        
+
         /// <summary>
         /// FileUploadAttachment control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.C2XFileUpload FileUploadAttachment;
-        
+
         /// <summary>
         /// ButtonSaveReportResult control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSaveReportResult;
-        
+
         /// <summary>
         /// ButtonSaveAndSendProjectReport control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSaveAndSendProjectReport;
-        
+
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
+
         /// <summary>
         /// HyperLink1 control.
         /// </summary>

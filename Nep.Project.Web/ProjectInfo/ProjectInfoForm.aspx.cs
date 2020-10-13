@@ -555,7 +555,8 @@ namespace Nep.Project.Web.ProjectInfo
                         //kenghot18
                         //FollowupControl.Visible = false;
                         //FollowupControl.BindData();
-                        if (BudgetAmount <= 5000000)
+                        //if (BudgetAmount <= 5000000)
+                        if (true)
                         {
                             FollowUnder5MControl.Visible = true;
                             FollowUnder5MControl.BindData();

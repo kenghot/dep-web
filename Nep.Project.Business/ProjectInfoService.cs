@@ -4119,7 +4119,7 @@ namespace Nep.Project.Business
 
                 PROJECTQUESTIONHD doc = null;
 
-                doc = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                doc = _db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == projID && w.QUESTGROUP == QNGroup).FirstOrDefault();
                 if (doc == null)
                 {
                     doc = new PROJECTQUESTIONHD
@@ -4185,9 +4185,9 @@ namespace Nep.Project.Business
             }
             return result;
         }
-        public ServiceModels.ReturnObject<string> GetDocumentByKey(decimal projID, string QNGroup)
+        public ServiceModels.ReturnObject<PROJECTQUESTIONHD> GetDocumentByKey(decimal projID, string QNGroup)
         {
-            var result = new ReturnObject<string>();
+            var result = new ReturnObject<PROJECTQUESTIONHD>();
             try
             {
 
@@ -4197,7 +4197,7 @@ namespace Nep.Project.Business
                     result.Message.Add("ไม่พบข้อมูล");
                     return result;
                 }
-                result.Data = doc.DATA;
+                result.Data = doc;
                 result.IsCompleted = true;
 
 

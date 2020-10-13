@@ -130,6 +130,11 @@ namespace Nep.Project.Web.APIController
         }
         #endregion
         #region Document
+        /// <summary>
+        /// Always Insert (project id may be duplicated)
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         [Route("InsertDocument")]
         [HttpPost]
         public ReturnObject<decimal?> InsertDocument([FromBody]SaveDocRequest p)
@@ -147,6 +152,28 @@ namespace Nep.Project.Web.APIController
             return result;
 
         }
+        /// <summary>
+        /// Insert when not exist, update when existed
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Route("SaveDocument")]
+        [HttpPost]
+        public ReturnObject<decimal?> SaveDocument([FromBody] SaveDocRequest p)
+        {
+            var result = new ReturnObject<decimal?>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.SaveDocument(p.KeyId, p.DocGroup, p.Data);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+
+        }
         [Route("GetDocumentByDocId/{id}/{docGroup}")]
         [HttpGet]
         public ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId([FromUri]decimal id,[FromUri]string docGroup)
@@ -156,6 +183,23 @@ namespace Nep.Project.Web.APIController
             try
             {
                 result = projService.GetDocumentByDocId(id , docGroup);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+
+        }
+        [Route("GetDocumentByKey/{id}/{docGroup}")]
+        [HttpGet]
+        public ReturnObject<PROJECTQUESTIONHD> GetDocumentByKey([FromUri] decimal id, [FromUri] string docGroup)
+        {
+            var result = new ReturnObject<PROJECTQUESTIONHD>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.GetDocumentByKey(id, docGroup);
             }
             catch (Exception ex)
             {

@@ -360,6 +360,9 @@
     <Content Include="html\Contract\ContractVue.js" />
     <Content Include="html\DashBoard\DashBoard.html" />
     <Content Include="html\DashBoard\DashBoard.js" />
+    <Content Include="html\FollowUp\Processing.js" />
+    <Content Include="html\FollowUp\Processing.html" />
+    <Content Include="html\FollowUp\Processing.aspx" />
     <Content Include="html\ParticipantSurvey\Form.html" />
     <Content Include="html\ParticipantSurvey\Form.js" />
     <Content Include="html\ParticipantSurvey\ParticipantSurvey.aspx" />
@@ -431,6 +434,7 @@
     <Content Include="ProjectInfo\Controls\TabAssessmentControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabAttachmentControl.ascx" />
     <Content Include="ProjectInfo\Controls\TabFollowProcessing.ascx" />
+    <Content Include="ProjectInfo\Controls\TabFollowUnder5MControl_2019.ascx" />
     <Content Include="ProjectInfo\Controls\TabSatisfyControl_2019.ascx" />
     <Content Include="ProjectInfo\Controls\TabSurveyParticipant.ascx" />
     <Content Include="ProjectInfo\Controls\TabContractControl.ascx" />
@@ -690,6 +694,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="html\FollowUp\Processing.aspx.cs">
+      <DependentUpon>Processing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="html\FollowUp\Processing.aspx.designer.cs">
+      <DependentUpon>Processing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="html\ParticipantSurvey\ParticipantSurvey.aspx.cs">
       <DependentUpon>ParticipantSurvey.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -874,6 +885,13 @@
     </Compile>
     <Compile Include="ProjectInfo\Controls\TabFollowProcessing.ascx.designer.cs">
       <DependentUpon>TabFollowProcessing.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\TabFollowUnder5MControl_2019.ascx.cs">
+      <DependentUpon>TabFollowUnder5MControl_2019.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\TabFollowUnder5MControl_2019.ascx.designer.cs">
+      <DependentUpon>TabFollowUnder5MControl_2019.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\Controls\TabSatisfyControl_2019.ascx.cs">
       <DependentUpon>TabSatisfyControl_2019.ascx</DependentUpon>

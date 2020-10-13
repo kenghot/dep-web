@@ -169,52 +169,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             
             base.OnPreRender(e);
 
-            string scriptTag = Business.QuestionareHelper.CommonScript(UpdatePanelReportResult.ClientID, hdfQViewModel.ClientID, "");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "QuestionareCommon" + this.ClientID, scriptTag, true);
-            //#region Project Participant
-            //List<ServiceModels.GenericDropDownListData> genderList = new List<ServiceModels.GenericDropDownListData>();
-            //genderList.Add(new ServiceModels.GenericDropDownListData { Text = Nep.Project.Resources.UI.LabelMale, Value = GENDER_MALE });
-            //genderList.Add(new ServiceModels.GenericDropDownListData { Text = Nep.Project.Resources.UI.LabelFemale, Value = GENDER_FEMALE });
-
-
-
-            //bool isRequiredData = ((ContractYear != null) && (ContractYear > 2016));
-            //var md = new ServiceModels.ProjectInfo.ProjectParticipant();
-
-            ////String scriptUrl = ResolveUrl("~/Scripts/manage.projectreport.js?v=" + DateTime.Now.Ticks.ToString());
-            //String scriptUrl = ResolveUrl("~/Scripts/manage.projectreport.js?v=5");
-            //var refScript = "<script type='text/javascript' src='" + scriptUrl + "'></script>";
-            //ScriptManager.RegisterClientScriptBlock(
-            //           UpdatePanelReportResult,
-            //           this.GetType(),
-            //           "RefUpdatePanelReportResultScript",
-            //           refScript,
-            //           false);
-
-
-            //ScriptManager.RegisterStartupScript(
-            //          UpdatePanelReportResult,
-            //          this.GetType(),
-            //          "UpdatePanelProjectInfoScript",
-            //          participantScript,
-            //          true);
-            //#endregion Project Participant
+      
+      
         }
-        //public void RegistQNScript()
-        //{
-        //    string script = @"var QuestionareBindingControls = [];
-        //        $('[data-bind]').attr('data-bind',function(a,b) {QuestionareBindingControls.push(b.split(':')[1].trim());});" +
-        //      string.Format("$('#{0}').val(QuestionareBindingControls);", hdfQViewModel.ClientID);
-        //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Questionare" + this.ClientID,
-        //       script, true);
-        //}
+
         public void BindData()
         {
             bool isEditable = false;
             bool isReadOnly = false;
-
-           // var result = _projectService.GetProjectReportResult(ProjectID);
             var db = _projectService.GetDB();
+
+
+
+            var qnh = (from q in db.PROJECTQUESTIONHDs where q.PROJECTID == ProjectID && q.QUESTGROUP == QuestionareGroup select q).FirstOrDefault();
+            var oper = (from op in db.ProjectOperations where op.ProjectID == ProjectID select op).FirstOrDefault();
+            var con = (from c in db.ProjectContracts where c.ProjectID == ProjectID select c).FirstOrDefault();
+            var inf = (from i in db.ProjectInformations where i.ProjectID == ProjectID select i).FirstOrDefault();
+            // var result = _projectService.GetProjectReportResult(ProjectID);
+        
             //var attach = new Business.AttachmentService(db);
             //var f = attach.GetAttachmentOfTable("FOLLOWU5", "FOLLOWU5", ProjectID);
             //FileUploadAttachment.ClearChanges();
@@ -226,36 +198,29 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Questionare" + this.ClientID,
             //   script, true);
             string script = "";
-            script = @"<script type=""text/javascript"" src=""../../Scripts/Vue/FollowUpProcessing.js?v=" + DateTime.Now.Ticks.ToString() + @"""></script>";
-            script += @"<script type=""text/javascript"" src=""../../Scripts/Vue/VueQN.js?v=" + DateTime.Now.Ticks.ToString() + @"""></script>";
-            script += @"<script type=""text/javascript"" src=""../../Scripts/file-upload-helper.js?v=" + DateTime.Now.Ticks.ToString() + @"""></script>";
+            script = @"<script type=""text/javascript"" src=""../../html/followup/Processing.js?v=" + DateTime.Now.Ticks.ToString() + @"""></script>";
 
 
-            var qnh = (from q in db.PROJECTQUESTIONHDs where q.PROJECTID == ProjectID && q.QUESTGROUP == QuestionareGroup select q).FirstOrDefault();
-
-
-                bool isReported = false; // (model.FollowupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว);
-                if (qnh != null)
-                {
-                    isReported = (qnh.ISREPORTED == "1") ? true : false;
-                }
             var setVueParam = @"//$( document ).ready(function() { 
                                // console.log('set');
-                                appVueQN.param.projID = " + ProjectID.ToString() + @";
-                                appVueQN.param.qnGroup = '" + QuestionareGroup + @"';
-                                appVueQN.param.IsReported = '" + ((isReported) ? "1" : "0") + @"';
-                                //console.log(appVueQN.param);
-                                Vue.prototype.$CalulateFollowUnder5M = CalulateFollowUnder5M;
-                                appVueQN.getData();
+                                VueFollowProcessing.projId = " + ProjectID.ToString() + @";
+                                VueFollowProcessing.DisplayData()
                                 
                                 //});  
                                 ";
-            setVueParam += @"          
-                function SaveAttachmentFiles() {
-                   SaveAttachmentToDB(" + ProjectID.ToString() + "," + FileUploadAttachment.Controls[1].ClientID + "," + FileUploadAttachment.Controls[0].ClientID + @", '" + TableAttach + @"', '" + FieldAttach + @"');
-                   
-                 };
-              ";
+            if (inf != null)
+            {
+                setVueParam += string.Format("Vue.set(VueFollowProcessing.extend,'projectName','{0}');", inf.ProjectNameTH);
+            }
+            if (con != null)
+            {
+                setVueParam += string.Format("Vue.set(VueFollowProcessing.extend,'organization','{0}');", con.ProjectGeneralInfo.OrganizationNameTH);
+                setVueParam += string.Format("Vue.set(VueFollowProcessing.extend,'contractEndDate','{0:dd/MM/yyyy}');", con.ContractEndDate);
+            }
+            if (oper != null)
+            {
+                setVueParam += string.Format("Vue.set(VueFollowProcessing.extend,'startDate','{0:dd/MM/yyyy}');", oper.StartDate);
+            }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "QuestionareJSFile", script, false);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "QNInitialData" + this.ClientID,
                    setVueParam, true);
@@ -263,145 +228,64 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 
                 HasSaveDraftReportResultRole = functions.Contains(Common.ProjectFunction.SaveDraftReportResult);
                 HasSaveReportResultRole = functions.Contains(Common.ProjectFunction.SaveReportResult);
-                
-                isEditable = (HasSaveDraftReportResultRole &&  !isReported) || UserInfo.IsAdministrator;
-                IsEditable = isEditable;
-                isReadOnly = (!isEditable);
+
+            //isEditable = (HasSaveDraftReportResultRole &&  !isReported) || UserInfo.IsAdministrator;
+            isEditable = (HasSaveDraftReportResultRole) || UserInfo.IsAdministrator;
+
+            isReadOnly = (!isEditable);
 
                 hdfIsDisable.Value = (isEditable) ? "false" : "true" ;
                 //CreateParticipantForm.Visible = !isReported;
 
                 ButtonSaveReportResult.Visible = isEditable;
                 //ButtonAddParticipant.Visible = isEditable;
-                ButtonSaveAndSendProjectReport.Visible = isEditable;
+                //ButtonSaveAndSendProjectReport.Visible = isEditable;
                 //ButtonOfficerSave.Visible = (HasSaveReportResultRole && (!HasSaveDraftReportResultRole));
                 //HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintReport);
 
-                ButtonSaveAndSendProjectReport.Text = (UserInfo.OrganizationID.HasValue) ? Nep.Project.Resources.UI.ButtonSendProjectReport : Nep.Project.Resources.UI.ButtonConfirmReportResult;
+                //ButtonSaveAndSendProjectReport.Text = (UserInfo.OrganizationID.HasValue) ? Nep.Project.Resources.UI.ButtonSendProjectReport : Nep.Project.Resources.UI.ButtonConfirmReportResult;
 
-                //attachfile
-                var att = new Business.AttachmentService(_projectService.GetDB());
-
-                FileUploadAttachment.ClearChanges();
-                FileUploadAttachment.ExistingFiles = att.GetAttachmentOfTable(TableAttach, FieldAttach, ProjectID);
-                FileUploadAttachment.DataBind();
-                //งบประมาณโครงการ
-                //decimal reviseBudgetAmount = (model.ReviseBudgetAmount.HasValue) ? model.ReviseBudgetAmount.Value : 0;
-                //decimal actualExpense = (model.ActualExpense.HasValue) ? model.ActualExpense.Value : 0;
-                //decimal balanceAmount = reviseBudgetAmount - actualExpense;
-                //balanceAmount = (balanceAmount < 0) ? 0 : balanceAmount;
-
-
-                //Check Is submit data
                 decimal? userProvinceID = UserInfo.ProvinceID;
                 decimal? userOrganizationID = UserInfo.OrganizationID;
 
-                //if (String.IsNullOrEmpty(model.FollowupStatusCode) ||
-                //    (!String.IsNullOrEmpty(model.FollowupStatusCode) && (model.FollowupStatusCode != Common.LOVCode.Followupstatus.รายงานผลแล้ว)))
-                //{
-                //    if (
-                //        (!UserInfo.IsAdministrator) &&
-                //        ((model.CreatorOrganizationID.HasValue && userOrganizationID.HasValue && (model.CreatorOrganizationID != userOrganizationID)) ||
-                //        (model.CreatorOrganizationID.HasValue && userOrganizationID == null) ||
-                //        (model.CreatorOrganizationID == null && userOrganizationID == null && model.ProvinceID.HasValue && userProvinceID.HasValue && (model.ProvinceID != userProvinceID)))
-                //        )
-                //    {
-              
-                //        return;   
-                //    }
-                //}
-
-                //กิจกรรมของโครงการ
-                //TextBoxActivityDescription.Text = model.ActivityDescription;
-                //TextBoxActivityDescription.ReadOnly = isReadOnly;
-
-                
-
-                //ผลการดำเนินงาน/ประโยชน์ที่ได้รับจากการดำเนินงาน
-  
-              
-
-                ////ลงชื่อผู้รายงาน
-                //TextBoxReporter1FirstName.Text = model.ReporterName1;
-                //TextBoxReporter1FirstName.Enabled = isEditable;
-
-                //TextBoxReporter1LastName.Text = model.ReporterLastname1;
-                //TextBoxReporter1LastName.Enabled = isEditable;
-
-                //DatePickerReporter1.SelectedDate = model.RepotDate1;
-                //DatePickerReporter1.Enabled = isEditable;
-
-                //TextBoxReporter1Position.Text = model.Position1;
-                //TextBoxReporter1Position.Enabled = isEditable;
-
-                //TextBoxReporter1Telephone.Text = model.Telephone1;
-                //TextBoxReporter1Telephone.Enabled = isEditable;
-
-               
-
-
-
-                //PanelSuggestionDesc.Visible = (functions.Contains(Common.ProjectFunction.PrintReport) && (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer));
-                //PanelSuggestionDesc.Visible = ((HasSaveDraftReportResultRole && HasSaveReportResultRole) || (functions.Contains(Common.ProjectFunction.PrintReport) && (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer)) || (model.FollowupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว));
                 bool canSaveReportResult = (functions.Contains(Common.ProjectFunction.SaveReportResult)); 
-                //ลงชื่อเจ้าหน้าที่ผู้รายงาน
-                //TextBoxSuggestionDesc.Text = model.SuggestionDesc;
-                //TextBoxSuggestionDesc.ReadOnly = !canSaveReportResult;
-
-                //TextBoxReporter2FirstName.Text = model.ReporterName2; 
-                //TextBoxReporter2FirstName.Enabled = canSaveReportResult;
-
-                //TextBoxReporter2LastName.Text = model.ReporterLastname2;
-                //TextBoxReporter2LastName.Enabled = canSaveReportResult;
-
-                //DatePickerReporter2.SelectedDate = model.RepotDate2;
-                //DatePickerReporter2.Enabled = canSaveReportResult;
-
-                //TextBoxReporter2Position.Text = model.Position2;
-                //TextBoxReporter2Position.Enabled = canSaveReportResult;
-
-                //TextBoxReporter2Telephone.Text = model.Telephone2;
-                //TextBoxReporter2Telephone.Enabled = canSaveReportResult;     
-           
-               
-                    
                
          
         }
 
 
         #region Main Button
-        protected void ButtonSaveReportResult_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (Page.IsValid)
-                {
-                    bool isSaveReportResult = (HasSaveReportResultRole && HasSaveReportResultRole);
-                    bool isSendReport = false;
-                    if (sender == ButtonSaveAndSendProjectReport) isSendReport = true;
-                    var result = _projectService.SaveProjectQuestionareResult(ProjectID, QuestionareGroup, hdfQViewModel.Value, isSaveReportResult, isSendReport,Request.UserHostAddress);
-                    var resultAttach = _projectService.SaveAttachFile(ProjectID, Common.LOVCode.Attachmenttype.PROJECT_FOLLOWUP, FileUploadAttachment.RemovedFiles.ToList(),
-                    FileUploadAttachment.AddedFiles.ToList(), TableAttach, FieldAttach);
-                    if (result.IsCompleted)
-                    {
-                        Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
-                        page.RebindData("TabPanelFollowUpProcess");
-                        ShowResultMessage(result.Message);    
-                    }
-                    else
-                    {
-                        ShowErrorMessage(result.Message);
-                    }
-                }
+        //protected void ButtonSaveReportResult_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (Page.IsValid)
+        //        {
+        //            bool isSaveReportResult = (HasSaveReportResultRole && HasSaveReportResultRole);
+        //            bool isSendReport = false;
+        //            if (sender == ButtonSaveAndSendProjectReport) isSendReport = true;
+        //            var result = _projectService.SaveProjectQuestionareResult(ProjectID, QuestionareGroup, hdfQViewModel.Value, isSaveReportResult, isSendReport,Request.UserHostAddress);
+        //            var resultAttach = _projectService.SaveAttachFile(ProjectID, Common.LOVCode.Attachmenttype.PROJECT_FOLLOWUP, FileUploadAttachment.RemovedFiles.ToList(),
+        //            FileUploadAttachment.AddedFiles.ToList(), TableAttach, FieldAttach);
+        //            if (result.IsCompleted)
+        //            {
+        //                Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+        //                page.RebindData("TabPanelFollowUpProcess");
+        //                ShowResultMessage(result.Message);    
+        //            }
+        //            else
+        //            {
+        //                ShowErrorMessage(result.Message);
+        //            }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
-                ShowErrorMessage(ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+        //        ShowErrorMessage(ex.Message);
+        //    }
+        //}
        
         //protected void ButtonSaveAndSendProjectReport_Click(object sender, EventArgs e)
         //{

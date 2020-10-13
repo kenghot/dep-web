@@ -1,0 +1,311 @@
+﻿<template id="k-radio">
+
+    <v-container fluid>
+        {{topic}}
+        <v-radio-group ref="myRadio" v-model="obj[fld]" row required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="viewmode">
+            <v-radio label="มากที่สุด" value="5"></v-radio>
+            <v-radio label="มาก" value="4"></v-radio>
+            <v-radio label="ปานกลาง" value="3"></v-radio>
+            <v-radio label="น้อย" value="2"></v-radio>
+            <v-radio label="น้อยที่สุด" value="1"></v-radio>
+        </v-radio-group>
+    </v-container>
+</template>
+<style>
+    .v-application--wrap {
+        min-height: 0px;
+    }
+
+    .radio-heading {
+        border: solid;
+        border-radius: 10px;
+        border-width: 1px;
+        padding: 5px
+    }
+    .v-application--is-ltr .v-textarea.v-text-field--enclosed .v-text-field__slot {
+        margin-right: -11px;
+        margin-bottom: 2px;
+    }
+</style>
+<div id="appFollowProcessing">
+    <v-app id="inspire" style="min-height: 0px">
+
+        <div>
+
+            <v-form ref="form"
+                    v-model="formValid"
+                    lazy-validation>
+
+                <v-row justify="center" style="padding:10px">
+                    <v-col cols="12"
+                           sm="12"
+                           md="12">
+                        <div class="container" style="font-size:14px">
+                            <div class="row" style="padding-top:5px">
+                                <div class="col-sm-3">
+                                    ชื่อโครงการ
+                                </div>
+                                <div class="col-sm-4">
+                                    {{extend.projectName}}
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:5px">
+                                <div class="col-sm-3">
+                                    หน่วยงานที่รับผิดชอบ
+                                </div>
+                                <div class="col-sm-4">
+                                    {{extend.organization}}
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:5px">
+                                <div class="col-sm-3">
+                                    วันที่เริ่มดำเนินการทำสัญญา
+                                </div>
+                                <div class="col-sm-4">
+                                    {{extend.startDate}}
+                                </div>
+                                <div class="col-sm-2">
+                                    วันสิ้นสุดสัญญา
+                                </div>
+                                <div class="col-sm-3">
+                                    {{extend.contractEndDate}}
+                                </div>
+                            </div>
+                        </div>
+                        <v-card style="padding:20px">
+                            <v-card-title class="title font-weight-regular justify-space-between">
+                                <span>ประเด็นพิจารณาการประเมินผลโครงการ</span>
+
+                            </v-card-title>
+                            <v-row class="radio-heading">
+                                1. ความก้าวหน้าในการดำเนินโครงการ (ค่าน้ำหนัก = 20 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score1"></v-avatar>
+
+                            </v-row>
+                            <v-radio-group v-model="result.rd1_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="ตามแผนที่กำหนดไว้ (20 คะแนน)" value="20"></v-radio>
+                                <v-radio label="ไม่เป็นไปตามแผนที่กำหนดไว้/ปรับเปลี่ยนแผน (10 คะแนน)" value="10">
+                                    <v-radio label="ไม่สามารถดำเนินการได้ (0 คะแนน)" value="0"></v-radio>
+                            </v-radio-group>
+                            <v-textarea outlined
+                                        name="input-7-4"
+                                        v-model="result.txt1_1_1"
+                                        label="เหตุผลสนับสนุน"></v-textarea>
+                            <v-row class="radio-heading">
+                                2. ภาพรวมในการดำเนินโครงการ (ค่าน้ำหนัก = 40 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score2"></v-avatar>
+
+                            </v-row>
+                            2.1 การดำเนินกิจกรรม
+                            <v-radio-group v-model="result.rd2_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="เป็นไปตามระยะเวลาที่กำหนด (10 คะแนน)" value="10"></v-radio>
+
+                                <v-radio label="พบปัญหาและมีแนวทางแก้ไข (5 คะแนน)" value="5"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_1_1"></v-text-field>
+
+                                <v-radio label="พบปัญหาแต่ไม่มีแนวทางแก้ไข (0 คะแนน)" value="0"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_1_2"></v-text-field>
+                            </v-radio-group>
+                            <v-row>
+                                <v-col sm="4" md="4">
+                                    <v-menu ref="menu"
+                                            v-model="menuDate"
+                                            :close-on-content-click="false"
+                                            :return-value.sync="result.date2_1"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="290px">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="result.date2_1"
+                                                          label="วันที่ดำเนินกิจกรรม/วันที่คาดว่าจะดำเนินกิจกรรม"
+                                                          prepend-icon="mdi-calendar"
+                                                          readonly
+                                                          v-bind="attrs"
+                                                          v-on="on"></v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="result.date2_1"
+                                                       no-title
+                                                       scrollable>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text
+                                                   color="primary"
+                                                   @click="menu = false">
+                                                Cancel
+                                            </v-btn>
+                                            <v-btn text
+                                                   color="primary"
+                                                   @click="$refs.menu.save(result.date2_1)">
+                                                OK
+                                            </v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col>
+                                <v-col l sm="8" md="8">
+                                    <v-textarea outlined
+                                                name="input-7-4"
+                                                v-model="result.txt2_1_3"
+                                                label="เนิ่องจาก"></v-textarea>
+                                </v-col>
+                            </v-row>
+                            2.2 สถานที่ดำเนินกิจกรรม/โครงการ เป็นไปตามที่กำหนดไว้
+                            <v-radio-group v-model="result.rd2_2" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="ใช้ (10 คะแนน)" value="10"></v-radio>
+
+                                <v-radio label="ไม่ใช่ (5 คะแนน)" value="5"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_2_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่่องจาก" outlined v-model="result.txt2_2_2"></v-textarea>
+                            2.3 ปัญหาอุปสรรคที่พบ พร้อมแนวทางแก้ไข
+                            <v-radio-group v-model="result.rd2_3" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="ไม่พบปัญหา (10 คะแนน)" value="10"></v-radio>
+
+                                <v-radio label="พบปัญหาและมีแนวทางแก้ไข (5 คะแนน)" value="5"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_3_1"></v-text-field>
+                                <v-radio label="พบปัญหาแต่ไม่มีแนวทางแก้ไข (0 คะแนน)" value="0"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_3_2"></v-text-field>
+                            </v-radio-group>
+                            <v-textarea label="ปัญหาและอุปสรรค" outlined v-model="result.txt2_3_3"></v-textarea>
+                            <v-textarea label="แนวทางแก้ไข" outlined v-model="result.txt2_3_4"></v-textarea>
+                            2.4 ประเมินความเหมาะสมของกิจกรรม/โครงการ
+                            <v-radio-group v-model="result.rd2_4" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="มีความเหมาะสม (10 คะแนน)" value="10"></v-radio>
+
+                                <v-radio label="ไม่มีความเหมาะสม (3 คะแนน)" value="3"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt2_4_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เหตุผล" outlined v-model="result.txt2_4_2"></v-textarea>
+                            <v-row class="radio-heading">
+                                3. งบประมาณ (ค่าน้ำหนัก = 10 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score3"></v-avatar>
+
+                            </v-row>
+                            3.1 การวางแผลในการใช้จ่ายงบประมาณในแต่ละกิจกรรม
+                            <v-radio-group v-model="result.rd3_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="เพียงพอ (10 คะแนน)" value="10"></v-radio>
+
+                                <v-radio label="ไม่เพียงพอ (5 คะแนน)" value="5"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt3_1_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่องจาก" outlined v-model="result.txt3_1_2"></v-textarea>
+                            <v-row class="radio-heading">
+                                4. การดำเนินกิจกรรม/โครงการเป็นตามวัตถุประสงค์ (ค่าน้ำหนัก = 10 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score4"></v-avatar>
+
+                            </v-row>
+                            <v-radio-group v-model="result.rd4_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="มาก (10 คะแนน)" value="10"></v-radio>
+                                <v-radio label="ปานกลาง (5 คะแนน)" value="5"></v-radio>
+                                <v-radio label="ไม่เป็นไปตามวัถุประสงค์ (0 คะแนน)" value="0"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt4_1_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่องจาก" outlined v-model="result.txt4_1_2"></v-textarea>
+                            <v-row class="radio-heading">
+                                5. ศักยภาพในการดำเนินโครงการ (ค่าน้ำหนัก = 10 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score5"></v-avatar>
+
+                            </v-row>
+                            <v-radio-group v-model="result.rd5_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="มาก (10 คะแนน)" value="10"></v-radio>
+                                <v-radio label="ปานกลาง (5 คะแนน)" value="5"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt5_1_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เหตุผล" outlined v-model="result.txt5_1_2"></v-textarea>
+                            <v-row class="radio-heading">
+                                6. การประเมินความเสี่ยง (ค่าน้ำหนัก = 10 คะแนน)
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score6"></v-avatar>
+
+                            </v-row>
+                            6.1 การประเมินความเสี่ยงด้านการบรรลุผล
+                            <v-radio-group v-model="result.rd6_1" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="ไม่มีความเสี่ยง (5 คะแนน)" value="5"></v-radio>
+                                <v-radio label="มีความเสี่ยง (3 คะแนน)" value="3"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt6_1_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่องจาก" outlined v-model="result.txt6_1_2"></v-textarea>
+                            6.2 การประเมินความเสี่ยงด้านการเงิน
+                            <v-radio-group v-model="result.rd6_2" required :rules="[v => !!v || 'กรุณาเลือกคำตอบ']" :disabled="formDisabled">
+                                <v-radio label="ไม่มีความเสี่ยง (5 คะแนน)" value="5"></v-radio>
+                                <v-radio label="มีความเสี่ยง (3 คะแนน)" value="3"></v-radio>
+                                <v-text-field label="ระบุเหตุผล" v-model="result.txt6_2_1"></v-text-field>
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่องจาก" outlined v-model="result.txt6_2_2"></v-textarea>
+                            <v-row class="radio-heading">
+                                7. ความคิดเห็นเบื้องต้นต่อโครงการ
+                                <v-spacer></v-spacer>
+                                <v-avatar color="primary lighten-2"
+                                          class="subheading white--text"
+                                          size="35"
+                                          v-text="score7"></v-avatar>
+
+                            </v-row>
+                            <v-radio-group v-model="result.rd7_1" disabled="true">
+                                <v-radio label="เห็นควรดำเนินโครงการต่อไป (75 คะแนนขึ้นไป)" value="1"></v-radio>
+                                <v-radio label="ควรมีการตรวจสอบอย่างใกล้ชิด / ควรมีการขยายระยะเวลา (51 - 74 คะแนน)" value="2"></v-radio>
+                                <v-radio label="ควรระงับโครงการชั่วคราว (น้อยกว่า 50 คะแนน)" value="3"></v-radio>
+
+
+                            </v-radio-group>
+                            <v-textarea label="เนื่องจาก" outlined v-model="result.txt7_1_1"></v-textarea>
+                            <v-row class="radio-heading">
+                                8. คำแนะนำจากผู้ประเมินโครงการ
+
+
+                            </v-row>
+                            <br />
+                            <v-textarea label="คำแนะนำจากผู้ประเมินโครงการ" outlined v-model="result.txt8"></v-textarea>
+                            <v-row>
+                                <v-col sm="4" md="4" lg="4">
+                                    <v-text-field label="1.เจ้าหน้าที่ผู้ประเมิน" v-model="result.name1"></v-text-field>
+                                </v-col>
+                                <v-col sm="4" md="4" lg="4">
+                                    <v-text-field label="2.เจ้าหน้าที่ผู้ประเมิน" v-model="result.name2"></v-text-field>
+                                </v-col>
+
+                                <v-col sm="4" md="4" lg="4">
+                                    <v-text-field label="3.เจ้าหน้าที่ผู้ประเมิน" v-model="result.name3"></v-text-field>
+                                </v-col>
+
+                            </v-row>
+                        </v-card>
+
+                    </v-col>
+                </v-row>
+
+            </v-form>
+
+        </div>
+
+
+    </v-app>
+</div>
