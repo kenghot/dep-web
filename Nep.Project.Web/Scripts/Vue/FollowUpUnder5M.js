@@ -15,7 +15,8 @@
     tbSuggestion: 29,
     tbSignName1: 30, tbSignName2: 31, tbSignName3: 32,
     tbPosition1: 33, tbPosition2: 34, tbPosition3: 35,
-    rd0_1: 36, tb0_1: 37, processMonth: 38, endDate: 39, evaluateDate:40,
+    rd0_1: 36, tb0_1: 37, processMonth: 38, endDate: 39, evaluateDate: 40,
+    tbProblem: 41, tbSolution: 42, tbSuccess: 43, tbImplimentor: 44, tbEvaluator:45,
    };
 
 function CalulateFollowUnder5M() {

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nep.Project.ServiceModels.Report
 {
+    #region SatisfyReportModel
     public class SatisfyReportModel
     {
         public string Year { get; set; }
@@ -46,5 +47,6 @@ namespace Nep.Project.ServiceModels.Report
 
 
     }
-
-}
+    #endregion
+    
+    }

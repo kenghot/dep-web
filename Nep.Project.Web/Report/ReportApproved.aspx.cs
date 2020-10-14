@@ -11,7 +11,7 @@ using Nep.Project.Common.Report;
 
 namespace Nep.Project.Web.Report
 {
-    public partial class ReportSatisfy : Nep.Project.Web.Infra.BasePage
+    public partial class ReportApproved : Nep.Project.Web.Infra.BasePage
     {
         public IServices.IReportsService _service { get; set; }
         public IServices.IProviceService _provinceService { get; set; }
@@ -102,35 +102,31 @@ namespace Nep.Project.Web.Report
             {
                 
                 ServiceModels.QueryParameter p = CreateQueryParameter();
-                var result = _service.ListSatisfyReport(p);
+                var result = _service.ListApprovedReport(p);
                 if (result.IsCompleted)
                 {
-                   
-                    var y = ((DateTime)DatePickerBudgetYear.SelectedDate).Year;
-                    result.Data.Year = y.ToString();
+                    var list = result.Data;
+                    var y = ((DateTime)DatePickerBudgetYear.SelectedDate).Year + 543;
+                    //result.Data.Year = y.ToString();
                  
-                    var rep  = OfficeReportHelpler.GetReportExcelFile(Response, "Excels", "satisfy", result.Data);
-                    if (!rep.IsCompleted)
+  
+                    ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("ReportApproved.rdlc"));
+                    ReportViewer4.LocalReport.SetParameters(new Microsoft.Reporting.WebForms.ReportParameter("BudgetYear", y.ToString()));
+
+                    var dataset1 = new Microsoft.Reporting.WebForms.ReportDataSource("DataSet1");
+                    dataset1.Value = list;
+
+                    if (list != null && list.Count > 0)
                     {
-                        ShowErrorMessage(rep.Message);
+                        ReportViewer4.LocalReport.DataSources.Add(dataset1);
+                        ReportViewer4.DataBind();
+                        ReportViewer4.Visible = true;
                     }
-                    //ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("Report4.rdlc"));
-                    //ReportViewer4.LocalReport.SetParameters(new Microsoft.Reporting.WebForms.ReportParameter("StringDateToday", Utility.ToBuddhaDateFormat(DateTime.Today, "d MMMM yyyy")));
-
-                    //var dataset1 = new Microsoft.Reporting.WebForms.ReportDataSource("DataSet1");
-                    //dataset1.Value = list;
-
-                    //if (list != null && list.Count > 0)
-                    //{
-                    //    ReportViewer4.LocalReport.DataSources.Add(dataset1);
-                    //    ReportViewer4.DataBind();
-                    //    ReportViewer4.Visible = true;
-                    //}
-                    //else
-                    //{
-                    //    ReportViewer4.Visible = false;
-                    //    ShowResultMessage(Resources.Message.NoRecord);
-                    //}
+                    else
+                    {
+                        ReportViewer4.Visible = false;
+                        ShowResultMessage(Resources.Message.NoRecord);
+                    }
                 }
                 else
                 {

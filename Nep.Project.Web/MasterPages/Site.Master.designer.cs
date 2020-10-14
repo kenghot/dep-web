@@ -177,6 +177,24 @@ namespace Nep.Project.Web.MasterPages
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A3;
 
         /// <summary>
+        /// Li8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li8;
+
+        /// <summary>
+        /// A20 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A20;
+
+        /// <summary>
         /// Li4 control.
         /// </summary>
         /// <remarks>
@@ -193,6 +211,24 @@ namespace Nep.Project.Web.MasterPages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A18;
+
+        /// <summary>
+        /// Li7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li7;
+
+        /// <summary>
+        /// A19 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A19;
 
         /// <summary>
         /// MenuReportOverlap control.

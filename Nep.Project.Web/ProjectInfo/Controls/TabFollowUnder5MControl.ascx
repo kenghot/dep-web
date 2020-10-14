@@ -168,20 +168,20 @@
                             <div class="col-sm-3">
                                 <%--<nep:DatePicker runat="server" ID="DatePickerContractDate" ClearTime="true" EnabledTextBox="true"  />--%>
                                 <input type="date" v-model="items[field.endDate].v" />
-                                
+
                             </div>
                             <div class="col-sm-3">
                                 <b>วันที่ประเมินผลโครงการ</b>
                             </div>
                             <div class="col-sm-3">
-                               <input type="date" v-model="items[field.evaluateDate].v" />
+                                <input type="date" v-model="items[field.evaluateDate].v" />
                             </div>
 
                         </div>
                     </div>
                     <%--<span class="field-desc">--%>
                     <div>
-                        <br /> 
+                        <br />
                     </div>
 
                     <div class="form-group form-group-sm">
@@ -203,7 +203,7 @@
                         </div>
                         <div>
                             <div class="col-sm-12">
-                                <input type="radio" name="R_0_1" value="2" v-model="items[field.rd0_1].v" />ล่าช้ากว่ากำหนด<br />
+                                <input type="radio" name="R_0_1" value="2" v-model="items[field.rd0_1].v" />ภายในกำหนด<br />
                             </div>
                         </div>
                         <div>
@@ -779,6 +779,38 @@
                         </thead>
                     </table>
                     <br />
+                    <div>
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-12 form-group-title">ปัญหา อุปสรรคที่พบ พร้อมแนวทางแก้ไข</label>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-12">
+                                <label class="form-group-title">ปัญหาและอุปสรรค</label>
+                                <textarea style="width: 100%" rows="6" v-model="items[field.tbProblem].v"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-6">
+                                <label class="form-group-title">แนวทางแก้ไข</label>
+                                <textarea style="width: 100%" rows="6" v-model="items[field.tbSolution].v"></textarea>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-group-title">ปัจจัยความสำเร็จ</label><br />
+                                <textarea style="width: 100%" rows="6" v-model="items[field.tbSuccess].v"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-6">
+                                <label class="form-group-title">ข้อเสนอแนะของผู้จัดทำโครงการ</label>
+                                <textarea style="width: 100%" rows="6" v-model="items[field.tbImplimentor].v"></textarea>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-group-title">ข้อเสนอแนะของผู้ประมเนินโครงการ</label><br />
+                                <textarea style="width: 100%" rows="6" v-model="items[field.tbEvaluator].v"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
                     <div class="form-group form-group-sm">
                         <div class="col-sm-6">
                             <label class="form-group-title">ข้อคิดเห็น</label>

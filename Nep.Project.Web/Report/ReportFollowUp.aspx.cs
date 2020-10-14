@@ -11,7 +11,7 @@ using Nep.Project.Common.Report;
 
 namespace Nep.Project.Web.Report
 {
-    public partial class ReportSatisfy : Nep.Project.Web.Infra.BasePage
+    public partial class ReportFollowUp : Nep.Project.Web.Infra.BasePage
     {
         public IServices.IReportsService _service { get; set; }
         public IServices.IProviceService _provinceService { get; set; }
@@ -102,14 +102,14 @@ namespace Nep.Project.Web.Report
             {
                 
                 ServiceModels.QueryParameter p = CreateQueryParameter();
-                var result = _service.ListSatisfyReport(p);
+                var result = _service.ListFollowUpReport(p);
                 if (result.IsCompleted)
                 {
                    
                     var y = ((DateTime)DatePickerBudgetYear.SelectedDate).Year;
                     result.Data.Year = y.ToString();
                  
-                    var rep  = OfficeReportHelpler.GetReportExcelFile(Response, "Excels", "satisfy", result.Data);
+                    var rep = OfficeReportHelpler.GetReportExcelFile(Response, "Excels", "followup", result.Data);
                     if (!rep.IsCompleted)
                     {
                         ShowErrorMessage(rep.Message);

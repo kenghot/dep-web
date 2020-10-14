@@ -12,7 +12,7 @@ namespace Nep.Project.Business
     public class QNData
     {
         public string n { get; set; }
-        public string v { get; set; }
+        public object v { get; set; }
     }
     public static class QueryHelper
     {
