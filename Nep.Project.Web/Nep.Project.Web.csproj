@@ -477,6 +477,8 @@
     <Content Include="Register\RegisterCompany.aspx" />
     <Content Include="Register\RegisterForm.aspx" />
     <Content Include="ProjectInfo\Create.aspx" />
+    <Content Include="Report\ReportApprovedOrg.aspx" />
+    <Content Include="Report\ReportBudgetType.aspx" />
     <Content Include="Report\ReportApproved.aspx" />
     <Content Include="Report\ReportFollowUp.aspx" />
     <Content Include="Report\ReportSatisfy.aspx" />
@@ -1200,6 +1202,20 @@
       <DependentUpon>RegisterForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Report\OfficeReportHelper.cs" />
+    <Compile Include="Report\ReportApprovedOrg.aspx.cs">
+      <DependentUpon>ReportApprovedOrg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportApprovedOrg.aspx.designer.cs">
+      <DependentUpon>ReportApprovedOrg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportBudgetType.aspx.cs">
+      <DependentUpon>ReportBudgetType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportBudgetType.aspx.designer.cs">
+      <DependentUpon>ReportBudgetType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Report\ReportApproved.aspx.cs">
       <DependentUpon>ReportApproved.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

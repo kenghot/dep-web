@@ -31,6 +31,8 @@ namespace Nep.Project.ServiceModels.Report
         public string Mission5 { get; set; }
         public string Mission6 { get; set; }
         public decimal TotalTarget { get; set; }
+        public decimal BudgetTypeId { get; set; }
+        public string BudgetTypeName { get; set; }
         public string MissionText { get {
                 var m = "";
                 if (this.Mission1 == "1")

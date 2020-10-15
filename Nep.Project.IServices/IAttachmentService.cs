@@ -22,5 +22,6 @@ namespace Nep.Project.IServices
         /// <returns></returns>
         List<ServiceModels.KendoAttachment> GetAttachmentOfTable(String TableName, String FieldName, decimal TableRowID);
         ServiceModels.ReturnObject<PROJECTQUESTIONHD> UploadImage(string imgGroupName, decimal? imgId, decimal dataKey, string base64);
+        ServiceModels.ReturnObject<string> DeleteImage(decimal imageId,string groupCode);
     }
 }

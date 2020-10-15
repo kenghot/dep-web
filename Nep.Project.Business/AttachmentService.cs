@@ -94,6 +94,41 @@ namespace Nep.Project.Business
             return ret ;
       
         }
+        public ServiceModels.ReturnObject<string> DeleteImage(decimal imageId, string QNGroup)
+        {
+            var result = new ServiceModels.ReturnObject<string>();
+            result.IsCompleted = false;
+            try
+            {
+                var img = _db.PROJECTQUESTIONHDs.Where(w => w.QUESTHDID == imageId && w.QUESTGROUP == QNGroup).FirstOrDefault();
+                if (img == null)
+                {
+                    result.Message.Add($"Image id ({imageId}) is not found.");
+                    return result;
+                }
+                var path = System.Web.HttpContext.Current.Server.MapPath("/UploadImages/");
+                var fullname = path + img.DATA;
+                _db.PROJECTQUESTIONHDs.Remove(img);
+                _db.SaveChanges();
+                if (File.Exists(fullname))
+                {
+                    try
+                    {
+                        File.Delete(fullname);
+                    }catch (Exception ex)
+                    {
+                        result.Data = $"Data deleted. But can not delete file on server ({ex.Message})";
+                    }
+                   
+                }
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
         public ServiceModels.ReturnObject<PROJECTQUESTIONHD> UploadImage(string imgGroupName, decimal? imgId, decimal dataKey, string base64)
         {
             var result = new ServiceModels.ReturnObject<PROJECTQUESTIONHD>();

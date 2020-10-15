@@ -309,7 +309,9 @@ namespace Nep.Project.Business
                                 ProjectId = gen.ProjectID,
                                 ProjectTypeName = pInfo.ProjectType.LOVName,
                                 TotalTarget = gen.ProjectTargetGroups.Sum(sm => sm.TargetGroupAmt),
-                                BudgetYear = pInfo.BudgetYear
+                                BudgetYear = pInfo.BudgetYear,
+                                BudgetTypeId = gen.ProjectApproval.ApprovalBudgetTypeID,
+                                BudgetTypeName = gen.ProjectApproval.ApprovalBudgetType.LOVName
                             }).ToQueryData(p);
              
 

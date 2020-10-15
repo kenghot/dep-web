@@ -72,5 +72,21 @@ namespace Nep.Project.Web.APIController
             }
             return result;
         }
+        [Route("DeleteImage/{imageId}/{groupCode}")]
+        [HttpDelete]
+        public ReturnObject<string> DeleteImage([FromUri]decimal imageId,[FromUri]string groupCode)
+        {
+            var result = new ReturnObject<string>();
+            result.IsCompleted = false;
+            try
+            {
+                 result = attachService.DeleteImage(imageId, groupCode);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
     }
 }

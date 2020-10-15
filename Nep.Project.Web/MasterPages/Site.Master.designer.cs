@@ -195,6 +195,42 @@ namespace Nep.Project.Web.MasterPages
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A20;
 
         /// <summary>
+        /// Li9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li9;
+
+        /// <summary>
+        /// A21 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A21;
+
+        /// <summary>
+        /// Li10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li10;
+
+        /// <summary>
+        /// A22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A22;
+
+        /// <summary>
         /// Li4 control.
         /// </summary>
         /// <remarks>

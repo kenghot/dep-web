@@ -79,6 +79,8 @@
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportReceiverFunding" ><a id="A2"  runat="server" href="~/Report/ReportBudgetApplicant">รายงานผู้ขอรับเงินสนับสนุนโครงการ</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportSummaryTracing"><a id="A3"  runat="server" href="~/Report/ReportSummaryTracing">รายงานสรุปการติดตามโครงการ</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="Li8" ><a id="A20"  runat="server" href="~/Report/ReportApproved">รายงานโครงการที่ได้รับการอนุมัติ</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li9" ><a id="A21"  runat="server" href="~/Report/ReportBudgetType">รายงานโครงการอนุมัติตามกรอบวงเงิน</a></li>
+                                <li class="page_item page-item-demo-list" runat="server" id="Li10" ><a id="A22"  runat="server" href="~/Report/ReportApprovedOrg">รายงานโครงการอนุมัติรายองค์กร</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="Li4" ><a id="A18"  runat="server" href="~/Report/ReportSatisfy">รายงานแบบประเมินความพึงพอใจ</a></li>
                                 <li class="page_item page-item-demo-list" runat="server" id="Li7" ><a id="A19"  runat="server" href="~/Report/ReportFollowUp">รายงานแบบติดตามประเมินผลโครงการ</a></li>
                              <%--    <li class="page_item page-item-demo-list" runat="server" id="MenuReportReportBudgetSummary"><a id="A7"  runat="server" href="~/Report/ReportBudgetSummary">รายงานสนับสนุนโครงการส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ</a></li>

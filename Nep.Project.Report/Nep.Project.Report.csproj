@@ -62,6 +62,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Report1x.rdlc" />
     <EmbeddedResource Include="Report4x.rdlc" />
+    <EmbeddedResource Include="ReportApprovedOrg.rdlc" />
+    <EmbeddedResource Include="ReportBudgetType.rdlc" />
     <EmbeddedResource Include="ReportApproved.rdlc" />
     <EmbeddedResource Include="ReportApprovedxxx.rdlc" />
     <EmbeddedResource Include="ReportApprovedxx.rdlc" />

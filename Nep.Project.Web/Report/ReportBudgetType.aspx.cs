@@ -11,11 +11,12 @@ using Nep.Project.Common.Report;
 
 namespace Nep.Project.Web.Report
 {
-    public partial class ReportApproved : Nep.Project.Web.Infra.BasePage
+    public partial class ReportBudgetType : Nep.Project.Web.Infra.BasePage
     {
         public IServices.IReportsService _service { get; set; }
         public IServices.IProviceService _provinceService { get; set; }
         public IServices.IProjectInfoService _projectInfoService { get; set; }
+        public IServices.IListOfValueService _lov { get; set; }
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -35,6 +36,7 @@ namespace Nep.Project.Web.Report
         {
             base.OnPreRender(e);
             string provinceSelected = (!String.IsNullOrEmpty(DdlProvince.Value)) ? DdlProvince.Value : "null";
+            string budgetTypeSelected = (!String.IsNullOrEmpty(DdlBudgetType.Value)) ? DdlBudgetType.Value : "null";
             String script = @"
                 $(function () {                 
                     
@@ -46,6 +48,15 @@ namespace Nep.Project.Web.Report
                         ServerFiltering: false,
                         Data:{Data:" + Nep.Project.Common.Web.WebUtility.ToJSON(GetOrgProvince()) + @", TotalRow:0, IsCompleted:true},                   
                         Value: " + provinceSelected + @",                     
+                     });  
+                    c2x.createLocalCombobox({                       
+                        ControlID: '" + DdlBudgetType.ClientID + @"',
+                        Placeholder: '" + Nep.Project.Resources.UI.DropdownAll + @"',                        
+                        TextField: 'Text',
+                        ValueField: 'Value',
+                        ServerFiltering: false,
+                        Data:{Data:" + Nep.Project.Common.Web.WebUtility.ToJSON(GetBudgetType()) + @", TotalRow:0, IsCompleted:true},                   
+                        Value: " + budgetTypeSelected + @",                     
                      });  
                 });";
 
@@ -110,7 +121,7 @@ namespace Nep.Project.Web.Report
                     //result.Data.Year = y.ToString();
                  
   
-                    ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("ReportApproved.rdlc"));
+                    ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("ReportBudgetType.rdlc"));
                     ReportViewer4.LocalReport.SetParameters(new Microsoft.Reporting.WebForms.ReportParameter("BudgetYear", y.ToString()));
 
                     var dataset1 = new Microsoft.Reporting.WebForms.ReportDataSource("DataSet1");
@@ -171,6 +182,16 @@ namespace Nep.Project.Web.Report
                         Value = UserInfo.ProvinceID
                     });
                 }
+            }
+            if (DdlBudgetType.Value != "")
+            {
+                decimal Id = decimal.Parse(DdlBudgetType.Value);
+                fields.Add(new ServiceModels.FilterDescriptor()
+                {
+                    Field = "BudgetTypeId",
+                    Operator = ServiceModels.FilterOperator.IsEqualTo,
+                    Value = Id
+                });
             }
 
             if (DatePickerBudgetYear.SelectedDate.HasValue)
@@ -244,6 +265,21 @@ namespace Nep.Project.Web.Report
             if (result.IsCompleted)
             {
                 list = result.Data;
+            }
+            else
+            {
+                ShowErrorMessage(result.Message);
+            }
+
+            return list;
+        }
+        private List<ServiceModels.GenericDropDownListData> GetBudgetType()
+        {
+            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+            var result = _lov.ListBudgetType(UserInfo.ProvinceID.HasValue? UserInfo.ProvinceID.Value: 161, null);
+            if (result.IsCompleted)
+            {
+                list = result.Data.Select(s => new GenericDropDownListData { Text = s.LovName, Value = s.LovID.ToString() }).ToList();
             }
             else
             {

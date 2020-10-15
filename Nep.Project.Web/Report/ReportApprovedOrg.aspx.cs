@@ -11,7 +11,7 @@ using Nep.Project.Common.Report;
 
 namespace Nep.Project.Web.Report
 {
-    public partial class ReportApproved : Nep.Project.Web.Infra.BasePage
+    public partial class ReportApprovedOrg : Nep.Project.Web.Infra.BasePage
     {
         public IServices.IReportsService _service { get; set; }
         public IServices.IProviceService _provinceService { get; set; }
@@ -110,7 +110,7 @@ namespace Nep.Project.Web.Report
                     //result.Data.Year = y.ToString();
                  
   
-                    ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("ReportApproved.rdlc"));
+                    ReportViewer4.LocalReport.LoadReportDefinition(Common.Web.WebUtility.LoadReportFile("ReportApprovedOrg.rdlc"));
                     ReportViewer4.LocalReport.SetParameters(new Microsoft.Reporting.WebForms.ReportParameter("BudgetYear", y.ToString()));
 
                     var dataset1 = new Microsoft.Reporting.WebForms.ReportDataSource("DataSet1");
@@ -172,7 +172,16 @@ namespace Nep.Project.Web.Report
                     });
                 }
             }
-
+            //ชื่อองค์กร
+            if (!String.IsNullOrEmpty(TextBoxContractOrgName.Text))
+            {
+                fields.Add(new ServiceModels.FilterDescriptor()
+                {
+                    Field = "OrganizationName",
+                    Operator = ServiceModels.FilterOperator.Contains,
+                    Value = TextBoxContractOrgName.Text.Trim()
+                });
+            }
             if (DatePickerBudgetYear.SelectedDate.HasValue)
             {
                 int approvalYear = ((DateTime)DatePickerBudgetYear.SelectedDate).Year;
