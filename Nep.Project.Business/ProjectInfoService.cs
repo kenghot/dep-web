@@ -2610,7 +2610,7 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectPersonel proContractReceive = _db.ProjectPersonels.Where(x => (x.ProjectID == id)).FirstOrDefault();
                         if (proContractReceive != null)
                         {
-                            data.ContractReceiveName = string.Format("{0}{1}", proContractReceive.Prefix1Personel.LOVName, proContractReceive.Firstname1);
+                            data.ContractReceiveName = string.Format("{0}{1}", (proContractReceive.Prefix1Personel.LOVCode == "4") ? proContractReceive.OTHERPREFIX1: proContractReceive.Prefix1Personel.LOVName, proContractReceive.Firstname1);
                             data.ContractReceiveSurname = proContractReceive.Lastname1;
                             data.ContractReceivePosition = Resources.Model.Personal_Responsibility;
                         }
@@ -4615,6 +4615,7 @@ namespace Nep.Project.Business
                              ProjectParticipantsID = (decimal?)null,
                              ProjectTargetID = ptg.ProjectTargetGroupID,
                              TargetID = targetGroup.LOVID,
+                             TargetCode = targetGroup.LOVCode,
                              TargetName = targetGroup.LOVName,
                              TargetEtc = ptg.TargetGroupEtc,
                              LovIsActive = targetGroup.IsActive
@@ -4627,6 +4628,7 @@ namespace Nep.Project.Business
                                 ProjectParticipantsID = participant.ProjectParticipantsID,
                                 ProjectTargetID = (decimal?)null,
                                 TargetID = targetGroup.LOVID,
+                                TargetCode = targetGroup.LOVCode,
                                 TargetName = targetGroup.LOVName,
                                 TargetEtc = participant.TargetGroupETC,
                                 LovIsActive = targetGroup.IsActive
@@ -7193,7 +7195,9 @@ namespace Nep.Project.Business
                                 DisabilityTypeCode = ((g.ProjectInformation != null) && (g.ProjectInformation.DisabilityTypeID != null)) ?
                                     _db.MT_ListOfValue.Where(dist => dist.LOVID == (decimal)g.ProjectInformation.DisabilityTypeID).Select(distObj => distObj.LOVCode).FirstOrDefault() : null,
 
+                                PrefixCode1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix1Personel.LOVCode : null,
                                 PrefixName1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix1Personel.LOVName : null,
+                                PrefixOther1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.OTHERPREFIX1 : "",
                                 Firstname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname1 : null,
                                 Lastname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname1 : null,
                                 Address1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Address1 : null,
@@ -7210,7 +7214,9 @@ namespace Nep.Project.Business
                                 Fax1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Fax1 : null,
                                 Email1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Email1 : null,
 
+                                PrefixCode2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix2Personel.LOVCode : null,
                                 PrefixName2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix2Personel.LOVName : null,
+                                PrefixOther2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.OTHERPREFIX2 : "",
                                 Firstname2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname2 : null,
                                 Lastname2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname2 : null,
                                 Address2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Address2 : null,
@@ -7227,7 +7233,9 @@ namespace Nep.Project.Business
                                 Fax2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Fax2 : null,
                                 Email2 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Email2 : null,
 
+                                PrefixCode3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix3Personel.LOVCode : null,
                                 PrefixName3 = ((g.ProjectPersonel != null) && (g.ProjectPersonel.Prefix3 != null)) ? g.ProjectPersonel.Prefix3Personel.LOVName : null,
+                                PrefixOther3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.OTHERPREFIX3 : "",
                                 Firstname3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname3 : null,
                                 Lastname3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname3 : null,
                                 Address3 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Address3 : null,
@@ -7281,7 +7289,18 @@ namespace Nep.Project.Business
 
                 if (data != null)
                 {
-
+                    if (!string.IsNullOrEmpty(data.PrefixCode1) && data.PrefixCode1 == "4")
+                    {
+                        data.PrefixName1 = data.PrefixOther1;
+                    }
+                    if (!string.IsNullOrEmpty(data.PrefixCode2) && data.PrefixCode2 == "4")
+                    {
+                        data.PrefixName2 = data.PrefixOther2;
+                    }
+                    if (!string.IsNullOrEmpty(data.PrefixCode2) && data.PrefixCode2 == "4")
+                    {
+                        data.PrefixName2 = data.PrefixOther2;
+                    }
                     data = ReplaceArabicNumber(data);
                     List<Common.ProjectFunction> functions = this.GetProjectFunction(projectID).Data;
                     bool canPrint = functions.Contains(Common.ProjectFunction.PrintDataForm);
@@ -8453,6 +8472,7 @@ namespace Nep.Project.Business
                                 Email = g.Email,
 
                                 PrefixName1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Prefix1Personel.LOVName : null,
+                                PrefixOther1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.OTHERPREFIX1 : "",
                                 Firstname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Firstname1 : null,
                                 Lastname1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Lastname1 : null,
                                 Address1 = (g.ProjectPersonel != null) ? g.ProjectPersonel.Address1 : null,

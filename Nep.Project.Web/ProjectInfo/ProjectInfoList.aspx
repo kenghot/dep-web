@@ -47,8 +47,8 @@
             }
 
         .project-info-grid.view-data-org tr:first-child th:nth-child(4), .project-info-grid.view-data-org td:nth-child(4) {
-            display: none;
-            border: none;
+          /*  display: none;
+            border: none;*/
         }
 
         /*.project-info-grid.view-data-org tr:first-child  th:nth-child(4), .project-info-grid.view-data-org td:nth-child(4),
@@ -436,7 +436,7 @@
             <asp:Label ID="lblCannotAdd" runat="server" ForeColor="#FF3300" Visible="false" Font-Size="Large" Text="ไม่สามารถยืนเสนอโครงการใหม่ได้เนื่องจากไม่ได้ส่งแบบรายผลการปฏิบัติงาน ดังรายการต่อไปนี้"></asp:Label>
             <div id="divHelpImg">
                 <div class="form-group form-group-sm">
-                    <div class="col-sm-4">
+                    <div  class="col-sm-4" <%= (this.UserInfo.IsAdministrator) ? "" : "style='display:none'" %> >
                         <button type="button" class="btn btn-default btn-sm" onclick="CreateEPayment()">สร้างไฟล์สำหรับ e-Payment</button>
                     </div>
                     <div class="col-sm-6">
@@ -667,7 +667,7 @@
                         return
                     }
                     if (confirm("ยืนยันการสร้างไฟล์ e-Payment จำนวน " + sels.length + " โครงการ")) {
-                        axios.post('http://localhost:8976/api/projects/CreateEPayment', sels).then(
+                        axios.post(window.location.protocol + '//' + window.location.host + '/api/projects/CreateEPayment', sels).then(
                             response => {
                                 console.log(response)
                                 if (response && response.status == 200) {

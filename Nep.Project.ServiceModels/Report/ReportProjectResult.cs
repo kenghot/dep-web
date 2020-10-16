@@ -155,9 +155,12 @@ namespace Nep.Project.ServiceModels.Report.ReportProjectResult
                 return address;
             }
         }
-
+        public string PrefixOther1 { get; set; }
+        public string PrefixOther2 { get; set; }
+        public string PrefixOther3 { get; set; }
         //3.ผู้รับผิดชอบโครงการ
         public string PrefixName1 { get; set; }
+       
         public string Firstname1 { get; set; }
         public string Lastname1 { get; set; }
         public string Fullname1

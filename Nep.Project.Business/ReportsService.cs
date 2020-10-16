@@ -49,7 +49,7 @@ namespace Nep.Project.Business
                     int i = 1;
                     foreach (var d in data.Data)
                     {
-                        var qn = _db.PROJECTQUESTIONHDs.Where(q => q.PROJECTID == d.ProjectId && q.QUESTGROUP == "SATISFY").FirstOrDefault();
+                        var qn = _db.PROJECTQUESTIONHDs.Where(q => q.PROJECTID == d.ProjectId && q.QUESTGROUP == "SATISFY" && q.ISREPORTED == "1").FirstOrDefault();
                         if (qn != null)
                         {
                             var newSat = getSatisfyDetail(qn.DATA);
@@ -127,15 +127,15 @@ namespace Nep.Project.Business
             {
                 switch (ans.ToString())
                 {
-                    case "5":
+                    case "1":
                         return "มากที่สุด";
-                    case "4":
+                    case "2":
                         return "มาก";
                     case "3":
                         return "ปานกลาง";
-                    case "2":
+                    case "4":
                         return "น้อย";
-                    case "1":
+                    case "5":
                         return "น้อยที่สุด";
                     default:
                         return "";
@@ -193,7 +193,7 @@ namespace Nep.Project.Business
                     int i = 1;
                     foreach (var d in data.Data)
                     {
-                        d.BudgetValueType = (d.BudgetAmount.HasValue && d.BudgetAmount.Value > 5000000) ? "มากกว่า 5 ล้าน" : "ต่ำกว่า 5 ล้าน";
+                       
                         
                         var qn = _db.PROJECTQUESTIONHDs.Where(q => q.PROJECTID == d.ProjectId && q.QUESTGROUP == "FLUN5M").FirstOrDefault();
                         if (qn != null)
@@ -203,6 +203,11 @@ namespace Nep.Project.Business
                             {
                                 newRow.No = i;
                                 newRow.ProjectName = d.ProjectName;
+                                newRow.BudgetValueType = (d.BudgetAmount.HasValue && d.BudgetAmount.Value > 5000000) ? "มากกว่า 5 ล้าน" : "ต่ำกว่า 5 ล้าน";
+                                if (!string.IsNullOrEmpty( newRow.lbResultText))
+                                {
+                                    newRow.lbResultText = newRow.lbResultText.Replace("<center>", "").Replace("</center>", "").Replace("<br>", " ");
+                                }
                                 items.Add(newRow);
                                 i++;
                             }

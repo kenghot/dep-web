@@ -277,6 +277,12 @@ namespace Nep.Project.ServiceModels.Report.ReportProjectRequest
         public decimal? DisabilityTypeID { get; set; }
         public string DisabilityTypeCode { get; set; }
 
+        public string PrefixOther1 { get; set; }
+        public string PrefixOther2 { get; set; }
+        public string PrefixOther3 { get; set; }
+        public string PrefixCode1 { get; set; }
+        public string PrefixCode2 { get; set; }
+        public string PrefixCode3 { get; set; }
         //2.3 ผู้รับผิดชอบโครงการ  
         public string PrefixName1 { get; set; }
         public string Firstname1 { get; set; }

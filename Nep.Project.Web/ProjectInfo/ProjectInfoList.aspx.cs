@@ -158,7 +158,7 @@ namespace Nep.Project.Web.ProjectInfo
                     btnRefreshDashBoard.Visible = true;
                 }
                 GridProjectInfo.CssClass = gridViewCss;
-
+          
                 PrepareData();
             }
         }

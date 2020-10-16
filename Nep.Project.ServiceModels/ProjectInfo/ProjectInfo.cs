@@ -994,6 +994,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public String TempProjectTargetID { get; set; }
         public Decimal? ProjectTargetID { get; set; }
         public Decimal? TargetID { get; set; }
+        public string TargetCode { get; set; }
         public String TargetName { get; set; }
         public String TargetEtc { get; set; }
         public String TargetDesc

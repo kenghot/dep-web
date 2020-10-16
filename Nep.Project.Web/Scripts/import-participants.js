@@ -44,7 +44,7 @@ var objIMP = null;
         _projectID = config.ProjectID;
 
         _isRequiredData = config.IsRequiredData;
-
+        //console.log(_targetGroupList);
     };
     ImportParticipants.prototype.importFile = function (e) {
         //Get the files from Upload control
@@ -193,7 +193,49 @@ var objIMP = null;
                             gender = "หญิง"
                         }
                         ddl = selectDDL(_participantGenderCreate, gender, true, "kendoDropDownList");
-                      
+                        var targetSelect = 0
+                        var targetCode = "9"
+                        if (someVar.DEFORM_ID) {
+                            var tgs = someVar.DEFORM_ID.split(',')
+                            if (tgs && tgs.length > 0) {
+
+                                var deform = parseInt(tgs[0]);
+                                if (deform) {
+                                    if (deform == 1 || deform == 6 || deform == 12) {
+                                        targetCode = "1";
+                                    }
+                                    if (deform == 2 || deform == 7 || deform == 13) {
+                                        targetCode = "2";
+                                    }
+                                    if (deform == 3 || deform == 8 || deform == 14) {
+                                        targetCode = '3';
+                                    }
+                                    if (deform == 4 || deform == 9 || deform == 15) {
+                                        targetCode = "4";
+                                    }
+                                    if (deform == 5 || deform == 10 || deform == 16) {
+                                        targetCode = "5";
+                                    }
+                                    if (deform == 6 || deform == 11 || deform == 17) {
+                                        targetCode = "6";
+                                    }
+                                    if (deform == 18) {
+                                        targetCode = "7";
+                                    }
+                                    var ftarget = _targetGroupList.find(f => f.TargetCode == targetCode)
+                                    if (ftarget) {
+                                        targetSelect = ftarget.TargetID
+                                    }
+                                    
+                                }
+                            
+                                
+                            }
+                        }
+                        var ddlTarget = $('#' + _textBoxParticipantTargetGroupID).data("kendoComboBox")
+                        if (ddlTarget) {
+                            ddlTarget.select(s => s.TargetID == targetSelect)
+                        }
                     } else {
                         alert("ไม่พบข้อมูล")
                     }
