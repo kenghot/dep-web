@@ -827,6 +827,8 @@
           <Property Name="PROCESSEND" Type="timestamp" Precision="6" />
           <Property Name="LATITUDE" Type="number" Precision="32" Scale="10" />
           <Property Name="LONGITUDE" Type="number" Precision="32" Scale="10" />
+          <Property Name="ADDUSER" Type="number" Precision="38" Scale="0" />
+          <Property Name="ADDDATETIME" Type="date" />
         </EntityType>
         <EntityType Name="PROJECTQUESTION">
           <Key>
@@ -5162,6 +5164,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="PROCESSEND" Type="DateTime" Precision="6" />
           <Property Name="LATITUDE" Type="Decimal" Precision="32" Scale="10" />
           <Property Name="LONGITUDE" Type="Decimal" Precision="32" Scale="10" />
+          <Property Name="ADDUSER" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ADDDATETIME" Type="DateTime" />
         </EntityType>
         <EntityType Name="PROJECTBUDGETACTIVITY">
           <Key>
@@ -6297,6 +6301,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="PROJECTPROCESSEDs">
             <EntityTypeMapping TypeName="Model.PROJECTPROCESSED">
               <MappingFragment StoreEntitySet="PROJECTPROCESSED">
+                <ScalarProperty Name="ADDDATETIME" ColumnName="ADDDATETIME" />
+                <ScalarProperty Name="ADDUSER" ColumnName="ADDUSER" />
                 <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
                 <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
                 <ScalarProperty Name="PROCESSEND" ColumnName="PROCESSEND" />

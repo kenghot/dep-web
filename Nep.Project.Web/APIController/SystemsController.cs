@@ -60,6 +60,7 @@ namespace Nep.Project.Web.APIController
                     result.Message.Add("อนุญาตให้แก้ไขได้เฉพาะปีงบประมาณก่อนหน้าเท่านั้น");
                     return result;
                 }
+                
                 var contract = db.ProjectContracts.Where(w => w.ProjectID == projId).FirstOrDefault();
                 if (proj == null)
                 {
@@ -109,6 +110,12 @@ namespace Nep.Project.Web.APIController
                 if (proj.BudgetYear >= DateTime.Now.Year)
                 {
                     result.Message.Add("อนุญาตให้แก้ไขได้เฉพาะปีงบประมาณก่อนหน้าเท่านั้น");
+                    return result;
+                }
+                var no = db.ProjectContracts.Where(w => w.ContractNo == p.ContractNo).FirstOrDefault();
+                if (no != null)
+                {
+                    result.Message.Add($"มีเลขที่สัญญา '{p.ContractNo}' อยู่แล้ว");
                     return result;
                 }
                 var contract = db.ProjectContracts.Where(w => w.ProjectID == projId).FirstOrDefault();

@@ -13,6 +13,43 @@ namespace Nep.Project.ServiceModels.API.Responses
         public DefaultData projectTypeData { get; set; } = new DefaultData();
         public DefaultData disabilityTypeData { get; set; } = new DefaultData();
         public DefaultData missionData { get; set; } = new DefaultData();
+        
+    }
+ 
+    public class ProjectQuery
+    {
+
+        public string ProjectApprovalCode { get; set; }
+        public decimal? BudgetValue { get; set; }
+        public decimal? BudgetReviseValue { get; set; }
+        public string OrganizationTypeCode { get; set; }
+        public string OrganizationType { get; set; }
+        public string ProjectTypeCode { get; set; }
+        public string ProjectTypeName { get; set; }
+        public string DisabilityCode { get; set; }
+        public string DisabilityName { get; set; }
+        public string RejectComment { get; set; }
+        public string FollowCode { get; set; }
+        public string ACKNOWLEDGED { get; set; }
+        public bool IsApproved { get; set; }
+        public string IsPassMission1 { get; set; }
+        public string IsPassMission2 { get; set; }
+        public string IsPassMission3 { get; set; }
+        public string IsPassMission4 { get; set; }
+        public string IsPassMission5 { get; set; }
+        public string IsPassMission6 { get; set; }
+
+
+    }
+    public class ProjectDetail
+    {
+        public string ProjectName { get; set; }
+        public string Organization { get; set; }
+        public DateTime? SubmitDate { get; set; }
+        public DateTime? ProjectEndDate { get; set; }
+        public string ProvinceName { get; set; }
+        public string ApproveStatus { get; set; }
+        public string FollowStatus { get; set; }
     }
     public class LegendData
     {

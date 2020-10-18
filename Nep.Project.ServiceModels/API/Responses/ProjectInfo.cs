@@ -48,6 +48,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public decimal? ProcessID { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
+        public DataLog LogDetail { get; set; }
     }
     public  class Activity : BaseActivity
     {

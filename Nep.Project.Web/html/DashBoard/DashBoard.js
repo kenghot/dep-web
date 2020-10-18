@@ -2,7 +2,7 @@
     template: '#base-material-stats-card',
     data() {
         return {
-            title: 'this is a card'
+            title: 'this is a card',
         }
     },
     props: {
@@ -42,6 +42,11 @@
             type: String,
             default: undefined,
         },
+        objId: {
+            type: String,
+            default: undefined,
+        },
+
     }
 }
 )
@@ -162,7 +167,7 @@ Vue.component('group-chart', {
         }
     },
     props: {
-        title:"",
+        title: "",
         chartdata: {
             type: Object,
             default: null
@@ -184,6 +189,20 @@ var VueDashBoard = new Vue({
     vuetify: new Vuetify(),
     data() {
         return {
+            dialog: false,
+            projectDialog: {
+                title: "",
+                items: [],
+                headers: [
+                    { text: "ชื่อโครงการ", value: "ProjectName" },
+                    { text: "ชื่อองค์กร", value: "Organization" },
+                    { text: "วันที่ยื่นคำร้อง", value: "submitdate", dataType:"Date" },
+                    { text: "วันสิ้นสุด", value: "projectendeate", dataType:"Date" },
+                    { text: "จังหวัด", value: "ProvinceName" },
+                    { text: "สถานะ", value: "ApproveStatus" },
+                    {text:"ติดตาม", value: "FollowStatus"},
+                ],
+            },
             budgetYear: 0,
             budgetYears: [],
             errorMessage: "",
@@ -221,7 +240,7 @@ var VueDashBoard = new Vue({
             lineOption1:
             {
                 title: {
-                    displa: true,  
+                    displa: true,
                 },
                 responsive: true,
                 maintainAspectRatio: false,
@@ -232,10 +251,11 @@ var VueDashBoard = new Vue({
         }
     },
     created() {
-        this.budgetYear = new Date().getFullYear()
+        var y = new Date().getFullYear()
+        this.budgetYear = { BC: y , BE: y   + 543 }
         this.budgetYears = []
         for (i = 0; i < 5; i++) {
-            this.budgetYears.push(this.budgetYear - i);
+            this.budgetYears.push({ BC: y - i ,BE: y - i + 543})
         }
         this.DisplayData()
     },
@@ -246,6 +266,50 @@ var VueDashBoard = new Vue({
 
     },
     methods: {
+        ShowProjects(o) {
+            console.log(o)
+            if (o.objId === "") {
+                return
+            }
+            this.projectDialog.title = o.subText
+            var data = this
+            axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + this.budgetYear.BC + '/' + o.objId)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data != "") {
+                        if (response.data.IsCompleted) {
+                            var result = response.data.Data
+
+                            if (response.data.Data) {
+                                //data.summary = result.summary;
+                                data.projectDialog.items = result
+                                this.dialog = true
+
+                            } else {
+                                data.errorMessage = "ไม่พบข้อมูล"
+
+                            }
+
+
+                            window.setTimeout(function () {
+
+                            }, 300)
+
+                        } else {
+                            data.errorMessage = response.data.Message[0]
+
+                        }
+
+                    } else {
+                        data.errorMessage = "ระบบขัดข้อง โปรดลองอีกครั้ง"
+
+                    }
+
+                }
+                )
+
+
+        },
         randomColor() {
             var letters = '0123456789ABCDEF'.split('');
             var color = '#';
@@ -259,7 +323,7 @@ var VueDashBoard = new Vue({
             var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/Get/' + this.budgetYear)
+            axios.get(this.VueUrl + '/api/dashboard/Get/' + this.budgetYear.BC  )
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {
@@ -269,11 +333,11 @@ var VueDashBoard = new Vue({
                             if (response.data.Data) {
                                 //data.summary = result.summary;
                                 data.chartData = result;
-                             
-             
+
+
                             } else {
                                 data.errorMessage = "ไม่พบข้อมูล"
-                            
+
                             }
 
 
@@ -283,12 +347,12 @@ var VueDashBoard = new Vue({
 
                         } else {
                             data.errorMessage = response.data.Message[0]
-                         
+
                         }
 
                     } else {
                         data.errorMessage = "ระบบขัดข้อง โปรดลองอีกครั้ง"
-                         
+
                     }
 
                 }

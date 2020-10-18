@@ -24,6 +24,95 @@ namespace Nep.Project.Web.APIController
             userInfo = UserInfo;
             attachService = attach;
         }
+        [Route("GetProjects/{year}/{id}")]
+        [HttpGet]
+        public ReturnObject<List<ProjectDetail>> GetProjects([FromUri] int year,[FromUri] string id)
+        {
+            var result = new ReturnObject<List<ProjectDetail>>();
+            result.IsCompleted = false;
+            try
+            {
+                var db = projService.GetDB();
+
+                var query = from gen in db.ProjectGeneralInfoes
+                            join inf in db.ProjectInformations on gen.ProjectID equals inf.ProjectID
+                            join subapp in db.ProjectApprovals on gen.ProjectID equals subapp.ProjectID into lapp
+                            from app in lapp.DefaultIfEmpty()
+                            join subo in db.ProjectOperations on gen.ProjectID equals subo.ProjectID into lo
+                            from o in lo.DefaultIfEmpty()
+                            join subfol in db.MT_ListOfValue on gen.FollowUpStatus equals subfol.LOVID into lfol
+                            from fol in lfol.DefaultIfEmpty()
+                            join prov in db.MT_Province on gen.ProvinceID equals prov.ProvinceID
+                            where inf.BudgetYear == year
+                            select new 
+                            {
+                                ProjectName = inf.ProjectNameTH,
+                                Organization = gen.OrganizationNameTH,
+                                ProjectApprovalCode = gen.ProjectApprovalStatus.LOVCode,
+                                ProjectApprovalName = gen.ProjectApprovalStatus.LOVName,
+                                BudgetValue = gen.BudgetValue,
+                                BudgetReviseValue = gen.BudgetReviseValue,
+                                ProjectTypeCode = inf.ProjectType.LOVCode,
+                                ProjectTypeName = inf.ProjectType.LOVName,
+                                RejectComment = inf.RejectComment,
+                                FollowCode = fol.LOVCode,
+                                FollowName = fol.LOVName,
+                                gen.ACKNOWLEDGED, 
+                                IsApproved = app != null,
+                                ProjectEndDate = o.EndDate,
+                                SubmitDate = gen.SubmitedDate,
+                                ProvinceName = prov.ProvinceName
+
+                            };
+
+                if (id == "1")
+                {
+                    //query = query.Where(w => w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร && w.ACKNOWLEDGED == "1");
+                    query = query.Where(w =>   w.ACKNOWLEDGED == "1");
+
+                }
+
+                if (id == "3")
+                {
+                    query = query.Where(w => w.IsApproved && w.FollowCode != Common.LOVCode.Followupstatus.รายงานผลแล้ว);
+
+                }
+                if (id == "4")
+                {
+                    query = query.Where(w => w.ACKNOWLEDGED != "1");
+
+                }
+                if (id == "5")
+                {
+                    query = query.Where(w => w.FollowCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว);
+
+                }
+                if (id == "6")
+                {
+                    query = query.Where(w => !string.IsNullOrEmpty(w.RejectComment) && w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ);
+
+                }
+
+                result.Data = query.Select(s => new ProjectDetail
+                {
+                    ProjectName = s.ProjectName,
+                    Organization = s.Organization,
+                    SubmitDate = s.SubmitDate,
+                    ProjectEndDate = s.ProjectEndDate,
+                    ProvinceName = s.ProvinceName,
+                    ApproveStatus = s.ProjectApprovalName,
+                    FollowStatus = s.FollowName
+
+                }).ToList();
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+
         [Route("Get/{year}")]
         [HttpGet]
         public ReturnObject<DashBoardResponse> Get([FromUri] int year)
@@ -41,39 +130,46 @@ namespace Nep.Project.Web.APIController
 
                 var query = from gen in db.ProjectGeneralInfoes
                             join inf in db.ProjectInformations on gen.ProjectID equals inf.ProjectID
-                            join subapp in db.ProjectApprovals on gen.ProjectID equals subapp.ProjectID into lapp from app in lapp.DefaultIfEmpty()
-                            join suborg in db.MT_Organization on gen.OrganizationID equals suborg.OrganizationID into lorg from org in lorg.DefaultIfEmpty()
-                            join subdis in db.MT_ListOfValue on inf.DisabilityTypeID equals subdis.LOVID into ldis from dis in ldis.DefaultIfEmpty()
-                            join subfol in db.MT_ListOfValue on gen.FollowUpStatus equals subfol.LOVID into lfol from fol in lfol.DefaultIfEmpty()
-                            join subev in db.ProjectEvaluations on inf.ProjectID equals subev.ProjectID into lev from ev in lev.DefaultIfEmpty()
+                            join subapp in db.ProjectApprovals on gen.ProjectID equals subapp.ProjectID into lapp
+                            from app in lapp.DefaultIfEmpty()
+                            join suborg in db.MT_Organization on gen.OrganizationID equals suborg.OrganizationID into lorg
+                            from org in lorg.DefaultIfEmpty()
+                            join subdis in db.MT_ListOfValue on inf.DisabilityTypeID equals subdis.LOVID into ldis
+                            from dis in ldis.DefaultIfEmpty()
+                            join subfol in db.MT_ListOfValue on gen.FollowUpStatus equals subfol.LOVID into lfol
+                            from fol in lfol.DefaultIfEmpty()
+                            join subev in db.ProjectEvaluations on inf.ProjectID equals subev.ProjectID into lev
+                            from ev in lev.DefaultIfEmpty()
                             where inf.BudgetYear == year
-                            select new
+                            select new ProjectQuery
                             {
                                 ProjectApprovalCode = gen.ProjectApprovalStatus.LOVCode,
-                                gen.BudgetValue,
-                                gen.BudgetReviseValue,
-                                org.OrganizationType.OrganizationTypeCode,
-                                org.OrganizationType.OrganizationType,
+                                BudgetValue = gen.BudgetValue,
+                                BudgetReviseValue = gen.BudgetReviseValue,
+                                OrganizationTypeCode = org.OrganizationType.OrganizationTypeCode,
+                                OrganizationType = org.OrganizationType.OrganizationType,
                                 ProjectTypeCode = inf.ProjectType.LOVCode,
                                 ProjectTypeName = inf.ProjectType.LOVName,
                                 DisabilityCode = dis.LOVCode,
                                 DisabilityName = dis.LOVName,
-                                inf.RejectComment,
+                                RejectComment = inf.RejectComment,
                                 FollowCode = fol.LOVCode,
-                                gen.ACKNOWLEDGED,
+                                ACKNOWLEDGED = gen.ACKNOWLEDGED,
                                 IsApproved = app != null,
-                                ev.IsPassMission1,
-                                ev.IsPassMission2,
-                                ev.IsPassMission3,
-                                ev.IsPassMission4,
-                                ev.IsPassMission5,
-                                ev.ISPASSMISSION6,
+                                IsPassMission1 = ev.IsPassMission1,
+                                IsPassMission2 = ev.IsPassMission2,
+                                IsPassMission3 = ev.IsPassMission3,
+                                IsPassMission4 = ev.IsPassMission4,
+                                IsPassMission5 = ev.IsPassMission5,
+                                IsPassMission6 = ev.ISPASSMISSION6,
 
                             };
+                
                 var projs = query.ToList();
                 foreach (var proj in projs)
                 {
-                    if (proj.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
+                    // if (proj.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร && proj.ACKNOWLEDGED == "1")
+                    if ( proj.ACKNOWLEDGED == "1")
                     {
                         summary.newProject++;
                     }
@@ -115,7 +211,7 @@ namespace Nep.Project.Web.APIController
                             id = proj.DisabilityCode
                         });
                         string mission = (proj.IsPassMission1 == "1") ? "1" : (proj.IsPassMission2 == "1") ? "2" : (proj.IsPassMission3 == "1") ? "3" :
-                            (proj.IsPassMission4 == "1") ? "4" : (proj.IsPassMission5 == "1") ? "5" : (proj.ISPASSMISSION6 == "1") ? "6" : "";
+                            (proj.IsPassMission4 == "1") ? "4" : (proj.IsPassMission5 == "1") ? "5" : (proj.IsPassMission6 == "1") ? "6" : "";
                         collectLegned(result.Data.missionData.legendDatas, new LegendData
                         {
                             amount = proj.BudgetReviseValue.HasValue ? proj.BudgetReviseValue.Value : 0,

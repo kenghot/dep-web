@@ -16,6 +16,7 @@ using Nep.Project.DBModels.Model;
 using Nep.Project.Business;
 using Nep.Project.Common.Web;
 using System.Web;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Nep.Project.Business
 {
@@ -1786,7 +1787,8 @@ namespace Nep.Project.Business
                 {
                     var row = new DBModels.Model.PROJECTPROCESSED();
                     CopyProcessed(a, row);
-
+                    row.ADDDATETIME = DateTime.Now;
+                    row.ADDUSER = _user.UserID;
                     _db.PROJECTPROCESSEDs.Add(row);
                 }
                 _db.PROJECTHISTORies.Add(CreateRowProjectHistory(projID, "5", _user.UserID.Value, ipAddress));

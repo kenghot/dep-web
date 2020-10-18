@@ -82,6 +82,11 @@ namespace Nep.Project.Web.APIController
             result.IsCompleted = false;
             try
             {
+                if (!userInfo.IsAuthenticated)
+                {
+                    result.Message.Add("ไม่มีสิทธิ์ทำรายการ");
+                    return result;
+                }
 
                 var db = projService.GetDB();
                 var proj = db.ProjectGeneralInfoes.Where(w => w.ProjectID == projId).FirstOrDefault();
@@ -92,6 +97,8 @@ namespace Nep.Project.Web.APIController
                 }
                 var pc = new PROJECTPROCESSED();
                 pc.PROJECTID = projId;
+                pc.ADDUSER = userInfo.UserID;
+                pc.ADDDATETIME = DateTime.Now;
                 copyProjectProcessed(p, pc);
                 db.PROJECTPROCESSEDs.Add(pc);
                 db.SaveChanges();
@@ -141,11 +148,27 @@ namespace Nep.Project.Web.APIController
                     Longitude = s.LONGITUDE,
                     ProcessEnd = s.PROCESSEND,
                     ProcessStart = s.PROCESSSTART,
-                    ProcessID = s.PROCESSID
+                    ProcessID = s.PROCESSID,
+                    LogDetail = new DataLog { AddLog = new BaseDataLog { UserId = s.ADDUSER, LogDateTime = s.ADDDATETIME} }
                 }).ToList();
                 var path = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/UploadImages/";
                 foreach (var act in acts)
                 {
+                    var au = act.LogDetail.AddLog;
+                    if (au.UserId.HasValue)
+                    {
+                        var user = db.SC_User.Where(w => w.UserID == au.UserId.Value).FirstOrDefault();
+
+                        if (user != null)
+                        {
+                            au.FirstName = user.FirstName;
+                            au.LastName = user.LastName;
+                        }
+                    }else
+                    {
+                        au.FirstName = "ไม่พบ";
+                        au.LastName = "ผู้ใช้งาน";
+                    }
                     act.ImageAttachments = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == act.ProcessID && w.QUESTGROUP == "ACTIVITYIMG")
                         .Select(s => new UploadImageResponse
                         {

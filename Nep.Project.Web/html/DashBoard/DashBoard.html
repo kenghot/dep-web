@@ -9,7 +9,7 @@
                             tile>
                         <v-card-title>จำนวนโครงการ</v-card-title>
                         <polar-chart ref="polar" :chartdata="chartdata.projectData" :options="options" />
-                        </v-card>
+                    </v-card>
                 </v-col>
                 <v-col cols="12" lg="6">
                     <v-card class="pa-2"
@@ -86,6 +86,7 @@
 
     <v-card v-bind="$attrs"
             :class="classes"
+            @click="VueDashBoard.ShowProjects($parent.$props)"
             class="v-card--material pa-3">
 
         <div class="d-flex grow flex-wrap">
@@ -146,7 +147,7 @@
 </template>
 <style>
     .v-expansion-panels {
-        z-index:0;
+        z-index: 0;
     }
 </style>
 <div id="appDashBoard">
@@ -168,6 +169,8 @@
                           label="Select"
                           hide-details
                           prepend-icon="mdi-map"
+                          item-text="BE"
+                          item-value="BC"
                           single-line></v-select>
             </v-col>
             <v-expansion-panels multiple :value="[0,1,2,3,4,5,6,7,8,9]">
@@ -177,7 +180,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard1" color="info"
+                            <base-material-stats-card ref="statCard1" color="info" obj-id="1"
                                                       icon="mdi-office-building"
                                                       title="จำนวนองค์กร"
                                                       :value="chartData.summary.newProject"
@@ -187,7 +190,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard2" color="lime"
+                            <base-material-stats-card ref="statCard2" color="lime" obj-id=""
                                                       icon="mdi-account-multiple-plus-outline"
                                                       title="จำนวนองค์กร"
                                                       :value="chartData.summary.newOrganization"
@@ -197,7 +200,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard3" color="red"
+                            <base-material-stats-card ref="statCard3" color="red" obj-id="3"
                                                       icon="mdi-file-alert-outline"
                                                       title="จำนวนโครงการ"
                                                       :value="chartData.summary.notReported"
@@ -207,7 +210,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard4" color="grey"
+                            <base-material-stats-card ref="statCard4" color="grey" obj-id="4"
                                                       icon="mdi-battery-charging-outline"
                                                       title="จำนวนโครงการ"
                                                       :value="chartData.summary.noProcess"
@@ -217,7 +220,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard5" color="green"
+                            <base-material-stats-card ref="statCard5" color="green" obj-id="5"
                                                       icon="mdi-battery-charging-high"
                                                       title="จำนวนโครงการ"
                                                       :value="chartData.summary.reported"
@@ -227,7 +230,7 @@
                         <v-col cols="12"
                                sm="3"
                                lg="4">
-                            <base-material-stats-card ref="statCard6" color="purple"
+                            <base-material-stats-card ref="statCard6" color="purple" obj-id="6"
                                                       icon="mdi-sync"
                                                       title="จำนวนโครงการ"
                                                       :value="chartData.summary.rePurpose"
@@ -243,29 +246,67 @@
                 <group-chart ref="disabilityType" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทความพิการ" :chartdata="chartData.disabilityTypeData" :options="lineOption1"></group-chart>
                 <group-chart ref="missionType" title="จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ แยกตามประเภทยุทธศาสตร์" :chartdata="chartData.missionData" :options="lineOption1"></group-chart>
                 <!--<v-expansion-panel>
-        <v-expansion-panel-header>จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ</v-expansion-panel-header>
-        <v-expansion-panel-content>
+                    <v-expansion-panel-header>จำนวนโครงการ ยอดเงินที่ได้รับการอนุมัติ</v-expansion-panel-header>
+                    <v-expansion-panel-content>
 
-            <v-col cols="12">
-                <bar-chart ref="bar"  :chartdata="lineData1" :options="lineOption1" />
-            </v-col>
-            <div>
+                        <v-col cols="12">
+                            <bar-chart ref="bar"  :chartdata="lineData1" :options="lineOption1" />
+                        </v-col>
+                        <div>
 
-            </div>
-            <v-row>
-                <div cols="6">
-                    <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
-                </div>
-                <div cols="6">
-                    <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
-                </div>
-            </v-row>
+                        </div>
+                        <v-row>
+                            <div cols="6">
+                                <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
+                            </div>
+                            <div cols="6">
+                                <polar-chart ref="radar" :chartdata="lineData1" :options="lineOption1" />
+                            </div>
+                        </v-row>
 
-        </v-expansion-panel-content>
-    </v-expansion-panel>-->
+                    </v-expansion-panel-content>
+                </v-expansion-panel>-->
             </v-expansion-panels>
         </v-container>
-  
+        <v-dialog v-model="dialog"
+                  fullscreen
+                  hide-overlay
+                  transition="dialog-bottom-transition">
+            <v-card>
+                <v-toolbar dark
+                           color="primary">
+                    <v-btn icon
+                           dark
+                           @click="dialog = false">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>แสดงโครงการ</v-toolbar-title>
+                </v-toolbar>
+                <v-list three-line
+                        subheader>
+                    <v-subheader>{{projectDialog.title}}</v-subheader>
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-data-table :headers="projectDialog.headers"
+                                          :items="projectDialog.items"
+                                          class="elevation-1">
+                                <template v-slot:item.submitdate="{item}">
+                                    {{moment(item.submitdate).add(543,'y').format('L')}}
+                                </template>
+                                <template v-slot:item.projectendeate="{item}">
+                                    {{moment(item.projectendeate).add(543,'y').format('L')}}
+                                </template>
+                            </v-data-table>
+                        </v-list-item-content>
+
+                    </v-list-item>
+
+                </v-list>
+
+
+            </v-card>
+
+        </v-dialog>
 
     </v-app>
 </div>
