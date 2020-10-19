@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="API\Requests\Commons.cs" />
     <Compile Include="API\Requests\ProjectInfo.cs" />
+    <Compile Include="API\Requests\SueCase.cs" />
     <Compile Include="API\Requests\System.cs" />
     <Compile Include="API\Responses\Common.cs" />
     <Compile Include="API\Responses\DashBoard.cs" />

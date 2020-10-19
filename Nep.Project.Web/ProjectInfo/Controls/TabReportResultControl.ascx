@@ -59,6 +59,11 @@
             .k-grid .k-dropdown-wrap {
                 padding-right: 18px;
             }
+
+            input {
+                border-style: solid;
+                border-width: thin;
+            }
         </style>
         
         <div class="panel panel-default">
@@ -772,6 +777,105 @@
                 </div>
             </div>
         </div><!--ข้อคิดเห็นและข้อเสนอแนะ-->
+
+        <div class="panel panel-default" runat="server" id="Div1"> 
+            <div class="panel-heading">
+                <h3 class="panel-title">เอกสารประกอบการดำเนินคดี</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     1.	แบบฟอร์มเสนอโครงการ
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument1" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     2.	หนังสือนำส่งแบบฟอร์มเสนอโครงการ
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument2" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     3.	รายงานการประชุมนุกรรมการบริหารกองทุน 
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument3" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     4.	หนังสือแจ้งผลการพิจารณาโครงการ
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument4" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     5.	สัญญารับเงินสนับสนุนโครงการ 
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument5" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     6.	หนังสือมอบอำนาจรับสัญญาฯ(ถ้ามี)
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument6" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     7.	สำเนาหนังสือทวงถามให้รายงานผลการปฏิบัติงานและการใช้จ่ายเงิน พร้อมไปรษณีย์ตอบรับ 2 ครั้ง
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument7" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     8.	สำเนาใบสำคัญแสดงการจดทะเบียนแต่งตั้งกรรมการของ สมาคม/องค์กร/หน่วยงานอื่น
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument8" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    </div>
+                 <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                                <label class="col-sm-8 control-label control-label-left without-delimit">
+                                     9.	ตารางคำนวณหนี้ที่คงค้าง
+                                </label>
+                                <div class="col-sm-4">    
+                                    <nep:C2XFileUpload runat="server" ID="SueDocument9" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
+                                </div> 
+                        </div>
+                    
+                </div>
+        </div>
+            </div>
           <div class="form-horizontal">        
             <div class="form-group form-group-sm">
                 <div class="col-sm-12 text-center">
@@ -779,7 +883,6 @@
                 </div>
             </div>
           </div>
-
         <asp:HiddenField runat="server" ID="hdfActOBJ" />
         <div class="form-horizontal">        
             <div class="form-group form-group-sm">
@@ -807,6 +910,8 @@
                     <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-red btn-sm" 
                         NavigateUrl="~/ProjectInfo/ProjectInfoList.aspx"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancel %>"></asp:HyperLink>
+                    <asp:Button runat="server" ID="ButtonSueCase" CssClass="btn btn-primary btn-sm" ValidationGroup="SaveProjectReport"
+                       Text="ส่งข้อมูลไปสู่ระบบดำเนินคดี" OnClick="ButtonSueCase_Click" Visible="false"/>
                 </div>
             </div>
         </div>

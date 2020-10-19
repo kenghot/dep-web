@@ -2250,6 +2250,16 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string IPAddress { get; set; }
         public List<BudgetDetail> BudgetDetails { get; set; }
         public decimal? Interest { get; set; }
+        public decimal? SueCaseId { get; set; }
+        public MultipleAttachFile SueDocument1 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument2 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument3 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument4 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument5 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument6 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument7 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument8 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument9 { get; set; } = new MultipleAttachFile();
     }
 
     [Serializable]
@@ -2424,6 +2434,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
             public ServiceModels.KendoAttachment RemovedLocationMapAttachment { get; set; }
         }
     }
+
     public class DashBoard
     {
         public List<ProjectInfoList> ProjectInfoList { get; set; }

@@ -164,6 +164,11 @@ namespace Nep.Project.Web.APIController
                             au.FirstName = user.FirstName;
                             au.LastName = user.LastName;
                         }
+                        var uImg = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == au.UserId.Value && w.QUESTGROUP == "USERIMG").FirstOrDefault();
+                        if (uImg != null)
+                        {
+                            au.UserImage = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/UploadImages/{uImg.DATA}";
+                        }
                     }else
                     {
                         au.FirstName = "ไม่พบ";

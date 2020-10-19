@@ -104,6 +104,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<List<ServiceModels.ProjectInfo.Questionare>> GetProjectQuestionare(decimal projectID,string qGroup);
        
         ServiceModels.ReturnMessage SaveProjectReportResult(ServiceModels.ProjectInfo.ProjectReportResult model, bool isSaveOfficerReport, bool isSendReport);
+        ServiceModels.ReturnMessage SendSueData(decimal projID);
         ServiceModels.ReturnMessage SaveProjectQuestionareResult(decimal projID,string QNGroup,string controls, bool isSaveOfficerReport, bool isSendReport,string ipAddress);
  
         ServiceModels.ReturnObject<decimal?> SaveDocument(decimal projID, string QNGroup, string data);

@@ -21,11 +21,13 @@ namespace Nep.Project.Web.APIController
         public IServices.IOrganizationService organizationService { get; set; }
         public IServices.IProjectInfoService projService { get; set; }
         public CommonController(
-              IServices.IAuthenticationService auth , IServices.IAttachmentService attach
+              IServices.IAuthenticationService auth , IServices.IAttachmentService attach,
+              IServices.IProjectInfoService proj
             )
         {
             authSerivce = auth;
             attachService = attach;
+            projService = proj;
         }
         [Route("Login")]
         [HttpPost]
@@ -43,6 +45,11 @@ namespace Nep.Project.Web.APIController
             }
             return result;
         }
+        /// <summary>
+        /// Always insert record
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         [Route("UploadImage")]
         [HttpPost]
         public ReturnObject<UploadImageResponse> UploadImage([FromBody]UploadImageRequest p)
@@ -60,6 +67,46 @@ namespace Nep.Project.Web.APIController
                 result.Data = new UploadImageResponse
                 {
                     ImageFullPath = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/UploadImages/{img.Data.DATA}" ,
+                    ImageId = img.Data.QUESTHDID,
+                    ImageName = img.Data.DATA
+
+                };
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.Message.Add(ex.Message);
+            }
+            return result;
+        }
+        /// <summary>
+        /// Romove existing one and then insert the new one
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Route("UpdateImage")]
+        [HttpPost]
+        public ReturnObject<UploadImageResponse> UpdateImage([FromBody] UploadImageRequest p)
+        {
+            var result = new ReturnObject<UploadImageResponse>();
+            result.IsCompleted = false;
+            try
+            {
+                var db = projService.GetDB();
+                var exImg = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == p.DataKey && w.QUESTGROUP == p.GroupCode).FirstOrDefault();
+                if (exImg != null)
+                {
+                    var del = attachService.DeleteImage(exImg.QUESTHDID, exImg.QUESTGROUP);
+                }
+                var img = attachService.UploadImage(p.GroupCode, p.ImgId, p.DataKey, p.Base64Data);
+                if (!img.IsCompleted)
+                {
+                    result.Message.Add(img.Message[0]);
+                    return result;
+                }
+                result.Data = new UploadImageResponse
+                {
+                    ImageFullPath = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/UploadImages/{img.Data.DATA}",
                     ImageId = img.Data.QUESTHDID,
                     ImageName = img.Data.DATA
 

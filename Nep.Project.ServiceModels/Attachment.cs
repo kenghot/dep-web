@@ -15,4 +15,17 @@ namespace Nep.Project.ServiceModels
         public string PathName { get; set; }
         public Decimal FileSize { get; set; }
     }
+
+    public class SingleAttachFile
+    {
+        public ServiceModels.KendoAttachment Attachment { get; set; }
+        public ServiceModels.KendoAttachment AddedAttachment { get; set; }
+        public ServiceModels.KendoAttachment RemovedAttachment { get; set; }
+    }
+    public class MultipleAttachFile
+    {
+        public List<ServiceModels.KendoAttachment> Attachment { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedAttachment { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedAttachment { get; set; }
+    }
 }

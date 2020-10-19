@@ -1,5 +1,7 @@
 ﻿using AjaxControlToolkit;
 using Nep.Project.Common;
+using Nep.Project.ServiceModels;
+using Nep.Project.Web.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -268,7 +270,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                       true);
             #endregion Project Participant
         }
+        private void loadAttach(List<KendoAttachment> data, C2XFileUpload f, bool isEnable)
+        {
+            
+            f.ClearChanges();
+            f.ExistingFiles = data;
+            f.DataBind();
 
+            FileUploadResultAttachment.Enabled = isEnable;
+        }
         public void BindData()
         {
             bool isEditable = false;
@@ -283,7 +293,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
           
                 ServiceModels.ProjectInfo.ProjectReportResult model = result.Data;
                 ContractYear = model.ContractYear;
-          
+                
                 bool isReported = (model.FollowupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว);
                 List<Common.ProjectFunction> functions = _projectService.GetProjectFunction(model.ProjectID).Data;
                 
@@ -296,7 +306,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
 
                 CreateParticipantForm.Visible = !isReported;
-
+                ButtonSueCase.Visible = isReported;
                 ButtonSaveReportResult.Visible = isEditable;
                 //ButtonAddParticipant.Visible = isEditable;
                 ButtonSaveAndSendProjectReport.Visible = isEditable;
@@ -398,6 +408,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 FileUploadResultAttachment.DataBind();
 
                 FileUploadResultAttachment.Enabled = isEditable;
+
+                loadAttach(model.SueDocument1.Attachment, SueDocument1, isEditable);
+                loadAttach(model.SueDocument2.Attachment, SueDocument2, isEditable);
+                loadAttach(model.SueDocument3.Attachment, SueDocument3, isEditable);
+                loadAttach(model.SueDocument4.Attachment, SueDocument4, isEditable);
+                loadAttach(model.SueDocument5.Attachment, SueDocument5, isEditable);
+                loadAttach(model.SueDocument6.Attachment, SueDocument6, isEditable);
+                loadAttach(model.SueDocument7.Attachment, SueDocument7, isEditable);
+                loadAttach(model.SueDocument8.Attachment, SueDocument8, isEditable);
+                loadAttach(model.SueDocument9.Attachment, SueDocument9, isEditable);
 
                 //Check Is submit data
                 decimal? userProvinceID = UserInfo.ProvinceID;
@@ -558,7 +578,36 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 ShowErrorMessage(ex.Message);
             }
         }
-       
+        protected void ButtonSueCase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Page.IsValid)
+                {
+
+                    bool isSaveReportResult = (HasSaveReportResultRole && HasSaveReportResultRole);
+                    var result = _projectService.SaveProjectReportResult(GetData(), isSaveReportResult, false);
+                    if (result.IsCompleted)
+                    {
+
+                        Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                        page.RebindData("TabPanelReportResult");
+                        ShowResultMessage(result.Message);
+                    }
+                    else
+                    {
+                        ShowErrorMessage(result.Message);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                ShowErrorMessage(ex.Message);
+            }
+        }
+
         protected void ButtonSaveAndSendProjectReport_Click(object sender, EventArgs e)
         {
             try
@@ -1141,6 +1190,13 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             RadioButtonOperationLevel_3.Enabled = isEditable;
             RadioButtonOperationLevel_4.Enabled = isEditable;
         }
+        private void storeAttach(MultipleAttachFile data, C2XFileUpload f)
+        {
+            var addedFiles = f.AddedFiles;
+            var removedFiles = f.RemovedFiles;
+            data.AddedAttachment = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            data.RemovedAttachment = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+        }
         private ServiceModels.ProjectInfo.ProjectReportResult GetData()
         {
 
@@ -1219,6 +1275,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             removedFiles = FileUploadResultAttachment.RemovedFiles;
             model.AddedResultAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
             model.RemovedResultAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+            storeAttach(model.SueDocument1, SueDocument1);
+            storeAttach(model.SueDocument2, SueDocument2);
+            storeAttach(model.SueDocument3, SueDocument3);
+            storeAttach(model.SueDocument4, SueDocument4);
+            storeAttach(model.SueDocument5, SueDocument5);
+            storeAttach(model.SueDocument6, SueDocument6);
+            storeAttach(model.SueDocument7, SueDocument7);
+            storeAttach(model.SueDocument8, SueDocument8);
+            storeAttach(model.SueDocument9, SueDocument9);
             //end kenghot
             //ผลการดำเนินงาน/ประโยชน์ที่ได้รับจากการดำเนินงาน
             model.Benefit = TextBoxBenefit.Text.TrimEnd();

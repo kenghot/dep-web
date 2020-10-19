@@ -18,6 +18,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? LogDateTime { get; set; }
+        public string UserImage { get; set; }
 
     }
     public class DataLog

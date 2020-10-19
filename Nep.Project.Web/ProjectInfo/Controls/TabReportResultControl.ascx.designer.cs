@@ -627,6 +627,96 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::Nep.Project.Web.UserControls.TextBox TextBoxReporter2Telephone;
 
         /// <summary>
+        /// Div1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+
+        /// <summary>
+        /// SueDocument1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument1;
+
+        /// <summary>
+        /// SueDocument2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument2;
+
+        /// <summary>
+        /// SueDocument3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument3;
+
+        /// <summary>
+        /// SueDocument4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument4;
+
+        /// <summary>
+        /// SueDocument5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument5;
+
+        /// <summary>
+        /// SueDocument6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument6;
+
+        /// <summary>
+        /// SueDocument7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument7;
+
+        /// <summary>
+        /// SueDocument8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument8;
+
+        /// <summary>
+        /// SueDocument9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload SueDocument9;
+
+        /// <summary>
         /// LabelNeedQN control.
         /// </summary>
         /// <remarks>
@@ -697,5 +787,14 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+
+        /// <summary>
+        /// ButtonSueCase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonSueCase;
     }
 }

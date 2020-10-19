@@ -584,6 +584,7 @@
           <Property Name="RESPONSEEMAIL" Type="varchar2" MaxLength="50" />
           <Property Name="RESPONSETEL" Type="varchar2" MaxLength="50" />
           <Property Name="ACKNOWLEDGED" Type="char" MaxLength="1" />
+          <Property Name="SUECASEID" Type="number" Precision="32" Scale="0" />
         </EntityType>
         <EntityType Name="PROJECTHISTORY">
           <Key>
@@ -3138,6 +3139,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="RESPONSELASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESPONSEPOSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ACKNOWLEDGED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="SUECASEID" Type="Decimal" Precision="32" Scale="0" />
         </EntityType>
         <EntityType Name="ProjectInformation">
           <Key>
@@ -5608,6 +5610,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectGeneralInfoes">
             <EntityTypeMapping TypeName="Model.ProjectGeneralInfo">
               <MappingFragment StoreEntitySet="PROJECTGENERALINFO">
+                <ScalarProperty Name="SUECASEID" ColumnName="SUECASEID" />
                 <ScalarProperty Name="ACKNOWLEDGED" ColumnName="ACKNOWLEDGED" />
                 <ScalarProperty Name="RESPONSEPOSITION" ColumnName="RESPONSEPOSITION" />
                 <ScalarProperty Name="RESPONSELASTNAME" ColumnName="RESPONSELASTNAME" />

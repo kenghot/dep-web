@@ -4027,7 +4027,8 @@ namespace Nep.Project.Business
                                                                           ProjectApprovalStatusCode = (pro.ProjectApprovalStatus != null) ? pro.ProjectApprovalStatus.LOVCode : null,
                                                                           CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                                                           ProvinceID = pro.ProvinceID,
-                                                                          Interest = pro.ProjectReport.INTEREST
+                                                                          Interest = pro.ProjectReport.INTEREST,
+                                                                          SueCaseId = pro.SUECASEID
 
                                                                       }).FirstOrDefault();
 
@@ -4099,7 +4100,15 @@ namespace Nep.Project.Business
                     data.ParticipantAttachments = att.GetAttachmentOfTable(TABLE_REPORT, REPORT_PARTICIPANT, projectID);
                     data.ResultAttachments = att.GetAttachmentOfTable(TABLE_REPORT, REPORT_RESULT, projectID);
                     //
-
+                    data.SueDocument1.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC1", projectID);
+                    data.SueDocument2.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC2", projectID);
+                    data.SueDocument3.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC3", projectID);
+                    data.SueDocument4.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC4", projectID);
+                    data.SueDocument5.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC5", projectID);
+                    data.SueDocument6.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC6", projectID);
+                    data.SueDocument7.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC7", projectID);
+                    data.SueDocument8.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC8", projectID);
+                    data.SueDocument9.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC9", projectID);
                 }
 
                 result.IsCompleted = true;
@@ -4349,6 +4358,20 @@ namespace Nep.Project.Business
             }
             return result;
         }
+        public ServiceModels.ReturnMessage SendSueData(decimal projID)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            result.IsCompleted = false; 
+            try
+            {
+               ServiceModels.API.Requests.SueCase sc;
+            }
+            catch(Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
         public ServiceModels.ReturnMessage SaveProjectReportResult(ServiceModels.ProjectInfo.ProjectReportResult model, bool isSaveOfficerReport, bool isSendReport)
         {
             ServiceModels.ReturnMessage result = new ReturnMessage();
@@ -4497,7 +4520,15 @@ namespace Nep.Project.Business
                             });
                         }
                     }
-
+                    saveAttachFileToDB(model.SueDocument1, TABLE_REPORT, "SUEDOC1", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument2, TABLE_REPORT, "SUEDOC2", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument3, TABLE_REPORT, "SUEDOC3", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument4, TABLE_REPORT, "SUEDOC4", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument5, TABLE_REPORT, "SUEDOC5", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument6, TABLE_REPORT, "SUEDOC6", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument7, TABLE_REPORT, "SUEDOC7", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument8, TABLE_REPORT, "SUEDOC8", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
+                    saveAttachFileToDB(model.SueDocument9, TABLE_REPORT, "SUEDOC9", rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID, model.ProjectID);
                     //Participant
                     SaveProjectParticipant(model.Participants, model.ProjectID);
 
@@ -9119,6 +9150,33 @@ namespace Nep.Project.Business
             else
             {
                 return s;
+            }
+        }
+        private void saveAttachFileToDB(MultipleAttachFile obj,string tablename, string fieldname,string rootFolderPath, string rootDestinationFolderPath, string folder,decimal attachmentTypeID, decimal projId )
+        {
+ 
+            if (obj.AddedAttachment != null)
+            {
+                foreach (KendoAttachment k in obj.AddedAttachment)
+                {
+                    var attID = SaveFile(k, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
+                    _db.K_FILEINTABLE.Add(new DBModels.Model.K_FILEINTABLE
+                    {
+                        ATTACHMENTID = attID.Value,
+                        FIELDNAME = fieldname,
+                        TABLENAME = tablename,
+                        TABLEROWID = projId
+                    });
+                }
+            }
+
+            if (obj.RemovedAttachment != null)
+            {
+                foreach (KendoAttachment k in obj.RemovedAttachment)
+                {
+                    RemoveFile(k, rootDestinationFolderPath);
+                }
+
             }
         }
         private DBModels.Model.ProjectPersonel MappTabProjectPersonalToDBProjectPersonal(ServiceModels.ProjectInfo.TabPersonal model, List<DBModels.Model.MT_District> districtList, List<DBModels.Model.MT_SubDistrict> subDistrictList)

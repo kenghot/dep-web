@@ -250,7 +250,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                 ButtonSaveReportResult.Visible = isEditable;
                 //ButtonAddParticipant.Visible = isEditable;
-                ButtonSaveAndSendProjectReport.Visible = isEditable && !UserInfo.IsAdministrator;
+                ButtonSaveAndSendProjectReport.Visible = isEditable  && !UserInfo.IsAdministrator;
                 //ButtonOfficerSave.Visible = (HasSaveReportResultRole && (!HasSaveDraftReportResultRole));
                 //HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintReport);
 
