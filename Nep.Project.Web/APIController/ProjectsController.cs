@@ -583,6 +583,45 @@ namespace Nep.Project.Web.APIController
             }
 
         }
+        [HttpPost]
+        [Route("UpdateSueCase")]
+        public ReturnMessage UpdateSueCase([FromBody] UpdateSueCaseRequest p)
+        {
+            var result = new ReturnMessage();
+            try
+            {
+                var db = projService.GetDB();
+                var gen = db.ProjectGeneralInfoes.Where(w => w.SUECASEID == p.SueCaseID).FirstOrDefault();
+                if (gen == null)
+                {
+                    result.Message.Add("ไม่พบรหัสคดีที่ระบุ");
+                    return result;
+                }
+
+                var sc = new SueCaseLog
+                {
+                    LogBy = p.UserCode,
+                    LogCode = p.Accepted ? "ACCEPTED" : "REJECTED",
+                    LogDateTime = DateTime.Now,
+                    LogDetail = p.Accepted ? "รับเรื่อง" : "ตีกลับ",
+                    SueCaseID = p.SueCaseID
+                };
+                
+                if (!p.Accepted)
+                {
+                    gen.SUECASEID = null;
+                    db.SaveChanges();
+                }
+                var log = projService.UpdateSueCaseLog(gen.ProjectID, sc);
+                result.IsCompleted = log.IsCompleted;
+                result.Message.AddRange(log.Message);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
     }
 
 }

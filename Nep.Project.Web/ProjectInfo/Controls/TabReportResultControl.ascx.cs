@@ -1,6 +1,8 @@
 ﻿using AjaxControlToolkit;
 using Nep.Project.Common;
 using Nep.Project.ServiceModels;
+using Nep.Project.ServiceModels.API.Requests;
+using Nep.Project.Web.API;
 using Nep.Project.Web.UserControls;
 using System;
 using System.Collections.Generic;
@@ -200,6 +202,14 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                        false);
 
             String participantScript = @" 
+     function sendSueConfirm() {
+         if (confirm('ยืนยันการส่งข้อมูลไปสู่ระบบดำเนินคดี?')) {
+             GetActOBJJSON()
+             return true;
+         } else {
+             return false;
+         }
+     }
                 var txtCardId = $('#" + TextBoxParticipantIDCardNo.ClientID + @"')
                 var txtFirstName = $('#" + TextBoxParticipantFirstName.ClientID + @"')
                 var txtLastName = $('#" + TextBoxParticipantLastName.ClientID + @"')
@@ -306,7 +316,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
 
                 CreateParticipantForm.Visible = !isReported;
-                ButtonSueCase.Visible = isReported;
+                ButtonSueCase.Visible = isReported && UserInfo.IsAdministrator && !result.Data.SueCaseId.HasValue ;
                 ButtonSaveReportResult.Visible = isEditable;
                 //ButtonAddParticipant.Visible = isEditable;
                 ButtonSaveAndSendProjectReport.Visible = isEditable;
@@ -578,24 +588,141 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 ShowErrorMessage(ex.Message);
             }
         }
+        private void sendFile(string name ,List<SueCaseDocument> sd, List<KendoAttachment> f)
+        {
+            if (f == null)
+            {
+                return;
+            }
+            foreach (var item in f)
+            {
+                sd.Add(new SueCaseDocument
+                {
+                    label = name,
+                    url = $"{Request.Url.Scheme}://{Request.Url.Authority}/ProjectInfo/AttachmentHandler/View/Project/{ProjectID}/{item.id}/{item.name}"
+                }); ;
+            }
+
+        }
         protected void ButtonSueCase_Click(object sender, EventArgs e)
         {
             try
             {
                 if (Page.IsValid)
                 {
-
+                    Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
                     bool isSaveReportResult = (HasSaveReportResultRole && HasSaveReportResultRole);
                     var result = _projectService.SaveProjectReportResult(GetData(), isSaveReportResult, false);
                     if (result.IsCompleted)
                     {
+                        var db = _projectService.GetDB();
+                        var rep = _projectService.GetProjectReportResult(ProjectID);
+                        var inf = _projectService.GetProjectInformationByProjecctID(ProjectID);
+                        var ct = _projectService.GetProjectContractByProjectID(ProjectID);
+                        var act = _projectService.GetProjectBudgetInfoByProjectID(ProjectID);
+                        var gen = _projectService.GetProjectGeneralInfoByProjectID(ProjectID);
+                        if (gen.IsCompleted)
+                        {
+                            var sc = new SueCase();
+                            sc.case_type = "project";
+                            sc.case_code = ProjectID.ToString();
+                            if (gen.Data.Committees.Count > 0)
+                            {
+                                sc.case_name = $"{gen.Data.Committees[0].MemberName} {gen.Data.Committees[0].MemberSurname}";
+                            }
+                            sc.case_name += gen.Data.OrganizationNameTH;
+                            sc.case_contact_address = new SueCaseAddress
+                            {
+                                address_no = gen.Data.Address,
+                                district = gen.Data.DistrictID.ToString(),
+                                district_name = gen.Data.District,
+                                email = gen.Data.Email,
+                                moo = gen.Data.Moo,
+                                postcode = gen.Data.Postcode,
+                                province_code = gen.Data.ProvinceID.ToString(),
+                                road = gen.Data.Road,
+                                soi = gen.Data.Soi,
+                                sub_district = gen.Data.SubDistrictID.ToString(),
+                                sub_district_name = gen.Data.SubDistrict,
+                                telephone = gen.Data.Telephone
 
-                        Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
-                        page.RebindData("TabPanelReportResult");
-                        ShowResultMessage(result.Message);
+                            };
+                            var prov = db.MT_Province.Where(w => w.ProvinceID == gen.Data.AddressProvinceID).FirstOrDefault();
+                            if (prov != null)
+                            {
+                                sc.case_contact_address.province_name = prov.ProvinceName;
+                            }
+                            sc.case_submitted_by_name = $"{UserInfo.FirstName} {UserInfo.LastName}";
+                            var cd = new SueCaseDetail
+                            {
+                                case_owned_interests = rep.Data.Interest.Value,
+                                contract_no = inf.Data.ProjectNo,
+                                contract_start_date = $"{ct.Data.ContractStartDate.Value:yyyy-MM-dd}",
+                                contract_end_date = $"{ct.Data.ContractEndDate.Value:yyyy-MM-dd}",
+                                contract_paid = 0,
+                                contract_amount = rep.Data.ReviseBudgetAmount.Value
+
+                            };
+                            cd.contract_outstanding =  cd.contract_amount - act.Data.BudgetDetails.Sum(s => s.ActualExpense.Value);
+                            cd.case_owned_principal = cd.contract_outstanding;
+
+                            sc.case_details = new List<SueCaseDetail>{cd};
+                            sc.case_documents = new List<SueCaseDocument>();
+                            sendFile("แบบฟอร์มเสนอโครงการ", sc.case_documents, rep.Data.SueDocument1.Attachment);
+                            sendFile("หนังสือนำส่งแบบฟอร์มเสนอโครงการ", sc.case_documents, rep.Data.SueDocument2.Attachment);
+                            sendFile("รายงานการประชุมนุกรรมการบริหารกองทุน ", sc.case_documents, rep.Data.SueDocument3.Attachment);
+                            sendFile("หนังสือแจ้งผลการพิจารณาโครงการ", sc.case_documents, rep.Data.SueDocument4.Attachment);
+                            sendFile("สัญญารับเงินสนับสนุนโครงการ ", sc.case_documents, rep.Data.SueDocument5.Attachment);
+                            sendFile("หนังสือมอบอำนาจรับสัญญาฯ(ถ้ามี)", sc.case_documents, rep.Data.SueDocument6.Attachment);
+                            sendFile("สำเนาหนังสือทวงถามให้รายงานผลการปฏิบัติงานและการใช้จ่ายเงิน พร้อมไปรษณีย์ตอบรับ 2 ครั้ง", sc.case_documents, rep.Data.SueDocument7.Attachment);
+                            sendFile("สำเนาใบสำคัญแสดงการจดทะเบียนแต่งตั้งกรรมการของ สมาคม/องค์กร/หน่วยงานอื่น", sc.case_documents, rep.Data.SueDocument8.Attachment);
+                            sendFile("ตารางคำนวณหนี้ที่คงค้าง", sc.case_documents, rep.Data.SueDocument9.Attachment);
+                            try
+                            {
+                                var send = APIHelper.SendSueCase(sc);
+                                if (send.IsCompleted)
+                                {
+                                    var g = db.ProjectGeneralInfoes.Where(w => w.ProjectID == ProjectID).FirstOrDefault();
+                                    g.SUECASEID = send.Data;
+                                    db.SaveChanges();
+                                    var log = _projectService.UpdateSueCaseLog(ProjectID, new ServiceModels.ProjectInfo.SueCaseLog
+                                    {
+                                        LogBy = UserInfo.UserID.ToString(),
+                                        LogCode = "1",
+                                        LogDateTime = DateTime.Now,
+                                        LogDetail = "Case Created",
+                                        SueCaseID = send.Data.Value
+                                    }) ;
+
+                                    page.RebindData("TabPanelReportResult");
+                                    ShowResultMessage("ส่งข้อมูลไปยังระบบคดีสำเร็จ");
+                                }
+                                else
+                                {
+                                    page.RebindData("TabPanelReportResult");
+                                    ShowErrorMessage(send.Message);
+                                }
+                                
+                            }
+                            catch(Exception ex)
+                            {
+                                page.RebindData("TabPanelReportResult");
+                                ShowErrorMessage(ex.Message);
+                            }
+                        }else
+                        {
+                            page.RebindData("TabPanelReportResult");
+                            ShowErrorMessage(gen.Message);
+                        }
+                        
+
+
+                        
+                      
                     }
                     else
                     {
+                        page.RebindData("TabPanelReportResult");
                         ShowErrorMessage(result.Message);
                     }
                 }
@@ -603,10 +730,11 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             }
             catch (Exception ex)
             {
-                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Project rep", ex);
                 ShowErrorMessage(ex.Message);
             }
         }
+
 
         protected void ButtonSaveAndSendProjectReport_Click(object sender, EventArgs e)
         {

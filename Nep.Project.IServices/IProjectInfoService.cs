@@ -1,4 +1,6 @@
 ﻿using Nep.Project.DBModels.Model;
+using Nep.Project.ServiceModels.API.Requests;
+using Nep.Project.ServiceModels.ProjectInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -180,6 +182,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<ServiceModels.Report.ReportProvinceTracking> GetReportProvinceTracking(decimal reportTrackingID);
 
         ServiceModels.ReturnObject<ServiceModels.GenericDropDownListData> GetProjectProvince(decimal projectid);
+        ServiceModels.ReturnMessage UpdateSueCaseLog(decimal projId, SueCaseLog log);
         //kenghot
         ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListPosition();
         ServiceModels.KendoChart GetDashBoardData();

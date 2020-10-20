@@ -2082,7 +2082,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                 return name;
             }
         }
-                
+        public string ProjectTypeCode { get; set; }
         public Decimal? TotalBudgetRequest { get; set; }
 
         public String EvaluationIsPassAss4 { get; set; }
@@ -2470,4 +2470,14 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public decimal BudgetYear { get; set; }
         public decimal BudgetAmount { get; set; }
     }
+    public class SueCaseLog
+    {
+        public decimal SueCaseID { get; set; }
+        public DateTime LogDateTime { get; set; }
+        public string LogBy { get; set; }
+        public string LogCode { get; set; }
+        public string LogDetail { get; set; }
+        public string HostAddress { get; set; }
+    }
+
 }

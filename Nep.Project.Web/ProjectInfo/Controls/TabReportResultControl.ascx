@@ -115,6 +115,9 @@
 
                             <button type="button" class="btn btn-default btn-sm" onclick="objIMP.CheckIDFromDisability()">ตรวจสอบจากข้อมูลจากทะเบียนกลางคนพิการ</button>
                             </div>
+                            <div class="col-sm-3">
+                            <button type="button" class="btn btn-default btn-sm" onclick="return false">ตรวจสอบจากข้อมูลจากกรมการปกครอง</button>
+                            </div>
                         </div>
                     <div class="form-group form-group-sm">
                         <div class="col-sm-12">
@@ -910,8 +913,8 @@
                     <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-red btn-sm" 
                         NavigateUrl="~/ProjectInfo/ProjectInfoList.aspx"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancel %>"></asp:HyperLink>
-                    <asp:Button runat="server" ID="ButtonSueCase" CssClass="btn btn-primary btn-sm" ValidationGroup="SaveProjectReport"
-                       Text="ส่งข้อมูลไปสู่ระบบดำเนินคดี" OnClick="ButtonSueCase_Click" Visible="false"/>
+                    <asp:Button runat="server" ID="ButtonSueCase" CssClass="btn btn-primary btn-sm" 
+                        OnClientClick="return sendSueConfirm()"  Text="ส่งข้อมูลไปสู่ระบบดำเนินคดี" OnClick="ButtonSueCase_Click" Visible="false"/>
                 </div>
             </div>
         </div>

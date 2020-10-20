@@ -17,6 +17,7 @@ using Nep.Project.Business;
 using Nep.Project.Common.Web;
 using System.Web;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Newtonsoft.Json;
 
 namespace Nep.Project.Business
 {
@@ -3244,7 +3245,7 @@ namespace Nep.Project.Business
                                 ProjectNo = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNo : null,
                                 ProjectNameTH = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNameTH : null,
                                 ProjectNameEN = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectNameEN : null,
-
+                                ProjectTypeCode = (pro.ProjectInformation != null) ? pro.ProjectInformation.ProjectType.LOVCode: null,
                                 EvaluationIsPassAss4 = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.IsPassAss4 : null,
                                 EvaluationIsPassAss5 = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.IsPassAss5 : null,
                                 EvaluationScore = (pro.ProjectEvaluation != null) ? pro.ProjectEvaluation.EvaluationValue : 0,
@@ -4119,6 +4120,29 @@ namespace Nep.Project.Business
                 result.IsCompleted = false;
                 result.Message.Add(ex.Message);
                 Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+            return result;
+        }
+        public ServiceModels.ReturnMessage UpdateSueCaseLog(decimal projId, SueCaseLog log)
+        {
+            var result = new ReturnMessage();
+            result.IsCompleted = false;
+            try
+            {
+                log.HostAddress = HttpContext.Current.Request.UserHostAddress;
+                var data = JsonConvert.SerializeObject(log);
+                var ins = InsertDocument(projId, "SUECASELOG", data);
+                if (ins.IsCompleted)
+                {
+                    result.IsCompleted = true;
+                }else
+                {
+                    result.Message.AddRange(ins.Message);
+                }
+
+            }catch(Exception ex)
+            {
+                result.SetExceptionMessage(ex);
             }
             return result;
         }

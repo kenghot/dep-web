@@ -6,6 +6,10 @@ using Nep.Project.ServiceModels;
 using System.Web.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Nep.Project.ServiceModels.API.Requests;
+using Newtonsoft.Json;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Nep.Project.Web.API
 {
@@ -78,6 +82,47 @@ namespace Nep.Project.Web.API
             catch (Exception ex)
             {
                 ret = ex.Message;
+            }
+
+            return ret;
+        }
+        public static ReturnObject<decimal?>   SendSueCase(SueCase sc)
+        {
+
+            var  ret = new ReturnObject<decimal?>();
+            ret.IsCompleted = true;
+            try
+            {
+                var content = new StringContent( JsonConvert.SerializeObject(sc), Encoding.UTF8,   "application/json");
+                var post = client.PostAsync("http://203.154.94.105/law_system/rest_save_case.php", content).Result;
+
+                var stringContent = post.Content.ReadAsStringAsync().Result;
+
+                JObject o = JObject.Parse(stringContent);
+                var  status = o["status"].ToString();
+                ret.IsCompleted = (status == "1") ? true : false;
+                if (ret.IsCompleted)
+                {
+                    decimal id;
+                    if (decimal.TryParse(o["case_id"].ToString(),out id))
+                    {
+                        ret.Data = id;
+                    }else
+                    {
+                        ret.IsCompleted = false;
+                        ret.Message.Add("ไม่พบรหัสคดี จากระบบดำเนินคดี");
+                    }
+                }else
+                {
+                    ret.Message.Add(o["status_message"].ToString());
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ret.SetExceptionMessage(ex);
             }
 
             return ret;

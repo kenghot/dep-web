@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,5 +51,13 @@ namespace Nep.Project.ServiceModels.API.Requests
     {
         public string label { get; set; }
         public string url { get; set; }
+    }
+
+    public class UpdateSueCaseRequest
+    {
+        public decimal SueCaseID { get; set; }
+        public string UserCode { get; set; }
+        public string Password { get; set; }
+        public bool Accepted { get; set; }
     }
 }

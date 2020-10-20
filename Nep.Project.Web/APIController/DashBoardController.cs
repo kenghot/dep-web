@@ -33,77 +33,96 @@ namespace Nep.Project.Web.APIController
             try
             {
                 var db = projService.GetDB();
-
-                var query = from gen in db.ProjectGeneralInfoes
-                            join inf in db.ProjectInformations on gen.ProjectID equals inf.ProjectID
-                            join subapp in db.ProjectApprovals on gen.ProjectID equals subapp.ProjectID into lapp
-                            from app in lapp.DefaultIfEmpty()
-                            join subo in db.ProjectOperations on gen.ProjectID equals subo.ProjectID into lo
-                            from o in lo.DefaultIfEmpty()
-                            join subfol in db.MT_ListOfValue on gen.FollowUpStatus equals subfol.LOVID into lfol
-                            from fol in lfol.DefaultIfEmpty()
-                            join prov in db.MT_Province on gen.ProvinceID equals prov.ProvinceID
-                            where inf.BudgetYear == year
-                            select new 
-                            {
-                                ProjectName = inf.ProjectNameTH,
-                                Organization = gen.OrganizationNameTH,
-                                ProjectApprovalCode = gen.ProjectApprovalStatus.LOVCode,
-                                ProjectApprovalName = gen.ProjectApprovalStatus.LOVName,
-                                BudgetValue = gen.BudgetValue,
-                                BudgetReviseValue = gen.BudgetReviseValue,
-                                ProjectTypeCode = inf.ProjectType.LOVCode,
-                                ProjectTypeName = inf.ProjectType.LOVName,
-                                RejectComment = inf.RejectComment,
-                                FollowCode = fol.LOVCode,
-                                FollowName = fol.LOVName,
-                                gen.ACKNOWLEDGED, 
-                                IsApproved = app != null,
-                                ProjectEndDate = o.EndDate,
-                                SubmitDate = gen.SubmitedDate,
-                                ProvinceName = prov.ProvinceName
-
-                            };
-
-                if (id == "1")
+                if (id == "2")
                 {
-                    //query = query.Where(w => w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร && w.ACKNOWLEDGED == "1");
-                    query = query.Where(w =>   w.ACKNOWLEDGED == "1");
+                    result.Data = (from or in db.OrganizationRegisterEntries
+                                  where or.RegisterDate.Year == year && or.ApprovedByID == null
+                                  select new ProjectDetail
+                                  {
+                                      Organization = or.OrganizationNameTH,
+                                      ProvinceName = or.Province.ProvinceName,
+                                      ApproveStatus = "ยังไม่อนุมัติ",
+                                      FollowStatus = or.UserRegisterEntry.Firstname + " " + or.UserRegisterEntry.Lastname,
+                                      SubmitDate = or.RegisterDate
+
+                                  }).ToList();
+
+                }
+                else
+                {
+                    var query = from gen in db.ProjectGeneralInfoes
+                                join inf in db.ProjectInformations on gen.ProjectID equals inf.ProjectID
+                                join subapp in db.ProjectApprovals on gen.ProjectID equals subapp.ProjectID into lapp
+                                from app in lapp.DefaultIfEmpty()
+                                join subo in db.ProjectOperations on gen.ProjectID equals subo.ProjectID into lo
+                                from o in lo.DefaultIfEmpty()
+                                join subfol in db.MT_ListOfValue on gen.FollowUpStatus equals subfol.LOVID into lfol
+                                from fol in lfol.DefaultIfEmpty()
+                                join prov in db.MT_Province on gen.ProvinceID equals prov.ProvinceID
+                                where inf.BudgetYear == year
+                                select new
+                                {
+                                    ProjectName = inf.ProjectNameTH,
+                                    Organization = gen.OrganizationNameTH,
+                                    ProjectApprovalCode = gen.ProjectApprovalStatus.LOVCode,
+                                    ProjectApprovalName = gen.ProjectApprovalStatus.LOVName,
+                                    BudgetValue = gen.BudgetValue,
+                                    BudgetReviseValue = gen.BudgetReviseValue,
+                                    ProjectTypeCode = inf.ProjectType.LOVCode,
+                                    ProjectTypeName = inf.ProjectType.LOVName,
+                                    RejectComment = inf.RejectComment,
+                                    FollowCode = fol.LOVCode,
+                                    FollowName = fol.LOVName,
+                                    gen.ACKNOWLEDGED,
+                                    IsApproved = app != null,
+                                    ProjectEndDate = o.EndDate,
+                                    SubmitDate = gen.SubmitedDate,
+                                    ProvinceName = prov.ProvinceName
+
+                                };
+
+                    if (id == "1")
+                    {
+                        //query = query.Where(w => w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร && w.ACKNOWLEDGED == "1");
+                        query = query.Where(w => w.ACKNOWLEDGED == "1");
+
+                    }
+
+                    if (id == "3")
+                    {
+                        query = query.Where(w => w.IsApproved && w.FollowCode != Common.LOVCode.Followupstatus.รายงานผลแล้ว);
+
+                    }
+                    if (id == "4")
+                    {
+                        query = query.Where(w => w.ACKNOWLEDGED != "1");
+
+                    }
+                    if (id == "5")
+                    {
+                        query = query.Where(w => w.FollowCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว);
+
+                    }
+                    if (id == "6")
+                    {
+                        query = query.Where(w => !string.IsNullOrEmpty(w.RejectComment) && w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ);
+
+                    }
+
+                    result.Data = query.Select(s => new ProjectDetail
+                    {
+                        ProjectName = s.ProjectName,
+                        Organization = s.Organization,
+                        SubmitDate = s.SubmitDate,
+                        ProjectEndDate = s.ProjectEndDate,
+                        ProvinceName = s.ProvinceName,
+                        ApproveStatus = s.ProjectApprovalName,
+                        FollowStatus = s.FollowName
+
+                    }).ToList();
 
                 }
 
-                if (id == "3")
-                {
-                    query = query.Where(w => w.IsApproved && w.FollowCode != Common.LOVCode.Followupstatus.รายงานผลแล้ว);
-
-                }
-                if (id == "4")
-                {
-                    query = query.Where(w => w.ACKNOWLEDGED != "1");
-
-                }
-                if (id == "5")
-                {
-                    query = query.Where(w => w.FollowCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว);
-
-                }
-                if (id == "6")
-                {
-                    query = query.Where(w => !string.IsNullOrEmpty(w.RejectComment) && w.ProjectApprovalCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ);
-
-                }
-
-                result.Data = query.Select(s => new ProjectDetail
-                {
-                    ProjectName = s.ProjectName,
-                    Organization = s.Organization,
-                    SubmitDate = s.SubmitDate,
-                    ProjectEndDate = s.ProjectEndDate,
-                    ProvinceName = s.ProvinceName,
-                    ApproveStatus = s.ProjectApprovalName,
-                    FollowStatus = s.FollowName
-
-                }).ToList();
                 result.IsCompleted = true;
             }
             catch (Exception ex)

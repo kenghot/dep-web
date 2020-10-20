@@ -193,7 +193,8 @@ var VueDashBoard = new Vue({
             projectDialog: {
                 title: "",
                 items: [],
-                headers: [
+                headers: [],
+                headers1: [
                     { text: "ชื่อโครงการ", value: "ProjectName" },
                     { text: "ชื่อองค์กร", value: "Organization" },
                     { text: "วันที่ยื่นคำร้อง", value: "submitdate", dataType:"Date" },
@@ -202,6 +203,14 @@ var VueDashBoard = new Vue({
                     { text: "สถานะ", value: "ApproveStatus" },
                     {text:"ติดตาม", value: "FollowStatus"},
                 ],
+                headers2: [
+                    { text: "ชื่อองค์กร", value: "Organization" },
+                    { text: "จังหวัด", value: "ProvinceName" },
+                    { text: "วันที่ยื่นคำร้อง", value: "submitdate", dataType: "Date" },
+                    { text: "ชื่อผู้ร้องขอ", value: "FollowStatus" },
+                    { text: "สถานะ", value: "ApproveStatus" },
+                ],
+
             },
             budgetYear: 0,
             budgetYears: [],
@@ -268,9 +277,14 @@ var VueDashBoard = new Vue({
     methods: {
         ShowProjects(o) {
             console.log(o)
-            if (o.objId === "") {
-                return
+            this.projectDialog.headers = []
+            if (o.objId === "2") {
+                this.projectDialog.headers = [...this.projectDialog.headers2]
+            } else {
+                this.projectDialog.headers = [...this.projectDialog.headers1]
             }
+
+           
             this.projectDialog.title = o.subText
             var data = this
             axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + this.budgetYear.BC + '/' + o.objId)

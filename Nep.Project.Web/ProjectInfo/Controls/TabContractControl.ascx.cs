@@ -166,7 +166,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             
                             HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             ButtonCancelContract.Visible = functions.Contains(Common.ProjectFunction.CancelContract);
-                            ButtonEditContractNo.Visible = ButtonCancelContract.Visible;
+                            ButtonEditContractNo.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             if (ButtonEditContractNo.Visible)
                             {
                                 ButtonEditContractNo.OnClientClick = $"VueContract.EditContractNo({ProjectID});return false;";
@@ -298,7 +298,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             {
                                 LabelContractRefName.Text = Model.Contract_ContractRefName;
                             }
-
+                            //สัญญาวิจัย
+                            if (obj.Data.ProjectTypeCode == LOVCode.Projecttype.การวิจัย_นวัตกรรม)
+                            {
+                                ContractProvinceNoBlock.Visible = false;
+                                CustomValidatorProvinceNo1.Enabled = false;
+                                CustomValidatorProvinceNo2.Enabled = false;
+                                
+                                ContractProvinceRefDateBlock.Visible = false;
+                                CustomValidatorProvinceDate.Enabled = false;
+                            }
                             //มอบอำนาจหรือไม่
                             CheckBoxAuthorizeFlag.Checked = model.AuthorizeFlag;
                             if (model.AuthorizeFlag)
