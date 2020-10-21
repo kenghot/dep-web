@@ -3041,7 +3041,8 @@ namespace Nep.Project.Business
                         obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
                         obj.MeetingDate = contract.MEETINGDATE;
                         obj.MeetingNo = contract.MEETINGNO?.ToString();
-
+                        obj.AuthorizeDate = contract.AuthorizeDate;
+                        obj.AuthorizeDateText = Common.Web.WebUtility.ToBuddhaDateFormat(contract.AuthorizeDate, "d MMMM yyyy");
                         if (!string.IsNullOrEmpty(contract.EXTENDDATA))
                         {
                             obj.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ContractExtend>(contract.EXTENDDATA);

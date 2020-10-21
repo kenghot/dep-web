@@ -70,7 +70,8 @@ namespace Nep.Project.ServiceModels.Report
         public String ReceivePosition { get; set; }
 
         public Boolean AuthorizeFlag { get; set; }
-
+        public DateTime? AuthorizeDate { get; set; }
+        public string AuthorizeDateText { get; set; }
         public string AttachPage1 { get; set; }
         public string AttachPage2 { get; set; }
         public string AttachPage3 { get; set; }
