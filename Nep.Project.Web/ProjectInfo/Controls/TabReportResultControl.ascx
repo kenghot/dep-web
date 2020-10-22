@@ -111,11 +111,11 @@
                                             PlaceHolder="ตรวจสอบบัตรประชาชน" ToolTip="ตรวจสอบบัตรประชาชน"/>
 
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
 
                             <button type="button" class="btn btn-default btn-sm" onclick="objIMP.CheckIDFromDisability()">ตรวจสอบจากข้อมูลจากทะเบียนกลางคนพิการ</button>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                             <button type="button" class="btn btn-default btn-sm" onclick="return false">ตรวจสอบจากข้อมูลจากกรมการปกครอง</button>
                             </div>
                         </div>

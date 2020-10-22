@@ -25,7 +25,7 @@
                         <div class="col-sm-8">
                             <ajaxToolkit:ComboBox runat="server" ID="ComboBoxOrganizationProvince" 
                                 DataMember="Nep.Project.ServiceModels.GenericDropDownListData"
-                                DropDownStyle="DropDown"                                         
+                                DropDownStyle="DropDownList"                                         
                                 AutoCompleteMode= "Suggest" 
                                 CaseSensitive="false"     
                                 CssClass="form-control-combobox"  
@@ -34,11 +34,14 @@
                                 DataTextField ="Text"
                                 DataValueField="Value"                                   
                                 ItemInsertLocation="OrdinalValue"
+                                OnSelectedIndexChanged="ComboBoxOrganizationProvince_SelectedIndexChanged"
+                                AutoPostBack="true"
                                 Enabled="false">
                                 <asp:ListItem Text="" Value=""></asp:ListItem>
                             </ajaxToolkit:ComboBox>   
                                 
-                            <asp:CustomValidator ID="CustomValidatorOrganizationProvince" runat="server" 
+                            <asp:CustomValidator ID="CustomValidatorOrganizationProvince" runat="server"       
+                                DropDownStyle="DropDownList"     
                                 OnServerValidate="CustomValidatorOrganizationProvince_ServerValidate" 
                                 ClientValidationFunction="validateOrganizationProvince"
                                 CssClass="error-text" ValidationGroup="SaveGeneralInfo" 
@@ -57,10 +60,17 @@
                                 CaseSensitive="false"     
                                 CssClass="form-control-combobox"   
                                 DataTextField ="Text"
-                                DataValueField="Value"                              
+                                DataValueField="Value"      
+                                OnSelectedIndexChanged="ComboBoxOrganizationNameTH_SelectedIndexChanged"
+                                AutoPostBack="true"
                                 Enabled ="false">
                                 <asp:ListItem Text="" Value=""></asp:ListItem>
                             </ajaxToolkit:ComboBox>
+                            <asp:RequiredFieldValidator runat="server" ID="ValidORGCombo" ControlToValidate="ComboBoxOrganizationNameTH"
+                                                                    CssClass="error-text"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_OrganizationObjective) %>" 
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_OrganizationObjective) %>"
+                                    ValidationGroup="SaveGeneralInfo" />
                         </div>
                    
                     </div>
@@ -236,7 +246,7 @@
                             Enabled="false"
                             DataTextField ="Text"
                             DataValueField="Value" 
-                            SelectMethod="GetDistrict">
+                            >
                         </ajaxToolkit:ComboBox>
                     </div>
                 </div>
@@ -251,7 +261,7 @@
                             Enabled="false"
                             DataTextField ="Text"
                             DataValueField="Value" 
-                            SelectMethod="GetSubDistrict">
+                            >
                         </ajaxToolkit:ComboBox>
                     </div>
                     

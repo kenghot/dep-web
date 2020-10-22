@@ -54,6 +54,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
         public void BindData()
         {
+            ComboBoxOrganizationProvince.Enabled = UserInfo.IsAdministrator;
+            ComboBoxOrganizationNameTH.Enabled = UserInfo.IsAdministrator;
             BindRadioButtonOrganiaztionType();
             OrgAssistanceControl.DataBind();
             CommitteeControl.DataBind();
@@ -190,7 +192,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 if (result.IsCompleted)
                     list = result.Data;
             }
-            
+
 
             return list;
         }
@@ -210,7 +212,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     list = result.Data;
             }
 
-           
+
 
             return list;
         }
@@ -289,8 +291,9 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                         string gotSupportLastProject = TextBoxProjectLasted.Text.Trim();
                         string gotSupportLastResult = TextBoxProjectLastedResult.Text.TrimEnd();
                         string gotSupportLastProblems = TextBoxProblem.Text.TrimEnd();
-
+                        decimal orgId = Convert.ToDecimal(ComboBoxOrganizationNameTH.SelectedValue);
                         model.ProvinceID = provinceId;
+                        model.OrganizationID = orgId;
                         model.Purpose = purpose;
                         model.CurrentProject = currentProject;
                         model.CurrentProjectResult = currentProjectResult;
@@ -303,7 +306,37 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             model.GotSupportLastResult = gotSupportLastResult;
                             model.GotSupportLastProblems = gotSupportLastProblems;
                         }
-                       
+
+                        var objOranizationInfo = _service.GetOrganizationInfoByID(model.OrganizationID);
+                        if (objOranizationInfo.IsCompleted)
+                        {
+                            var d = objOranizationInfo.Data;
+                            model.OrganizationNameTH = d.OrganizationNameTH;
+                            model.OrganizationNameEN = d.OrganizationNameEN;
+                            model.OrganizationTypeID = d.OrganizationTypeID;
+                            model.OrganizationTypeEtc = d.OrganizationTypeEtc;
+                            model.OrgUnderSupport = d.OrgUnderSupport;
+                            model.OrganizationYear = d.OrganizationYear;
+                            model.OrgEstablishedDate = d.OrgEstablishedDate;
+                            model.Address = d.Address;
+                            model.Building = d.Building;
+                            model.Moo = d.Moo;
+                            model.Soi = d.Soi;
+                            model.Road = d.Road;
+                            model.SubDistrictID = d.SubDistrictID;
+                            model.SubDistrict = d.SubDistrict;
+                            model.DistrictID = d.DistrictID;
+                            model.District = d.District;
+                            model.AddressProvinceID = d.AddressProvinceID;
+                            model.Postcode = d.Postcode;
+                            model.Telephone = d.Telephone;
+                            model.Mobile = d.Mobile;
+                            model.Fax = d.Fax;
+                            model.Email = d.Email;
+                        }
+
+                      
+                        string projectNameEN = TextBoxOrganizationNameEN.Text.Trim();
 
                         var resutl = _service.Update(model);
                         if (resutl.IsCompleted)
@@ -413,8 +446,18 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 TextBoxSoi.Text = model.Soi;
                 TextBoxStreet.Text = model.Road;
                 ComboBoxProvince.SelectedValue = model.AddressProvinceID.ToString();
-                ComboBoxDistrict.SelectedValue = model.DistrictID.ToString();
-                ComboBoxSubDistrict.SelectedValue = model.SubDistrictID.ToString();
+            ComboBoxDistrict.DataSource = GetDistrict2((int)model.AddressProvinceID);
+           //ComboBoxDistrict.DataSource = GetDistrict();
+            ComboBoxDistrict.DataBind();
+            ComboBoxDistrict.SelectedValue = model.DistrictID.ToString();
+
+
+            ComboBoxSubDistrict.DataSource = GetSubDistrict2((int)model.DistrictID);
+            //ComboBoxSubDistrict.DataSource = GetSubDistrict();
+            ComboBoxSubDistrict.DataBind();
+            ComboBoxSubDistrict.SelectedValue = model.SubDistrictID.ToString();
+           // ComboBoxDistrict.SelectedValue = model.DistrictID.ToString();
+              //  ComboBoxSubDistrict.SelectedValue = model.SubDistrictID.ToString();
                 TextBoxPostCode.Text = model.Postcode;
                 TextBoxTelephone.Text = model.Telephone;
                 TextBoxTelephone.Text = model.Telephone;
@@ -652,6 +695,179 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                       "UpdatePanelGeneralInfoControl",
                       script,
                       true);
+        }
+        private void BindOrganizationInfo(decimal? organizationID)
+        {
+            if (organizationID.HasValue)
+            {
+                int organizationYear = 0;
+                var result = _service.GetOrganizationInfoByID((decimal)organizationID);
+                if (result.IsCompleted)
+                {
+                    ServiceModels.ProjectInfo.OrganizationInfo data = result.Data;
+                    Int32.TryParse(data.OrganizationYear, out organizationYear);
+
+                    if (data.OrgEstablishedDate.HasValue)
+                    {
+                        OrganizationRegisterDateLabel.Visible = true;
+                        OrganizationRegisterDateControl.Visible = true;
+                        DateTime tmpDate = (DateTime)data.OrgEstablishedDate;
+                        TextBoxRegisterDate.Text = Common.Web.WebUtility.DisplayInHtml(tmpDate.ToString(Common.Constants.UI_FORMAT_DATE, Common.Constants.UI_CULTUREINFO), "", "-");
+                    }
+                    TextBoxOrganizationObjective.Text = data.Purpose;
+
+                    TextBoxOrganizationNameEN.Text = data.OrganizationNameEN;
+                    DisplayRadioButtonOrganiaztionType(data.OrganizationTypeID, data.OrganizationTypeEtc);
+                    TextBoxOrgUnderSupport.Text = data.OrgUnderSupport;
+                    TextBoxRegisterYear.Text = (organizationYear > 0) ? (organizationYear + 543).ToString() : data.OrganizationYear;
+                    TextBoxAddressNo.Text = data.Address;
+                    TextBoxBuilding.Text = data.Building;
+                    TextBoxMoo.Text = data.Moo;
+                    TextBoxSoi.Text = data.Soi;
+                    TextBoxStreet.Text = data.Road;
+                    ComboBoxProvince.SelectedValue = data.AddressProvinceID.ToString();
+
+                    ComboBoxDistrict.DataSource = GetDistrict2((int)data.AddressProvinceID);
+                    //ComboBoxDistrict.DataSource = GetDistrict();
+                    ComboBoxDistrict.DataBind();
+                    ComboBoxDistrict.SelectedValue = data.DistrictID.ToString();
+
+
+                    ComboBoxSubDistrict.DataSource = GetSubDistrict2((int)data.DistrictID);
+                    //ComboBoxSubDistrict.DataSource = GetSubDistrict();
+                    ComboBoxSubDistrict.DataBind();
+                    ComboBoxSubDistrict.SelectedValue = data.SubDistrictID.ToString();
+
+
+
+                    TextBoxPostCode.Text = data.Postcode;
+                    TextBoxTelephone.Text = data.Telephone;
+                    TextBoxMobile.Text = data.Mobile;
+                    TextBoxFax.Text = data.Fax;
+                    TextBoxEmail.Text = data.Email;
+
+
+
+
+                    CommitteeControl.BindRepeaterCommittee(data.Committees, (decimal)organizationID, (decimal)data.OrganizationTypeID);
+                }
+            }
+            else
+            {
+                TextBoxOrganizationNameEN.Text = "";
+                DisplayRadioButtonOrganiaztionType((decimal?)null, "");
+                TextBoxOrgUnderSupport.Text = "";
+                TextBoxRegisterYear.Text = "";
+                TextBoxAddressNo.Text = "";
+                TextBoxBuilding.Text = "";
+                TextBoxMoo.Text = "";
+                TextBoxSoi.Text = "";
+                TextBoxStreet.Text = "";
+                ComboBoxProvince.ClearSelection();
+                ComboBoxDistrict.ClearSelection();
+                ComboBoxSubDistrict.ClearSelection();
+                TextBoxPostCode.Text = "";
+                TextBoxTelephone.Text = "";
+                TextBoxMobile.Text = "";
+                TextBoxFax.Text = "";
+                TextBoxEmail.Text = "";
+            }
+        }
+        public List<ServiceModels.GenericDropDownListData> GetDistrict2(int provinceID)
+        {
+            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+            //string filter = ComboBoxDistrict.Text;
+            //string provinceValue = ComboBoxProvince.SelectedValue;
+            //int? provinceId = null;
+
+            //if (!string.IsNullOrEmpty(provinceValue))
+            //{
+            //provinceId = Convert.ToInt32(provinceValue);
+            //var result = _provinceService.ListDistrict(provinceID, filter);
+            //if (result.IsCompleted)
+            //    list = result.Data;
+            //}
+
+            var result = _provinceService.ListDistrict(provinceID, null);
+            if (result.IsCompleted)
+            {
+                list = result.Data;
+            }
+            return list;
+        }
+
+        public List<ServiceModels.GenericDropDownListData> GetSubDistrict2(int districtID)
+        {
+            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+            //string filter = ComboBoxSubDistrict.Text;
+            //string districtValue = ComboBoxDistrict.SelectedValue;
+            //int? districtId = null;
+
+            //if (!string.IsNullOrEmpty(districtValue))
+            //{
+            //    districtId = Convert.ToInt32(districtValue);
+            //    var result = _provinceService.ListSubDistrict(districtId, filter);
+            //    if (result.IsCompleted)
+            //        list = result.Data;
+            //}
+
+            var result = _provinceService.ListSubDistrict(districtID, null);
+            if (result.IsCompleted)
+            {
+                list = result.Data;
+            }
+
+            return list;
+        }
+        protected void ComboBoxOrganizationProvince_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxOrganizationProvince.Enabled = UserInfo.IsAdministrator;
+            ComboBoxOrganizationNameTH.Enabled = UserInfo.IsAdministrator;
+            BindRadioButtonOrganiaztionType();
+            OrgAssistanceControl.DataBind();
+            CommitteeControl.DataBind();
+
+            ButtonSendProjectInfo.Text = (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer) ? Nep.Project.Resources.UI.ButtonSubmit : Nep.Project.Resources.UI.ButtonSendProjectInfo;
+
+            decimal projectID = ProjectID;
+            if (projectID > 0)
+            {
+
+                ServiceModels.ProjectInfo.OrganizationInfo model = new ServiceModels.ProjectInfo.OrganizationInfo();
+                var result = _service.GetProjectGeneralInfoByProjectID(projectID);
+                if (result.IsCompleted)
+                {
+                    model = result.Data;
+                    decimal d = 0;
+                    decimal.TryParse(ComboBoxOrganizationProvince.SelectedValue,out d);
+                    BindOrganizationNameTH(d);
+
+                    //SetDefaultDisplay(model);
+
+                }
+            }
+            CommitteeControl.RefreshPosition();
+            RegisterClientScriptBlock();
+        }
+
+        protected void ComboBoxOrganizationNameTH_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxOrganizationProvince.Enabled = UserInfo.IsAdministrator;
+            ComboBoxOrganizationNameTH.Enabled = UserInfo.IsAdministrator;
+            BindRadioButtonOrganiaztionType();
+            OrgAssistanceControl.DataBind();
+            CommitteeControl.DataBind();
+
+            ButtonSendProjectInfo.Text = (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer) ? Nep.Project.Resources.UI.ButtonSubmit : Nep.Project.Resources.UI.ButtonSendProjectInfo;
+
+            string selectedValue = ComboBoxOrganizationNameTH.SelectedValue;
+            decimal organizationID = 0;
+            bool tryParse = Decimal.TryParse(selectedValue, out organizationID);
+            decimal? orgId = (tryParse) ? (decimal?)organizationID : (decimal?)null;
+
+            BindOrganizationInfo(orgId);
+            CommitteeControl.RefreshPosition();
+            RegisterClientScriptBlock();
         }
     }
 }
