@@ -275,14 +275,14 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             if (model.IsCenterContract)
                             {
                                 LabelContractRefName.Text = Model.Contract_CenterContractRefName;
-                                ContractRefNoBlock.Visible = isShowProvinceSupportGiven;
-                                CustomValidatorRefNo1.Enabled = isShowProvinceSupportGiven;
-                                CustomValidatorRefNo2.Enabled = isShowProvinceSupportGiven;
+                                ContractRefNoBlock.Visible = !isShowProvinceSupportGiven;
+                                CustomValidatorRefNo1.Enabled = !isShowProvinceSupportGiven;
+                                CustomValidatorRefNo2.Enabled = !isShowProvinceSupportGiven;
                                 //RequiredFieldTextBoxRefNo1.Enabled = isShowProvinceSupportGiven;
                                 //RequiredFieldRefNo2.Enabled = isShowProvinceSupportGiven;
 
-                                ContractRefDateBlock.Visible = isShowProvinceSupportGiven;
-                                CustomValidatorRefDate.Enabled = isShowProvinceSupportGiven;
+                                ContractRefDateBlock.Visible = !isShowProvinceSupportGiven;
+                                CustomValidatorRefDate.Enabled = !isShowProvinceSupportGiven;
                                 //RequiredFieldValidatorRefDate.Enabled = isShowProvinceSupportGiven;
 
                                 ContractProvinceNoBlock.Visible = isShowProvinceSupportGiven;
