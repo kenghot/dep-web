@@ -366,6 +366,8 @@ namespace Nep.Project.Common.Web
             string decVal = temp[1];
             if (Convert.ToDouble(bahtTxt) == 0)
                 bahtTH = "ศูนย์บาทถ้วน";
+            else if (Convert.ToDouble(bahtTxt) == 1)
+                bahtTH = "หนึ่งบาทถ้วน";
             else
             {
                 for (int i = 0; i < intVal.Length; i++)
