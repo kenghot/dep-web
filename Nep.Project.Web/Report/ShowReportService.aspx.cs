@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Nep.Project.Common;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,7 @@ namespace Nep.Project.Web.Report
             catch (Exception ex)
             {
                 err = ex.Message;
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Show Report", ex);
             }
             if (err != "")
             {
