@@ -52,7 +52,7 @@ namespace Nep.Project.Web.Report
                     if (j["filename"] != null && !string.IsNullOrEmpty(j["filename"].ToString()))
                     {
                         Response.Redirect(string.Format("https://docs.google.com/gview?url={0}/file/nep/{1}.{2}", repUrl, j["filename"].ToString(), extension),false);
-                        Response.End();
+                        //Response.End();
                     }
                     else
                     {
