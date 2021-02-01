@@ -52,8 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NPOI", "NPOI", "{04FE6BDB-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.Resources", "Nep.Project.Resources\Nep.Project.Resources.csproj", "{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nep.Project.TelerikReport", "Nep.Project.TelerikReport\Nep.Project.TelerikReport.csproj", "{9883E4AD-AC7A-4800-976B-7ACF76C9AE08}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CD8CCF8C-3FC5-48CB-8542-D6108D30B455}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2020", "2020", "{412DA5CD-DC21-4B6E-B66D-FF316E6735C0}"
@@ -114,10 +112,6 @@ Global
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DB17894-5527-4FDF-ABE7-F7F9EFF3AA9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9883E4AD-AC7A-4800-976B-7ACF76C9AE08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9883E4AD-AC7A-4800-976B-7ACF76C9AE08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9883E4AD-AC7A-4800-976B-7ACF76C9AE08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9883E4AD-AC7A-4800-976B-7ACF76C9AE08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -61,7 +61,7 @@
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="KeepAutomation.Barcode.RDLC">
-      <HintPath>..\..\..\..\..\Downloads\KA.Barcode.for.RDLCReports\KA.Barcode.for.RDLCReports\DLL\Net40\KeepAutomation.Barcode.RDLC.dll</HintPath>
+      <HintPath>..\..\KeepAutomation.Barcode.RDLC\KeepAutomation.Barcode.RDLC.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.9.21302.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.9.0\lib\net40\MoreLinq.dll</HintPath>

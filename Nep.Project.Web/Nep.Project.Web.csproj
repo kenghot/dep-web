@@ -50,7 +50,7 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=15.1.4.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\bin\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,10 +96,10 @@
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="ExpressionBuilders">
-      <HintPath>..\packages\ExpressionBuilders.dll</HintPath>
+      <HintPath>..\..\bin\bin\ExpressionBuilders.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\bin\bin\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
@@ -132,22 +132,22 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
-      <HintPath>..\packages\NPOI.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OOXML">
-      <HintPath>..\packages\NPOI.OOXML.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OOXML.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>..\packages\NPOI.OpenXml4Net.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OpenXml4Net.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>..\packages\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Deploy\Develop\bin\Oracle.ManagedDataAccess.dll</HintPath>
+      <HintPath>..\..\bin\bin\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Deploy\Develop\bin\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+      <HintPath>..\..\bin\bin\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -250,11 +250,11 @@
     </Reference>
     <Reference Include="Telerik.Reporting, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\ictdev2\dev_team\temp\GOD\Telerik Report DLL\Telerik.Reporting.dll</HintPath>
+      <HintPath>..\..\bin\bin\Telerik.Reporting.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.ReportViewer.WebForms, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\Telerik.ReportViewer.WebForms.dll</HintPath>
+      <HintPath>..\..\bin\bin\Telerik.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
@@ -547,7 +547,6 @@
     <Content Include="Scripts\VueQrcode\vue-qrcode.min.js" />
     <Content Include="Scripts\Vue\FollowUpProcessing.js" />
     <Content Include="Scripts\Vue\Satisfy_2019.js" />
-    <Content Include="TelerikReport\TelerikRepContractProvince.aspx" />
     <Content Include="User\UserAccessList.aspx" />
     <Content Include="WebServices\NepService.asmx" />
     <None Include="Properties\Settings.settings">
@@ -1426,13 +1425,6 @@
     <Compile Include="Report\ShowReportService.aspx.designer.cs">
       <DependentUpon>ShowReportService.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.cs">
-      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.designer.cs">
-      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1561,10 +1553,6 @@
       <Project>{95122ea7-b3c4-4802-aa60-b148db0365bc}</Project>
       <Name>Nep.Project.ServiceModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nep.Project.TelerikReport\Nep.Project.TelerikReport.csproj">
-      <Project>{9883e4ad-ac7a-4800-976b-7acf76c9ae08}</Project>
-      <Name>Nep.Project.TelerikReport</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1599,6 +1587,7 @@
   <ItemGroup>
     <Folder Include="App_Data\UploadImages\" />
     <Folder Include="Controllers\" />
+    <Folder Include="TelerikReport\" />
     <Folder Include="UploadImages\" />
   </ItemGroup>
   <PropertyGroup>
