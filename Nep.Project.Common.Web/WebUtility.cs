@@ -466,6 +466,37 @@ namespace Nep.Project.Common.Web
         {   
             "๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"
         };
-        
+        public static string numberToThaiText(string num)
+        {
+            string  n, bahtTH = "";
+            string[] nums = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+            string[] ranks = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+            string intVal = num;
+            if (Convert.ToDouble(num) == 0)
+                bahtTH = "ศูนย์";
+            else if (Convert.ToDouble(num) == 1)
+                bahtTH = "หนึ่ง";
+            else
+            {
+                for (int i = 0; i < intVal.Length; i++)
+                {
+                    n = intVal.Substring(i, 1);
+                    if (n != "0")
+                    {
+                        if ((i == (intVal.Length - 1)) && (n == "1"))
+                            bahtTH += "เอ็ด";
+                        else if ((i == (intVal.Length - 2)) && (n == "2"))
+                            bahtTH += "ยี่";
+                        else if ((i == (intVal.Length - 2)) && (n == "1"))
+                            bahtTH += "";
+                        else
+                            bahtTH += nums[Convert.ToInt32(n)];
+                        bahtTH += ranks[(intVal.Length - i) - 1];
+                    }
+                }
+            }
+            return bahtTH;
+        }
+
     }
 }

@@ -104,6 +104,9 @@
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Export\Export\bin\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp.xmlworker">
       <HintPath>..\packages\itextsharp.xmlworker.5.5.8\lib\itextsharp.xmlworker.dll</HintPath>
     </Reference>
@@ -275,6 +278,12 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net45\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net45\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\ChangePassword.aspx" />
@@ -480,6 +489,7 @@
     <Content Include="Report\ReportApprovedOrg.aspx" />
     <Content Include="Report\ReportBudgetType.aspx" />
     <Content Include="Report\ReportApproved.aspx" />
+    <Content Include="Report\ReportContractControl.aspx" />
     <Content Include="Report\ReportFollowUp.aspx" />
     <Content Include="Report\ReportSatisfy.aspx" />
     <Content Include="Report\ReportBudgetSummary.aspx" />
@@ -540,6 +550,9 @@
     <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Scripts\appScriptsJS\app.js.map" />
     <Content Include="Content\Files\ตรวจสอบความซ้ำซ้อนผู้เข้าร่วม.xlsx" />
+    <Content Include="Content\Files\nep-contract-center.pdf" />
+    <Content Include="Content\Files\nep-contract-province.pdf" />
+    <Content Include="Content\Files\nep-contract-research.pdf" />
     <None Include="Web References\NepServiceWS\NepService.disco" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.common.js" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.esm.js" />
@@ -1221,6 +1234,13 @@
     </Compile>
     <Compile Include="Report\ReportApproved.aspx.designer.cs">
       <DependentUpon>ReportApproved.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportContractControl.aspx.cs">
+      <DependentUpon>ReportContractControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportContractControl.aspx.designer.cs">
+      <DependentUpon>ReportContractControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="Report\ReportFollowUp.aspx.cs">
       <DependentUpon>ReportFollowUp.aspx</DependentUpon>

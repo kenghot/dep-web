@@ -28,6 +28,8 @@ namespace Nep.Project.ServiceModels.Report
         public String DirectProvinceDate {get;set;}
         public String ReceiverName {get;set;}
         public String ReceiverAddressNo {get;set;}
+        public String ReceiverMoo { get; set; }
+        public String ReceiverStreet { get; set; }
         public String ReceiverDistrict {get;set;}
         public String ReceiverSubdistrict {get;set;}
         public String ReceiverProvince {get;set;}

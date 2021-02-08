@@ -663,9 +663,12 @@
                 <div class="col-sm-12 text-center">
                     <asp:Button runat="server" ID="ButtonSave" CssClass="btn btn-primary btn-sm" ValidationGroup="SaveContract"
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonSave %>" OnClick="ButtonSave_Click" Visible="false" />
-                    <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
+                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
+                        CssClass="btn btn-default btn-sm" 
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractControl?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
+                  <%--  <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false"
-                        NavigateUrl='<%$ code:String.Format("~/Report/ShowReportService?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
+                        NavigateUrl='<%$ code:String.Format("~/Report/ShowReportService?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />--%>
                     <%--                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false" 
                         NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />   --%>

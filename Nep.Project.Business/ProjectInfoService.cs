@@ -3015,7 +3015,7 @@ namespace Nep.Project.Business
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
                         obj.ReceiverName = genIn.OrganizationNameTH;
                         obj.ReceiverAddressNo = genIn.Address;
-
+                        obj.ReceiverMoo= genIn.Moo;
                         obj.ReceiverSubdistrict = genIn.SubDistrict;
                         obj.ReceiverDistrict = genIn.District;
                         obj.ReceiverProvince = receiverProvince;
