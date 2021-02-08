@@ -3016,6 +3016,7 @@ namespace Nep.Project.Business
                         obj.ReceiverName = genIn.OrganizationNameTH;
                         obj.ReceiverAddressNo = genIn.Address;
                         obj.ReceiverMoo= genIn.Moo;
+                        obj.ReceiverStreet = genIn.Road;
                         obj.ReceiverSubdistrict = genIn.SubDistrict;
                         obj.ReceiverDistrict = genIn.District;
                         obj.ReceiverProvince = receiverProvince;

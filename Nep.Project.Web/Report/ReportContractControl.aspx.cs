@@ -206,7 +206,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 535, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 515, 0);//สำนักงานเลขที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverMoo!=null)? ReportContract.ReceiverMoo:"", 235, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, "", 300, 515, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 515, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 515, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 500, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 500, 0);//จังหวัด
@@ -292,7 +292,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 552, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 533, 0);//สำนักงานเลขที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "", 235, 535, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, "", 300, 533, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 533, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 533, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 517, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 517, 0);//จังหวัด
@@ -379,7 +379,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 535, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 515, 0);//สำนักงานเลขที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "", 235, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, "", 300, 515, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 515, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 515, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 500, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 500, 0);//จังหวัด
