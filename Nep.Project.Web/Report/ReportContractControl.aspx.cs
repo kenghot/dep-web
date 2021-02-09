@@ -23,6 +23,7 @@ namespace Nep.Project.Web.Report
     {
 
         public IServices.IProjectInfoService _service { get; set; }
+        public IServices.IOrganizationParameterService _paramService { get; set; }
         string err = "";
         Decimal ProjectID;
         string urlQRCode = ConfigurationManager.AppSettings["WEBSITE_URL"] +"/ProjectInfo/ProjectInfoForm?id=";
@@ -80,19 +81,23 @@ namespace Nep.Project.Web.Report
                 ServiceModels.Report.ReportFormatContract ReportContract = resultReportFormatContract.Data; //get data report
                 var resultTabContract = _service.GetProjectContractByProjectID(ProjectID); //get data TabContract
                 ServiceModels.ProjectInfo.TabContract TabContract = resultTabContract.Data;// get data TabContract
-                var projectInfoResult = _service.GetProjectInformationByProjecctID(ProjectID);//get data TabProjectInfo ProjectInfoType
-                ServiceModels.ProjectInfo.TabProjectInfo TabProjectInfo = projectInfoResult.Data;//get data TabProjectInfo ProjectInfoType
-                if (TabContract.ProvinceID == 161)
-                {   //ส่วนกลาง
+                var projectApprovalResult = _service.GetProjectApprovalResult(ProjectID); // get data ProjectApproval
+                ServiceModels.ProjectInfo.ProjectApprovalResult objProjectApproval = projectApprovalResult.Data;
+                if (objProjectApproval.IsCenterReviseProject == true && objProjectApproval.ProjectTypeCode != "7" && objProjectApproval.ProjectTypeCode != "13")
+                {   //ส่วนกลาง true =ส่วนกลาง ,ไม่เป็นงานวิจัยและสื่อโฆษณา
                     SaveReportProjectContractCenter(ReportContract, TabContract);
                 }
-                else if (TabProjectInfo.ProjectInfoType ==661 || TabProjectInfo.ProjectInfoType == 37)
-                {   //วิจัย
+                else if (objProjectApproval.IsCenterReviseProject == false && objProjectApproval.ProjectTypeCode != "7" && objProjectApproval.ProjectTypeCode != "13")
+                { //จังหวัด false =จังหวัด ,ไม่เป็นงานวิจัยและสื่อโฆษณา
+                    SaveReportProjectContractProvince(ReportContract, TabContract);
+                }
+                else if (objProjectApproval.ProjectTypeCode == "7" || objProjectApproval.ProjectTypeCode == "13")
+                {   //วิจัย  7=วิจัยและนวัตกรรม ,13 =ผลิตสื่อโฆษณา
                     SaveReportProjectContractResearch(ReportContract, TabContract);
                 }
                 else
-                {   //จังหวัด
-                    SaveReportProjectContractProvince(ReportContract, TabContract);
+                {
+                    err = "ไม่เจอข้อมูล ProvinceeCode และ ProjectTypeCode ";
                 }
             }
             else
