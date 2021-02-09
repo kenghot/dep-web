@@ -60,8 +60,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
-    <Reference Include="KeepAutomation.Barcode.RDLC">
-      <HintPath>..\..\KeepAutomation.Barcode.RDLC\KeepAutomation.Barcode.RDLC.dll</HintPath>
+    <Reference Include="KeepAutomation.Barcode.RDLC, Version=6.1.8.521, Culture=neutral, PublicKeyToken=eb7a4191b19176af, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\inetpub\wwwroot\bin\KeepAutomation.Barcode.RDLC.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.9.21302.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.9.0\lib\net40\MoreLinq.dll</HintPath>
