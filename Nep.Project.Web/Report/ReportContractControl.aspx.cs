@@ -132,8 +132,8 @@ namespace Nep.Project.Web.Report
                 {
                     var data = TabContract.ExtendData.AddressAt;
                     addressNo = data.AddressNo;
-                    street = data.Street;
-                    moo = data.Moo;
+                    street = (data.Street!="")? data.Street:"-";
+                    moo = (data.Moo != "") ? data.Moo : "-";
                     subDistrict = data.SubDistrictName;
                     district = data.DistrictName;
                     province = data.ProvinceName;
@@ -191,15 +191,15 @@ namespace Nep.Project.Web.Report
             //  Font text size and color
             BaseFont baseFont = BaseFont.CreateFont(Server.MapPath("~/Fonts/THSarabun.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             pdfContentPage1.SetColorFill(BaseColor.BLACK);
-            pdfContentPage1.SetFontAndSize(baseFont, 16);
+            pdfContentPage1.SetFontAndSize(baseFont, 14);
             pdfContentPage1.BeginText();
             // postion and write page1
             pdfContentPage1.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ContractNo, 470, 705, 0);//สัญญาที่ 
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 502, 705, 0);//สัญญาที่ 
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.SignAt, 200, 680, 0);//สัญญานี้ทำขึ้น ณ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 140, 660, 0); //ตั้งอยู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, moo, 200, 660, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, street, 260, 660, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 210, 660, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 380, 660, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, subDistrict, 145, 642, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, district, 280, 642, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, province, 420, 642, 0);//จังหวัด
@@ -210,23 +210,23 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 160, 552, 0);//ลงวันที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 535, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 515, 0);//สำนักงานเลขที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverMoo!=null)? ReportContract.ReceiverMoo:"", 235, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 515, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo!=null)? ReportContract.ReceiverMoo:"-", 245, 515, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 350, 515, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 515, 0);//ตำบล
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 500, 0);//อำเภอ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 500, 0);//จังหวัด
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveFullName, 170, 482, 0);//โดย
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveDate, 280, 465, 0);//25.ผู้มีอำนาจ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 180, 370, 0);//จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 370, 0); //จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 335, 0);//ส่งคำร้อง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 498, 0);//อำเภอ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 498, 0);//จังหวัด
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveFullName, 170, 480, 0);//โดย
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveDate, 280, 463, 0);//25.ผู้มีอำนาจ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 180, 372, 0);//จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 372, 0); //จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, Nep.Project.Common.Web.WebUtility.ParseToThaiNumber(ReportContract.ProjectName), 300, 335, 0);//ส่งคำร้อง
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 300, 265, 0); //ครั้งที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalDate, 430, 265, 0);//ลงวันที่
             pdfContentPage1.EndText();
             //Page2
             PdfContentByte pdfContentPage2 = pdfStamper.GetOverContent(2);
             pdfContentPage2.SetColorFill(BaseColor.BLACK);
-            pdfContentPage2.SetFontAndSize(baseFont, 16);
+            pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.BeginText();
             pdfContentPage2.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.AttachPage1, 142, 183, 0);
@@ -237,12 +237,12 @@ namespace Nep.Project.Web.Report
             //Page3
             PdfContentByte pdfContentPage3 = pdfStamper.GetOverContent(3);
             pdfContentPage3.SetColorFill(BaseColor.BLACK);
-            pdfContentPage3.SetFontAndSize(baseFont, 16);
+            pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 400, 740, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 155, 720, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.AttachPage3, 230, 720, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage3, 235, 720, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 260, 720, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 465, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 440, 0);
@@ -276,28 +276,28 @@ namespace Nep.Project.Web.Report
             //  Font text size and color
             BaseFont baseFont = BaseFont.CreateFont(Server.MapPath("~/Fonts/THSarabun.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             pdfContentPage1.SetColorFill(BaseColor.BLACK);
-            pdfContentPage1.SetFontAndSize(baseFont, 16);
+            pdfContentPage1.SetFontAndSize(baseFont, 14);
             pdfContentPage1.BeginText();
             pdfContentPage1.AddImage(GenQRCode(urlQRCode+ProjectID.ToString()));
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ContractNo.Replace("/"," "), 473, 740, 0);//สัญญาที่ 
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/","   "), 502, 740, 0);//สัญญาที่ 
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.SignAt, 200, 715, 0);//สัญญานี้ทำขึ้น ณ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 140, 695, 0); //ตั้งอยู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, moo, 200, 695, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, street, 260, 695, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 205, 695, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 350, 695, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, subDistrict, 145, 677, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, district, 280, 677, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, province, 420, 677, 0);//จังหวัด
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ContractDate, 170, 660, 0); //วันที่ ระหว่าง
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 300, 643, 0);//โดย
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 300, 625, 0);//ตำแหน่ง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.DirectiveNo, 450, 605, 0);//17.ผู้รับมอบ ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.DirectiveNo!=null)? ReportContract.DirectiveNo:"-", 450, 605, 0);//17.ผู้รับมอบ ที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.DirectiveDate, 170, 588, 0);//18ลงวันที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.DirectProvinceNo, 450, 588, 0);//19.คำสั่งจงหวัด
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.DirectProvinceDate.ToString(), 170, 570, 0);//20ลงวันที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 552, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 533, 0);//สำนักงานเลขที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "", 235, 535, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 533, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "-", 240, 535, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 345, 533, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 533, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 517, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 517, 0);//จังหวัด
@@ -305,14 +305,14 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveDate, 280, 480, 0);//25.ผู้มีอำนาจ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 180, 390, 0);//จำนวนเงิน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 390, 0); //จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 353, 0);//โครงการ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, Nep.Project.Common.Web.WebUtility.ParseToThaiNumber(ReportContract.ProjectName), 300, 353, 0);//โครงการ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 300, 280, 0); //ครั้งที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalDate, 430, 280, 0);//ลงวันที่
             pdfContentPage1.EndText();
             //Page2
             PdfContentByte pdfContentPage2 = pdfStamper.GetOverContent(2);
             pdfContentPage2.SetColorFill(BaseColor.BLACK);
-            pdfContentPage2.SetFontAndSize(baseFont, 16);
+            pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.BeginText();
             pdfContentPage2.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.AttachPage1, 142, 193, 0);
@@ -323,14 +323,14 @@ namespace Nep.Project.Web.Report
             //Page3
             PdfContentByte pdfContentPage3 = pdfStamper.GetOverContent(3);
             pdfContentPage3.SetColorFill(BaseColor.BLACK);
-            pdfContentPage3.SetFontAndSize(baseFont, 16);
+            pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 260, 750, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 460, 750, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 165, 728, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.AttachPage3, 270, 728, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 295, 728, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 297, 728, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 475, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 450, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 385, 0);
@@ -364,15 +364,15 @@ namespace Nep.Project.Web.Report
             //  Font text size and color
             BaseFont baseFont = BaseFont.CreateFont(Server.MapPath("~/Fonts/THSarabun.ttf"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             pdfContentPage1.SetColorFill(BaseColor.BLACK);
-            pdfContentPage1.SetFontAndSize(baseFont, 16);
+            pdfContentPage1.SetFontAndSize(baseFont, 14);
             pdfContentPage1.BeginText();
             // postion and write page1
             pdfContentPage1.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ContractNo, 470, 705, 0);//สัญญาที่ 
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 502, 705, 0);//สัญญาที่ 
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.SignAt, 200, 680, 0);//สัญญานี้ทำขึ้น ณ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 140, 660, 0); //ตั้งอยู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, moo, 200, 660, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, street, 260, 660, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 205, 660, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 350, 660, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, subDistrict, 145, 642, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, district, 280, 642, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, province, 420, 642, 0);//จังหวัด
@@ -383,18 +383,18 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 170, 552, 0);//ลงวันที่
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverName, 150, 535, 0);//ฝ่ายหนึ่งกลับ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverAddressNo, 170, 515, 0);//สำนักงานเลขที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "", 235, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "", 300, 515, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "-", 245, 515, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 340, 515, 0);//ถนน
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverSubdistrict, 470, 515, 0);//ตำบล
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverDistrict, 170, 500, 0);//อำเภอ
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, ReportContract.ReceiverProvince, 380, 500, 0);//จังหวัด
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveFullName, 170, 482, 0);//โดย
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, contractReceiveDate, 280, 465, 0);//25.ผู้มีอำนาจ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 180, 370, 0);//จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 370, 0); //จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 335, 0);//ส่งคำร้อง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 300, 265, 0); //ครั้งที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalDate, 430, 265, 0);//ลงวันที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 180, 372, 0);//จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 372, 0); //จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, Nep.Project.Common.Web.WebUtility.ParseToThaiNumber(ReportContract.ProjectName), 300, 335, 0);//ส่งคำร้อง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 300, 263, 0); //ครั้งที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalDate, 430, 263, 0);//ลงวันที่
             pdfContentPage1.EndText();
             //Page2
             PdfContentByte pdfContentPage2 = pdfStamper.GetOverContent(2);
@@ -402,7 +402,7 @@ namespace Nep.Project.Web.Report
             //Page3
             PdfContentByte pdfContentPage3 = pdfStamper.GetOverContent(3);
             pdfContentPage3.SetColorFill(BaseColor.BLACK); ;
-            pdfContentPage3.SetFontAndSize(baseFont, 16);
+            pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage1, 175, 678, 0);
