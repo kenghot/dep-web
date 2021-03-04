@@ -234,6 +234,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     DdlSubDistrict.Value = ((int)data.SubDistrictId).ToString();
                                     TextBoxAddressNo.Text = data.AddressNo;
                                     TextBoxBuilding.Text = data.Building;
+                                    TextBoxSoi.Text = data.Soi;
+                                    TextBoxStreet.Text = data.Street;
                                     TextBoxMoo.Text = data.Moo;
                                     TextBoxPostCode.Text = data.ZipCode;
                                 }

@@ -1881,7 +1881,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ผู้ให้เงินอุดหนุน.
+        ///   Looks up a localized string similar to ผู้ให้เงินสนับสนุน.
         /// </summary>
         public static string TitleSupportGiven {
             get {
