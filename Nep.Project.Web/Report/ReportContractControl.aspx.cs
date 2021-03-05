@@ -229,11 +229,11 @@ namespace Nep.Project.Web.Report
             pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.BeginText();
             pdfContentPage2.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage1, 138, 183, 0);
+            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 138, 183, 0);
             pdfContentPage2 = checklLengthAttachPage(textAttachPage1, pdfContentPage2); //fucntion check  Length
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 180, 183, 0);
             pdfContentPage2.SetFontAndSize(baseFont, 14);
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage2, 448, 122, 0);
+            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 448, 122, 0);
             pdfContentPage2 = checklLengthAttachPage(textAttachPage2, pdfContentPage2); //fucntion check  Length
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 490, 122, 0);
             pdfContentPage2.SetFontAndSize(baseFont, 14);
@@ -246,7 +246,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 400, 740, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 155, 720, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage3, 240, 720, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 240, 720, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 290, 720, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
@@ -324,11 +324,11 @@ namespace Nep.Project.Web.Report
             pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.BeginText();
             pdfContentPage2.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage1, 133, 193, 0);
+            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 133, 193, 0);
             pdfContentPage2 = checklLengthAttachPage(textAttachPage1, pdfContentPage2); //fucntion check  Length
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 183, 193, 0);
             pdfContentPage2.SetFontAndSize(baseFont, 14);
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage2, 432, 131, 0);
+            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 432, 131, 0);
             pdfContentPage2 = checklLengthAttachPage(textAttachPage2, pdfContentPage2); //fucntion check  Length
             pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 480, 131, 0);
             pdfContentPage2.EndText();
@@ -341,7 +341,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 260, 750, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 470, 750, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 165, 728, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage3, 275, 728, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 275, 728, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 328, 728, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
@@ -419,17 +419,17 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage1, 165, 678, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 165, 678, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage1, pdfContentPage3); //fucntion check  Length
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 217, 678, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage2, 452, 615, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 452, 615, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage2, pdfContentPage3); //fucntion check  Length
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 490, 615, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 333, 570, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 470, 570, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AttachPage3, 132, 553, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 132, 553, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 180, 553, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
