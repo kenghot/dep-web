@@ -1,5 +1,6 @@
 ﻿
 using Autofac.Integration.Web.Forms;
+using ClosedXML.Excel;
 using Ionic.Zip;
 using Nep.Project.DBModels.Model;
 using Nep.Project.ServiceModels;
@@ -12,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -426,6 +428,15 @@ namespace Nep.Project.Web.APIController
                 var status = "09";
                 int totRec = 0;
                 decimal totAmt = 0;
+                //excel
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Receiving Bank Code รหัสธนาคาร");
+                dt.Columns.Add("Receiving A/C No. เลขที่บัญชี");
+                dt.Columns.Add("Receiver Name ชื่อบัญชี");
+                dt.Columns.Add("Transfer Amount จำนวนเงิน");
+                dt.Columns.Add("Email อีเมล์");
+                dt.Columns.Add("Mobile No. เบอร์โทรศัพท์");
                 foreach (var gen in gens)
                 {
                     totRec++;
@@ -461,9 +472,18 @@ namespace Nep.Project.Web.APIController
                     txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, ' ')}";
                     txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{"ชื่อทดสอบ ผู้โอน".PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
                     txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{gen.ProjectPersonel.Email1.PadRight(40, ' ').Substring(0, 40)}";
-                    txt += $"{"".PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
+                    txt += $"{gen.ProjectPersonel.Mobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
                     dataTxt.Append(txt);
-
+                    
+                    //excel
+                    DataRow dataExcel = dt.NewRow();
+                    dataExcel["Receiving Bank Code รหัสธนาคาร"] = oex.BankNo;
+                    dataExcel["Receiving A/C No. เลขที่บัญชี"] = oex.AccountNo;
+                    dataExcel["Receiver Name ชื่อบัญชี"] = oex.AccountName;
+                    dataExcel["Transfer Amount จำนวนเงิน"] = gen.BudgetReviseValue;
+                    dataExcel["Email อีเมล์"] = gen.ProjectPersonel.Email1;
+                    dataExcel["Mobile No. เบอร์โทรศัพท์"] = gen.ProjectPersonel.Mobile1.Replace("-", string.Empty);
+                    dt.Rows.Add(dataExcel);
                 }
 
                 var head = $"101{"1".PadLeft(6, '0').Substring(0, 6)}{senderBank.PadRight(3, ' ').Substring(0, 3)}{totRec.ToString().PadLeft(7, '0').Substring(0, 7)}";
@@ -479,74 +499,87 @@ namespace Nep.Project.Web.APIController
                 txtSW += $"FILE_NAME=DDR{strDT}.txt";
                 var compressedFileStream = new MemoryStream();
 
-                byte[] buffer;
-                using (var memoryStream = new System.IO.MemoryStream())
-                {
-                    buffer = Encoding.Default.GetBytes(dataTxt.ToString());
-                    memoryStream.Write(buffer, 0, buffer.Length);
-                    var bytes = memoryStream.ToArray();
-                    var data = Convert.ToBase64String(bytes);
-                    // File.WriteAllText("e:\\base64-" + zipName, data);
-                    response.Content = new StringContent(data);
-
-                    //Set the Response Content Length.
-                    //response.Content.Headers.ContentLength = bytes.LongLength;
-                    response.Content.Headers.ContentLength = data.Length;
-                    //Set the Content Disposition Header Value and FileName.
-                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                    response.Content.Headers.ContentDisposition.FileName = "KTB"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
-
-                    //Set the File Content Type.
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-                    return response;
-                }
-                //using (ZipFile zip = new ZipFile())
+                //----------------txt only-------------------
+                //byte[] buffer;
+                //using (var memoryStream = new System.IO.MemoryStream())
                 //{
-                //    zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                //    zip.AddDirectoryByName("Files");
-                //    foreach (FileModel file in files)
-                //    {
-                //        if (file.IsSelected)
-                //        {
-                //            zip.Ad file.FilePath, "Files");
-                //        }
-                //    }
+                //    buffer = Encoding.Default.GetBytes(dataTxt.ToString());
+                //    memoryStream.Write(buffer, 0, buffer.Length);
+                //    var bytes = memoryStream.ToArray();
+                //    var data = Convert.ToBase64String(bytes);
+                //    // File.WriteAllText("e:\\base64-" + zipName, data);
+                //    response.Content = new StringContent(data);
 
-                //    var DDR = Encoding.UTF8.GetBytes(dataTxt.ToString());
-                //    var SW = Encoding.UTF8.GetBytes(txtSW); ;
-                //    zip.AddEntry($"DDR{strDT}.txt", DDR);
-                //    zip.AddEntry($"SW_DDR{strDT}.txt", SW);
-                //    zip.AddFile("e:\\qr_cashcard_60060001-60060500.txt");
+                //    //Set the Response Content Length.
+                //    //response.Content.Headers.ContentLength = bytes.LongLength;
+                //    response.Content.Headers.ContentLength = data.Length;
+                //    //Set the Content Disposition Header Value and FileName.
+                //    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                //    response.Content.Headers.ContentDisposition.FileName = "KTB" + DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
 
-                //    Set the Name of Zip File.
-                //    string zipName = String.Format("ePayment_{0}.zip", DateTime.Now.ToString("yyyy-MMM-dd-HHmmss"));
-                //    zip.Save("e:\\" + zipName);
-                //    using (MemoryStream memoryStream = new MemoryStream())
-                //    {
-                //        Save the Zip File to MemoryStream.
-                //        zip.Save(memoryStream);
-
-                //        var bytes = memoryStream.ToArray();
-                //        File.WriteAllBytes("e:\\byte-" + zipName, bytes);
-                //        memoryStream.Seek(0, SeekOrigin.Begin);
-                //        Set the Response Content.
-                //        response.Content = new ByteArrayContent(bytes);
-                //        var data = Convert.ToBase64String(bytes);
-                //        File.WriteAllText("e:\\base64-" + zipName, data);
-                //        response.Content = new StringContent(data);
-
-                //        Set the Response Content Length.
-                //        response.Content.Headers.ContentLength = bytes.LongLength;
-                //        response.Content.Headers.ContentLength = data.Length;
-                //        Set the Content Disposition Header Value and FileName.
-                //        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                //        response.Content.Headers.ContentDisposition.FileName = zipName;
-
-                //        Set the File Content Type.
-                //        response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
-                //        return response;
-                //    }
+                //    //Set the File Content Type.
+                //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                //    return response;
                 //}
+                //--------------------excel-------------
+                MemoryStream memoryStreamExcel = new MemoryStream();
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    var sheet1 = wb.Worksheets.Add(dt, "Sheet1");
+                    sheet1.Table("Table1").ShowAutoFilter = false;
+                    sheet1.Table("Table1").Theme = XLTableTheme.None;
+                    sheet1.ColumnWidth = 30;
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        wb.SaveAs(memoryStream);
+                        memoryStreamExcel = memoryStream;
+                    }
+                }
+
+                //----------------Zip file -----------------------
+                string txtFileName = "KTB" +"-txt-"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
+                string excelFileName = "KTB" + "-excel-" + DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".xlsx";
+                using (ZipFile zip = new ZipFile())
+                {
+                    zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                    var DataExcel = memoryStreamExcel.ToArray();
+                    var DDR = Encoding.UTF8.GetBytes(dataTxt.ToString());
+                    //var SW = Encoding.UTF8.GetBytes(txtSW); 
+                    zip.AddEntry(txtFileName, DDR);
+                    //zip.AddEntry($"SW_DDR{strDT}.txt", SW);
+                    zip.AddEntry(excelFileName, DataExcel);
+
+                    //zip.AddFile("e:\\qr_cashcard_60060001-60060500.txt");
+
+                    //Set the Name of Zip File.
+                    string zipName = String.Format("ePayment_{0}.zip", DateTime.Now.ToString("yyyy-MMM-dd-HHmmss"));
+                    //zip.Save("e:\\" + zipName);
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        //Save the Zip File to MemoryStream.
+                        zip.Save(memoryStream);
+
+                        var bytes = memoryStream.ToArray();
+                        //File.WriteAllBytes("e:\\byte-" + zipName, bytes);
+                        //memoryStream.Seek(0, SeekOrigin.Begin);
+                        //Set the Response Content.
+                        //response.Content = new ByteArrayContent(bytes);
+                        var data = Convert.ToBase64String(bytes);
+                        // File.WriteAllText("e:\\base64-" + zipName, data);
+                        response.Content = new StringContent(data);
+
+                        //Set the Response Content Length.
+                        //response.Content.Headers.ContentLength = bytes.LongLength;
+                        response.Content.Headers.ContentLength = data.Length;
+                        //Set the Content Disposition Header Value and FileName.
+                        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                        response.Content.Headers.ContentDisposition.FileName = zipName;
+
+                        //Set the File Content Type.
+                        response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+                        return response;
+                    }
+                }
                 // create a working memory stream
                 //using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
                 //{
