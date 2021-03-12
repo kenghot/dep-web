@@ -480,7 +480,7 @@ namespace Nep.Project.Web.APIController
                     dataExcel["Receiving Bank Code รหัสธนาคาร"] = oex.BankNo;
                     dataExcel["Receiving A/C No. เลขที่บัญชี"] = oex.AccountNo;
                     dataExcel["Receiver Name ชื่อบัญชี"] = oex.AccountName;
-                    dataExcel["Transfer Amount จำนวนเงิน"] = gen.BudgetReviseValue;
+                    dataExcel["Transfer Amount จำนวนเงิน"] = string.Format("{0:0.00}", gen.BudgetReviseValue);
                     dataExcel["Email อีเมล์"] = gen.ProjectPersonel.Email1;
                     dataExcel["Mobile No. เบอร์โทรศัพท์"] = gen.ProjectPersonel.Mobile1.Replace("-", string.Empty);
                     dt.Rows.Add(dataExcel);
@@ -537,8 +537,8 @@ namespace Nep.Project.Web.APIController
                 }
 
                 //----------------Zip file -----------------------
-                string txtFileName = "KTB" +"-txt-"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
-                string excelFileName = "KTB" + "-excel-" + DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".xlsx";
+                string txtFileName = "KTB"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
+                string excelFileName = "KTB"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".xlsx";
                 using (ZipFile zip = new ZipFile())
                 {
                     zip.AlternateEncodingUsage = ZipOption.AsNecessary;
