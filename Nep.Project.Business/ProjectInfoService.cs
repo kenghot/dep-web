@@ -46,6 +46,8 @@ namespace Nep.Project.Business
         private const String REPORT_PARTICIPANT = "REPORT_PARTICIPANT";
         private const String REPORT_RESULT = "REPORT_RESULT";
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
+        private const String CONTRACT_KTB = "CONTRACT_KTB";
+
 
         public ProjectInfoService(DBModels.Model.NepProjectDBEntities db,
             ServiceModels.Security.SecurityInfo user,
@@ -2645,6 +2647,7 @@ namespace Nep.Project.Business
                 }
                 var att = new Business.AttachmentService(_db);
                 data.SupportAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT, id);
+                data.KTBAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_KTB, id);
                 result.Data = data;
                 result.IsCompleted = true;
             }
@@ -2758,6 +2761,7 @@ namespace Nep.Project.Business
                         _db.SaveChanges();
                     }
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
 
                     result.Data = MappDBProjectContractToTabProjectContract(dataDBModel);
                     result.IsCompleted = true;
@@ -9984,6 +9988,16 @@ namespace Nep.Project.Business
             {
                 result.AuthorizeDocID = SaveFile(model.AddedAuthorizeDocAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
             }
+            ////KTBFile
+            //if (model.RemovedKTBAttachments != null)
+            //{
+            //    RemoveFile(model.RemovedKTBAttachments, rootDestinationFolderPath);
+            //    result.FileKTBID = (decimal?)null;
+            //}
+            //if (model.AddedKTBAttachments != null)
+            //{
+            //    result.FileKTBID = SaveFile(model.AddedKTBAttachments, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
+            //}
 
             return result;
         }

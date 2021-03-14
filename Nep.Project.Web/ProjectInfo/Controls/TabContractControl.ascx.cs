@@ -257,6 +257,11 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             FileUploadSupport.ExistingFiles = SupportFiles;
                             FileUploadSupport.DataBind();
 
+                            List<ServiceModels.KendoAttachment> KTBFiles = model.KTBAttachments;
+                            FileUploadKTB.ClearChanges();
+                            FileUploadKTB.ExistingFiles = KTBFiles;
+                            FileUploadKTB.DataBind();
+
                             int refNo2 = 0;
                             if (!String.IsNullOrEmpty(model.AttorneyYear) && Int32.TryParse(model.AttorneyYear, out refNo2))
                             {
@@ -487,11 +492,17 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             result.AddedSupportAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
             result.RemovedSupportAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
 
+            addedFiles = FileUploadKTB.AddedFiles;
+            removedFiles = FileUploadKTB.RemovedFiles;
+
+            result.AddedKTBAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedKTBAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
             //result.MeetingNo = decimal.Parse(TextboxMeetingNo.Text);
             //result.AttachPage1 = 
             //result.AttachPage2 = decimal.Parse(TextBoxAttachPage2.Text);
             //result.AttachPage3 = decimal.Parse(TextBoxAttachPage3.Text);
-   
+
             decimal d;
             result.AttachPage1 = decimal.TryParse(TextBoxAttachPage1.Text, out d) ? d : 0;
             result.AttachPage2 = decimal.TryParse(TextBoxAttachPage2.Text, out d) ? d : 0;

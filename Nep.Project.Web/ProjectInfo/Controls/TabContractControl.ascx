@@ -654,6 +654,21 @@
                     </div>
                 </div>
             </div>
+            <div class="panel-heading">
+                <h3 class="panel-title">ผลการโอนเงินผ่านระบบ KTB Corporate Online </h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">อัพโหลดไฟล์ที่ได้จากระบบ KTB </span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="FileUploadKTB" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+            </div>
         </div>
 
 

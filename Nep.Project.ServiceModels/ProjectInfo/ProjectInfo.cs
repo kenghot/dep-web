@@ -1967,6 +1967,9 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string ExtendJson { get; set; }
 
         public List<ContractDue> Dues { get; set; }
+        public List<ServiceModels.KendoAttachment> KTBAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedKTBAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedKTBAttachments { get; set; }
     }
     public class ContractDue
     {
