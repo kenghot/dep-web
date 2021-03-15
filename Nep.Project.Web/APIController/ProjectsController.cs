@@ -488,13 +488,14 @@ namespace Nep.Project.Web.APIController
                     {
                         return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
                     }
+                    string personelMobile1 = (gen.ProjectPersonel.Mobile1 !=null) ? gen.ProjectPersonel.Mobile1 :"";
                     string txt = "";
                     txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
                     txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{userBank.BankNo.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
                     txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, ' ')}";
                     txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
                     txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{gen.ProjectPersonel.Email1.PadRight(40, ' ').Substring(0, 40)}";
-                    txt += $"{gen.ProjectPersonel.Mobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
+                    txt += $"{personelMobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
                     dataTxt.Append(txt);
                     
                     //excel
@@ -504,12 +505,12 @@ namespace Nep.Project.Web.APIController
                     dataExcel["Receiver Name ชื่อบัญชี"] = oex.AccountName;
                     dataExcel["Transfer Amount จำนวนเงิน"] = string.Format("{0:0.00}", gen.BudgetReviseValue);
                     dataExcel["Email อีเมล์"] = gen.ProjectPersonel.Email1;
-                    dataExcel["Mobile No. เบอร์โทรศัพท์"] = gen.ProjectPersonel.Mobile1.Replace("-", string.Empty);
+                    dataExcel["Mobile No. เบอร์โทรศัพท์"] = personelMobile1.Replace("-", string.Empty);
                     dt.Rows.Add(dataExcel);
                 }
 
                 var head = $"101{"1".PadLeft(6, '0').Substring(0, 6)}{senderBank.PadRight(3, ' ').Substring(0, 3)}{totRec.ToString().PadLeft(7, '0').Substring(0, 7)}";
-                   head += $"{(string.Format("{0:0.00}",totAmt).Replace(".", string.Empty)).PadLeft(19,'0').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,' ')}{"".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}\r\n";
+                   head += $"{(string.Format("{0:0.00}",totAmt).Replace(".", string.Empty)).PadLeft(19,'0').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,'0')}{"001".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}\r\n";
                 dataTxt.Insert(0, head);
                 string strDT = $"{DateTime.Now:ddMMyyyyhhmmss}";
                 var txtSW = $"UPLD_SERVICE_NAME=KTB iPay Direct 04\r\n";
