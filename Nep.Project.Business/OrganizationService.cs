@@ -210,13 +210,16 @@ namespace Nep.Project.Business
             string orgNameTh = model.OrganizationNameTH;
             string orgNameEn = model.OrganizationNameEN;
             var date = DateTime.Now.AddDays(-3);
+            //เช็คว่ามีชื่อองค์กรซ้ำหรือไม่
             var chkOrg = (from o in _db.OrganizationRegisterEntries
                           where (o.OrganizationNameTH.Equals(orgNameTh) || ((o.OrganizationNameEN != null) && o.OrganizationNameEN.Equals(orgNameEn))) && (o.RegisterDate < date)
                           select o).Count() == 0 &&
                                   (from o in _db.MT_Organization
                                    where (o.OrganizationNameTH.Equals(orgNameTh) || ((o.OrganizationNameEN != null) && o.OrganizationNameEN.Equals(orgNameEn))) && (o.OrganizationID != model.OrganizationID)
                                    select o).Count() == 0;
-            if (chkOrg)
+            //เช็คว่า ID นี้เป็นชื่อเดิมไหม
+            var chkOrgByID = (from x in _db.MT_Organization where(x.OrganizationID == model.OrganizationID && x.OrganizationNameTH == model.OrganizationNameTH && x.OrganizationNameEN == model.OrganizationNameEN) select x).Count()==1;
+            if (chkOrg==false && chkOrgByID==true)
             {
                 using (var tran = _db.Database.BeginTransaction())
                 {
