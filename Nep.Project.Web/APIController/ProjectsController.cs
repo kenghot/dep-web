@@ -476,9 +476,17 @@ namespace Nep.Project.Web.APIController
 
 
                     }
-                    if (string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))
+                    if ((string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))&&(string.IsNullOrWhiteSpace(userBank.BranchNo) || string.IsNullOrWhiteSpace(userBank.AccountName)  || string.IsNullOrWhiteSpace(userBank.AccountNo)  || string.IsNullOrWhiteSpace(userBank.BankNo) ))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"1.ไม่พบข้อมูลธนาคารของหน่วยงาน ({org.OrganizationNameTH}) 2.ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
+                    }
+                    else if (string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))
                     {
                         return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของหน่วยงาน ({org.OrganizationNameTH})"));
+                    }
+                    else if (string.IsNullOrWhiteSpace(userBank.BranchNo) || string.IsNullOrWhiteSpace(userBank.AccountName) || string.IsNullOrWhiteSpace(userBank.AccountNo)  || string.IsNullOrWhiteSpace(userBank.BankNo) )
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
                     }
                     string txt = "";
                     txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
