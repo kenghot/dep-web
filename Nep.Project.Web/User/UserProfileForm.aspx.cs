@@ -231,6 +231,13 @@ namespace Nep.Project.Web.User
                         CustomValidatorProvince.Enabled = false;
                       
                     }
+                    if (user.ExtendData != null)
+                    {
+                        TextBoxAccountName.Text = user.ExtendData.AccountName;
+                        TextBoxAccountNo.Text = user.ExtendData.AccountNo;
+                        TextBoxBankNo.Text = user.ExtendData.BankNo;
+                        TextBoxBranchNo.Text = user.ExtendData.BranchNo;
+                    }
                     //TextBoxConfirmPwd.Text = user.ContractPWD;
                     //TextBoxConfirmPwd.Text = user.ContractPWD;
                     TextBoxContractPwd.Attributes["value"] = user.ContractPWD;
@@ -256,6 +263,7 @@ namespace Nep.Project.Web.User
             else
             {                
                 IsActive.Checked = true;
+                MyDivBank.Visible = false;
             }
 
             ButtonSave.Visible = IsDeleteRole;
@@ -301,11 +309,17 @@ namespace Nep.Project.Web.User
                 user.Position = TxtPosition.Text.Trim();
                 user.IsActive = (IsActive.Checked) ? "1" : "0";
                 user.ContractPWD = TextBoxContractPwd.Text;
+                user.ExtendData = new ServiceModels.UserExtend
+                {
+                    AccountName = TextBoxAccountName.Text.Trim(),
+                    AccountNo = TextBoxAccountNo.Text.Trim(),
+                    BankNo = TextBoxBankNo.Text.Trim(),
+                    BranchNo = TextBoxBranchNo.Text.Trim()
+                };
 
 
 
-
-                if(IsCreateMode){
+                if (IsCreateMode){
                     var createResult = _service.CreateInternalUser(user);
                     if (createResult.IsCompleted)
                     {

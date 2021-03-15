@@ -48,6 +48,7 @@ namespace Nep.Project.DBModels.Model
         public Nullable<System.DateTime> ForgetPasswordRequestDate { get; set; }
         public decimal CreatedByID { get; set; }
         public Nullable<decimal> UpdatedByID { get; set; }
+        public string EXTENDDATA { get; set; }
     
         public virtual ICollection<SC_UserAccess> UserAccess { get; set; }
         public virtual MT_Attachment EmployeeCard { get; set; }

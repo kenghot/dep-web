@@ -125,8 +125,8 @@ namespace Nep.Project.Business
                                 IDNO = u.IDNo,
                                 IDCardFileID = u.IDCardFileID,
                                 EmpployeeCardFileID = u.EmploeeCardFileID,
-                                RegisterDate = u.RegisterDate
-                                                               
+                                RegisterDate = u.RegisterDate,
+                                ExtendJSON = u.EXTENDDATA
                             }).FirstOrDefault();
 
                 #region Add Attachment
@@ -175,6 +175,14 @@ namespace Nep.Project.Business
                         data.ContractPWD = qn.DATA;
                     }
                     #endregion
+                    try
+                    {
+                        data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<UserExtend>(data.ExtendJSON);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     result.IsCompleted = true;
                     result.Data = data;
                 }
@@ -488,7 +496,10 @@ namespace Nep.Project.Business
                         dbUser.ProvinceID = userProfile.ProvinceID;
                         dbUser.Position = userProfile.Position;
                         dbUser.IsActive = userProfile.IsActive;
-
+                        if (userProfile.ExtendData != null)
+                        {
+                            dbUser.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(userProfile.ExtendData);
+                        }
                         dbUser.UpdatedBy = _loggedUser.UserName;
                         dbUser.UpdatedByID = _loggedUser.UserID;
                         dbUser.UpdatedDate = DateTime.Now;

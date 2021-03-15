@@ -222,6 +222,51 @@ namespace Nep.Project.Web.User
         protected global::System.Web.UI.WebControls.CheckBox IsActive;
 
         /// <summary>
+        /// MyDivBank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MyDivBank;
+
+        /// <summary>
+        /// TextBoxBankNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBankNo;
+
+        /// <summary>
+        /// TextBoxBranchNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBranchNo;
+
+        /// <summary>
+        /// TextBoxAccountNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountNo;
+
+        /// <summary>
+        /// TextBoxAccountName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountName;
+
+        /// <summary>
         /// ButtonSave control.
         /// </summary>
         /// <remarks>

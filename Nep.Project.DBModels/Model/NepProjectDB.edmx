@@ -970,6 +970,7 @@
           <Property Name="FORGETPASSREQDATE" Type="date" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="SC_USERACCESS">
           <Key>
@@ -3451,6 +3452,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
           <NavigationProperty Name="LOG_ACCESS" Relationship="Model.LOG_ACCESS_FK_USER" FromRole="SC_User" ToRole="LOG_ACCESS" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SC_UserAccess">
           <Key>
@@ -5942,6 +5944,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="SC_User">
             <EntityTypeMapping TypeName="Model.SC_User">
               <MappingFragment StoreEntitySet="SC_USER">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
                 <ScalarProperty Name="ForgetPasswordRequestDate" ColumnName="FORGETPASSREQDATE" />

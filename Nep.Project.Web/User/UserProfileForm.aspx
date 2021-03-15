@@ -8,6 +8,10 @@
     <asp:UpdatePanel ID="UpdatePanelUserForm" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div class="form-horizontal">
+                 <div class="panel panel-default">
+                 <div class="panel-heading">
+                    <h3 class="panel-title">ข้อมูลผู้ใช้งาน</h3>
+                </div>
                 <div class="form-group form-group-sm">
                     <label class="col-sm-2 control-label" for="DdlRole"><%: Nep.Project.Resources.Model.UserProfile_Role %><span class="required"></span></label>
                     <div class="col-sm-4">
@@ -115,7 +119,36 @@
                         <asp:CheckBox ID="IsActive" runat="server" CssClass="form-control-checkbox" ClientIDMode="Inherit" />
                     </div>
                 </div>
-                   
+                </div>
+                  <div class="panel panel-default" id="MyDivBank" runat="server">
+                <div class="panel-heading">
+                    <h3 class="panel-title">บัญชีธนาคาร</h3>
+                </div>
+                <div class="panel-body">
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-2 control-label">รหัสธนาคาร</span></label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxBankNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                            </div>
+                            <label class="col-sm-2 control-label">รหัสสาขา</label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                            </div>
+                        </div>
+                </div>
+                <div class="panel-body">
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-2 control-label">เลขที่บัญชี</span></label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxAccountNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                            </div>
+                            <label class="col-sm-2 control-label">ชื่อบัญชี</label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxAccountName" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            </div>
+                        </div>
+                </div>
+            </div>   
                 <div class="form-group form-group-sm">
                     <div class="col-sm-12 text-center">
                         <asp:Button runat="server" ID="ButtonSave" ClientIDMode="Inherit" CssClass="btn btn-primary btn-sm" Visible="false"
