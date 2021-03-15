@@ -441,6 +441,7 @@ namespace Nep.Project.Web.APIController
                 {
                     totRec++;
                     totAmt += gen.BudgetReviseValue.Value;
+                    // MT_Organization
                     var org = db.MT_Organization.Where(w => w.OrganizationID == gen.OrganizationID).FirstOrDefault();
                     if (gen.ProjectContract == null)
                     {
@@ -462,15 +463,28 @@ namespace Nep.Project.Web.APIController
                       
                 
                     }
+                    //SC_USER
+                    decimal userID = (decimal)userInfo.UserID;
+                    var user = db.SC_User.Where(w => w.UserID == userID).FirstOrDefault();
+                    UserExtend userBank = new UserExtend();
+                    try
+                    {
+                        userBank = Newtonsoft.Json.JsonConvert.DeserializeObject<UserExtend>(user.EXTENDDATA);
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
                     if (string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))
                     {
                         return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของหน่วยงาน ({org.OrganizationNameTH})"));
                     }
                     string txt = "";
                     txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
-                    txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadLeft(3, '0').Substring(0, 3)}{senderBranch.PadLeft(4, '0').Substring(0, 4)}{senderAcc.PadLeft(11, '0').Substring(0, 11)}";
+                    txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{userBank.BankNo.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
                     txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, ' ')}";
-                    txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{"ชื่อทดสอบ ผู้โอน".PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
+                    txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
                     txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{gen.ProjectPersonel.Email1.PadRight(40, ' ').Substring(0, 40)}";
                     txt += $"{gen.ProjectPersonel.Mobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
                     dataTxt.Append(txt);
