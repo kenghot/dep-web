@@ -447,13 +447,13 @@ namespace Nep.Project.Web.Organization
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorTextBoxEmail;
 
         /// <summary>
-        /// TextBoxBankNo control.
+        /// DdlBank control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxBankNo;
+        protected global::System.Web.UI.WebControls.DropDownList DdlBank;
 
         /// <summary>
         /// TextBoxBranchNo control.

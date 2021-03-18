@@ -19,5 +19,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnQueryData<Int32> ListValueMapping(List<decimal> orgIds, decimal? provinceID);
         //kenghot
         ServiceModels.ReturnObject<bool> IsBlackList(decimal? orgId , decimal? provinceId);
+        //beer
+        ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListBank();
     }
 }

@@ -219,7 +219,7 @@ namespace Nep.Project.Business
                                    select o).Count() == 0;
             //เช็คว่า ID นี้เป็นชื่อเดิมไหม
             var chkOrgByID = (from x in _db.MT_Organization where(x.OrganizationID == model.OrganizationID && x.OrganizationNameTH == model.OrganizationNameTH && x.OrganizationNameEN == model.OrganizationNameEN) select x).Count()==1;
-            if (chkOrg==false && chkOrgByID==true)
+            if (chkOrg && chkOrgByID)
             {
                 using (var tran = _db.Database.BeginTransaction())
                 {
@@ -477,6 +477,33 @@ namespace Nep.Project.Business
                 result.Message.Add(ex.Message);
             }
             return result;
+        }
+        //beer
+        public ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListBank()
+        {
+            ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
+            try
+            {
+                var q = (from e in _db.MT_ListOfValue
+                         where (e.LOVGroup == Common.LOVGroup.Bank)
+                         orderby e.OrderNo
+                         select new ServiceModels.GenericDropDownListData()
+                         {
+                             Text = e.LOVName,
+                             Value = e.LOVCode.ToString()
+                         }).ToList();
+
+                result.Data = q;
+                result.IsCompleted = true;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
+                return result;
+            }
         }
     }
 }

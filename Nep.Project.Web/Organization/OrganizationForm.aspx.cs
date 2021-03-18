@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nep.Project.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -158,7 +159,7 @@ namespace Nep.Project.Web.Organization
                 {
                     TextBoxAccountName.Text = data.ExtendData.AccountName;
                     TextBoxAccountNo.Text = data.ExtendData.AccountNo;
-                    TextBoxBankNo.Text = data.ExtendData.BankNo;
+                    DdlBank.SelectedValue = data.ExtendData.BankNo;
                     TextBoxBranchNo.Text = data.ExtendData.BranchNo;
                 }
                 SetSelectedOrganizationType(data.OrganizationType, data.OrganizationTypeEtc);
@@ -314,13 +315,20 @@ namespace Nep.Project.Web.Organization
             entry.Mobile = TextBoxMobileOrganization.Text.Trim();
             entry.Fax = TextBoxFax.Text.Trim();
             entry.Email = TextBoxEmail.Text.Trim();
-            entry.ExtendData = new ServiceModels.OrganizationExtend
+            if (DdlBank.SelectedValue.Trim() == "" && TextBoxBranchNo.Text.Trim() == "" && TextBoxAccountNo.Text.Trim() == "" && TextBoxAccountName.Text.Trim() == "")
             {
-                AccountName = TextBoxAccountName.Text.Trim(),
-                AccountNo = TextBoxAccountNo.Text.Trim(),
-                BankNo = TextBoxBankNo.Text.Trim(),
-                BranchNo = TextBoxBranchNo.Text.Trim()
-            };
+                entry.ExtendData = null;
+            }
+            else
+            {
+                entry.ExtendData = new ServiceModels.OrganizationExtend
+                {
+                    AccountName = TextBoxAccountName.Text.Trim(),
+                    AccountNo = TextBoxAccountNo.Text.Trim(),
+                    BankNo = DdlBank.SelectedValue.Trim(),
+                    BranchNo = TextBoxBranchNo.Text.Trim()
+                };
+            }
             ServiceModels.ReturnObject<ServiceModels.OrganizationProfile> result = null;
 
             if (this.OrganizationID.HasValue)
@@ -636,6 +644,59 @@ namespace Nep.Project.Web.Organization
             Int32.TryParse(value, out id);
 
             args.IsValid = (id > 0);
+        }
+        public List<ServiceModels.GenericDropDownListData> Bank_GetData()
+        {
+            DdlBank.Items.Clear();
+
+            var listRole = OrganizationService.ListBank();
+
+            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+
+            if (listRole.IsCompleted)
+            {
+                list = listRole.Data;
+                list.Insert(0, new ServiceModels.GenericDropDownListData() { Text = UI.DropdownPleaseSelect, Value = "" });
+            }
+            else
+            {
+                ShowErrorMessage(listRole.Message);
+            }
+
+            return list;
+
+        }
+        //protected void Bank_ServerValidate(object source, ServerValidateEventArgs args)
+        //{
+        //    int selectedIndex = DdlBank.SelectedIndex;
+        //    args.IsValid = (selectedIndex < 0) ? false : true;
+        //}
+        protected void DdlBank_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = DdlBank.SelectedValue;
+            int roleID = 0;
+            Int32.TryParse(selectedValue, out roleID);
+            //if (roleID == AdmimistratorRoleID)
+            //{
+            //    LabelProvince.Visible = false;
+            //    DivComboBoxProvince.Visible = false;
+            //    CustomValidatorProvince.Enabled = false;
+            //}
+            //else
+            //{
+            //    LabelProvince.Visible = true;
+            //    DivComboBoxProvince.Visible = true;
+            //    CustomValidatorProvince.Enabled = true;
+            //}
+
+
+            //if (roleID != ProvinceRoleID)
+            //{
+            //    ProvinceSelectedIndex = 1;
+            //    DdlProvince.Value = "";
+            //}
+
+
         }
     }
 }
