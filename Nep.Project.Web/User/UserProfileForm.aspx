@@ -126,13 +126,22 @@
                 </div>
                 <div class="panel-body">
                         <div class="form-group form-group-sm">
-                            <label class="col-sm-2 control-label">รหัสธนาคาร</span></label>
+                             <label class="col-sm-2 control-label" for="DdlBank"><%: Nep.Project.Resources.Model.ListOfValue_Bank %><span </span></label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxBankNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                               <asp:DropDownList ID="DdlBank"  AutoPostBack="true" SelectMethod ="Bank_GetData" OnSelectedIndexChanged="DdlBank_SelectedIndexChanged"
+                            DataTextField ="Text" DataValueField ="Value"  runat="server" CssClass="form-control" >
+                        </asp:DropDownList>
+                        <%--<asp:CustomValidator ID="CustomValidatorBank" runat="server" 
+                            OnServerValidate="Bank_ServerValidate"  ValidateEmptyText="true"
+                            ClientValidationFunction="validateBank"
+                            CssClass="error-text" ValidationGroup="Save" 
+                            Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ListOfValue_Bank) %>" 
+                            ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ListOfValue_Bank) %>"
+                            />--%>
                             </div>
                             <label class="col-sm-2 control-label">รหัสสาขา</label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="4"></asp:TextBox>
                             </div>
                         </div>
                 </div>
@@ -171,7 +180,15 @@
                     }
                     args.IsValid = isValid;
                 }
-
+                function validateBank(oSrc, args) {
+                    var selectedValue = $("#<%=DdlBank.ClientID%>").val();
+                     var isValid = false, selectedIndex;
+                     if ((selectedValue != "") && (!isNaN(selectedValue))) {
+                         selectedIndex = parseInt(selectedValue, 10);
+                         isValid = (selectedIndex < 0) ? false : true;
+                     }
+                     args.IsValid = isValid;
+                 }
                 
                 function ConfirmToDelete() {
                     var message = <%=Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Message.DeleteConfirmation)%>;

@@ -992,5 +992,31 @@ namespace Nep.Project.Business
             }
             return chkDup;
         }
+        public ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListBank()
+        {
+            ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
+            try
+            {
+                var q = (from e in _db.MT_ListOfValue
+                         where (e.LOVGroup == "Bank")
+                         orderby e.OrderNo
+                         select new ServiceModels.GenericDropDownListData()
+                         {
+                             Text = e.LOVName,
+                             Value = e.LOVCode.ToString()
+                         }).ToList();
+
+                result.Data = q;
+                result.IsCompleted = true;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
+                return result;
+            }
+        }
     }
 }

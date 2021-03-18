@@ -886,4 +886,7 @@
   <data name="Committee_PositionCode" xml:space="preserve">
     <value>ตำแหน่ง</value>
   </data>
+	<data name="ListOfValue_Bank" xml:space="preserve">
+    <value>ธนาคาร</value>
+  </data>
 </root>

@@ -235,7 +235,7 @@ namespace Nep.Project.Web.User
                     {
                         TextBoxAccountName.Text = user.ExtendData.AccountName;
                         TextBoxAccountNo.Text = user.ExtendData.AccountNo;
-                        TextBoxBankNo.Text = user.ExtendData.BankNo;
+                        DdlBank.SelectedValue = user.ExtendData.BankNo;
                         TextBoxBranchNo.Text = user.ExtendData.BranchNo;
                     }
                     //TextBoxConfirmPwd.Text = user.ContractPWD;
@@ -309,13 +309,21 @@ namespace Nep.Project.Web.User
                 user.Position = TxtPosition.Text.Trim();
                 user.IsActive = (IsActive.Checked) ? "1" : "0";
                 user.ContractPWD = TextBoxContractPwd.Text;
-                user.ExtendData = new ServiceModels.UserExtend
+                if(DdlBank.SelectedValue.Trim()==""&& TextBoxBranchNo.Text.Trim()==""&& TextBoxAccountNo.Text.Trim()=="" && TextBoxAccountName.Text.Trim() == "")
                 {
-                    AccountName = TextBoxAccountName.Text.Trim(),
-                    AccountNo = TextBoxAccountNo.Text.Trim(),
-                    BankNo = TextBoxBankNo.Text.Trim(),
-                    BranchNo = TextBoxBranchNo.Text.Trim()
-                };
+                    user.ExtendData = null;
+                }
+                else
+                {
+                    user.ExtendData = new ServiceModels.UserExtend
+                    {
+                        AccountName = TextBoxAccountName.Text.Trim(),
+                        AccountNo = TextBoxAccountNo.Text.Trim(),
+                        BankNo = DdlBank.SelectedValue.Trim(),
+                        BranchNo = TextBoxBranchNo.Text.Trim()
+                    };
+                }
+                
 
 
 
@@ -526,6 +534,59 @@ namespace Nep.Project.Web.User
             Int32.TryParse(value, out id);
 
             args.IsValid = (id > 0);
+        }
+        public List<ServiceModels.GenericDropDownListData> Bank_GetData()
+        {
+            DdlBank.Items.Clear();
+
+            var listRole = _service.ListBank();
+
+            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+
+            if (listRole.IsCompleted)
+            {
+                list = listRole.Data;
+                list.Insert(0, new ServiceModels.GenericDropDownListData() { Text = UI.DropdownPleaseSelect, Value = "" });
+            }
+            else
+            {
+                ShowErrorMessage(listRole.Message);
+            }
+
+            return list;
+
+        }
+        //protected void Bank_ServerValidate(object source, ServerValidateEventArgs args)
+        //{
+        //    int selectedIndex = DdlBank.SelectedIndex;
+        //    args.IsValid = (selectedIndex < 0) ? false : true;
+        //}
+        protected void DdlBank_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = DdlBank.SelectedValue;
+            int roleID = 0;
+            Int32.TryParse(selectedValue, out roleID);
+            if (roleID == AdmimistratorRoleID)
+            {
+                LabelProvince.Visible = false;
+                DivComboBoxProvince.Visible = false;
+                CustomValidatorProvince.Enabled = false;
+            }
+            else
+            {
+                LabelProvince.Visible = true;
+                DivComboBoxProvince.Visible = true;
+                CustomValidatorProvince.Enabled = true;
+            }
+
+
+            if (roleID != ProvinceRoleID)
+            {
+                ProvinceSelectedIndex = 1;
+                DdlProvince.Value = "";
+            }
+
+
         }
     }
 }

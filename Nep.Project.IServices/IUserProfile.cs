@@ -32,5 +32,6 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<Int32> GetUserAdministratorRoleID();
 
         ServiceModels.ReturnObject<Int32> GetUserProvicnceRoleID();
+        ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListBank();
     }
 }
