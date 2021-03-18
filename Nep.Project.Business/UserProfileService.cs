@@ -998,7 +998,7 @@ namespace Nep.Project.Business
             try
             {
                 var q = (from e in _db.MT_ListOfValue
-                         where (e.LOVGroup == "Bank")
+                         where (e.LOVGroup == Common.LOVGroup.Bank)
                          orderby e.OrderNo
                          select new ServiceModels.GenericDropDownListData()
                          {

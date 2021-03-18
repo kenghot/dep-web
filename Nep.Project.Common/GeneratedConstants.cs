@@ -152,6 +152,7 @@ namespace Nep.Project.Common
         public const String ReportTrackingType = "ReportTrackingType";
         public const String Section = "Section";
         public const String TargetGroup = "TargetGroup";
+        public const String Bank = "Bank";
     }
 
     public static class LOVCode

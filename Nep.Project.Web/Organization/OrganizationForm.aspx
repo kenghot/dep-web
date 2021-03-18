@@ -306,7 +306,7 @@
                             </div>
                             <label class="col-sm-2 control-label">รหัสสาขา</label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="4" TextMode="Number"></asp:TextBox>
                             </div>
                         </div>
                 </div>
@@ -314,7 +314,7 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-2 control-label">เลขที่บัญชี</span></label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxAccountNo" runat="server" CssClass="form-control" MaxLength="30"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxAccountNo" runat="server" CssClass="form-control" MaxLength="30" TextMode="Number"></asp:TextBox>
                             </div>
                             <label class="col-sm-2 control-label">ชื่อบัญชี</label>
                             <div class="col-sm-4">
