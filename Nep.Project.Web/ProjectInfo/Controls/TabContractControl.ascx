@@ -81,12 +81,10 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= UI.LabelBudgetDetailRequestAmount %></label>
                         <div class="col-sm-4 control-value">
-                            <asp:Label runat="server" ID="LabelBudgetRequestAmount" />&nbsp;&nbsp;<%=UI.LabelBath %>
-                        </div>
+                            <asp:Label runat="server" ID="LabelBudgetRequestAmount" />&nbsp;&nbsp;<%=UI.LabelBath %></div>
                         <label class="col-sm-2 control-label"><%= UI.LabelBudgetDetailApprovedAmount %></label>
                         <div class="col-sm-4 control-value">
-                            <asp:Label runat="server" ID="LabelApprovedAmount" />&nbsp;&nbsp;<%=UI.LabelBath %>
-                        </div>
+                            <asp:Label runat="server" ID="LabelApprovedAmount" />&nbsp;&nbsp;<%=UI.LabelBath %></div>
                     </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.Contract_Location %><span class="required"></span></label>
@@ -654,19 +652,24 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-heading">
+            <div class="panel panel-default"  id="myDivUploadFileKTB" runat="server">
+                 <div class="panel-heading">
                 <h3 class="panel-title">ผลการโอนเงินผ่านระบบ KTB Corporate Online </h3>
-            </div>
-            <div class="panel-body">
+                </div>
+                <div class="panel-body">
                 <div class="form-horizontal">
                     <div class="form-group form-group-sm">
                         <label class="col-sm-3">อัพโหลดไฟล์ที่ได้จากระบบ KTB </span></label>
                         <div class="col-sm-9">
-                            <nep:C2XFileUpload runat="server" ID="FileUploadKTB" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
+                            <nep:C2XFileUpload runat="server" ID="FileUploadKTB" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                            <asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="FileUploadKTB"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ValidationGroup="SaveContract" />
                         </div>
-                       
                     </div>
-                   
+                   </div>
                 </div>
             </div>
         </div>

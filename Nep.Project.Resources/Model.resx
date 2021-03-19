@@ -886,7 +886,10 @@
   <data name="Committee_PositionCode" xml:space="preserve">
     <value>ตำแหน่ง</value>
   </data>
-	<data name="ListOfValue_Bank" xml:space="preserve">
+  <data name="ListOfValue_Bank" xml:space="preserve">
     <value>ธนาคาร</value>
+  </data>
+  <data name="Contract_FileKTB" xml:space="preserve">
+    <value>ไฟล์การโอนเงิน KTB</value>
   </data>
 </root>

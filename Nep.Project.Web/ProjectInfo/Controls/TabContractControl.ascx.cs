@@ -16,7 +16,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
     public partial class TabContractControl : Nep.Project.Web.Infra.BaseUserControl
     {
         public IServices.IProjectInfoService _service { get; set; }
-       
         public Decimal ProjectID
         {
             get
@@ -151,7 +150,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             CanSaveContract = canSave;
                             ButtonSave.Visible = canSave;
                             CheckBoxAuthorizeFlag.Enabled = canSave;
-                            
+                            myDivUploadFileKTB.Visible = false;//hide div upload file ktb
                             ButtonUndoCancelContract.Visible = false;
                             if (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer)
                             {
@@ -160,6 +159,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 if (gen != null && gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา && result.Data.LastApproveStatus.HasValue)
                                 {
                                     ButtonUndoCancelContract.Visible = true;
+                                }
+                                if (gen != null && (gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน || gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) && result.Data.LastApproveStatus.HasValue)
+                                {
+                                    myDivUploadFileKTB.Visible = true; //open div upload file ktb
                                 }
                             }
                             
@@ -635,7 +638,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             args.IsValid = isValid;
         }
+        protected void CustomRequiredFileKTB_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            bool isValid = true;
+            if(myDivUploadFileKTB.Visible == true && (FileUploadKTB !=null ) && (string.IsNullOrEmpty(args.Value)))
+            {
+                isValid = false;
+            }
 
+            args.IsValid = isValid;
+        }
         protected void CustomRequiredSupportReceive_ServerValidate(object source, ServerValidateEventArgs args)
         {
             bool chkValue = CheckBoxAuthorizeFlag.Checked;

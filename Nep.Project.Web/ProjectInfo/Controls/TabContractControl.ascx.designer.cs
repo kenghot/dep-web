@@ -897,6 +897,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::Nep.Project.Web.UserControls.TextBox TextBoxDueAmount3;
 
         /// <summary>
+        /// myDivUploadFileKTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl myDivUploadFileKTB;
+
+        /// <summary>
         /// FileUploadKTB control.
         /// </summary>
         /// <remarks>
@@ -904,6 +913,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.C2XFileUpload FileUploadKTB;
+
+        /// <summary>
+        /// CustomValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
 
         /// <summary>
         /// Div1 control.

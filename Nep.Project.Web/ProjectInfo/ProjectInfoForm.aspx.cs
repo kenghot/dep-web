@@ -264,68 +264,77 @@ namespace Nep.Project.Web.ProjectInfo
                 else
                 {
                     //ProjectBudgetForSecretaryControl.Visible = true;
-                }               
-              
+                }
+
 
                 if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ)
                 {
                     TabPanelAssessment.Visible = true;
-                    
+
                 }
                 //kenghot
                 //else if ((projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน) ||
                 //    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง) || 
                 //    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
                 //    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด))
-               else if ((projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_1_ชะลอการพิจารณา ) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา ) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด) 
-                    )
+                else if ((projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยคณะกรรมการกลั่นกรอง) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ไม่อนุมัติโดยอนุกรรมการกองทุนหรือจังหวัด) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_1_ชะลอการพิจารณา) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_4_1_ชะลอการพิจารณา) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยคณะกรรมการกลั่นกรอง) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกโดยอนุกรรมการกองทุนหรือจังหวัด) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยคณะกรรมการกลั่นกรอง) ||
+                     (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.อื่นๆ_โดยอนุกรรมการกองทุนหรือจังหวัด)
+                     )
                 {
                     TabPanelAssessment.Visible = true;
                     TabPanelProjectApproval.Visible = true;
-                   // TabPanelProcessed.Visible = true;
+                    // TabPanelProcessed.Visible = true;
 
                 }
                 else if ((projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
-                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))                  
+                    (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))
                 {
                     TabPanelAssessment.Visible = true;
                     TabPanelProjectApproval.Visible = true;
-                   // TabPanelProcessed.Visible = true;
+                    // TabPanelProcessed.Visible = true;
                     TabPanelContract.Visible = (isApproved);
                 }
-                else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) 
+                else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน)
+                {
+                    TabPanelAssessment.Visible = true;
+                    TabPanelProjectApproval.Visible = true;
+                    // TabPanelProcessed.Visible = true;
+                    TabPanelContract.Visible = true;
+                }
+                else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)
                 {
                     TabPanelAssessment.Visible = true;
                     TabPanelProjectApproval.Visible = true;
                     TabPanelProcessed.Visible = true;
-                    TabPanelContract.Visible = true;                    
+                    TabPanelContract.Visible = true;
                     TabPanelFollowup.Visible = true;
-                    
+
                     TabProsecute.Visible = true;
                     if (BudgetAmount.Value > 5000000)
                     {
                         TabPanelFollowUpProcess.Visible = true;
                     }
                 }
-                else if(projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา){
+                else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา)
+                {
                     TabPanelAssessment.Visible = true;
                     TabPanelProjectApproval.Visible = true;
                     TabPanelProcessed.Visible = true;
-                    TabPanelContract.Visible = true;   
-                }else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง)
+                    TabPanelContract.Visible = true;
+                }
+                else if (projectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง)
                 {
                     TabPanelAssessment.Visible = HasEvaluationInfo;
                     TabPanelProjectApproval.Visible = HasApprovalInfo;
-                    
+
                 }
             }
             else

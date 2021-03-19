@@ -2701,8 +2701,24 @@ namespace Nep.Project.Business
                             dataDBModel.CONTRACTDUEs.Add(newDue);
                             i++;
                         }
-                        
-                        
+                        DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
+                           ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน) ||
+                            (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว))).SingleOrDefault();
+                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
+
+                        if (genInfo != null)
+                        {
+                            dataDBModel.APPROVESTATUS = genInfo.ProjectApprovalStatusID;
+                            genInfo.ProjectApprovalStatusID = status.LOVID;
+                            genInfo.UpdatedBy = _user.UserName;
+                            genInfo.UpdatedByID = _user.UserID;
+                            genInfo.UpdatedDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            throw new Exception(Nep.Project.Resources.Error.ProjectApprovalStatusInvalid);
+                        }
+
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
@@ -2713,7 +2729,8 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
                             ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
                              (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))).SingleOrDefault();
-                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
+                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
+                        //DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
 
                         if (genInfo != null)
                         {
@@ -2758,7 +2775,7 @@ namespace Nep.Project.Business
                         }
                         _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "4", _user.UserID.Value, model.ipAddress));
                         _db.ProjectContracts.Add(dataDBModel);
-                        _db.SaveChanges();
+                        //_db.SaveChanges();
                     }
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
@@ -6779,7 +6796,7 @@ namespace Nep.Project.Business
                         projectFunctions.Add(Common.ProjectFunction.PrintBudget);
                     }
                 }
-                else if (param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)
+                else if (param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว || param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน)
                 {
                     if (param.IsReportedResult)
                     {

@@ -250,6 +250,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ไฟล์การโอนเงิน KTB.
+        /// </summary>
+        public static string Contract_FileKTB {
+            get {
+                return ResourceManager.GetString("Contract_FileKTB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to สัญญานี้ทำขึ้น ณ.
         /// </summary>
         public static string Contract_Location {
