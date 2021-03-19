@@ -76,7 +76,7 @@
                             <div class="form-group form-group-sm">
                                 <label class="col-sm-4 control-label"><%= Model.ProjectInfo_ProjectInfoNameTH %><span class="required"></span></label>
                                 <div class="col-sm-8">
-                                    <asp:TextBox ID="TextBoxProjectInfoNameTH" runat="server" CssClass="form-control" MaxLength="500"></asp:TextBox>
+                                    <asp:TextBox ID="TextBoxProjectInfoNameTH" runat="server" CssClass="form-control" MaxLength="300"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorProjectInfoNameTH" ControlToValidate="TextBoxProjectInfoNameTH" runat="server" 
                                     CssClass="error-text" SetFocusOnError="true"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_ProjectInfoNameTH) %>" 
