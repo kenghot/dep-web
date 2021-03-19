@@ -91,7 +91,7 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.Contract_Location %><span class="required"></span></label>
                         <div class="col-sm-10">
-                            <asp:TextBox ID="TextBoxContractLocation" runat="server" MaxLength="200" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxContractLocation" runat="server" MaxLength="70" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldTextBoxContractLocation" ControlToValidate="TextBoxContractLocation"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_Location) %>"
@@ -103,7 +103,7 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.ProjectInfo_AddressNo %><span class="required"></span></label>
                         <div class="col-sm-1">
-                            <asp:TextBox ID="TextBoxAddressNo" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxAddressNo" runat="server" CssClass="form-control" MaxLength="60"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorAddressNo" ControlToValidate="TextBoxAddressNo" runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
