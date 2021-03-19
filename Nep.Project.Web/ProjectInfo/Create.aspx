@@ -27,7 +27,7 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-3 control-label"><%= Model.ProjectInfo_ProjectInfoNameTH %><span class="required"></span></label>
                             <div class="col-sm-8">
-                                <nep:TextBox ID="TextBoxProjectInfoNameTH" runat="server" CssClass="form-control" MaxLength="500"></nep:TextBox>
+                                <nep:TextBox ID="TextBoxProjectInfoNameTH" runat="server" CssClass="form-control" MaxLength="300"></nep:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidatorProjectInfoNameTH" ControlToValidate="TextBoxProjectInfoNameTH" 
                                     runat="server" CssClass="error-text"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_ProjectInfoNameTH) %>" 
