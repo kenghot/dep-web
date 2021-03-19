@@ -137,6 +137,7 @@ namespace Nep.Project.Common
         public const String ApprovalStatus1 = "ApprovalStatus1";
         public const String ApprovalStatus2 = "ApprovalStatus2";
         public const String AttachmentType = "AttachmentType";
+        public const String Bank = "Bank";
         public const String BudgetType = "BudgetType";
         public const String DisabilityCommittee = "DisabilityCommittee";
         public const String DisabilityType = "DisabilityType";
@@ -152,7 +153,6 @@ namespace Nep.Project.Common
         public const String ReportTrackingType = "ReportTrackingType";
         public const String Section = "Section";
         public const String TargetGroup = "TargetGroup";
-        public const String Bank = "Bank";
     }
 
     public static class LOVCode
@@ -190,6 +190,16 @@ namespace Nep.Project.Common
             public const String PROJECT_REPORT = "7";
             public const String PRING_REPORT_TRACKING = "8";
             public const String PROJECT_INFORMATION = "9";
+        }
+
+        public static class Bank
+        {
+            public const String ธนาคารแห่งประเทศไทย = "001";
+            public const String ธนาคารกรุงเทพ_จำกัด__มหาชน = "002";
+            public const String ธนาคารกสิกรไทย_จำกัด__มหาชน = "004";
+            public const String ธนาคารเอบีเอ็น_แอมโร_เอ็น_วี = "005";
+            public const String ธนาคารกรุงไทย_จำกัด__มหาชน = "006";
+            public const String ธนาคารเจพีมอร์แกน_เชส = "008";
         }
 
         public static class Budgettype
@@ -299,6 +309,7 @@ namespace Nep.Project.Common
             public const String นาย = "1";
             public const String นาง = "2";
             public const String นางสาว = "3";
+            public const String อื่นๆ = "4";
         }
 
         public static class Projectapprovalstatus
@@ -313,6 +324,7 @@ namespace Nep.Project.Common
             public const String ขั้นตอนที่_4_1_ชะลอการพิจารณา = "15";
             public const String ขั้นตอนที่_5_1_ชะลอการพิจารณา = "16";
             public const String ยืนยันการปรับปรุง = "17";
+            public const String ขั้นตอน_6_1_รอโอนเงิน = "18";
             public const String ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน = "2";
             public const String ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด = "3";
             public const String ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง = "4";
@@ -351,6 +363,10 @@ namespace Nep.Project.Common
             public const String การติดตามประเมินผล = "10";
             public const String ส่งเสริมมาตราฐานองค์กร = "11";
             public const String ค่าตอบแทนล่ามภาษามือ = "12";
+            public const String ผลิตสื่อโฆษณา = "13";
+            public const String ประชุมอนุกรรมการ_ฯ_ประจำจังหวัด = "14";
+            public const String การเข้าสิทธิคนพิการ = "15";
+            public const String เงินอุดหนุนเพื่อช่วยเหลือคนพิการ = "16";
             public const String การฝึกอาชีพ = "2";
             public const String การส่งเสริมการมีงานทำ = "3";
             public const String การประชาสัมพันธ์ = "4";
