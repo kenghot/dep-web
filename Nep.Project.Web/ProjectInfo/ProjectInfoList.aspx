@@ -352,12 +352,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group form-group-sm">
-                                    <label for="<%=CheckConsiderCancel.ClientID %>" class="col-sm-5 control-label">ขอยกเลิกในช่วงระยะพิจารณาผล</label>
+                                    <label for="<%=CheckBoxWaitingTransferKTBStatus.ClientID %>" class="col-sm-2 control-label">รอโอนเงิน</label>                                    
+                                    <div class="col-sm-1 control-value">
+                                        <asp:CheckBox ID="CheckBoxWaitingTransferKTBStatus" runat="server" />
+                                    </div>
+                                    <label for="<%=CheckConsiderCancel.ClientID %>" class="col-sm-3 control-label">ขอยกเลิกในช่วงระยะพิจารณาผล</label>
                                     <div class="col-sm-1 control-value">
                                         <asp:CheckBox ID="CheckConsiderCancel" runat="server" />
                                     </div>
 
-                                    <label for="<%= CheckApproveCancel.ClientID %>" class="col-sm-5 control-label">ขอยกเลิกในกรณีอนุมัติโครงการแล้ว</label>
+                                    <label for="<%= CheckApproveCancel.ClientID %>" class="col-sm-3 control-label">ขอยกเลิกในกรณีอนุมัติโครงการแล้ว</label>
                                     <div class="col-sm-1 control-value">
                                         <asp:CheckBox ID="CheckApproveCancel" runat="server" />
                                     </div>

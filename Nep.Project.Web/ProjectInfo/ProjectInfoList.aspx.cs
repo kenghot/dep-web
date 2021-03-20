@@ -457,6 +457,17 @@ namespace Nep.Project.Web.ProjectInfo
                     Value = valueId
                 });
             }
+            //รอโอนเงิน //Beer
+            if (CheckBoxWaitingTransferKTBStatus.Checked)
+            {
+                Decimal.TryParse(CheckBoxWaitingTransferKTBStatus.Attributes["Value"], out valueId);
+                projAppStatusFields.Add(new ServiceModels.FilterDescriptor()
+                {
+                    Field = "ProjectApprovalStatusID",
+                    Operator = ServiceModels.FilterOperator.IsEqualTo,
+                    Value = valueId
+                });
+            }
             if (CheckConsiderCancel.Checked)
             {
                 Decimal.TryParse(CheckBoxCancelledProjectRequest.Attributes["Value"], out valueId);
@@ -870,7 +881,7 @@ namespace Nep.Project.Web.ProjectInfo
             CheckBoxCancelContractStatus.Checked = false;
             CheckBoxNotApprovalStatus.Checked = false;
             CheckBoxCancelledProjectRequest.Checked = false;
-
+            CheckBoxWaitingTransferKTBStatus.Checked = false;
             CheckBoxListTypeDisabilitys.ClearSelection();
             CheckBoxListStandardStrategics.ClearSelection();
             CheckBoxListApprovalProcess.ClearSelection();
@@ -1083,6 +1094,7 @@ namespace Nep.Project.Web.ProjectInfo
                 approvalProcessList = approvalProcessResult.Data;
                 ServiceModels.ListOfValue approvalStatusCancel = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา).FirstOrDefault();
                 ServiceModels.ListOfValue cancelledProjectRequestStatus = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง).FirstOrDefault();
+                ServiceModels.ListOfValue waitingTransferKTBStatus = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน).FirstOrDefault();
 
                 approvalProcessList = approvalProcessList.Where(x =>
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ) ||
@@ -1097,7 +1109,7 @@ namespace Nep.Project.Web.ProjectInfo
                 CheckBoxListApprovalProcess.DataBind();
                 CheckBoxCancelContractStatus.Attributes.Add("Value", approvalStatusCancel.LovID.ToString());
                 CheckBoxCancelledProjectRequest.Attributes.Add("Value", cancelledProjectRequestStatus.LovID.ToString());
-
+                CheckBoxWaitingTransferKTBStatus.Attributes.Add("Value", waitingTransferKTBStatus.LovID.ToString());
 
                 for (int i = 0; i < approvalProcessList.Count; i++)
                 {
