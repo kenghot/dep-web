@@ -997,13 +997,12 @@ namespace Nep.Project.Business
             ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
             try
             {
-                var q = (from e in _db.MT_ListOfValue
-                         where (e.LOVGroup == Common.LOVGroup.Bank)
-                         orderby e.OrderNo
+                var q = (from e in _db.MT_BANK
+                         orderby e.ORDERNO
                          select new ServiceModels.GenericDropDownListData()
                          {
-                             Text = e.LOVName,
-                             Value = e.LOVCode.ToString()
+                             Text = e.NAME_TH,
+                             Value = e.BANKCODE.ToString()
                          }).ToList();
 
                 result.Data = q;
