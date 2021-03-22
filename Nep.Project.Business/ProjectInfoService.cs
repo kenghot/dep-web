@@ -2775,7 +2775,7 @@ namespace Nep.Project.Business
                         }
                         _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "4", _user.UserID.Value, model.ipAddress));
                         _db.ProjectContracts.Add(dataDBModel);
-                        //_db.SaveChanges();
+                        _db.SaveChanges();
                     }
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
