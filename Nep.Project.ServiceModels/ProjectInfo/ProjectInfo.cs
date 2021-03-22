@@ -833,6 +833,10 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                 {
                     desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", "ส่งแก้ไขผลปฎิบัติงาน");
                 }
+                if (this.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน)
+                {
+                    desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", "รอโอนเงิน");
+                }
                 return desc;
             }
         }
