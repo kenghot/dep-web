@@ -492,10 +492,10 @@ namespace Nep.Project.Web.APIController
                     string txt = "";
                     txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
                     txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
-                    txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, ' ')}";
+                    txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, '0')}";
                     txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
                     txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{gen.ProjectPersonel.Email1.PadRight(40, ' ').Substring(0, 40)}";
-                    txt += $"{personelMobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}{"".PadRight(2, ' ')}\r\n";
+                    txt += $"{personelMobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}\r\n";
                     dataTxt.Append(txt);
                     
                     //excel
