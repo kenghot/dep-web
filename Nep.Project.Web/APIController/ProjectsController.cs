@@ -494,8 +494,8 @@ namespace Nep.Project.Web.APIController
                     txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
                     txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, '0')}";
                     txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
-                    txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{gen.ProjectPersonel.Email1.PadRight(40, ' ').Substring(0, 40)}";
-                    txt += $"{personelMobile1.Replace("-", string.Empty).PadRight(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}\r\n";
+                    txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{"".PadRight(40, ' ').Substring(0, 40)}";
+                    txt += $"{personelMobile1.Replace("-", string.Empty).PadLeft(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}"+ Environment.NewLine;
                     dataTxt.Append(txt);
                     
                     //excel
@@ -510,7 +510,7 @@ namespace Nep.Project.Web.APIController
                 }
 
                 var head = $"101{"1".PadLeft(6, '0').Substring(0, 6)}{senderBank.PadRight(3, ' ').Substring(0, 3)}{totRec.ToString().PadLeft(7, '0').Substring(0, 7)}";
-                   head += $"{(string.Format("{0:0.00}",totAmt).Replace(".", string.Empty)).PadLeft(19,'0').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,'0')}{"001".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}\r\n";
+                   head += $"{(string.Format("{0:0.00}",totAmt).Replace(".", string.Empty)).PadLeft(19,'0').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,'0')}{"001".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}"+Environment.NewLine;
                 dataTxt.Insert(0, head);
                 string strDT = $"{DateTime.Now:ddMMyyyyhhmmss}";
                 var txtSW = $"UPLD_SERVICE_NAME=KTB iPay Direct 04\r\n";
@@ -566,7 +566,7 @@ namespace Nep.Project.Web.APIController
                 {
                     zip.AlternateEncodingUsage = ZipOption.AsNecessary;
                     var DataExcel = memoryStreamExcel.ToArray();
-                    var DDR = Encoding.UTF8.GetBytes(dataTxt.ToString());
+                    var DDR = ToTIS620(dataTxt.ToString());
                     //var SW = Encoding.UTF8.GetBytes(txtSW); 
                     zip.AddEntry(txtFileName, DDR);
                     //zip.AddEntry($"SW_DDR{strDT}.txt", SW);
@@ -698,6 +698,32 @@ namespace Nep.Project.Web.APIController
                 result.SetExceptionMessage(ex);
             }
             return result;
+        }
+        public static byte[] ToTIS620(string utf8String)
+        {
+            List<byte> buffer = new List<byte>();
+            byte utf8Identifier = 224;
+            for (var i = 0; i < utf8String.Length; i++)
+            {
+                string utf8Char = utf8String.Substring(i, 1);
+                byte[] utf8CharBytes = Encoding.UTF8.GetBytes(utf8Char);
+                if (utf8CharBytes.Length > 1 && utf8CharBytes[0] == utf8Identifier)
+                {
+                    var tis620Char = (utf8CharBytes[2] & 0x3F);
+                    tis620Char |= ((utf8CharBytes[1] & 0x3F) << 6);
+                    tis620Char |= ((utf8CharBytes[0] & 0x0F) << 12);
+                    tis620Char -= (0x0E00 + 0xA0);
+                    byte tis620Byte = (byte)tis620Char;
+                    tis620Byte += 0xA0;
+                    tis620Byte += 0xA0;
+                    buffer.Add(tis620Byte);
+                }
+                else
+                {
+                    buffer.Add(utf8CharBytes[0]);
+                }
+            }
+            return buffer.ToArray();
         }
     }
 
