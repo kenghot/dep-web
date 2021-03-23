@@ -489,12 +489,13 @@ namespace Nep.Project.Web.APIController
                         return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
                     }
                     string personelMobile1 = (gen.ProjectPersonel.Mobile1 !=null) ? gen.ProjectPersonel.Mobile1 :"";
+                    string personelEmail1 = (gen.ProjectPersonel.Email1 != null) ? gen.ProjectPersonel.Email1 : "";
                     string txt = "";
                     txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
                     txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
                     txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, '0')}";
                     txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
-                    txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{"".PadRight(40, ' ').Substring(0, 40)}";
+                    txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{personelEmail1.PadRight(40, ' ').Substring(0, 40)}";
                     txt += $"{personelMobile1.Replace("-", string.Empty).PadLeft(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}"+ Environment.NewLine;
                     dataTxt.Append(txt);
                     
