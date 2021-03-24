@@ -137,7 +137,6 @@ namespace Nep.Project.Common
         public const String ApprovalStatus1 = "ApprovalStatus1";
         public const String ApprovalStatus2 = "ApprovalStatus2";
         public const String AttachmentType = "AttachmentType";
-        public const String Bank = "Bank";
         public const String BudgetType = "BudgetType";
         public const String DisabilityCommittee = "DisabilityCommittee";
         public const String DisabilityType = "DisabilityType";
@@ -190,16 +189,6 @@ namespace Nep.Project.Common
             public const String PROJECT_REPORT = "7";
             public const String PRING_REPORT_TRACKING = "8";
             public const String PROJECT_INFORMATION = "9";
-        }
-
-        public static class Bank
-        {
-            public const String ธนาคารแห่งประเทศไทย = "001";
-            public const String ธนาคารกรุงเทพ_จำกัด__มหาชน = "002";
-            public const String ธนาคารกสิกรไทย_จำกัด__มหาชน = "004";
-            public const String ธนาคารเอบีเอ็น_แอมโร_เอ็น_วี = "005";
-            public const String ธนาคารกรุงไทย_จำกัด__มหาชน = "006";
-            public const String ธนาคารเจพีมอร์แกน_เชส = "008";
         }
 
         public static class Budgettype
