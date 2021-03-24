@@ -160,6 +160,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 {
                                     ButtonUndoCancelContract.Visible = true;
                                 }
+                            }
+                            if (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer)
+                            {
+                                var gen = _service.GetDB().ProjectGeneralInfoes.Where(w => w.ProjectID == model.ProjectID).FirstOrDefault();
                                 if (gen != null && (gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน || gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) && result.Data.LastApproveStatus.HasValue)
                                 {
                                     myDivUploadFileKTB.Visible = true; //open div upload file ktb

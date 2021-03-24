@@ -440,7 +440,7 @@
             <asp:Label ID="lblCannotAdd" runat="server" ForeColor="#FF3300" Visible="false" Font-Size="Large" Text="ไม่สามารถยืนเสนอโครงการใหม่ได้เนื่องจากไม่ได้ส่งแบบรายผลการปฏิบัติงาน ดังรายการต่อไปนี้"></asp:Label>
             <div id="divHelpImg">
                 <div class="form-group form-group-sm">
-                    <div  class="col-sm-4" <%= (this.UserInfo.IsAdministrator) ? "" : "style='display:none'" %> >
+                    <div  class="col-sm-4" <%= (this.UserInfo.IsAdministrator || this.UserInfo.IsCenterOfficer || this.UserInfo.IsProvinceOfficer) ? "" : "style='display:none'" %> >
                         <button type="button" class="btn btn-default btn-sm" onclick="CreateEPayment()">สร้างไฟล์สำหรับ e-Payment</button>
                     </div>
                     <div class="col-sm-6">

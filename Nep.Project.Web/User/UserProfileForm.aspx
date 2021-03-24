@@ -55,6 +55,13 @@
                             ValidationGroup="Save" />
                     </div>
                     
+                     <label class="col-sm-2 control-label" for="TextBoxConfirmPwd">ยืนยันรหัส</span></label>
+                    <div class="col-sm-4">
+                        <asp:TextBox runat="server" ID="TextBoxConfirmPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
+                        <asp:CompareValidator runat="server" ID="Comp1" ControlToValidate="TextBoxConfirmPwd" ControlToCompare="TextBoxContractPwd" 
+                            Text="ยืนยันรหัสผ่านไม่ถูกต้อง" Font-Size="11px" ForeColor="Red"  ValidationGroup="Save"  />
+                    </div>
+
                     <label class="col-sm-2 control-label" id="LabelProvince" runat="server"><%= Nep.Project.Resources.Model.ProjectInfo_Province %><span class="required"></span></label>
                     <div class="col-sm-4" id="DivComboBoxProvince" runat="server">
                         <input id="DdlProvince" runat="server" style="width:100%; " />
@@ -64,16 +71,8 @@
                             Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>"
                             ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>"
                             />	
-                      
-
-                       
                     </div> 
-                    <label class="col-sm-2 control-label" for="TextBoxConfirmPwd">ยืนยันรหัส</span></label>
-                    <div class="col-sm-4">
-                        <asp:TextBox runat="server" ID="TextBoxConfirmPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
-                        <asp:CompareValidator runat="server" ID="Comp1" ControlToValidate="TextBoxConfirmPwd" ControlToCompare="TextBoxContractPwd" 
-                            Text="ยืนยันรหัสผ่านไม่ถูกต้อง" Font-Size="11px" ForeColor="Red"  ValidationGroup="Save"  />
-                    </div>
+                   
                 </div>               
 
                 <div class="form-group form-group-sm">

@@ -96,6 +96,24 @@ namespace Nep.Project.Web.User
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTxtLastName;
 
         /// <summary>
+        /// TextBoxConfirmPwd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxConfirmPwd;
+
+        /// <summary>
+        /// Comp1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator Comp1;
+
+        /// <summary>
         /// LabelProvince control.
         /// </summary>
         /// <remarks>
@@ -130,24 +148,6 @@ namespace Nep.Project.Web.User
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorProvince;
-
-        /// <summary>
-        /// TextBoxConfirmPwd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxConfirmPwd;
-
-        /// <summary>
-        /// Comp1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator Comp1;
 
         /// <summary>
         /// TxtEmail control.
