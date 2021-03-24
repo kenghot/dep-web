@@ -308,8 +308,8 @@ namespace Nep.Project.Web.User
                 user.ProvinceID = provinceID;
                 user.Position = TxtPosition.Text.Trim();
                 user.IsActive = (IsActive.Checked) ? "1" : "0";
-                user.ContractPWD = TextBoxContractPwd.Text;
-                if(DdlBank.SelectedValue.Trim()==""&& TextBoxBranchNo.Text.Trim()==""&& TextBoxAccountNo.Text.Trim()=="" && TextBoxAccountName.Text.Trim() == "")
+                user.ContractPWD = TextBoxContractPwd.Text;//Beer24032021
+                if (DdlBank.SelectedValue==""&& TextBoxBranchNo.Text.Trim()==""&& TextBoxAccountNo.Text.Trim()=="" && TextBoxAccountName.Text.Trim() == "")
                 {
                     user.ExtendData = null;
                 }
@@ -535,6 +535,7 @@ namespace Nep.Project.Web.User
 
             args.IsValid = (id > 0);
         }
+        //Beer24032021
         public List<ServiceModels.GenericDropDownListData> Bank_GetData()
         {
             DdlBank.Items.Clear();
@@ -563,28 +564,28 @@ namespace Nep.Project.Web.User
         //}
         protected void DdlBank_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedValue = DdlBank.SelectedValue;
-            int roleID = 0;
-            Int32.TryParse(selectedValue, out roleID);
-            if (roleID == AdmimistratorRoleID)
-            {
-                LabelProvince.Visible = false;
-                DivComboBoxProvince.Visible = false;
-                CustomValidatorProvince.Enabled = false;
-            }
-            else
-            {
-                LabelProvince.Visible = true;
-                DivComboBoxProvince.Visible = true;
-                CustomValidatorProvince.Enabled = true;
-            }
+            //string selectedValue = DdlBank.SelectedValue;
+            //int roleID = 0;
+            //Int32.TryParse(selectedValue, out roleID);
+            //if (roleID == AdmimistratorRoleID)
+            //{
+            //    LabelProvince.Visible = false;
+            //    DivComboBoxProvince.Visible = false;
+            //    CustomValidatorProvince.Enabled = false;
+            //}
+            //else
+            //{
+            //    LabelProvince.Visible = true;
+            //    DivComboBoxProvince.Visible = true;
+            //    CustomValidatorProvince.Enabled = true;
+            //}
 
 
-            if (roleID != ProvinceRoleID)
-            {
-                ProvinceSelectedIndex = 1;
-                DdlProvince.Value = "";
-            }
+            //if (roleID != ProvinceRoleID)
+            //{
+            //    ProvinceSelectedIndex = 1;
+            //    DdlProvince.Value = "";
+            //}
 
 
         }

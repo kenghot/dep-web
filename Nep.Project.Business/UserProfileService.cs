@@ -482,7 +482,7 @@ namespace Nep.Project.Business
         {
             var result = new ServiceModels.ReturnMessage();
             try
-            {
+            {//Beer24032021
                 bool chkAdministrator = IsAdministratorValid(userProfile);
                 if (chkAdministrator)
                 {
@@ -499,6 +499,10 @@ namespace Nep.Project.Business
                         if (userProfile.ExtendData != null)
                         {
                             dbUser.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(userProfile.ExtendData);
+                        }
+                        else
+                        {
+                            dbUser.EXTENDDATA = null;
                         }
                         dbUser.UpdatedBy = _loggedUser.UserName;
                         dbUser.UpdatedByID = _loggedUser.UserID;
