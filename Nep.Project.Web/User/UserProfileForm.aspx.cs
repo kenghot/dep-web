@@ -567,27 +567,6 @@ namespace Nep.Project.Web.User
             //string selectedValue = DdlBank.SelectedValue;
             //int roleID = 0;
             //Int32.TryParse(selectedValue, out roleID);
-            //if (roleID == AdmimistratorRoleID)
-            //{
-            //    LabelProvince.Visible = false;
-            //    DivComboBoxProvince.Visible = false;
-            //    CustomValidatorProvince.Enabled = false;
-            //}
-            //else
-            //{
-            //    LabelProvince.Visible = true;
-            //    DivComboBoxProvince.Visible = true;
-            //    CustomValidatorProvince.Enabled = true;
-            //}
-
-
-            //if (roleID != ProvinceRoleID)
-            //{
-            //    ProvinceSelectedIndex = 1;
-            //    DdlProvince.Value = "";
-            //}
-
-
         }
     }
 }
