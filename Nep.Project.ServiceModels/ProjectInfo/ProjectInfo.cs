@@ -2330,7 +2330,8 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "อาสาสมัครประชุมหน้าที่ประสานงาน", Value = "3" });
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "เจ้าหน้าที่โครงการ", Value = "4" });
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "กลุ่มเป้าหมายอื่นๆ ", Value = "5" });
-                
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "ล่ามภาษามือ", Value = "6" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "ผู้ช่วยเหลือคนพิการเฉพาะกิจ", Value = "7" });
                 }
                 return  _isCrippleList;
             }
