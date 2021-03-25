@@ -58,6 +58,8 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string description { get; set; }
         public int projects { get; set; }
         public decimal amount { get; set; }
+        public string amountString { get; set; }
+
     }
     public class SummaryData
     {

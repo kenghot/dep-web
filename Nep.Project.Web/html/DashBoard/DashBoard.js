@@ -162,7 +162,7 @@ Vue.component('group-chart', {
                 { text: 'สี', value: 'color' },
                 { text: 'รายละเอียด', value: 'description' },
                 { text: 'โครงการ', value: 'projects' },
-                { text: 'จำนวนเงิน', value: 'amount' }
+                { text: 'จำนวนเงิน', value: 'amountString' }
             ],
         }
     },
