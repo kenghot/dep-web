@@ -149,9 +149,40 @@ Vue.component('bar-chart', {
             this.$refs.polar.renderChart(this.chartdata, this.options)
         }
     },
-
+    //Beer03262021 ปรับ Dashboard จำนวนเงินให้มีลูกน้ำ
     mounted() {
-        this.renderChart(this.chartdata, this.options)
+        this.renderChart(this.chartdata, {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { //hides the legend
+                display: false,
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var value = data.datasets[0].data[tooltipItem.index];
+                        value = value.toString();
+                        value = value.split(/(?=(?:...)*$)/);
+                        value = value.join(',');
+                        return value;
+                    }
+                } // end callbacks:
+            },
+            scales: { //hides the y axis
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function (value, index, values) {
+                            // Convert the number to a string and splite the string every 3 charaters from the end
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+                            value = value.join(',');
+                            return value;
+                        }
+                    }
+                }]
+            }
+        })
     }
 })
 Vue.component('group-chart', {
