@@ -166,6 +166,7 @@ namespace Nep.Project.Web.APIController
                                 BudgetValue = gen.BudgetValue,
                                 BudgetReviseValue = gen.BudgetReviseValue,
                                 OrganizationTypeCode = org.OrganizationType.OrganizationTypeCode,
+                                OrganizationToBeUnder = org.OrganizationType.ToBeUnder,
                                 OrganizationType = org.OrganizationType.OrganizationType,
                                 ProjectTypeCode = inf.ProjectType.LOVCode,
                                 ProjectTypeName = inf.ProjectType.LOVName,
@@ -211,11 +212,26 @@ namespace Nep.Project.Web.APIController
 
                     if (proj.IsApproved)
                     {
-                        collectLegned(result.Data.orgTypeData.legendDatas, new LegendData
+                        //ปรับ Dashboard ประเภทองค์กร เอามาโชว์แค่ หน่วยงานภาครัฐ กับ องค์กรภาคเอกชน beer03262021
+                        string Organization ;
+                        if (proj.OrganizationToBeUnder=="1")
                         {
+                            Organization = "หน่วยงานภาครัฐ";
+                        }else if (proj.OrganizationToBeUnder == "2")
+                        {
+                            Organization = "องค์กรภาคเอกชน";
+                        }
+                        else
+                        {
+                            Organization = proj.OrganizationType;
+                        }
+
+                        collectLegned(result.Data.orgTypeData.legendDatas, new LegendData
+                        {//beer03262021
                             amount = proj.BudgetReviseValue.HasValue ? proj.BudgetReviseValue.Value : 0,
-                            description = proj.OrganizationType,
-                            id = proj.OrganizationTypeCode
+                            description = Organization,
+                            //description = proj.OrganizationType, //old
+                            id = proj.OrganizationToBeUnder
                         });
                         collectLegned(result.Data.projectTypeData.legendDatas, new LegendData
                         {
