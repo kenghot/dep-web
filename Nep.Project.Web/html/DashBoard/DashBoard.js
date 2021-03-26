@@ -221,6 +221,7 @@ var VueDashBoard = new Vue({
     data() {
         return {
             dialog: false,
+            search: '',
             projectDialog: {
                 title: "",
                 items: [],
