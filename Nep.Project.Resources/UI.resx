@@ -366,7 +366,7 @@
     <value>ผู้ให้เงินสนับสนุน</value>
   </data>
   <data name="TitleSupportReciever" xml:space="preserve">
-    <value>ผู้รับเงินอุดหนุน</value>
+    <value>ผู้รับเงินสนับสนุน</value>
   </data>
   <data name="TabTitleProjectApproval" xml:space="preserve">
     <value>ผลการอนุมัติ</value>
