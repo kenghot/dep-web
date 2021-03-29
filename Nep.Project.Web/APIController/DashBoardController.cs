@@ -301,7 +301,7 @@ namespace Nep.Project.Web.APIController
 
             }
             s.amount += data.amount;
-            s.amountString = s.amount.ToString("#,##0");
+            s.amountString = s.amount.ToString("#,##0.##");
             s.projects++;
         }
         private Random r = new Random();
