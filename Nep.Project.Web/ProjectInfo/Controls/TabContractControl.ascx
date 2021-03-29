@@ -445,7 +445,7 @@
                 </div>
             </div>
             <div class="panel-heading">
-                <h3 class="panel-title">ข้อมูลการจ่ายเงินอุดหนุน</h3>
+                <h3 class="panel-title">ข้อมูลการจ่ายเงินสนับสนุน</h3>
             </div>
             <span class="form-control-desc"><b>เอกสารแนบท้ายสัญญาต่อไปนี้ ให้ถือว่าเป็นส่วนหนึ่งของสัญญานี้</b></span>
 
