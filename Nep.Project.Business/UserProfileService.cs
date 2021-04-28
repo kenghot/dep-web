@@ -996,30 +996,6 @@ namespace Nep.Project.Business
             }
             return chkDup;
         }
-        public ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> ListBank()
-        {
-            ServiceModels.ReturnQueryData<ServiceModels.GenericDropDownListData> result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
-            try
-            {
-                var q = (from e in _db.MT_BANK
-                         orderby e.ORDERNO
-                         select new ServiceModels.GenericDropDownListData()
-                         {
-                             Text = e.NAME_TH,
-                             Value = e.BANKCODE.ToString()
-                         }).ToList();
-
-                result.Data = q;
-                result.IsCompleted = true;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.IsCompleted = false;
-                result.Message.Add(ex.Message);
-                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
-                return result;
-            }
-        }
+        
     }
 }
