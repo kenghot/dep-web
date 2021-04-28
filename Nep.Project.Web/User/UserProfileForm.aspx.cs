@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Nep.Project.Resources;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Nep.Project.Web.User
 {
@@ -134,8 +139,24 @@ namespace Nep.Project.Web.User
                 Page.Title = "สร้างผู้ใช้งาน";
             }
 
+            if (!this.IsPostBack)
+            {
+                string jsonFilePath = Server.MapPath("~/Content/Files/bank.json");
+                string json = File.ReadAllText(jsonFilePath);
+                object result = JsonConvert.DeserializeObject<object>(json.Replace("{\"result\":", "").Replace("}", ""));
+                JToken[] jArray = ((result as JArray) as JToken).ToArray();
+                List<ListItem> items = new List<ListItem>();
+                items.Add(new ListItem { Text = UI.DropdownPleaseSelect, Value = "" });
+                for (int i = 1; i < jArray.Length; i++)
+                {
+                    items.Add(new ListItem { Text = jArray[i][1].ToString().Replace("\"", ""), Value = jArray[i][2].ToString().Replace("\"", "") });
+                }
+                DdlBank.DataSource = items;
+                DdlBank.DataTextField = "Text";
+                DdlBank.DataValueField = "Value";
+                DdlBank.DataBind();
+            }
 
-            
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -534,39 +555,6 @@ namespace Nep.Project.Web.User
             Int32.TryParse(value, out id);
 
             args.IsValid = (id > 0);
-        }
-        //Beer24032021
-        public List<ServiceModels.GenericDropDownListData> Bank_GetData()
-        {
-            DdlBank.Items.Clear();
-
-            var listRole = _service.ListBank();
-
-            List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
-
-            if (listRole.IsCompleted)
-            {
-                list = listRole.Data;
-                list.Insert(0, new ServiceModels.GenericDropDownListData() { Text = UI.DropdownPleaseSelect, Value = "" });
-            }
-            else
-            {
-                ShowErrorMessage(listRole.Message);
-            }
-
-            return list;
-
-        }
-        //protected void Bank_ServerValidate(object source, ServerValidateEventArgs args)
-        //{
-        //    int selectedIndex = DdlBank.SelectedIndex;
-        //    args.IsValid = (selectedIndex < 0) ? false : true;
-        //}
-        protected void DdlBank_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //string selectedValue = DdlBank.SelectedValue;
-            //int roleID = 0;
-            //Int32.TryParse(selectedValue, out roleID);
         }
     }
 }
