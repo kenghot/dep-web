@@ -557,6 +557,7 @@
     <Content Include="Content\Files\nep-contract-center.pdf" />
     <Content Include="Content\Files\nep-contract-province.pdf" />
     <Content Include="Content\Files\nep-contract-research.pdf" />
+    <Content Include="Content\Files\bank.json" />
     <None Include="Web References\NepServiceWS\NepService.disco" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.common.js" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.esm.js" />
