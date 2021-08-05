@@ -214,7 +214,7 @@
     <value>ไม่พบข้อมูลการสมัคร</value>
   </data>
   <data name="RequiredAttachment" xml:space="preserve">
-    <value>กรุณาแนนไฟล์  {0}</value>
+    <value>กรุณาแนบไฟล์  {0}</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>กรุณาระบุข้อมูล {0}</value>
