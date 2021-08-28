@@ -47,6 +47,7 @@ namespace Nep.Project.Business
         private const String REPORT_RESULT = "REPORT_RESULT";
         private const String CONTRACT_AUTHORIZEDOC = "CONTRACT_AUTHORIZEDOC";
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
+        private const String CONTRACT_SIGNED = "CONTRACT_SIGNED";
         private const String CONTRACT_KTB = "CONTRACT_KTB";
 
 
@@ -2650,6 +2651,7 @@ namespace Nep.Project.Business
                 //Beer28082021
                 data.AuthorizeDocAttachmentMulti = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC, id);
                 data.SupportAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT, id);
+                data.SignedContractAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SIGNED, id);
                 data.KTBAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_KTB, id);
                 result.Data = data;
                 result.IsCompleted = true;
@@ -2786,6 +2788,7 @@ namespace Nep.Project.Business
                     }
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedAuthorizeDocAttachmentMulti, model.AddedAuthorizeDocAttachmentMulti, TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSignedContractAttachments, model.AddedSignedContractAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SIGNED);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
 
                     result.Data = MappDBProjectContractToTabProjectContract(dataDBModel);

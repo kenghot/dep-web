@@ -658,6 +658,26 @@
                     </div>
                 </div>
             </div>
+            <div class="panel panel-default"  id="Div2" runat="server">
+                 <div class="panel-heading">
+                <h3 class="panel-title">เอกสารแนบคู่ฉบับสัญญาที่ลงนามแล้ว</h3>
+                </div>
+                <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">เอกสารแนบคู่ฉบับสัญญาที่ลงนามแล้ว</span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="C2XFileUploadSignedContract" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                          <%--  <asp:CustomValidator ID="CustomValidator2" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="C2XFileUploadSignedContract"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
             <div class="panel panel-default"  id="myDivUploadFileKTB" runat="server">
                  <div class="panel-heading">
                 <h3 class="panel-title">ผลการโอนเงินผ่านระบบ KTB Corporate Online </h3>

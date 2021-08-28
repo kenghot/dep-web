@@ -264,6 +264,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             FileUploadSupport.ExistingFiles = SupportFiles;
                             FileUploadSupport.DataBind();
 
+                            //Beer28082021
+                            List<ServiceModels.KendoAttachment> SignedContractFiles = model.SignedContractAttachments;
+                            C2XFileUploadSignedContract.ClearChanges();
+                            C2XFileUploadSignedContract.ExistingFiles = SignedContractFiles;
+                            C2XFileUploadSignedContract.DataBind();
+
                             List<ServiceModels.KendoAttachment> KTBFiles = model.KTBAttachments;
                             FileUploadKTB.ClearChanges();
                             FileUploadKTB.ExistingFiles = KTBFiles;
@@ -515,6 +521,13 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             result.AddedSupportAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
             result.RemovedSupportAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+            //Beer28082021
+            addedFiles = C2XFileUploadSignedContract.AddedFiles;
+            removedFiles = C2XFileUploadSignedContract.RemovedFiles;
+
+            result.AddedSignedContractAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedSignedContractAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
 
             addedFiles = FileUploadKTB.AddedFiles;
             removedFiles = FileUploadKTB.RemovedFiles;
