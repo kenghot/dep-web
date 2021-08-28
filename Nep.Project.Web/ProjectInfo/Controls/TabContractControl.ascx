@@ -352,9 +352,15 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-8 control-label"><%= Model.Contract_AuthorizeDocID %><span class="required"></span></label>
                             <div class="col-sm-4">
-                                <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDoc" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
-                                <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDoc" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" visible="false" />
+                               <%-- <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
                                     OnServerValidate="CustomRequiredAuthorize_ServerValidate" ControlToValidate="C2XFileUploadAuthorizeDoc"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                                  <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDocMulti" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
+                                 <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredAuthorize_ServerValidate" ControlToValidate="C2XFileUploadAuthorizeDocMulti"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
                                     ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
                                     ValidationGroup="SaveContract" />

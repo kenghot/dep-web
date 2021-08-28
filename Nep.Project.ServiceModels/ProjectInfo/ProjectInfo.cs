@@ -1948,6 +1948,10 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public ServiceModels.KendoAttachment AddedAuthorizeDocAttachment { get; set; }
         public ServiceModels.KendoAttachment RemovedAuthorizeDocAttachment { get; set; }
 
+        public List<ServiceModels.KendoAttachment> AuthorizeDocAttachmentMulti { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedAuthorizeDocAttachmentMulti { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedAuthorizeDocAttachmentMulti { get; set; }
+
         //Budget
         public Decimal? RequestBudgetAmount { get; set; }
         public Decimal? ReviseBudgetAmount { get; set; }

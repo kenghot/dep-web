@@ -600,6 +600,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadAuthorizeDoc;
 
         /// <summary>
+        /// C2XFileUploadAuthorizeDocMulti control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadAuthorizeDocMulti;
+
+        /// <summary>
         /// CustomRequiredAuthorizeDoc control.
         /// </summary>
         /// <remarks>

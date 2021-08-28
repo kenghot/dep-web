@@ -334,11 +334,22 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 List<ServiceModels.KendoAttachment> attach = new List<KendoAttachment>();
                                 if (model.AuthorizeDocID.HasValue)
                                 {
+                                    //C2XFileUploadAuthorizeDoc.Visible = true;
                                     attach.Add(model.AuthorizeDocAttachment);
                                 }
                                 C2XFileUploadAuthorizeDoc.ClearChanges();
                                 C2XFileUploadAuthorizeDoc.ExistingFiles = attach;
                                 C2XFileUploadAuthorizeDoc.DataBind();
+                                //beer28082021
+                                List<ServiceModels.KendoAttachment> AuthorizeDocMultis = model.AuthorizeDocAttachmentMulti;
+                                if (model.AuthorizeDocID.HasValue)
+                                {
+                                    AuthorizeDocMultis.Add(model.AuthorizeDocAttachment);
+                                }
+                                C2XFileUploadAuthorizeDocMulti.ClearChanges();
+                                C2XFileUploadAuthorizeDocMulti.ExistingFiles = AuthorizeDocMultis;
+                                C2XFileUploadAuthorizeDocMulti.DataBind();
+
                             }
                             else
                             {
@@ -487,6 +498,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             IEnumerable<ServiceModels.KendoAttachment> removedFiles = C2XFileUploadAuthorizeDoc.RemovedFiles;
             result.AddedAuthorizeDocAttachment = (addedFiles.Count() > 0) ? addedFiles.First() : null;
             result.RemovedAuthorizeDocAttachment = (removedFiles.Count() > 0) ? addedFiles.First() : null;
+            //Beer28082021 multi file
+            addedFiles = C2XFileUploadAuthorizeDocMulti.AddedFiles;
+            removedFiles = C2XFileUploadAuthorizeDocMulti.RemovedFiles;
+
+            result.AddedAuthorizeDocAttachmentMulti = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedAuthorizeDocAttachmentMulti = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
             //-----------------------------//
             result.Remark = TextBoxRemark.Text.Trim();
             result.ContractReceiveName = contractReceiveName;

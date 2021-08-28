@@ -45,6 +45,7 @@ namespace Nep.Project.Business
         private const String REPORT_ACTIVITY = "REPORT_ACTIVITY";
         private const String REPORT_PARTICIPANT = "REPORT_PARTICIPANT";
         private const String REPORT_RESULT = "REPORT_RESULT";
+        private const String CONTRACT_AUTHORIZEDOC = "CONTRACT_AUTHORIZEDOC";
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
         private const String CONTRACT_KTB = "CONTRACT_KTB";
 
@@ -2645,7 +2646,9 @@ namespace Nep.Project.Business
                         }
                     }
                 }
-                var att = new Business.AttachmentService(_db);
+               var att = new Business.AttachmentService(_db);
+                //Beer28082021
+                data.AuthorizeDocAttachmentMulti = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC, id);
                 data.SupportAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT, id);
                 data.KTBAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_KTB, id);
                 result.Data = data;
@@ -2706,10 +2709,10 @@ namespace Nep.Project.Business
                             (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว))).SingleOrDefault();
 
                         DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
-                        if (model.AddedKTBAttachments == null)
-                        {
-                            status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
-                        }
+                        //if (model.AddedKTBAttachments == null)
+                        //{
+                        //    status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
+                        //}
                         if (genInfo != null)
                         {
                             dataDBModel.APPROVESTATUS = genInfo.ProjectApprovalStatusID;
@@ -2733,8 +2736,8 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
                             ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
                              (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))).SingleOrDefault();
-                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
-                        //DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
+                        //DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
+                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
 
                         if (genInfo != null)
                         {
@@ -2781,6 +2784,7 @@ namespace Nep.Project.Business
                         _db.ProjectContracts.Add(dataDBModel);
                         _db.SaveChanges();
                     }
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedAuthorizeDocAttachmentMulti, model.AddedAuthorizeDocAttachmentMulti, TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
 
