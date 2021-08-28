@@ -234,12 +234,37 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefProsition %><span class="required"></span></label>
                         <div class="col-sm-4">
-                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="300" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorRefPosition" ControlToValidate="TextBoxRefPosition"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
                                 ValidationGroup="SaveContract" />
+                        </div>
+
+                    </div
+                       <div class="form-group form-group-sm">
+                        <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine2 %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxRefPositionLine2" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
+                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="TextBoxRefPosition"
+                                runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ValidationGroup="SaveContract" />--%>
+                        </div>
+
+                    </div>
+                    <br />
+                       <div class="form-group form-group-sm">
+                        <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine3 %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxRefPositionLine3" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
+                           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBoxRefPosition"
+                                runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ValidationGroup="SaveContract" />--%>
                         </div>
 
                     </div>

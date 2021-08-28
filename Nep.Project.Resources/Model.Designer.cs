@@ -232,6 +232,24 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ตำแหน่ง บรรทัดที่ 2.
+        /// </summary>
+        public static string Contract_ContractRefPositionLine2 {
+            get {
+                return ResourceManager.GetString("Contract_ContractRefPositionLine2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ตำแหน่ง บรรทัดที่ 3.
+        /// </summary>
+        public static string Contract_ContractRefPositionLine3 {
+            get {
+                return ResourceManager.GetString("Contract_ContractRefPositionLine3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ตำแหน่ง.
         /// </summary>
         public static string Contract_ContractRefProsition {

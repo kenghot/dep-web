@@ -1982,6 +1982,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public List<ServiceModels.KendoAttachment> KTBAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> AddedKTBAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> RemovedKTBAttachments { get; set; }
+
     }
     public class ContractDue
     {
@@ -2022,6 +2023,11 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         /// </summary>
         public Address AddressAuth { get; set; }
         public string ReferenceNo { get; set; }
+
+        //ตำแหน่งผู้ให้เงินสนับสนุน
+        //public string DirectorPositionLine1 { get; set; }
+        public string DirectorPositionLine2 { get; set; }
+        public string DirectorPositionLine3 { get; set; }
     }
     public class Contact
     {

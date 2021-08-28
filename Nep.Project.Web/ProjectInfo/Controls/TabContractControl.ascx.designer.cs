@@ -393,6 +393,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorRefPosition;
 
         /// <summary>
+        /// TextBoxRefPositionLine2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRefPositionLine2;
+
+        /// <summary>
+        /// TextBoxRefPositionLine3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRefPositionLine3;
+
+        /// <summary>
         /// ContractRefNoBlock control.
         /// </summary>
         /// <remarks>

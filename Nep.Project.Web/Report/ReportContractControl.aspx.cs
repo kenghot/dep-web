@@ -252,6 +252,10 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 465, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 440, 0);
+            //Beer28082021 edit
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine2, 330, 440, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine3, 330, 430, 0);
+
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 375, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 355, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 290, 0);
@@ -347,6 +351,10 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 475, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 450, 0);
+            //Beer28082021 edit
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine2, 330, 440, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine3, 330, 430, 0);
+
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 385, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 365, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 300, 0);
@@ -435,6 +443,10 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 338, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 315, 0);
+            //Beer28082021 edit
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine2, 330, 440, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine3, 330, 430, 0);
+
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 250, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 228, 0);
             pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 165, 0);

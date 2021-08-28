@@ -233,6 +233,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 //DatePickerMeeting.SelectedDate = model.ExtendData.MeetingDate;
                                 //TextBoxMeetingOrder.Text = model.ExtendData.MeetingOrder.ToString();
                                 TextBoxReferenceNo.Text = model.ExtendData.ReferenceNo;
+                                TextBoxRefPositionLine2.Text= model.ExtendData.DirectorPositionLine2;
+                                TextBoxRefPositionLine3.Text= model.ExtendData.DirectorPositionLine3;
                                 if (model.ExtendData.AddressAt != null)
                                 {
                                     var data = model.ExtendData.AddressAt;
@@ -449,6 +451,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             string directorName = TextBoxRefFirstName.Text.Trim();
             string directorSurName = TextBoxRefLastName.Text.Trim();
             string directorPosition = TextBoxRefPosition.Text.Trim();
+
             string attorneyNo = TextBoxRefNo1.Text.Trim();
                         
             string attorneyYear = (DatePickerRefNo2.SelectedDate.HasValue) ? ((DateTime)DatePickerRefNo2.SelectedDate).Year.ToString() : "";
@@ -566,6 +569,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //result.ExtendData.MeetingDate = DatePickerMeeting.SelectedDate.Value;
             //result.ExtendData.MeetingOrder = int.Parse(TextBoxMeetingOrder.Text);
             result.ExtendData.ReferenceNo = TextBoxReferenceNo.Text.Trim() ;
+            //Beer28082021
+            result.ExtendData.DirectorPositionLine2 = TextBoxRefPositionLine2.Text.Trim();
+            result.ExtendData.DirectorPositionLine3 = TextBoxRefPositionLine3.Text.Trim();
+
             var ad = new ServiceModels.ProjectInfo.Address();
             result.ExtendData.AddressAt = ad;
             ad.AddressNo = TextBoxAddressNo.Text.Trim();
