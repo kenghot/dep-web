@@ -35,7 +35,7 @@ namespace Nep.Project.Business
 
             using (var tran = _db.Database.BeginTransaction())
             {
-                var date = DateTime.Now.AddDays(-3);
+                var date = DateTime.Now.AddDays(-15);
 
                 var chkDup = CheckDupUsername(registerEntry.Email);
                 //kenghot
@@ -176,7 +176,7 @@ namespace Nep.Project.Business
 
         //    using (var tran = _db.Database.BeginTransaction())
         //    {
-        //        var date = DateTime.Now.AddDays(-3);
+        //        var date = DateTime.Now.AddDays(-15);
 
         //        var chkDup = CheckDupUsername(registerEntry.Email);
         //        //kenghot
@@ -398,7 +398,7 @@ namespace Nep.Project.Business
         public ReturnObject<RegisterEntry> GetRegistryUser(int id, String activationCode)
         {
             var result = new ReturnObject<RegisterEntry>();
-            var date = DateTime.Now.AddDays(-3);
+            var date = DateTime.Now.AddDays(-15);
             var data = _db.UserRegisterEntries
                 .Where(x => x.ActivationCode == activationCode && x.EntryID == id)
                 .Select(x => new RegisterEntry()
@@ -432,7 +432,7 @@ namespace Nep.Project.Business
             }
             else
             {
-                //External user ต้องยืนยันภายใน 3 วันหลังจากสมัคร
+                //External user ต้องยืนยันภายใน  วันหลังจากสมัคร
                 if (((data.OrganizationID.HasValue) && (data.RegisterDate > date) && (data.RegisteredUserID == null)) || 
                     (data.OrgApprovalDate.HasValue && (((DateTime)data.OrgApprovalDate) > date)))
                 {
@@ -452,7 +452,7 @@ namespace Nep.Project.Business
                 }
                 else if ((data.OrganizationID == null) && (data.RegisteredUserID.HasValue))
                 {
-                    //Interanal user ไม่ต้อง validate ให้ยืนยันภายใน 3 วันหลังจากสมัคร
+                    //Interanal user ไม่ต้อง validate ให้ยืนยันภายใน 15 วันหลังจากสมัคร
 
                     DBModels.Model.SC_User scUser = _db.SC_User.Where(x => (x.Email == data.Email) && (x.Password == null) && (x.IsDelete == "0")).FirstOrDefault();
                     if ((scUser != null) && (scUser.IsActive == Common.Constants.BOOLEAN_TRUE))
@@ -619,7 +619,7 @@ namespace Nep.Project.Business
 
                 using (var tran = _db.Database.BeginTransaction())
                 {
-                    var date = DateTime.Now.AddDays(-3);
+                    var date = DateTime.Now.AddDays(-15);
                                        
                     var chkDup = CheckDupUsername(registerEntry.EmailUser);
 
@@ -1161,7 +1161,7 @@ namespace Nep.Project.Business
 
         private bool CheckDupUsername(String emailUser)
         {
-            var date = DateTime.Now.AddDays(-3);
+            var date = DateTime.Now.AddDays(-15);
 
             var chkUserRegister = _db.UserRegisterEntries.Where(x => (x.Email == emailUser) && (x.RegisteredUserID == null)).OrderByDescending(or => or.RegisterDate).FirstOrDefault();
             var chkDup = (from e in _db.SC_User
