@@ -59,19 +59,6 @@
           <Property Name="PATHNAME" Type="varchar2" MaxLength="1000" Nullable="false" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" />
         </EntityType>
-        <EntityType Name="MT_BANK">
-          <Key>
-            <PropertyRef Name="BANKCODE" />
-          </Key>
-          <Property Name="BANKCODE" Type="varchar2" MaxLength="20" Nullable="false" />
-          <Property Name="NAME_TH" Type="varchar2" MaxLength="255" Nullable="false" />
-          <Property Name="NAME_EN" Type="varchar2" MaxLength="255" />
-          <Property Name="ORDERNO" Type="varchar2" MaxLength="20" Nullable="false" />
-          <Property Name="CREATEDBY" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="CREATEDDATE" Type="timestamp" Precision="6" Nullable="false" />
-          <Property Name="UPDATEBY" Type="varchar2" MaxLength="50" />
-          <Property Name="UPDATEDATE" Type="timestamp" Precision="6" />
-        </EntityType>
         <EntityType Name="MT_DISTRICT">
           <Key>
             <PropertyRef Name="DISTRICTID" />
@@ -676,6 +663,7 @@
           <Property Name="TOTALDAY" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="CREATEDBYID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="PROJECTOPERATIONADDRESS">
           <Key>
@@ -2164,7 +2152,6 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <EntitySet Name="K_MT_POSITION" EntityType="Self.K_MT_POSITION" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="LOG_ACCESS" EntityType="Self.LOG_ACCESS" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_ATTACHMENT" EntityType="Self.MT_ATTACHMENT" Schema="NEP_APP02" store:Type="Tables" />
-          <EntitySet Name="MT_BANK" EntityType="Self.MT_BANK" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_DISTRICT" EntityType="Self.MT_DISTRICT" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_LISTOFVALUE" EntityType="Self.MT_LISTOFVALUE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_ORGANIZATION" EntityType="Self.MT_ORGANIZATION" Schema="NEP_APP02" store:Type="Tables" />
@@ -3230,6 +3217,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="TotalDay" Type="Decimal" Nullable="false" />
           <Property Name="CreatedByID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectPersonel">
           <Key>
@@ -4234,7 +4222,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="ProjectContract" EntitySet="ProjectContracts" />
             <End Role="CONTRACTDUE" EntitySet="CONTRACTDUEs" />
           </AssociationSet>
-          <EntitySet Name="MT_BANK" EntityType="Model.MT_BANK" />
         </EntityContainer>
         <EntityType Name="MT_OrganizationParameter">
           <Key>
@@ -5265,19 +5252,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="MT_BANK">
-          <Key>
-            <PropertyRef Name="BANKCODE" />
-          </Key>
-          <Property Name="BANKCODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NAME_TH" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NAME_EN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ORDERNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CREATEDBY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="6" />
-          <Property Name="UPDATEBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UPDATEDATE" Type="DateTime" Precision="6" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5754,6 +5728,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectOperations">
             <EntityTypeMapping TypeName="Model.ProjectOperation">
               <MappingFragment StoreEntitySet="PROJECTOPERATION">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />
                 <ScalarProperty Name="CreatedByID" ColumnName="CREATEDBYID" />
                 <ScalarProperty Name="TotalDay" ColumnName="TOTALDAY" />
@@ -6396,20 +6371,6 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
                 <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
                 <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
                 <ScalarProperty Name="DUEID" ColumnName="DUEID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MT_BANK">
-            <EntityTypeMapping TypeName="Model.MT_BANK">
-              <MappingFragment StoreEntitySet="MT_BANK">
-                <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
-                <ScalarProperty Name="UPDATEBY" ColumnName="UPDATEBY" />
-                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
-                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
-                <ScalarProperty Name="ORDERNO" ColumnName="ORDERNO" />
-                <ScalarProperty Name="NAME_EN" ColumnName="NAME_EN" />
-                <ScalarProperty Name="NAME_TH" ColumnName="NAME_TH" />
-                <ScalarProperty Name="BANKCODE" ColumnName="BANKCODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

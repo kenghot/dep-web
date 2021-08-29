@@ -1686,6 +1686,7 @@ namespace Nep.Project.Business
                                 TotalDay = (pro.ProjectOperation != null) ? pro.ProjectOperation.TotalDay : (decimal?)null,
                                 TimeDesc = (pro.ProjectOperation != null) ? pro.ProjectOperation.TimeDesc : null,
                                 Method = (pro.ProjectOperation != null) ? pro.ProjectOperation.Method : null,
+                                ExtendJson = (pro.ProjectOperation != null) ?  pro.ProjectOperation.EXTENDDATA : null,
                                 CreatorOrganizationID = _db.SC_User.Where(users => (users.UserID == pro.CreatedByID) && (users.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                 ProjectProvinceID = pro.ProvinceID,
                                 OrgProjectProvinceID = _db.MT_Organization.Where(org => org.OrganizationID == pro.OrganizationID).Select(orgr => orgr.ProvinceID).FirstOrDefault()
@@ -1718,6 +1719,38 @@ namespace Nep.Project.Business
                     if (data.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                     {
                         data.RequiredSubmitData = GetKeyRequiredSubmitData(data.ProjectID);
+                    }
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(data.ExtendJson))
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ProcessingPlanExtend>(data.ExtendJson);
+                            //if (data.ExtendData.AddressAt != null)
+                            //{
+                            //    var ad = data.ExtendData.AddressAt;
+                            //    var prov = _db.MT_Province.Where(w => w.ProvinceID == ad.ProvinceId).FirstOrDefault();
+                            //    if (prov != null)
+                            //    {
+                            //        ad.ProvinceName = prov.ProvinceName;
+                            //    }
+                            //    var dis = _db.MT_District.Where(w => w.DistrictID == ad.DistrictId).FirstOrDefault();
+                            //    if (dis != null)
+                            //    {
+                            //        ad.DistrictName = dis.DistrictName;
+                            //    }
+                            //    var sdis = _db.MT_SubDistrict.Where(w => w.SubDistrictID == ad.SubDistrictId).FirstOrDefault();
+                            //    if (sdis != null)
+                            //    {
+                            //        ad.SubDistrictName = sdis.SubDistrictName;
+                            //    }
+                            //}
+                        }
+
+                    }
+                    catch
+                    {
+
                     }
 
                 }
@@ -1829,6 +1862,11 @@ namespace Nep.Project.Business
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
+                        if (model.ExtendData.StartDateOld != null || model.ExtendData.EndDateOld != null)
+                        {
+                            model.ExtendData.EditByName = _user.FullName;
+                        }
+                        dataDBModel.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
                         _db.SaveChanges();
 
                     }
@@ -9885,7 +9923,14 @@ namespace Nep.Project.Business
             {
                 result.LocationMapID = SaveFile(model.AddedLocationMapAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
             }
+            try
+            {
+                result.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+            }
+            catch
+            {
 
+            }
 
 
             return result;

@@ -1683,9 +1683,22 @@ namespace Nep.Project.ServiceModels.ProjectInfo
 
         public List<ProjectOperationAddress> ProjectOperationAddresses { get; set; }
 
+        public ProcessingPlanExtend ExtendData { get; set; }
+
+        public string ExtendJson { get; set; }
+
+    }
+    public class ProcessingPlanExtend
+    {
+        public DateTime? StartDateOld { get; set; }
+        public DateTime? EndDateOld { get; set; }
+
+        public Decimal TotalDayOld { get; set; }
+
+        public String EditByName { get; set; }
     }
 
-    [Serializable]
+   [Serializable]
     public partial class ProjectOperationAddress
     {
         public string UID { get; set; }

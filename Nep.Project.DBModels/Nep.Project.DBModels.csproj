@@ -77,9 +77,6 @@
     <Compile Include="Model\MT_Attachment.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\MT_BANK.cs">
-      <DependentUpon>NepProjectDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\MT_District.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>

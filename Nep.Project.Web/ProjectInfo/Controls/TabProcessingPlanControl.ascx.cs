@@ -403,6 +403,31 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             result.TimeDesc = timeDesc;
             result.Method = method;
 
+           
+
+            if (projectId > 0)
+            {
+                //Beer29082021
+                if (result.ExtendData == null)
+                {
+                    result.ExtendData = new ServiceModels.ProjectInfo.ProcessingPlanExtend();
+                }
+                var resultOperation = _service.GetProjectOperationByProjectID(projectId);
+                if (resultOperation.IsCompleted)
+                {
+                    ServiceModels.ProjectInfo.TabProcessingPlan model = resultOperation.Data;
+                    if(startDate!= (DateTime)model.StartDate || endDate!= (DateTime)model.EndDate)
+                    {
+                        result.ExtendData.StartDateOld = (DateTime)model.StartDate;
+                        result.ExtendData.EndDateOld = (DateTime)model.EndDate;
+                        result.ExtendData.TotalDayOld = (Decimal)model.TotalDay;
+                    }
+
+                }
+            }
+           
+
+
             //Attachment
             //IEnumerable<ServiceModels.KendoAttachment> addedFiles = FileUploadProcessingPlanMap.AddedFiles;
             //IEnumerable<ServiceModels.KendoAttachment> removedFiles = FileUploadProcessingPlanMap.RemovedFiles;
@@ -470,6 +495,21 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 {
                     HiddOperationAddress.Value = Nep.Project.Common.Web.WebUtility.ToJSON(model.ProjectOperationAddresses);
                 }
+
+                //Beer29082021
+                //LabelHistoryEditStartEndDate
+                if (model.ExtendData != null)
+                {
+                    if(model.ExtendData.StartDateOld != null || model.ExtendData.EndDateOld != null)
+                    {
+                        divHistoryEditStartEndDate.Visible = true;
+                        LabelHistoryEditStartEndDate.Text = "วันที่เริ่มต้นโครงการ: " + model.ExtendData.StartDateOld?.ToString("dd/MM/yyyy");
+                        LabelHistoryEditStartEndDate.Text += " ,วันที่สิ้นสุดโครงการ : " + model.ExtendData.EndDateOld?.ToString("dd/MM/yyyy");
+                        LabelHistoryEditStartEndDate.Text += " ,ระยะเวลา : " + model.ExtendData.TotalDayOld + " วัน";
+                        LabelHistoryEditStartEndDate.Text += " ,แก้ไขโดย : " + model.ExtendData.EditByName;
+                    }
+                }
+
                 //if (model.ProvinceID.HasValue)
                 //{
                 //    List<ServiceModels.GenericDropDownListData> proList = _provinceService.ListProvinceByID(model.ProvinceID).Data;
@@ -535,7 +575,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 //    }
                 //    #endregion District
                 //}                   
-                
+
             }              
             
         }

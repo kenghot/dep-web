@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Project\MG\NEP\Nep.Project.DBModels\Model\NepProjectDB.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\MG\Project\NEP\Nep.Project.DBModels\Model\NepProjectDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
