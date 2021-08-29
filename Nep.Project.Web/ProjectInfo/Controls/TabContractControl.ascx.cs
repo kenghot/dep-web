@@ -168,6 +168,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 {
                                     myDivUploadFileKTB.Visible = true; //open div upload file ktb
                                 }
+                                ButtonEditStartEndContractDate.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             }
                             
                             
@@ -248,17 +249,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     TextBoxMoo.Text = data.Moo;
                                     TextBoxPostCode.Text = data.ZipCode;
                                 }
-                                //if (model.ExtendData.AddressAuth != null)
-                                //{
-                                //    var data = model.ExtendData.AddressAuth;
-                                //    DdlProvince2.Value = data.ProvinceId == 0 ? null : ((int)data.ProvinceId).ToString();
-                                //    DdlDistrict2.Value = data.DistrictId == 0 ? null : ((int)data.DistrictId).ToString();
-                                //    DdlSubDistrict2.Value = data.SubDistrictId == 0 ? null : ((int)data.SubDistrictId).ToString();
-                                //    TextBoxAddressNo2.Text = data.AddressNo;
-                                //    TextBoxBuilding2.Text = data.Building;
-                                //    TextBoxMoo2.Text = data.Moo;
-                                //    TextBoxPostCode2.Text = data.ZipCode;
-                                //}
+
+                                //Beer29082021
+                                //LabelHistoryEditStartEndDate
+                                if(model.ExtendData.ContractStartEndDateByName != null)
+                                {
+                                    divHistoryEditStartEndDate.Visible = true;
+                                    LabelHistoryEditStartEndDate.Text = "วันที่เริ่มสัญญาเดิม: " + model.ExtendData.ContractStartDateOld.ToString("dd/MM/yyyy");
+                                    LabelHistoryEditStartEndDate.Text+= " ,วันที่สิ้นสุดสัญญาเดิม : " + model.ExtendData.ContractEndDateOld.ToString("dd/MM/yyyy");
+                                    LabelHistoryEditStartEndDate.Text += " ,แก้ไขโดย : " + model.ExtendData.ContractStartEndDateByName;
+                                }
                             }
 
                             //end kenghot
@@ -1040,6 +1040,47 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //GridViewActivity.DataBind();
             Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
             page.RebindData("TabPanelContract");
+        }
+
+        protected void ButtonEditStartEndContractDate_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+            try
+            {
+                if (Page.IsValid)
+                {
+                    var resultGetData = _service.GetProjectContractByProjectID(ProjectID);
+                    if (resultGetData.IsCompleted)
+                    {
+                        model = resultGetData.Data;
+                        //Beer29082021 update
+                        DateTime startDate = Convert.ToDateTime(DatePickerContractStartDate.SelectedDate);
+                        DateTime endDate = Convert.ToDateTime(DatePickerContractEndDate.SelectedDate);
+                        model.ProjectID = ProjectID;
+                        model.ContractStartDate = startDate;
+                        model.ContractEndDate = endDate;
+
+                        var result = _service.UpdateProjectContractStartEndDate(model);
+                        if (result.IsCompleted)
+                        {
+                            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                            page.RebindData("TabPanelContract");
+                            ShowResultMessage(result.Message);
+                        }
+                        else
+                        {
+                            ShowErrorMessage(result.Message);
+                        }
+
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Contract", ex);
+                ShowErrorMessage(ex.Message);
+            }
         }
     }
 }

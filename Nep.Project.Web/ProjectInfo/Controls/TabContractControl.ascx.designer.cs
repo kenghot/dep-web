@@ -114,6 +114,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorContractDate;
 
         /// <summary>
+        /// divHistoryEditStartEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHistoryEditStartEndDate;
+
+        /// <summary>
+        /// LabelHistoryEditStartEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelHistoryEditStartEndDate;
+
+        /// <summary>
         /// LabelBudgetRequestAmount control.
         /// </summary>
         /// <remarks>
@@ -1030,6 +1048,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonEditContractNo;
+
+        /// <summary>
+        /// ButtonEditStartEndContractDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonEditStartEndContractDate;
 
         /// <summary>
         /// ImageButtonRefresh control.

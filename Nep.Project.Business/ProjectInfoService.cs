@@ -2807,6 +2807,201 @@ namespace Nep.Project.Business
 
             return result;
         }
+        public ServiceModels.ReturnMessage UpdateProjectContractStartEndDate(ServiceModels.ProjectInfo.TabContract model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectContract projectContract = _db.ProjectContracts.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                if (projectContract != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บวันที่เดิมใน json ExtendData
+                        model.ExtendData.ContractStartDateOld = projectContract.ContractStartDate;
+                        model.ExtendData.ContractEndDateOld = projectContract.ContractEndDate;
+                        model.ExtendData.ContractStartEndDateByName = _user.FullName;
+                        projectContract.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
+
+                    }
+                    projectContract.ContractStartDate = Convert.ToDateTime(model.ContractStartDate);
+                    projectContract.ContractEndDate = Convert.ToDateTime(model.ContractEndDate);
+                    projectContract.UpdatedDate = DateTime.Now;
+                    projectContract.UpdatedBy = _user.UserName;
+                    projectContract.UpdatedByID = _user.UserID;
+                    _db.SaveChanges();
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.UpdateProjectContractStartEndDate);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+                DateTime toDay = DateTime.Today;
+                //Beer29082021 clear FollowUpStatus condition  ContractEndDate > today
+                    DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                    if(genInfo != null)
+                    {
+                            string FollowUpStatusText = "";
+                            DateTime compareDate = toDay.AddDays(0);
+                            DateTime compareDate30 = toDay.AddDays(-30);
+                            DateTime compareDate45 = toDay.AddDays(-45);
+                            DBModels.Model.MT_ListOfValue followupStatus30 = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ถึงกำหนดติดตาม_30_วัน)).FirstOrDefault();
+                            DBModels.Model.MT_ListOfValue followupStatus45 = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ถึงกำหนดติดตาม_45_วัน)).FirstOrDefault();
+                            
+                            if (Convert.ToDateTime(model.ContractEndDate) <= compareDate45)
+                            {
+                                compareDate = toDay.AddDays(-45);
+                                genInfo.FollowUpStatus = followupStatus45.LOVID;
+                                FollowUpStatusText = "(ถึงกำหนดติดตาม 45 วัน)";
+                            }
+                            else if(Convert.ToDateTime(model.ContractEndDate) <= compareDate30)
+                            {
+                                    compareDate = toDay.AddDays(-30);
+                                    genInfo.FollowUpStatus = followupStatus30.LOVID;
+                                    FollowUpStatusText = "(ถึงกำหนดติดตาม 30 วัน)";
+                            }
+                            else
+                            {
+                                genInfo.FollowUpStatus = null;
+                            }
+                            //genInfo.FollowUpStatus = null;
+                            genInfo.LastedFollowupDate = toDay;
+                            genInfo.UpdatedBy = _user.UserName;
+                            genInfo.UpdatedByID = _user.UserID;
+                            genInfo.UpdatedDate = DateTime.Now;
+
+                            _db.SaveChanges();
+
+                            if(genInfo.FollowUpStatus == followupStatus30.LOVID || genInfo.FollowUpStatus == followupStatus45.LOVID)
+                            {
+                                    int cYear = compareDate.Year;
+                                    int cMonth = compareDate.Month;
+                                    int cDay = compareDate.Day;
+                                    List<ServiceModels.TemplateConfig.OrgWaringReportParam> projectList;
+                                     var query = (from g in _db.ProjectGeneralInfoes
+                                     join person in _db.ProjectPersonels on g.ProjectID equals person.ProjectID
+                                     join c in _db.ProjectContracts on g.ProjectID equals c.ProjectID
+                                     join org in _db.MT_Organization on g.OrganizationID equals org.OrganizationID
+                                     where ((g.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) &&
+                                         (g.ProjectID== model.ProjectID))
+                                     select new ServiceModels.TemplateConfig.OrgWaringReportParam
+                                     {
+                                         ProjectID = g.ProjectID,
+                                         LOVName = person.Prefix1Personel.LOVName,
+                                         Firstname1 = person.Firstname1,
+                                         Lastname1 = person.Lastname1,
+                                         Mobile1 = person.Mobile1,
+                                         Email1 = person.Email1,
+
+                                         ContractNo = g.ProjectContract.ContractNo,
+                                         ContractDate = g.ProjectContract.ContractDate,
+
+                                         OrganizationNameTH = org.OrganizationNameTH,
+
+                                         ProjectNameTH = g.ProjectInformation.ProjectNameTH,
+                                         EndDate = g.ProjectOperation.EndDate,
+                                         BudgetReviseValue = g.BudgetReviseValue,
+
+                                         Mobile = org.Mobile,
+                                         Email = org.Email
+                                     });
+
+                                    string sql = query.ToString();
+                                    sql = sql.Replace(":p__linq__0", model.ProjectID.ToString());
+                                    sql = sql.Replace(":p__linq__1", cYear.ToString());
+                                    sql = sql.Replace(":p__linq__2", cMonth.ToString());
+                                    sql = sql.Replace(":p__linq__3", cDay.ToString());
+
+                                    //Common.Logging.LogInfo("45 Date->>", String.Format("{0}-{1}-{2}", cYear, cMonth, cDay));
+                                    //Common.Logging.LogInfo("Send 45->>", sql);
+                                    var sqlResult = _db.Database.SqlQuery<ServiceModels.TemplateConfig.OrgWaringReportParam>(sql);
+                                    //_db.Database.Log = ((x) => { Common.Logging.LogInfo("45 ->>", x); });
+                                    projectList = (sqlResult != null) ? sqlResult.ToList() : null;
+                                    SendTrackingWarning(projectList, genInfo.FollowUpStatus);
+                                    result.IsCompleted = true;
+                                    result.Message.Add(Nep.Project.Resources.Message.ResetFollowUpStatus + FollowUpStatusText + "และส่ง Email แจ้งเตือนสำเร็จ");
+                            }
+                            else
+                            {
+                                result.IsCompleted = true;
+                                result.Message.Add(Nep.Project.Resources.Message.ResetFollowUpStatus + FollowUpStatusText);
+                            }
+                               
+                    }
+                    else
+                    {
+                        result.IsCompleted = false;
+                        result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                    }
+
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
+        private void SendTrackingWarning(List<ServiceModels.TemplateConfig.OrgWaringReportParam> projectList, decimal? followupStatusID)
+        {
+            var folloupContact = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.FOLLOWUP_CONTACT).Select(y => y.ParameterValue).FirstOrDefault();
+            var nepProjectDirectorPosition = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_PROJECT_DIRECTOR_POSITION).Select(y => y.ParameterValue).FirstOrDefault();
+
+            ServiceModels.TemplateConfig.OrgWaringReportParam param;
+            String smsFormat = Nep.Project.Resources.Message.WarningProjectReportResultSMS;
+            String sms;
+            String endDateProjectReport;
+            String errorSendTracking = Nep.Project.Resources.Error.TrackingProjectReportError;
+            String orgName = "";
+            String orgMobile = "";
+            String personMobile = "";
+
+
+            if (projectList != null)
+            {
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    try
+                    {
+                        param = projectList[i];
+                        param.ContractNo = Common.Web.WebUtility.ParseToThaiNumber(param.ContractNo);
+                        orgName = param.OrganizationNameTH;
+                        orgMobile = param.Mobile;
+                        personMobile = param.Mobile1;
+                        endDateProjectReport = Common.Web.WebUtility.ToBuddhaDateFormat(param.EnddateProjectReport, "dMMMyy", "");
+                        endDateProjectReport = endDateProjectReport.Replace(".", "");
+                        sms = String.Format(smsFormat, endDateProjectReport);
+
+                        if (param.Email.ToLower() == param.Email1.ToLower())
+                        {
+                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
+                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
+                        }
+                        else
+                        {
+                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
+                            _mailService.SendWarningProjectReportResultToPerson(folloupContact, nepProjectDirectorPosition, param);
+                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
+                        }
+
+                        _smsService.Send(sms, param.Mobile, param.Mobile1);
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", String.Format(errorSendTracking, orgName));
+                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", ex);
+                    }
+                }
+            }
+        }
 
         public ServiceModels.ReturnMessage CancelProjectContract(Decimal id)
         {

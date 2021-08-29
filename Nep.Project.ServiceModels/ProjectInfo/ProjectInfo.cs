@@ -2028,6 +2028,9 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         //public string DirectorPositionLine1 { get; set; }
         public string DirectorPositionLine2 { get; set; }
         public string DirectorPositionLine3 { get; set; }
+        public DateTime ContractStartDateOld { get; set; }
+        public DateTime ContractEndDateOld { get; set; }
+        public string ContractStartEndDateByName { get; set; }
     }
     public class Contact
     {

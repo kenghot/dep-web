@@ -78,6 +78,13 @@
                                 ValidationGroup="SaveContract" />
                         </div>
                     </div>
+                     <%--ประวัติการแก้ไข Contract_StartDate Contract_EndDate --%> 
+                     <div class="form-group form-group-sm" id="divHistoryEditStartEndDate" style="color:gray;" runat="server" visible="false" >
+                        <label class="col-sm-2 control-label" style="color:gray;">ประวัติการแก้ไข</label>
+                        <div class="col-sm-10">
+                            <asp:Label ID="LabelHistoryEditStartEndDate" runat="server" Text=""></asp:Label>
+                        </div>
+                    </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= UI.LabelBudgetDetailRequestAmount %></label>
                         <div class="col-sm-4 control-value">
@@ -747,6 +754,8 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
                     <asp:Button runat="server" ID="ButtonEditContractNo" CssClass="btn btn-default btn-sm" OnClientClick="VueContract.EditContractNo(1);return false;"
                         Text="แก้ไขเลขที่สัญญา" Visible="false" />
+                    <asp:Button runat="server" ID="ButtonEditStartEndContractDate" CssClass="btn btn-default btn-sm" ValidationGroup="SaveStartEndContractDate"
+                        Text="บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญา" Visible="false" OnClick="ButtonEditStartEndContractDate_Click" />
                     <asp:ImageButton ID="ImageButtonRefresh" runat="server" ToolTip="รีเฟรช"
                         ImageUrl="~/Images/icon/reload_icon_16.png" BorderStyle="None" CssClass="button-add-targetgroup"
                         OnClick="ImageButtonRefresh_Click" />
