@@ -1996,6 +1996,10 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public List<ServiceModels.KendoAttachment> AddedKTBAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> RemovedKTBAttachments { get; set; }
 
+        public List<ServiceModels.KendoAttachment> RefundAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedRefundAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedRefundAttachments { get; set; }
+
     }
     public class ContractDue
     {
@@ -2044,6 +2048,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public DateTime ContractStartDateOld { get; set; }
         public DateTime ContractEndDateOld { get; set; }
         public string ContractStartEndDateByName { get; set; }
+        public string RefundDetail { get; set; }
     }
     public class Contact
     {

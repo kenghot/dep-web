@@ -80,7 +80,7 @@
                     </div>
                      <%--ประวัติการแก้ไข Contract_StartDate Contract_EndDate --%> 
                      <div class="form-group form-group-sm" id="divHistoryEditStartEndDate" style="color:gray;" runat="server" visible="false" >
-                        <label class="col-sm-2 control-label" style="color:gray;">ประวัติการแก้ไข</label>
+                        <label class="col-sm-2 control-label" style="color:gray;">ระยะเวลาเดิม</label>
                         <div class="col-sm-10">
                             <asp:Label ID="LabelHistoryEditStartEndDate" runat="server" Text=""></asp:Label>
                         </div>
@@ -720,11 +720,38 @@
                         <label class="col-sm-3">อัพโหลดไฟล์ที่ได้จากระบบ KTB </span></label>
                         <div class="col-sm-9">
                             <nep:C2XFileUpload runat="server" ID="FileUploadKTB" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
-                            <asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                            <%--<asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
                                     OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="FileUploadKTB"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
                                     ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
-                                    ValidationGroup="SaveContract" />
+                                    ValidationGroup="SaveContract" />--%>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
+             <div class="panel panel-default"  id="DivRefund" runat="server">
+                 <div class="panel-heading">
+                <h3 class="panel-title">การคืนเงิน(ในกรณีทำสัญญาแล้ว)</h3>
+                </div>
+                <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">แนบเอกสารการคืนเงิน</span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="C2XFileUploadRefund" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                            <%--<asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="FileUploadKTB"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                        </div>
+                    </div>
+                     <div class="form-group form-group-sm">
+                        <div class="col-sm-6">
+                            <nep:TextBox ID="TextBoxRefund" runat="server" TextMode="MultiLine"
+                                MaxLength="4000" CssClass="form-control textarea-height"></nep:TextBox>
+                        </div>
                         </div>
                     </div>
                    </div>
@@ -756,6 +783,8 @@
                         Text="แก้ไขเลขที่สัญญา" Visible="false" />
                     <asp:Button runat="server" ID="ButtonEditStartEndContractDate" CssClass="btn btn-default btn-sm" ValidationGroup="SaveStartEndContractDate"
                         Text="บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญา" Visible="false" OnClick="ButtonEditStartEndContractDate_Click" />
+                      <asp:Button runat="server" ID="ButtonRefund" CssClass="btn btn-default btn-sm" ValidationGroup="SaveRefund"
+                        Text="บันทึกการคืนเงิน(ทำสัญญาแล้ว)" Visible="false" OnClick="ButtonRefund_Click" />
                     <asp:ImageButton ID="ImageButtonRefresh" runat="server" ToolTip="รีเฟรช"
                         ImageUrl="~/Images/icon/reload_icon_16.png" BorderStyle="None" CssClass="button-add-targetgroup"
                         OnClick="ImageButtonRefresh_Click" />

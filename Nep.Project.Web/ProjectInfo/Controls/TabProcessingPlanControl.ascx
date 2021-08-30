@@ -113,7 +113,7 @@
                 </div>
                  <%--ประวัติการแก้ไข Contract_StartDate Contract_EndDate --%> 
                <div class="form-horizontal" id="divHistoryEditStartEndDate" style="color:gray;" runat="server" visible="false" >
-                        <label class="col-sm-12" style="color:gray;">ประวัติการแก้ไข</label>
+                        <label class="col-sm-12" style="color:gray;">ระยะเวลาเดิม</label>
                         <div class="col-sm-12">
                             <asp:Label ID="LabelHistoryEditStartEndDate" runat="server" Text=""></asp:Label>
                  </div>

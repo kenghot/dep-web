@@ -62,7 +62,7 @@ namespace Nep.Project.IServices
 
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabContract> SaveProjectContract(ServiceModels.ProjectInfo.TabContract model);
         ServiceModels.ReturnMessage UpdateProjectContractStartEndDate(ServiceModels.ProjectInfo.TabContract model);
-
+        ServiceModels.ReturnMessage UpdateProjectContractRefund(ServiceModels.ProjectInfo.TabContract model);
 
         ServiceModels.ReturnMessage CancelProjectContract(Decimal id);
         ServiceModels.ReturnMessage UndoCancelProjectContract(Decimal id);

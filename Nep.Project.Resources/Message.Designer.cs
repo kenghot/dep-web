@@ -378,6 +378,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to บันทึกการคืนเงินสำเาร็จ.
+        /// </summary>
+        public static string UpdateProjectContractRefund {
+            get {
+                return ResourceManager.GetString("UpdateProjectContractRefund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญาสำเร็จแล้ว.
         /// </summary>
         public static string UpdateProjectContractStartEndDate {

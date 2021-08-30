@@ -169,6 +169,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     myDivUploadFileKTB.Visible = true; //open div upload file ktb
                                 }
                                 ButtonEditStartEndContractDate.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
+                                if (gen != null && ( gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว || gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา))
+                                {
+                                    ButtonRefund.Visible = true;
+                                }
                             }
                             
                             
@@ -259,6 +263,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     LabelHistoryEditStartEndDate.Text+= " ,วันที่สิ้นสุดสัญญาเดิม : " + model.ExtendData.ContractEndDateOld.ToString("dd/MM/yyyy");
                                     LabelHistoryEditStartEndDate.Text += " ,แก้ไขโดย : " + model.ExtendData.ContractStartEndDateByName;
                                 }
+                                TextBoxRefund.Text = model.ExtendData.RefundDetail;
                             }
 
                             //end kenghot
@@ -276,6 +281,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             FileUploadKTB.ClearChanges();
                             FileUploadKTB.ExistingFiles = KTBFiles;
                             FileUploadKTB.DataBind();
+
+                            //Beer28082021
+                            List<ServiceModels.KendoAttachment> RefundFiles = model.RefundAttachments;
+                            C2XFileUploadRefund.ClearChanges();
+                            C2XFileUploadRefund.ExistingFiles = RefundFiles;
+                            C2XFileUploadRefund.DataBind();
 
                             int refNo2 = 0;
                             if (!String.IsNullOrEmpty(model.AttorneyYear) && Int32.TryParse(model.AttorneyYear, out refNo2))
@@ -537,6 +548,13 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             result.AddedKTBAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
             result.RemovedKTBAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+            //Beer28082021
+            //addedFiles = C2XFileUploadRefund.AddedFiles;
+            //removedFiles = C2XFileUploadRefund.RemovedFiles;
+
+            //result.AddedRefundAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            //result.RemovedRefundAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
 
             //result.MeetingNo = decimal.Parse(TextboxMeetingNo.Text);
             //result.AttachPage1 = 
@@ -1074,6 +1092,49 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                     }
                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Contract", ex);
+                ShowErrorMessage(ex.Message);
+            }
+        }
+
+        protected void ButtonRefund_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+            try
+            {
+                if (Page.IsValid)
+                {
+                    var resultGetData = _service.GetProjectContractByProjectID(ProjectID);
+                    if (resultGetData.IsCompleted)
+                    {
+                        model = resultGetData.Data;
+
+                        IEnumerable<ServiceModels.KendoAttachment> addedFiles = C2XFileUploadRefund.AddedFiles;
+                        IEnumerable<ServiceModels.KendoAttachment> removedFiles = C2XFileUploadRefund.RemovedFiles;
+
+                        model.AddedRefundAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+                        model.RemovedRefundAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+                        //Beer29082021 update
+                        model.ExtendData.RefundDetail = TextBoxRefund.Text.Trim();
+                        var result = _service.UpdateProjectContractRefund(model);
+                        if (result.IsCompleted)
+                        {
+                            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                            page.RebindData("TabPanelContract");
+                            ShowResultMessage(result.Message);
+                        }
+                        else
+                        {
+                            ShowErrorMessage(result.Message);
+                        }
+
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -49,7 +49,7 @@ namespace Nep.Project.Business
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
         private const String CONTRACT_SIGNED = "CONTRACT_SIGNED";
         private const String CONTRACT_KTB = "CONTRACT_KTB";
-
+        private const String CONTRACT_REFUND = "CONTRACT_REFUND";
 
         public ProjectInfoService(DBModels.Model.NepProjectDBEntities db,
             ServiceModels.Security.SecurityInfo user,
@@ -2691,6 +2691,7 @@ namespace Nep.Project.Business
                 data.SupportAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT, id);
                 data.SignedContractAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SIGNED, id);
                 data.KTBAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_KTB, id);
+                data.RefundAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_REFUND, id);
                 result.Data = data;
                 result.IsCompleted = true;
             }
@@ -3041,6 +3042,48 @@ namespace Nep.Project.Business
             }
         }
 
+
+        public ServiceModels.ReturnMessage UpdateProjectContractRefund(ServiceModels.ProjectInfo.TabContract model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectContract projectContract = _db.ProjectContracts.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                if (projectContract != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บข้อมูลใน json ExtendData
+                        projectContract.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
+
+                    }
+                    projectContract.UpdatedDate = DateTime.Now;
+                    projectContract.UpdatedBy = _user.UserName;
+                    projectContract.UpdatedByID = _user.UserID;
+                    _db.SaveChanges();
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedRefundAttachments, model.AddedRefundAttachments, TABLE_PROJECTCONTRACT, CONTRACT_REFUND);
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.UpdateProjectContractRefund);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
         public ServiceModels.ReturnMessage CancelProjectContract(Decimal id)
         {
             ServiceModels.ReturnMessage result = new ReturnMessage();
