@@ -1091,13 +1091,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OrganizationName">
+                        <Textbox Name="ProjectKPI">
                           <CanGrow>true</CanGrow>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrganizationName.Value</Value>
+                                  <Value>=Fields!ProjectKPI.Value</Value>
                                   <Style>
                                     <FontFamily>TH SarabunPSK</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -1109,7 +1109,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OrganizationName</rd:DefaultName>
+                          <rd:DefaultName>ProjectKPI</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1289,7 +1289,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value> บาท</Value>
+                                  <Value> บาท (ถัวจ่ายทุกรายการแต่ไม่เกินสิทธจองทางราชการ) </Value>
                                   <Style>
                                     <FontFamily>TH SarabunPSK</FontFamily>
                                     <FontSize>14pt</FontSize>
