@@ -24,6 +24,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.UpdatePanel UpdatePanelReportResult;
 
         /// <summary>
+        /// DivConfirmReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivConfirmReport;
+
+        /// <summary>
+        /// LabelConfirmReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelConfirmReport;
+
+        /// <summary>
         /// TextBoxActivityDescription control.
         /// </summary>
         /// <remarks>
@@ -796,5 +814,14 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSueCase;
+
+        /// <summary>
+        /// ButtonConfirmReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonConfirmReport;
     }
 }

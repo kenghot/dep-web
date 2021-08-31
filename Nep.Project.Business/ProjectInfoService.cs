@@ -4334,7 +4334,7 @@ namespace Nep.Project.Business
                                                                           RepotDate2 = (pro.ProjectReport != null) ? pro.ProjectReport.RepotDate2 : (DateTime?)null,
                                                                           Telephone2 = (pro.ProjectReport != null) ? pro.ProjectReport.Telephone2 : null,
                                                                           ReportAttachmentID = (pro.ProjectReport != null) ? pro.ProjectReport.ReportAttachmentID : null,
-
+                                                                          ExtendJson = (pro.ProjectReport != null) ? pro.ProjectReport.EXTENDDATA : null,
                                                                           ProjectApprovalStatusID = pro.ProjectApprovalStatusID,
                                                                           ProjectApprovalStatusCode = (pro.ProjectApprovalStatus != null) ? pro.ProjectApprovalStatus.LOVCode : null,
                                                                           CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
@@ -4421,6 +4421,21 @@ namespace Nep.Project.Business
                     data.SueDocument7.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC7", projectID);
                     data.SueDocument8.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC8", projectID);
                     data.SueDocument9.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC9", projectID);
+
+                    //Beer31082021
+                    data.ExtendData = new ReportExtend();
+                    if (!string.IsNullOrEmpty(data.ExtendJson))
+                    {
+                        try
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ReportExtend>(data.ExtendJson);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
                 }
 
                 result.IsCompleted = true;
@@ -4951,6 +4966,48 @@ namespace Nep.Project.Business
                     _db.SaveChanges();
                     result.IsCompleted = true;
                     result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
+        public ServiceModels.ReturnMessage ConfirmReportProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectReport dbReport = _db.ProjectReports.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();
+                if (dbReport != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บข้อมูลใน json ExtendData
+                        model.ExtendData.ConfirmReportFlag = "1";
+                        model.ExtendData.ConfirmReportByName = _user.FullName;
+                        dbReport.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
+
+                    }
+                    dbReport.UpdatedBy = _user.UserName;
+                    dbReport.UpdatedByID = _user.UserID;
+                    dbReport.UpdatedDate = DateTime.Now;
+
+                    _db.SaveChanges();
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.ConfirmReport);
                 }
                 else
                 {

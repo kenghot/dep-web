@@ -115,6 +115,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ยืนยันผลการตรวจสอบแบบรายงานผลการปฏิบัติงานสำเร็จ.
+        /// </summary>
+        public static string ConfirmReport {
+            get {
+                return ResourceManager.GetString("ConfirmReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ยืนยันการ Reset Password ?.
         /// </summary>
         public static string ConfirmResetPassword {

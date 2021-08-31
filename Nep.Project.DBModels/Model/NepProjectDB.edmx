@@ -893,6 +893,7 @@
           <Property Name="UPDATEDBYID" Type="number" Precision="38" Scale="0" />
           <Property Name="REVISECOMMENT" Type="clob" />
           <Property Name="INTEREST" Type="number" Precision="11" Scale="2" />
+          <Property Name="EXTENDDATA" Type="clob" />
         </EntityType>
         <EntityType Name="PROJECTTARGETGROUP">
           <Key>
@@ -3371,6 +3372,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="UpdatedByID" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="REVISECOMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="INTEREST" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="EXTENDDATA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProjectTargetGroup">
           <Key>
@@ -5869,6 +5871,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="ProjectReports">
             <EntityTypeMapping TypeName="Model.ProjectReport">
               <MappingFragment StoreEntitySet="PROJECTREPORT">
+                <ScalarProperty Name="EXTENDDATA" ColumnName="EXTENDDATA" />
                 <ScalarProperty Name="INTEREST" ColumnName="INTEREST" />
                 <ScalarProperty Name="REVISECOMMENT" ColumnName="REVISECOMMENT" />
                 <ScalarProperty Name="UpdatedByID" ColumnName="UPDATEDBYID" />

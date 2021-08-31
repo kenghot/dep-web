@@ -117,6 +117,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId(decimal docID, string QNGroup);
         ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType, List<ServiceModels.KendoAttachment> removeFiles, List<ServiceModels.KendoAttachment> addFiles, string tableName, string fieldName);
         ServiceModels.ReturnMessage SaveOfficerProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
+        ServiceModels.ReturnMessage ConfirmReportProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
 
         ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectTargetNameList> GetProjectTargetForParticipant(decimal projectID);
 

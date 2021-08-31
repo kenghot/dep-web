@@ -135,6 +135,9 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>การเปลี่ยนรหัสผ่านสำเร็จ</value>
   </data>
+  <data name="ConfirmReport" xml:space="preserve">
+    <value>ยืนยันผลการตรวจสอบแบบรายงานผลการปฏิบัติงานสำเร็จ</value>
+  </data>
   <data name="ConfirmResetPassword" xml:space="preserve">
     <value>ยืนยันการ Reset Password ?</value>
   </data>

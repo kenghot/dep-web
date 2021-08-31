@@ -2302,6 +2302,13 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public MultipleAttachFile SueDocument7 { get; set; } = new MultipleAttachFile();
         public MultipleAttachFile SueDocument8 { get; set; } = new MultipleAttachFile();
         public MultipleAttachFile SueDocument9 { get; set; } = new MultipleAttachFile();
+        public ReportExtend ExtendData { get; set; }
+        public string ExtendJson { get; set; }
+    }
+    public class ReportExtend
+    {
+        public string ConfirmReportFlag { get; set; }
+        public string ConfirmReportByName { get; set; }
     }
 
     [Serializable]
