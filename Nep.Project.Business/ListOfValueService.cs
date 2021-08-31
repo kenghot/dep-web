@@ -142,49 +142,97 @@ namespace Nep.Project.Business
             try
             {
                 result.IsCompleted = true;
-                String[] provCodes = new String[] { Common.LOVCode.Budgettype.แผนพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด, 
-                    Common.LOVCode.Budgettype.การดำเนินงานของ_อปท___MATCHING_FUND,
-                    Common.LOVCode.Budgettype.สนับสนุนศูนย์บริการคนพิการ,
-                    Common.LOVCode.Budgettype.การขับเคลื่อนการพัฒนาสตรีพิการ,
-                    Common.LOVCode.Budgettype.กรอบวงเงินการจัดทำแผนพัฒนาคุณภาพชีวิตคนพิการจังหวัด_ฉบับที่_3__พ_ศ__2560___2564_จำนวน,
-                    Common.LOVCode.Budgettype.กรอบวงเงินวันคนพิการสากลปี_2559_ส่วนภูมิภาค ,
-                    Common.LOVCode.Budgettype.กรอบวงเงินสนับการดำเนินงานของ_อปท_ ,
-                    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนการขับเคลื่อนยุทธศาสตร์การพัฒนาสตรีพิการ_,
-                    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนจังหวัดในการประชุมเตรียมความพร้อมและซักซ้อมคนพิการในสถานการณ์ภัยพิบัติ,
-                    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนศูนย์บริการคนพิการ,
-                    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการคนพิการประจำจังหวัด,
-                    Common.LOVCode.Budgettype.กรอบวงเงินปรับปรุงเช่าหรือก่อสร้างสำนักงานศูนย์บริการคนพิการระดับจังหวัด
-                };
+                //String[] provCodes = new String[] { Common.LOVCode.Budgettype.แผนพัฒนาคุณภาพชีวิตคนพิการประจำจังหวัด, 
+                //    Common.LOVCode.Budgettype.การดำเนินงานของ_อปท___MATCHING_FUND,
+                //    Common.LOVCode.Budgettype.สนับสนุนศูนย์บริการคนพิการ,
+                //    Common.LOVCode.Budgettype.การขับเคลื่อนการพัฒนาสตรีพิการ,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินการจัดทำแผนพัฒนาคุณภาพชีวิตคนพิการจังหวัด_ฉบับที่_3__พ_ศ__2560___2564_จำนวน,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินวันคนพิการสากลปี_2559_ส่วนภูมิภาค ,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินสนับการดำเนินงานของ_อปท_ ,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนการขับเคลื่อนยุทธศาสตร์การพัฒนาสตรีพิการ_,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนจังหวัดในการประชุมเตรียมความพร้อมและซักซ้อมคนพิการในสถานการณ์ภัยพิบัติ,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนศูนย์บริการคนพิการ,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินสนับสนุนโครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการคนพิการประจำจังหวัด,
+                //    Common.LOVCode.Budgettype.กรอบวงเงินปรับปรุงเช่าหรือก่อสร้างสำนักงานศูนย์บริการคนพิการระดับจังหวัด
+                //};
                 List<ServiceModels.ListOfValue> list = new List<ServiceModels.ListOfValue>();
 
                 if (selectedID.HasValue)
                 {
                     decimal id = (decimal)selectedID;
 
-                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetType) && (l.IsActive == "1"))
-                                   select new ServiceModels.ListOfValue()
-                                   {
-                                       LovID = lov.LOVID,
-                                       LovCode = lov.LOVCode,
-                                       LovName = lov.LOVName ,
-                                       OrderNo = lov.OrderNo,
-                                       IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
-                                   })
-                                   .Union(
-                                    from lov in _db.MT_ListOfValue.Where(l => l.LOVID == id)
-                                    select new ServiceModels.ListOfValue()
-                                    {
-                                        LovID = lov.LOVID,
-                                        LovCode = lov.LOVCode,
-                                        LovName = lov.LOVName,
-                                        OrderNo = lov.OrderNo,
-                                        IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
-                                    }
+                    //list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetType) && (l.IsActive == "1"))
+                    //               select new ServiceModels.ListOfValue()
+                    //               {
+                    //                   LovID = lov.LOVID,
+                    //                   LovCode = lov.LOVCode,
+                    //                   LovName = lov.LOVName ,
+                    //                   OrderNo = lov.OrderNo,
+                    //                   IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                    //               })
+                    //               .Union(
+                    //                from lov in _db.MT_ListOfValue.Where(l => l.LOVID == id)
+                    //                select new ServiceModels.ListOfValue()
+                    //                {
+                    //                    LovID = lov.LOVID,
+                    //                    LovCode = lov.LOVCode,
+                    //                    LovName = lov.LOVName,
+                    //                    OrderNo = lov.OrderNo,
+                    //                    IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                    //                }
+                    // 
+                    //Beer312021
+                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetType) && (l.IsActive == "1") && (l.LOVID == id))
+                                select new ServiceModels.ListOfValue()
+                                {
+                                    LovID = lov.LOVID,
+                                    LovCode = lov.LOVCode,
+                                    LovName = lov.LOVName,
+                                    OrderNo = lov.OrderNo,
+                                    IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                                })
+                                 .Union(
+                                        from lov in _db.MT_ListOfValue.Where(l => !isCenter ? (l.LOVGroup == Common.LOVGroup.BudgetTypeProvince): (l.LOVGroup == Common.LOVGroup.BudgetTypeCenter))
+                                        select new ServiceModels.ListOfValue()
+                                        {
+                                            LovID = lov.LOVID,
+                                            LovCode = lov.LOVCode,
+                                            LovName = lov.LOVName,
+                                            OrderNo = lov.OrderNo,
+                                            IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                                        }
                                    ).OrderBy(or => or.OrderNo).ToList();
+                }
+                else if(isCenter)
+                {
+                    //Beer312021
+                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetTypeCenter) && (l.IsActive == "1"))
+                            select new ServiceModels.ListOfValue()
+                            {
+                                LovID = lov.LOVID,
+                                LovCode = lov.LOVCode,
+                                LovName = lov.LOVName,
+                                OrderNo = lov.OrderNo,
+                                IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                            }).OrderBy(or => or.OrderNo).ToList();
+                }
+                else if (!isCenter)
+                {
+                    //Beer312021
+                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetTypeProvince) && (l.IsActive == "1"))
+                            select new ServiceModels.ListOfValue()
+                            {
+                                LovID = lov.LOVID,
+                                LovCode = lov.LOVCode,
+                                LovName = lov.LOVName,
+                                OrderNo = lov.OrderNo,
+                                IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
+                            }).OrderBy(or => or.OrderNo).ToList();
                 }
                 else
                 {
-                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetType) && (l.IsActive == "1"))
+                    //Beer312021
+                    list = (from lov in _db.MT_ListOfValue.Where(l => (l.LOVGroup == Common.LOVGroup.BudgetTypeCenter || l.LOVGroup == Common.LOVGroup.BudgetTypeProvince) && (l.IsActive == "1"))
                                    select new ServiceModels.ListOfValue()
                                    {
                                        LovID = lov.LOVID,
@@ -194,10 +242,11 @@ namespace Nep.Project.Business
                                        IsActive = (lov.IsActive == Common.Constants.BOOLEAN_TRUE) ? true : false
                                    }).OrderBy(or => or.OrderNo).ToList();
                 }
-               // list.Add(new ServiceModels.ListOfValue { IsActive = true, LovCode = "0", LovID = 0, LovName = list.Count().ToString(), OrderNo = 0 });
-                if(!isCenter){
-                    list = list.Where(x => provCodes.Contains(x.LovCode)).ToList();
-                }
+                // list.Add(new ServiceModels.ListOfValue { IsActive = true, LovCode = "0", LovID = 0, LovName = list.Count().ToString(), OrderNo = 0 });
+                //if (!isCenter)
+                //{
+                //    list = list.Where(x => provCodes.Contains(x.LovCode)).ToList();
+                //}
 
                 result.Data = list;
             }
