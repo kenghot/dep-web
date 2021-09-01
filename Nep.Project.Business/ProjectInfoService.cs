@@ -2927,6 +2927,7 @@ namespace Nep.Project.Business
                                      join person in _db.ProjectPersonels on g.ProjectID equals person.ProjectID
                                      join c in _db.ProjectContracts on g.ProjectID equals c.ProjectID
                                      join org in _db.MT_Organization on g.OrganizationID equals org.OrganizationID
+                                     join tel in _db.MT_TELEPHONE on org.ProvinceID equals tel.PROVINCEID
                                      where ((g.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) &&
                                          (g.ProjectID== model.ProjectID))
                                      select new ServiceModels.TemplateConfig.OrgWaringReportParam
@@ -2948,7 +2949,17 @@ namespace Nep.Project.Business
                                          BudgetReviseValue = g.BudgetReviseValue,
 
                                          Mobile = org.Mobile,
-                                         Email = org.Email
+                                         Email = org.Email,
+
+                                         ORGANIZATIONNAME = tel.ORGANIZATIONNAME,
+                                         TELEPHONE1 = tel.TELEPHONE1,
+                                         EXTENSION1 = tel.EXTENSION1,
+                                         TELEPHONE2 = tel.TELEPHONE2,
+                                         EXTENSION2 = tel.EXTENSION2,
+                                         FAXNUMBER1 = tel.FAXNUMBER1,
+                                         FAXEXTENSION1 = tel.FAXEXTENSION1,
+                                         FAXNUMBER2 = tel.FAXNUMBER2,
+                                         FAXEXTENSION2 = tel.FAXEXTENSION2
                                      });
 
                                     string sql = query.ToString();
@@ -3017,6 +3028,14 @@ namespace Nep.Project.Business
                         personMobile = param.Mobile1;
                         endDateProjectReport = Common.Web.WebUtility.ToBuddhaDateFormat(param.EnddateProjectReport, "dMMMyy", "");
                         endDateProjectReport = endDateProjectReport.Replace(".", "");
+                        param.TELEPHONE1 = Common.Web.WebUtility.ParseToThaiNumber(param.TELEPHONE1);
+                        param.EXTENSION1 = Common.Web.WebUtility.ParseToThaiNumber(param.EXTENSION1);
+                        param.TELEPHONE2 = Common.Web.WebUtility.ParseToThaiNumber(param.TELEPHONE2);
+                        param.EXTENSION2 = Common.Web.WebUtility.ParseToThaiNumber(param.EXTENSION2);
+                        param.FAXNUMBER1 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXNUMBER1);
+                        param.FAXEXTENSION1 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXEXTENSION1);
+                        param.FAXNUMBER2 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXNUMBER2);
+                        param.FAXEXTENSION2 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXEXTENSION2);
                         sms = String.Format(smsFormat, endDateProjectReport);
 
                         if (param.Email.ToLower() == param.Email1.ToLower())

@@ -184,6 +184,28 @@
           <Property Name="UPDATEDBY" Type="varchar2" MaxLength="50" />
           <Property Name="UPDATEDDATE" Type="timestamp" Precision="6" />
         </EntityType>
+        <EntityType Name="MT_TELEPHONE">
+          <Key>
+            <PropertyRef Name="TELEPHONEID" />
+          </Key>
+          <Property Name="TELEPHONEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PROVINCEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PROVINCENAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ORGANIZATIONNAME" Type="varchar2" MaxLength="500" Nullable="false" />
+          <Property Name="TELEPHONE1" Type="varchar2" MaxLength="50" />
+          <Property Name="EXTENSION1" Type="varchar2" MaxLength="50" />
+          <Property Name="TELEPHONE2" Type="varchar2" MaxLength="50" />
+          <Property Name="EXTENSION2" Type="varchar2" MaxLength="50" />
+          <Property Name="MOBILE" Type="varchar2" MaxLength="50" />
+          <Property Name="FAXNUMBER1" Type="varchar2" MaxLength="50" />
+          <Property Name="FAXEXTENSION1" Type="varchar2" MaxLength="50" />
+          <Property Name="FAXNUMBER2" Type="varchar2" MaxLength="50" />
+          <Property Name="FAXEXTENSION2" Type="varchar2" MaxLength="50" />
+          <Property Name="CREATEDBY" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CREATEDDATE" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="UPDATEDBY" Type="varchar2" MaxLength="50" />
+          <Property Name="UPDATEDDATE" Type="timestamp" Precision="6" />
+        </EntityType>
         <EntityType Name="MT_TEMPLATE">
           <Key>
             <PropertyRef Name="TEMPLATEID" />
@@ -1819,6 +1841,18 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PROVINCE_TELEPHONE">
+          <End Role="MT_PROVINCE" Type="Self.MT_PROVINCE" Multiplicity="1" />
+          <End Role="MT_TELEPHONE" Type="Self.MT_TELEPHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MT_PROVINCE">
+              <PropertyRef Name="PROVINCEID" />
+            </Principal>
+            <Dependent Role="MT_TELEPHONE">
+              <PropertyRef Name="PROVINCEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PROVINCE_USER">
           <End Role="MT_PROVINCE" Type="Self.MT_PROVINCE" Multiplicity="0..1" />
           <End Role="SC_USER" Type="Self.SC_USER" Multiplicity="*" />
@@ -2161,6 +2195,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <EntitySet Name="MT_PROVINCE" EntityType="Self.MT_PROVINCE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_RUNNINGNUMBER" EntityType="Self.MT_RUNNINGNUMBER" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_SUBDISTRICT" EntityType="Self.MT_SUBDISTRICT" Schema="NEP_APP02" store:Type="Tables" />
+          <EntitySet Name="MT_TELEPHONE" EntityType="Self.MT_TELEPHONE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="MT_TEMPLATE" EntityType="Self.MT_TEMPLATE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="ORGANIZATIONCOMMITTEE" EntityType="Self.ORGANIZATIONCOMMITTEE" Schema="NEP_APP02" store:Type="Tables" />
           <EntitySet Name="ORGANIZATIONREGISTERENTRY" EntityType="Self.ORGANIZATIONREGISTERENTRY" Schema="NEP_APP02" store:Type="Tables" />
@@ -2506,6 +2541,10 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="MT_PROVINCE" EntitySet="MT_PROVINCE" />
             <End Role="PROJECTOPERATION" EntitySet="PROJECTOPERATION" />
           </AssociationSet>
+          <AssociationSet Name="FK_PROVINCE_TELEPHONE" Association="Self.FK_PROVINCE_TELEPHONE">
+            <End Role="MT_PROVINCE" EntitySet="MT_PROVINCE" />
+            <End Role="MT_TELEPHONE" EntitySet="MT_TELEPHONE" />
+          </AssociationSet>
           <AssociationSet Name="FK_PROVINCE_USER" Association="Self.FK_PROVINCE_USER">
             <End Role="MT_PROVINCE" EntitySet="MT_PROVINCE" />
             <End Role="SC_USER" EntitySet="SC_USER" />
@@ -2783,6 +2822,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <NavigationProperty Name="User" Relationship="Model.FK_PROVINCE_USER" FromRole="MT_Province" ToRole="SC_User" />
           <NavigationProperty Name="OrganizationRegisterEntries" Relationship="Model.FK_PROVINCE_ORGANIZATIONENTRY" FromRole="MT_Province" ToRole="ORGANIZATIONREGISTERENTRY" />
           <NavigationProperty Name="ProjectOperationAddresses" Relationship="Model.FK_PROVINCE_OPERATIONADDRESS" FromRole="MT_Province" ToRole="ProjectOperationAddress" />
+          <NavigationProperty Name="MT_TELEPHONE" Relationship="Model.FK_PROVINCE_TELEPHONE" FromRole="MT_Province" ToRole="MT_TELEPHONE" />
         </EntityType>
         <EntityType Name="MT_SubDistrict">
           <Key>
@@ -4224,6 +4264,11 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             <End Role="ProjectContract" EntitySet="ProjectContracts" />
             <End Role="CONTRACTDUE" EntitySet="CONTRACTDUEs" />
           </AssociationSet>
+          <EntitySet Name="MT_TELEPHONE" EntityType="Model.MT_TELEPHONE" />
+          <AssociationSet Name="FK_PROVINCE_TELEPHONE" Association="Model.FK_PROVINCE_TELEPHONE">
+            <End Role="MT_Province" EntitySet="MT_Province" />
+            <End Role="MT_TELEPHONE" EntitySet="MT_TELEPHONE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="MT_OrganizationParameter">
           <Key>
@@ -5251,6 +5296,41 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
             </Principal>
             <Dependent Role="CONTRACTDUE">
               <PropertyRef Name="PROJECTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MT_TELEPHONE">
+          <Key>
+            <PropertyRef Name="TELEPHONEID" />
+          </Key>
+          <Property Name="TELEPHONEID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="PROVINCEID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="PROVINCENAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ORGANIZATIONNAME" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EXTENSION1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EXTENSION2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAXNUMBER1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAXEXTENSION1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAXNUMBER2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FAXEXTENSION2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEDBY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEDDATE" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPDATEDDATE" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="MT_PROVINCE" Relationship="Model.FK_PROVINCE_TELEPHONE" FromRole="MT_TELEPHONE" ToRole="MT_Province" />
+        </EntityType>
+        <Association Name="FK_PROVINCE_TELEPHONE">
+          <End Type="Model.MT_Province" Role="MT_Province" Multiplicity="1" />
+          <End Type="Model.MT_TELEPHONE" Role="MT_TELEPHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MT_Province">
+              <PropertyRef Name="ProvinceID" />
+            </Principal>
+            <Dependent Role="MT_TELEPHONE">
+              <PropertyRef Name="PROVINCEID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6374,6 +6454,29 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
                 <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
                 <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
                 <ScalarProperty Name="DUEID" ColumnName="DUEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MT_TELEPHONE">
+            <EntityTypeMapping TypeName="Model.MT_TELEPHONE">
+              <MappingFragment StoreEntitySet="MT_TELEPHONE">
+                <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="FAXEXTENSION2" ColumnName="FAXEXTENSION2" />
+                <ScalarProperty Name="FAXNUMBER2" ColumnName="FAXNUMBER2" />
+                <ScalarProperty Name="FAXEXTENSION1" ColumnName="FAXEXTENSION1" />
+                <ScalarProperty Name="FAXNUMBER1" ColumnName="FAXNUMBER1" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="EXTENSION2" ColumnName="EXTENSION2" />
+                <ScalarProperty Name="TELEPHONE2" ColumnName="TELEPHONE2" />
+                <ScalarProperty Name="EXTENSION1" ColumnName="EXTENSION1" />
+                <ScalarProperty Name="TELEPHONE1" ColumnName="TELEPHONE1" />
+                <ScalarProperty Name="ORGANIZATIONNAME" ColumnName="ORGANIZATIONNAME" />
+                <ScalarProperty Name="PROVINCENAME" ColumnName="PROVINCENAME" />
+                <ScalarProperty Name="PROVINCEID" ColumnName="PROVINCEID" />
+                <ScalarProperty Name="TELEPHONEID" ColumnName="TELEPHONEID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

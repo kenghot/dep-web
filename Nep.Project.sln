@@ -65,6 +65,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2021", "2021", "{A838A772-A1A9-4CF4-8FB3-6F1A58125AC1}"
 	ProjectSection(SolutionItems) = preProject
 		lov2021.txt = lov2021.txt
+		Telephone_table.txt = Telephone_table.txt
 		Updatedatabase2021.txt = Updatedatabase2021.txt
 	EndProjectSection
 EndProject

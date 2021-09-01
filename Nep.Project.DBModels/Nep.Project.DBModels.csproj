@@ -101,6 +101,9 @@
     <Compile Include="Model\MT_SubDistrict.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\MT_TELEPHONE.cs">
+      <DependentUpon>NepProjectDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\MT_Template.cs">
       <DependentUpon>NepProjectDB.tt</DependentUpon>
     </Compile>
