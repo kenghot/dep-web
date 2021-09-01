@@ -241,7 +241,7 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefProsition %><span class="required"></span></label>
                         <div class="col-sm-4">
-                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="80" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorRefPosition" ControlToValidate="TextBoxRefPosition"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
@@ -253,7 +253,7 @@
                        <div class="form-group form-group-sm">
                         <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine2 %></label>
                         <div class="col-sm-4">
-                            <asp:TextBox ID="TextBoxRefPositionLine2" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxRefPositionLine2" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="TextBoxRefPosition"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
@@ -266,7 +266,7 @@
                        <div class="form-group form-group-sm">
                         <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine3 %></label>
                         <div class="col-sm-4">
-                            <asp:TextBox ID="TextBoxRefPositionLine3" runat="server" MaxLength="40" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxRefPositionLine3" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
                            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBoxRefPosition"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
@@ -435,7 +435,7 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-8 control-label"><%= Model.Contract_ReceiverPosition %></label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxContractReceivePosition" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxContractReceivePosition" runat="server" MaxLength="60" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -768,7 +768,7 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonSave %>" OnClick="ButtonSave_Click" Visible="false" />
                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false"
-                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractControl?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractControlNew?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
                     <%--                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false" 
                         NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />   --%>

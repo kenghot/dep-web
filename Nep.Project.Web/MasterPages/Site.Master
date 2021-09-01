@@ -71,6 +71,9 @@
                         <li class="" runat="server" id="MenuAddORGUser" menu="AddORGUser" visible="false">
                             <a runat="server" href="~/Register/RegisterForm" 
                             title="เพิ่มผู้ใช้งานภายในองค์กรตนเอง">เพิ่มผู้ใช้งานภายในองค์กรตนเอง</a></li>
+                           <li class="" runat="server" id="MenuEditORGData" menu="EditORGData" visible="false">
+                            <a runat="server" href="~/Account/EditOrganizationData" 
+                            title="แก้ไขข้อมูลองค์กร">แก้ไขข้อมูลองค์กร</a></li>
                         <li class="page_item page-item-report" runat="server" id="MenuReport" menu="Report">
                             <a href="#"  title="รายงานการอนุมัติ">รายงานการอนุมัติ</a>
                             <ul class="children">

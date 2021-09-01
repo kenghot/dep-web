@@ -7,587 +7,506 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.MasterPages
+namespace Nep.Project.Web.Account
 {
 
 
-    public partial class SiteMaster
+    public partial class EditOrganizationData
     {
 
         /// <summary>
-        /// Head1 control.
+        /// UpdatePanelRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelRegister;
 
         /// <summary>
-        /// JqueryUICss control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference JqueryUICss;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// SiteCss control.
+        /// TextBoxOrganizationNameTH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference SiteCss;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxOrganizationNameTH;
 
         /// <summary>
-        /// IconicOneCss control.
+        /// RequiredFieldValidatorTextBoxProjectInfoNameTH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.AspNet.Web.Optimization.WebForms.BundleReference IconicOneCss;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTextBoxProjectInfoNameTH;
 
         /// <summary>
-        /// Image1 control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
+        protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
-        /// HyperLink1 control.
+        /// TextBoxOrganizationNameEN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxOrganizationNameEN;
 
         /// <summary>
-        /// HyperLink2 control.
+        /// RadioButtonOrganizationType1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType1;
 
         /// <summary>
-        /// MenuProject control.
+        /// TextBoxDepartmentName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuProject;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxDepartmentName;
 
         /// <summary>
-        /// MenuAddORGUser control.
+        /// RequiredFieldValidatorDepartmentName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuAddORGUser;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorDepartmentName;
 
         /// <summary>
-        /// MenuEditORGData control.
+        /// RadioButtonOrganizationType2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuEditORGData;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType2;
 
         /// <summary>
-        /// MenuReport control.
+        /// TextBoxMinistryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReport;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxMinistryName;
 
         /// <summary>
-        /// MenuReportEvaluationSummary control.
+        /// RequiredFieldValidatorMinistryName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportEvaluationSummary;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorMinistryName;
 
         /// <summary>
-        /// A6 control.
+        /// RadioButtonOrganizationType3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A6;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType3;
 
         /// <summary>
-        /// MenuReport4 control.
+        /// RadioButtonOrganizationType4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReport4;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType4;
 
         /// <summary>
-        /// A1 control.
+        /// RadioButtonOrganizationType5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType5;
 
         /// <summary>
-        /// MenuReportReportReceiverFunding control.
+        /// RadioButtonOrganizationType6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportReportReceiverFunding;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType6;
 
         /// <summary>
-        /// A2 control.
+        /// RadioButtonOrganizationType7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A2;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonOrganizationType7;
 
         /// <summary>
-        /// MenuReportReportSummaryTracing control.
+        /// TextBoxOrganzationTypeETC control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportReportSummaryTracing;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxOrganzationTypeETC;
 
         /// <summary>
-        /// A3 control.
+        /// RequiredFieldValidatorOrganzationTypeETC control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorOrganzationTypeETC;
 
         /// <summary>
-        /// Li8 control.
+        /// CustomValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li8;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
 
         /// <summary>
-        /// A20 control.
+        /// TextBoxOrgUnderSupport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A20;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxOrgUnderSupport;
 
         /// <summary>
-        /// Li9 control.
+        /// DatePickerRegisterYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li9;
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerRegisterYear;
 
         /// <summary>
-        /// A21 control.
+        /// RequiredFieldValidatorRegisterYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A21;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorRegisterYear;
 
         /// <summary>
-        /// Li10 control.
+        /// DatePickerRegisterDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li10;
+        protected global::Nep.Project.Web.UserControls.DatePicker DatePickerRegisterDate;
 
         /// <summary>
-        /// A22 control.
+        /// CustomValidatorRegisterDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A22;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorRegisterDate;
 
         /// <summary>
-        /// Li4 control.
+        /// TextBoxAddressNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li4;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAddressNo;
 
         /// <summary>
-        /// A18 control.
+        /// RequiredFieldValidatorAddressNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A18;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorAddressNo;
 
         /// <summary>
-        /// Li7 control.
+        /// TextBoxMoo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li7;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxMoo;
 
         /// <summary>
-        /// A19 control.
+        /// TextBoxBuilding control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A19;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBuilding;
 
         /// <summary>
-        /// MenuReportOverlap control.
+        /// TextBoxSoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuReportOverlap;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxSoi;
 
         /// <summary>
-        /// Li5 control.
+        /// TextBoxStreet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li5;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxStreet;
 
         /// <summary>
-        /// A15 control.
+        /// DdlProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A15;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DdlProvince;
 
         /// <summary>
-        /// Li6 control.
+        /// CustomValidatorProvince control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li6;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorProvince;
 
         /// <summary>
-        /// A16 control.
+        /// DdlDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A16;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DdlDistrict;
 
         /// <summary>
-        /// Li3 control.
+        /// CustomValidatorDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li3;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorDistrict;
 
         /// <summary>
-        /// A13 control.
+        /// DdlSubDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A13;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DdlSubDistrict;
 
         /// <summary>
-        /// Li1 control.
+        /// CustomValidatorSubDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li1;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorSubDistrict;
 
         /// <summary>
-        /// A12 control.
+        /// TextBoxPostCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A12;
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxPostCode;
 
         /// <summary>
-        /// Li2 control.
+        /// RequiredFieldValidatorPostCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPostCode;
 
         /// <summary>
-        /// A5 control.
+        /// MaskedEditExtenderPostCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A5;
+        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtenderPostCode;
 
         /// <summary>
-        /// MenuOrganization control.
+        /// RegularExpressionValidatorPostCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuOrganization;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorPostCode;
 
         /// <summary>
-        /// A8 control.
+        /// TextBoxTelephone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A8;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxTelephone;
 
         /// <summary>
-        /// A9 control.
+        /// RequiredFieldValidatorTelephone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A9;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTelephone;
 
         /// <summary>
-        /// A10 control.
+        /// TextBoxMobileOrganization control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A10;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxMobileOrganization;
 
         /// <summary>
-        /// MenuManageUser control.
+        /// TextBoxFax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuManageUser;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxFax;
 
         /// <summary>
-        /// A4 control.
+        /// TextBoxEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A4;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxEmail;
 
         /// <summary>
-        /// A7 control.
+        /// RequiredFieldValidatorEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A7;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorEmail;
 
         /// <summary>
-        /// A11 control.
+        /// RegularExpressionValidatorTextBoxEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A11;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorTextBoxEmail;
 
         /// <summary>
-        /// A17 control.
+        /// DdlBank control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A17;
+        protected global::System.Web.UI.WebControls.DropDownList DdlBank;
 
         /// <summary>
-        /// A14 control.
+        /// TextBoxBranchNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A14;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBranchNo;
 
         /// <summary>
-        /// Form control.
+        /// TextBoxAccountNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm Form;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountNo;
 
         /// <summary>
-        /// ScriptManager1 control.
+        /// TextBoxAccountName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAccountName;
 
         /// <summary>
-        /// modernizrJs control.
+        /// ButtonSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder modernizrJs;
+        protected global::System.Web.UI.WebControls.Button ButtonSave;
 
         /// <summary>
-        /// HeadContent control.
+        /// ButtonDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.WebControls.Button ButtonDelete;
 
         /// <summary>
-        /// WaitingLabelTemp control.
+        /// ButtonCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label WaitingLabelTemp;
-
-        /// <summary>
-        /// WaitingModalPopup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender WaitingModalPopup;
-
-        /// <summary>
-        /// WaitingModalPopupPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel WaitingModalPopupPanel;
-
-        /// <summary>
-        /// AjaxWaitingModalPopup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender AjaxWaitingModalPopup;
-
-        /// <summary>
-        /// AjaxWaitingModalPopupPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AjaxWaitingModalPopupPanel;
-
-        /// <summary>
-        /// LabelProjectName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelProjectName;
-
-        /// <summary>
-        /// MainContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-
-        /// <summary>
-        /// ImageLoader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImageLoader;
-
-        /// <summary>
-        /// FooterScript control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FooterScript;
-
-        /// <summary>
-        /// ContentPlaceHolderFooterScript control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolderFooterScript;
+        protected global::System.Web.UI.WebControls.HyperLink ButtonCancel;
     }
 }
