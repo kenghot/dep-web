@@ -387,7 +387,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to บันทึกการคืนเงินสำเาร็จ.
+        ///   Looks up a localized string similar to บันทึกการคืนเงินสำเร็จ.
         /// </summary>
         public static string UpdateProjectContractRefund {
             get {

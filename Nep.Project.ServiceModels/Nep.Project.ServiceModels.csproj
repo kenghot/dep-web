@@ -53,6 +53,7 @@
     <Compile Include="API\Responses\ProjectInfo.cs" />
     <Compile Include="Attachment.cs" />
     <Compile Include="KendoChart.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="ProjectFunctionParam.cs" />
     <Compile Include="Report\ReportPaymentSlip.cs" />
     <Compile Include="Report\FollowUpReportModel.cs" />

@@ -95,6 +95,7 @@ namespace Nep.Project.DBModels.Model
         public virtual DbSet<LOG_ACCESS> LOG_ACCESS { get; set; }
         public virtual DbSet<CONTRACTDUE> CONTRACTDUEs { get; set; }
         public virtual DbSet<MT_TELEPHONE> MT_TELEPHONE { get; set; }
+        public virtual DbSet<MT_ITEM> MT_ITEM { get; set; }
     
         public virtual int ClearUserAccess()
         {

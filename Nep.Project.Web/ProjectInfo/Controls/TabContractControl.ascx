@@ -5,7 +5,9 @@
     UpdateMode="Conditional"
     runat="server">
     <ContentTemplate>
-
+         <div class="alert alert-success" role="alert" visible="false" id="DivRefundSuccess" runat="server">
+          <asp:Label ID="LabelRefundSuccess" runat="server" Text="" Visible="false" ></asp:Label>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><%= UI.TabTitleContract %></h3>
@@ -730,7 +732,7 @@
                    </div>
                 </div>
             </div>
-             <div class="panel panel-default"  id="DivRefund" runat="server">
+             <div class="panel panel-default"  id="DivRefund" runat="server" visible="false">
                  <div class="panel-heading">
                 <h3 class="panel-title">การคืนเงิน(ในกรณีทำสัญญาแล้ว)</h3>
                 </div>
@@ -758,8 +760,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div id="Div1" class="form-horizontal" runat="server">
             <div class="form-group form-group-sm">

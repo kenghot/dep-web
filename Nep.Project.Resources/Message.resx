@@ -228,7 +228,7 @@
     <value>ติดตาม : {0} รายการ</value>
   </data>
   <data name="UpdateProjectContractRefund" xml:space="preserve">
-    <value>บันทึกการคืนเงินสำเาร็จ</value>
+    <value>บันทึกการคืนเงินสำเร็จ</value>
   </data>
   <data name="UpdateProjectContractStartEndDate" xml:space="preserve">
     <value>บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญาสำเร็จแล้ว</value>

@@ -181,7 +181,7 @@ namespace Nep.Project.Web.Report
         private void SaveReportProjectContractCenter(ServiceModels.Report.ReportFormatContract ReportContract, ServiceModels.ProjectInfo.TabContract TabContract)
         {
             GetDataReportFormatContract(ReportContract, TabContract);
-            string oldFile = Server.MapPath("~/Content/Files/nep-contract-center-new.pdf");
+            string oldFile = Server.MapPath("~/Content/Files/nep-contract-center.pdf");
             MemoryStream ms = new MemoryStream();
             Stream pdfStream = new FileStream(oldFile, FileMode.Open);
             var pdfReader = new PdfReader(pdfStream);
@@ -388,7 +388,7 @@ namespace Nep.Project.Web.Report
         {
             GetDataReportFormatContract(ReportContract, TabContract);
             // file formate nep ->insert text
-            string oldFile = Server.MapPath("~/Content/Files/nep-contract-research-new.pdf");
+            string oldFile = Server.MapPath("~/Content/Files/nep-contract-research.pdf");
             MemoryStream ms = new MemoryStream();
             Stream pdfStream = new FileStream(oldFile, FileMode.Open);
             var pdfReader = new PdfReader(pdfStream);

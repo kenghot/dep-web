@@ -315,7 +315,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                 //PanelSuggestionDesc.Visible = (functions.Contains(Common.ProjectFunction.PrintReport) && (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer));
                 //PanelSuggestionDesc.Visible = ((HasSaveDraftReportResultRole && HasSaveReportResultRole) || (functions.Contains(Common.ProjectFunction.PrintReport) && (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer)) || (model.FollowupStatusCode == Common.LOVCode.Followupstatus.รายงานผลแล้ว));
-                bool canSaveReportResult = (functions.Contains(Common.ProjectFunction.SaveReportResult)); 
+                bool canSaveReportResult = (functions.Contains(Common.ProjectFunction.SaveReportResult));
                 //ลงชื่อเจ้าหน้าที่ผู้รายงาน
                 //TextBoxSuggestionDesc.Text = model.SuggestionDesc;
                 //TextBoxSuggestionDesc.ReadOnly = !canSaveReportResult;
@@ -334,11 +334,17 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                 //TextBoxReporter2Telephone.Text = model.Telephone2;
                 //TextBoxReporter2Telephone.Enabled = canSaveReportResult;     
-           
-               
-                    
-               
-            }
+
+                var projectApprovalResult = _projectService.GetProjectApprovalResult(ProjectID);
+                if (projectApprovalResult.IsCompleted)
+                {
+                    ServiceModels.ProjectInfo.ProjectApprovalResult obj = projectApprovalResult.Data;
+                    LabelOrganizationName.Text = obj.OrganizationName;
+                    LabelProjectName.Text = obj.ProjectName;
+                }
+
+
+               }
             else
             {
                 //ShowErrorMessage(result.Message);

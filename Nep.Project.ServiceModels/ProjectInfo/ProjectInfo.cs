@@ -1693,7 +1693,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public DateTime? StartDateOld { get; set; }
         public DateTime? EndDateOld { get; set; }
 
-        public Decimal TotalDayOld { get; set; }
+        public Decimal? TotalDayOld { get; set; }
 
         public String EditByName { get; set; }
     }

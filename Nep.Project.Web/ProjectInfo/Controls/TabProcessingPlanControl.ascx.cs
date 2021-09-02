@@ -415,13 +415,9 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 var resultOperation = _service.GetProjectOperationByProjectID(projectId);
                 if (resultOperation.IsCompleted)
                 {
-                    ServiceModels.ProjectInfo.TabProcessingPlan model = resultOperation.Data;
-                    if(startDate!= (DateTime)model.StartDate || endDate!= (DateTime)model.EndDate)
-                    {
-                        result.ExtendData.StartDateOld = (DateTime)model.StartDate;
-                        result.ExtendData.EndDateOld = (DateTime)model.EndDate;
-                        result.ExtendData.TotalDayOld = (Decimal)model.TotalDay;
-                    }
+                    result.ExtendData.StartDateOld = resultOperation.Data.StartDate;
+                    result.ExtendData.EndDateOld = resultOperation.Data.EndDate;
+                    result.ExtendData.TotalDayOld = resultOperation.Data.TotalDay;
 
                 }
             }

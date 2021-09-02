@@ -48,9 +48,11 @@ namespace Nep.Project.DBModels.Model
         public Nullable<decimal> ASSESSMENT610 { get; set; }
         public Nullable<decimal> ASSESSMENT611 { get; set; }
         public string EXTENDDATA { get; set; }
+        public Nullable<decimal> STRATEGICITEMID { get; set; }
     
         public virtual MT_Province Province { get; set; }
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }
         public virtual MT_ListOfValue EvaluationStatus { get; set; }
+        public virtual MT_ITEM MT_ITEM { get; set; }
     }
 }

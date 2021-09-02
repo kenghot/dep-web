@@ -1263,6 +1263,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ระบบจัดการ.
+        /// </summary>
+        public static string MenuManageData {
+            get {
+                return ResourceManager.GetString("MenuManageData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ผู้ใช้งาน.
         /// </summary>
         public static string MenuManageUser {

@@ -24,6 +24,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.UpdatePanel UpdatePanelContract;
 
         /// <summary>
+        /// DivRefundSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivRefundSuccess;
+
+        /// <summary>
+        /// LabelRefundSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelRefundSuccess;
+
+        /// <summary>
         /// TextBoxReferenceNo control.
         /// </summary>
         /// <remarks>

@@ -77,6 +77,7 @@ namespace Nep.Project.Web.MasterPages
             if (roles.Contains(Common.FunctionCode.MANAGE_USER))
             {               
                 MenuManageUser.Visible = true;
+                MenuManageData.Visible = true;
             }
 
 

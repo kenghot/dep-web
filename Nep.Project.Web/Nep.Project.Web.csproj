@@ -419,6 +419,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ManageItem\StrategicList.aspx" />
     <Content Include="mapmobile.html" />
     <Content Include="map.html" />
     <Content Include="offline.html" />
@@ -769,6 +770,13 @@
     <Compile Include="Infra\JobHost.cs" />
     <Compile Include="Infra\ClearUserAccessJob.cs" />
     <Compile Include="Infra\SetFollowupStatusJob.cs" />
+    <Compile Include="ManageItem\StrategicList.aspx.cs">
+      <DependentUpon>StrategicList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageItem\StrategicList.aspx.designer.cs">
+      <DependentUpon>StrategicList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterPages\Guest.Master.cs">
       <DependentUpon>Guest.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

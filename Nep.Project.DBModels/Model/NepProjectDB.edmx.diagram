@@ -139,6 +139,8 @@
         <AssociationConnector Association="Model.CONTRACTDUE_FK1" />
         <EntityTypeShape EntityType="Model.MT_TELEPHONE" Width="1.5" PointX="5.25" PointY="71.875" />
         <AssociationConnector Association="Model.FK_PROVINCE_TELEPHONE" />
+        <EntityTypeShape EntityType="Model.MT_ITEM" Width="1.5" PointX="14.25" PointY="31.5" />
+        <AssociationConnector Association="Model.FK_STRATEGIC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

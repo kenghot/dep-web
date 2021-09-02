@@ -447,6 +447,24 @@ namespace Nep.Project.Web.MasterPages
         protected global::System.Web.UI.HtmlControls.HtmlAnchor A11;
 
         /// <summary>
+        /// MenuManageData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MenuManageData;
+
+        /// <summary>
+        /// A23 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor A23;
+
+        /// <summary>
         /// A17 control.
         /// </summary>
         /// <remarks>
