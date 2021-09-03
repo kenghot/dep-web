@@ -10,12 +10,13 @@ using Nep.Project.Common;
 
 namespace Nep.Project.Web.ProjectInfo.Controls
 {
-    public partial class ProjectBudgetControl : Nep.Project.Web.Infra.BaseUserControl
+    public partial class ProjectBudgetCopyDetail : Nep.Project.Web.Infra.BaseUserControl
     {
         private string BUDGET_DETAIL_LIST_VIEWSTATE_KEY = "BUDGET_DETAIL_LIST";   
         private string BUDGET_DETAIL_ACTIVITY_VIEWSTATE_KEY = "BUDGET_DETAIL_ACTIVITY_VIEWSTATE_KEY";
         public IServices.IProjectInfoService _service { get; set; }
         private string QuestionareGroup = "BUDGET";
+        private decimal NewCopyActivityID = 0;
         private List<Project.ServiceModels.ProjectInfo.BudgetActivity> GridViewActivityData {
             get
             {
@@ -97,6 +98,27 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                 return (decimal)ViewState["ProjectID"];
             }
+            set
+            {
+                ViewState["ProjectID"] = value;
+            }
+        }
+        public Decimal ActivityID
+        {
+            get
+            {
+                if (ViewState["ActivityID"] == null)
+                {
+                    string stID = Request.QueryString["actid"];
+                    decimal id = 0;
+                    Decimal.TryParse(stID, out id);
+                    ViewState["ActivityID"] = id;
+                }
+
+
+                return (decimal)ViewState["ActivityID"];
+            }
+          
         }
 
         public List<String> RequiredSubmitData
@@ -136,7 +158,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
         public void BindData()
         {
-            ButtonSendProjectInfo.Text = (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer) ? Nep.Project.Resources.UI.ButtonSubmit : Nep.Project.Resources.UI.ButtonSendProjectInfo;
+            //ButtonSendProjectInfo.Text = (UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer) ? Nep.Project.Resources.UI.ButtonSubmit : Nep.Project.Resources.UI.ButtonSendProjectInfo;
 
             BindDisplay();
             BindGridViewBudgetDetail();
@@ -147,60 +169,100 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             base.OnPreRender(e);
 
-            //string scriptTag = Business.QuestionareHelper.CommonScript(UpdatePanelProjectBudget.ClientID, hdfQViewModel.ClientID, "");
+            string scriptTag = Business.QuestionareHelper.CommonScript(UpdatePanelProjectBudget.ClientID, hdfQViewModel.ClientID, "");
            
             //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "QuestionareCommon" + this.ClientID, scriptTag, true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "QuestionareCommon" + this.ClientID,
+                             scriptTag, true);
             //RegisterScriptToDoc();
         }
         private void RegisterScriptToDoc()
         {
-          
-           // string doc = @" $(document).ready(function() {  
-                 
-           //     });
-           //     function SelectBudgetPanel()
-           //     {   console.log('select');
-           //         rdo = $('input[type=radio][name=BudgetType]');
-           //         var pn1 = $('#divBudgetType1')[0];
-           //         var pn2 = $('#divBudgetType2')[0];
-           //         pn2.style.display = 'none';
-           //         pn1.style.display = 'none'; 
-           //        // if (rdo[0].checked) {
-           //         if (rdo[0].checked) {
-           //             pn2.style.display = 'none';
-           //             pn1.style.display = 'block';
-           //         }
-           //         else if (rdo[1].checked) {
-           //             pn2.style.display = 'block';
-           //             pn1.style.display = 'none';            
-           //         }
-           //        SelectSupportBudgetPanel();
-           //     }
-                 
-           //     function SelectSupportBudgetPanel() { console.log('support');
-           //     rsb = $('input[type=radio][name=SupportBudgetType]');
-           //     B21 = $('td.B21');
-           //     B22 = $('td.B22');
-           //     B21.hide();
-           //     B22.hide();
-           //     if (rsb[0].checked) {
 
-           //             B21.show();
-           //             B22.hide();
-           //         } else if (rsb[1].checked) {
-           //                 B21.hide();
-           //                 B22.show();
-           //     }
-           //     }
-               
-           //     ";
+            string doc = @" 
+                function SelectBudgetPanel()
+                {   console.log('select');
+                    rdo = $('input[type=radio][name=BudgetType]');
+                    var pn1 = $('#divBudgetType1')[0];
+                    var pn2 = $('#divBudgetType2')[0];
+                    pn2.style.display = 'none';
+                    pn1.style.display = 'none'; 
+                    if ($('div.divSupportBudgetType1')[0].style.display == 'none') 
+                    {   QuestionareModel.SupportBudgetType('2'); }
+                    else {   QuestionareModel.SupportBudgetType('1'); }
+                   // if (rdo[0].checked) {
+                    if (rdo[0].checked) {
+                        pn2.style.display = 'none';
+                        pn1.style.display = 'block';
+                    console.log('showactivity');
+                  document.getElementById('divactivity').style.display = 'block';
+                    }
+                    else if (rdo[1].checked) {
+                        pn2.style.display = 'block';
+                        pn1.style.display = 'none';            
+                    }
+                   SelectSupportBudgetPanel();
+                    SelectMealCountRadio();
+    }
+                 
+                function SelectSupportBudgetPanel() { console.log('support');
+                rsb = $('input[type=radio][name=SupportBudgetType]');
+                B21 = $('td.B21');
+                B22 = $('td.B22');
+                B21.hide();
+                B22.hide();
+                if (rsb[0].checked) {
+
+                        B21.show();
+                        B22.hide();
+                    } else if (rsb[1].checked) {
+                            B21.hide();
+                            B22.show();
+                }
+                }
+
+                function SelectMealCountRadio() { console.log('meal');
+                rsb = $('input[type=radio][name=SelectMealCount]');
+                rbGov = $('input[type=radio][name=Food3Meals]'); 
+                var spanmeal = $('#span_meal_select')[0];
+                     
+                      $('.trshow2_1').hide();
+                      $('.trshow2_2').hide();
+                      $('.trshow3_1').hide();
+                      $('.trshow3_2').hide();
+                      $('.trmealbreakfast').hide();
+                //var spanmealnongov = $('#meal_nongoverment')[0];
+                if (rbGov[0].checked) {
+                    if (rsb[0].checked) {spanmeal.textContent = 'จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ (ไม่เกิน 600 บาท/วัน/คน)'; $('.trmealbreakfast').show();}
+                    else {spanmeal.textContent = 'จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ (ไม่เกิน 400 บาท/วัน/คน)';}    
+                  
+                      $('.trshow2_1').show();
+                      $('.trshow2_2').hide();
+                      $('.trshow3_1').hide();
+                      $('.trshow3_2').show();
+                    } else if (rbGov[1].checked) {
+                    if (rsb[0].checked) {spanmeal.textContent = 'จัดในโรงแรม (ไม่เกิน 950 บาท/วัน/คน)'; $('.trmealbreakfast').show();}
+                    else {spanmeal.textContent = 'จัดในโรงแรม (ไม่เกิน 700 บาท/วัน/คน)';}
+                     
+                      $('.trshow2_1').hide();
+                      $('.trshow2_2').show();
+                      $('.trshow3_1').show();
+                      $('.trshow3_2').hide();
+                }
+
+               }
+
+
+
+                ";
            // ScriptManager.RegisterClientScriptBlock(
            //UpdatePanelProjectBudget,
            //this.GetType(),
            //"DocumentStart",
            //doc,
            //true);
-
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "DocumentStart",
+                             doc, true);
             //String scriptUrl = ResolveUrl("~/Scripts/projectbudget.js?v=" + DateTime.Now.Ticks.ToString());
             ////String scriptUrl = ResolveUrl("~/Scripts/manage.processingplan.js?v=" + DateTime.Now.Ticks.ToString());
             //var refScript = "<script type='text/javascript' src='" + scriptUrl + "'></script>";
@@ -213,20 +275,53 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
         }
 
-        //private void RegisterScriptRefreshQN()
-        //{
-        //    string after = "  SelectBudgetPanel()";
-        //    string script = Business.QuestionareHelper.QuestionareJS(ProjectID, QuestionareGroup, UpdatePanelProjectBudget.ClientID, hdfIsDisable.ClientID, "", after);
-        //    RegisterScriptToDoc();
-        //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), QuestionareGroup + this.ClientID,
-        //       script, true);
-        //}
+        private void RegisterScriptRefreshQN()
+        {
+            var act = (from acts in _service.GetDB().PROJECTBUDGETACTIVITies where acts.ACTIVITYID == (NewCopyActivityID>0 ? NewCopyActivityID:ActivityID) select acts).FirstOrDefault();
+            bool isManage = (act.ACTIVITYNAME == Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE);
+            var tabNone = isManage ? "tabNormalBudget" : "tabManageBudget"  ;
+            string after = @"InitialOtherExpense();
+                            CreateVueGrids();";
+            if (isManage)
+            {
+                var bud = from buds in _service.GetDB().PROJECTBUDGETACTIVITies
+                          where buds.PROJECTID == act.PROJECTID && buds.ACTIVITYNAME != Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE
+                          select buds;
+                var totbud = bud.Sum(s => s.TOTALAMOUNT);
+                totbud = totbud.HasValue ? totbud.Value : 0;
+                var tot10p = totbud / 10;
+
+                after += @"$('#divRDBudgetType2')[0].style.display = 'none';
+                          QuestionareModel.BudgetType('1') ;
+                          $('input[type=radio][name=BudgetType]')[0].checked = true;";
+                after += string.Format("QuestionareModel.sum1to13('{0:##,##.#0}') ;", totbud);
+                after += string.Format("QuestionareModel.cal10per('{0:##,##.#0}') ;", tot10p);
+                after += "appVueOther.items = QuestionareModel.other_expenses();";
+            }
+
+            after += @"  SelectBudgetPanel(); 
+                           $('#" + tabNone + "')[0].style.display = 'none';";
+            string script = Business.QuestionareHelper.QuestionareJS(NewCopyActivityID > 0 ? NewCopyActivityID : ActivityID, QuestionareGroup, UpdatePanelProjectBudget.ClientID, hdfIsDisable.ClientID, "", after);
+            RegisterScriptToDoc();
+            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), QuestionareGroup + this.ClientID,
+            //   script, true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), QuestionareGroup + this.ClientID,
+                             script, true);
+            string scriptVue = "";
+            scriptVue = @"<script type=""text/javascript"" src=""../../Scripts/Vue/VueBudgetDetailGrid.js?v=" + DateTime.Now.Ticks.ToString() + @"""></script>";
+
+        
+            var setVueParam = @"";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "BudjectDetailGridJSFile", scriptVue, false);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "BudjectDetailGridInitialData" + this.ClientID,
+                   setVueParam, true);
+        }
 
         protected void BindDisplay()
         {
             try
             {
-                //RegisterScriptRefreshQN();
+                RegisterScriptRefreshQN();
 
                 
                 decimal projectId = ProjectID;
@@ -247,61 +342,52 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                         //kenghot
                         //bool isEditable = (functions.Contains(Common.ProjectFunction.SaveDarft) || functions.Contains(Common.ProjectFunction.ReviseData));
                         var master = (this.Page.Master as MasterPages.SiteMaster);
-                        bool isEditable = (functions.Contains(Common.ProjectFunction.SaveDarft) || functions.Contains(Common.ProjectFunction.ReviseData)
-                            || master.UserInfo.IsAdministrator);
-                       
+                        //bool isEditable = (functions.Contains(Common.ProjectFunction.SaveDarft) || functions.Contains(Common.ProjectFunction.ReviseData)
+                        //    || master.UserInfo.IsAdministrator);
+                        bool isEditable = true;
                         // IsEditableProjectBudget = isEditable;
                         hdfIsDisable.Value = (!isEditable).ToString().ToLower();
-                        IsEditableProjectBudget = isEditable;
+                        IsEditableProjectBudget = false;
                         IsRequestCenterBudget = model.IsRequestCenter;
-                        //GridViewActivity.Columns[4].Visible = isEditable;
-                        //GridViewActivity.Columns[5].Visible = isEditable;
-                        ButtonSave.Visible = isEditable;
-                        ImageButtonSaveProductTargetGroup.Enabled = isEditable;
-                        ImageButtonSaveProductTargetGroup.Visible = isEditable;
-                        RadioButtonGotSupportNo.Enabled = isEditable;
-                        RadioButtonGotSupportYes.Enabled = isEditable;
-                        TextBoxGotSupportName.Enabled = isEditable;
-                        TextBoxGotSupportAmount.Enabled = isEditable;
-                        TextBoxAddActivityDESC.Enabled = isEditable;
-                        TextBoxAddActivityName.Enabled = isEditable;
+
+                        //ButtonSave.Visible = isEditable;
                         //ButtonAddBudgetDetail.Visible = isEditable;
                         ButtonAddBudgetDetail.Visible = false ;
-                        ButtonSendProjectInfo.Visible = (functions.Contains(Common.ProjectFunction.SaveDarft) && canSendProjectInfo);
-                        ButtonDelete.Visible = functions.Contains(Common.ProjectFunction.Delete);
-                        HyperLinkPrint.Visible = (functions.Contains(Common.ProjectFunction.PrintDataForm) && canSendProjectInfo);
-                        ButtonReject.Visible = functions.Contains(Common.ProjectFunction.Reject);
-                                              
+                        //ButtonSendProjectInfo.Visible = (functions.Contains(Common.ProjectFunction.SaveDarft) && canSendProjectInfo);
+                        //ButtonDelete.Visible = functions.Contains(Common.ProjectFunction.Delete);
+                        //HyperLinkPrint.Visible = (functions.Contains(Common.ProjectFunction.PrintDataForm) && canSendProjectInfo);
+                        //ButtonReject.Visible = functions.Contains(Common.ProjectFunction.Reject);
 
-                        TextBoxTotalAmount.Text = model.TotalRequestAmount.ToString();
-                        TextBoxReviseAmount.Text = model.TotalReviseAmount.ToString();
-                        //LabelTotalBudgetAmount.Text = TextBoxTotalAmount.Text;
+                        var act = model.BudgetActivities.Where(w => w.ActivityID == (NewCopyActivityID > 0 ? NewCopyActivityID :ActivityID)).FirstOrDefault();
+                        TextBoxTotalAmount.Text = string.Format("{0:##,#0.#0}",  act.TotalAmount);
+                        //TextBoxReviseAmount.Text = model.TotalReviseAmount.ToString();
+                        LabelTotalBudgetAmount.Text = TextBoxTotalAmount.Text;
 
                     
                          GridViewActivityData = model.BudgetActivities;
-                       
-                        
+
+
                         //lab
                         // TextBoxTotalAmount.Enabled = false;
                         //TextBoxTotalAmount.Attributes.Add("disabled", "true");
-                        if (model.IsBudgetGotSupport != null)
-                        {
-                            if (model.IsBudgetGotSupport == true)
-                            {
-                                RadioButtonGotSupportYes.Checked = true;
-                                TextBoxGotSupportName.Text = model.BudgetGotSupportName;
-                                TextBoxGotSupportAmount.Text = model.BudgetGotSupportAmount.ToString();
-                            }
-                            else
-                            {
-                                RadioButtonGotSupportNo.Checked = true;
-                            }
-                        }
+                        //if (model.IsBudgetGotSupport != null)
+                        //{
+                        //    if (model.IsBudgetGotSupport == true)
+                        //    {
+                        //        RadioButtonGotSupportYes.Checked = true;
+                        //        TextBoxGotSupportName.Text = model.BudgetGotSupportName;
+                        //        TextBoxGotSupportAmount.Text = model.BudgetGotSupportAmount.ToString();
+                        //    }
+                        //    else
+                        //    {
+                        //        RadioButtonGotSupportNo.Checked = true;
+                        //    }
+                        //}
 
                         if (model.ApprovalStatus == "1")
                         {
                             IsApproved = true;
-                            DivBudgetDetailRequestAmount.Visible = true;
+                           // DivBudgetDetailRequestAmount.Visible = true;
                         }
                        
                     }
@@ -310,66 +396,222 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             catch (Exception ex)
             {
                 Common.Logging.LogError(Logging.ErrorType.WebError, "Project Budget", ex);
-                ShowErrorMessage(ex.Message);
+                ShowErrorMessageNew(ex.Message);
             }
         }
-        //private string SaveQN()
-        //{
-        //    string ret = "";
-        //    try
-        //    {
-        //        if (true)
-        //        {
-                   
-
-        //            var result = _service.SaveProjectQuestionareResult(ProjectID, QuestionareGroup, hdfQViewModel.Value, true, false);
-        //            if (result.IsCompleted)
-        //            {
-        //                //Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
-        //                //page.RebindData("TabPanelProjectBudget");
-        //                //ShowResultMessage(result.Message);
-        //            }
-        //            else
-        //            {
-        //                ret = result.Message[0];
-        //            }
-        //        }else
-        //        {
-        //            ret = "ไม่สามารถบันทึกข้อมูลได้";
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
-        //        ret = ex.Message ;
-        //    }
-        //    return ret;
-        //}
-        protected void ButtonSave_Click(object sender, EventArgs e)
+        private string SaveQN()
         {
-            SaveData(true);
-        }
-
-        protected void ButtonDelete_Click(object sender, EventArgs e)
-        {
+            string ret = "";
             try
             {
-                Decimal projectId = 0;
-                decimal.TryParse(HiddenFieldProjectID.Value, out projectId);
-                if (projectId > 0)
+                if (true)
                 {
-                    var result = _service.DeleteProject(projectId);
+                   
+
+                    var result = _service.SaveProjectQuestionareResult(NewCopyActivityID>0? NewCopyActivityID :ActivityID, QuestionareGroup, hdfQViewModel.Value, true, false,Request.UserHostAddress);
                     if (result.IsCompleted)
-                        Response.Redirect(Page.ResolveClientUrl("~/ProjectInfo/ProjectInfoList.aspx?isDeleteSuccess=true"));
+                    {
+                        //Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                        //page.RebindData("TabPanelProjectBudget");
+                        //ShowResultMessage(result.Message);
+                    }
                     else
-                        ShowErrorMessage(result.Message);
+                    {
+                        ret = result.Message[0];
+                    }
+                }else
+                {
+                    ret = "ไม่สามารถบันทึกข้อมูลได้";
                 }
+
             }
             catch (Exception ex)
             {
                 Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
-                ShowErrorMessage(ex.Message);
+                ret = ex.Message ;
+            }
+            return ret;
+        }
+ 
+        protected void ButtonSave_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.ProjectBudget model = new ServiceModels.ProjectInfo.ProjectBudget();
+            try
+            {
+                ShowErrorMessageNew("");
+                if (!Page.IsValid)
+                {
+                    SaveQN();
+                    RegisterScriptRefreshQN();
+                   // this.BindData();
+                    return;
+                }
+                    
+
+                var qn = AddQNToBudget();
+                if (qn != "")
+                {
+                    ShowErrorMessageNew(qn);
+                    SaveQN();
+                    RegisterScriptRefreshQN();
+                    return;
+                }
+                var saveqn = SaveQN();
+                if (saveqn != "")
+                {
+                    ShowErrorMessageNew(saveqn);
+                    return;
+                }
+
+                // return;
+                //if (Page.IsValid)
+             
+                 if (true){
+                    decimal projectId = Convert.ToDecimal(HiddenFieldProjectID.Value);
+                    decimal? totalAmount = Convert.ToDecimal(TextBoxTotalAmount.Text.Trim());
+                    bool? supportFlag = null;
+                    string supportName = string.Empty;
+                    string tmpSupportAmount;
+                    decimal? supportAmount = (decimal?)null;
+                    //if (RadioButtonGotSupportYes.Checked)
+                    //{
+                    //    supportFlag = true;
+                    //    supportName = TextBoxGotSupportName.Text.Trim();
+                    //    tmpSupportAmount = TextBoxGotSupportAmount.Text;
+                    //    supportAmount = Convert.ToDecimal(tmpSupportAmount);
+                    //}
+
+                    //if (RadioButtonGotSupportNo.Checked)
+                    //{
+                    //    supportFlag = false;
+                    //}
+                    
+
+                    var viewStateDetail = ViewState[BUDGET_DETAIL_LIST_VIEWSTATE_KEY];
+                    List<ServiceModels.ProjectInfo.BudgetDetail> list = (viewStateDetail != null) ? (List<ServiceModels.ProjectInfo.BudgetDetail>)viewStateDetail : new List<ServiceModels.ProjectInfo.BudgetDetail>();
+                    model.ActivityID = ActivityID;
+                    model.ProjectID = projectId;
+                    model.TotalRequestAmount = totalAmount;                  
+                    model.IsBudgetGotSupport = supportFlag;
+                    model.BudgetGotSupportName = supportName;
+                    model.BudgetGotSupportAmount = supportAmount;
+                    model.BudgetDetails = list;
+                    model.BudgetActivities = GridViewActivityData;
+
+                    var result = _service.SaveProjectBudgetActivity(model);
+                    if (result.IsCompleted)
+                    {
+                        RequiredSubmitData = result.Data.RequiredSubmitData;
+                        // Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                        //  page.RebindData("TabPanelProjectBudget");      
+
+                        //ShowResultMessage(result.Message);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "savecomplete",
+                             "c2x.closeFormDialog();", true);
+                    }
+                    else
+                    {
+                        ShowErrorMessageNew(result.Message);
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                ShowErrorMessageNew(ex.Message);
+            }
+        }
+            protected void ButtonCopyBudget_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.ProjectBudget model = new ServiceModels.ProjectInfo.ProjectBudget();
+            try
+            {
+                //Beer03092021
+                if (TextBoxAddActivityName.Text.Trim() == Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE)
+                {
+                    ShowErrorMessage("ไม่สามารถตั้งชื่อ '" + Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE + "' ซ้ำได้");
+                    return;
+                }
+                var list = GridViewActivityData;
+                var newAct = new ServiceModels.ProjectInfo.BudgetActivity
+                {
+                    ActivityDESC = TextBoxAddActivityDESC.Text.Trim(),
+                    ActivityName = TextBoxAddActivityName.Text.Trim(),
+                    TotalAmount = 0
+
+                };
+
+                list.Add(newAct);
+                GridViewActivityData = list;
+                UpdateActivityRunno();
+                //GridViewActivity.DataSource = GridViewActivityData;
+                // GridViewActivity.DataBind();
+                TextBoxAddActivityDESC.Text = "";
+                TextBoxAddActivityName.Text = "";
+                SaveData(false);
+
+                var qn = AddQNToBudget();
+                if (qn != "")
+                {
+                    ShowErrorMessageNew(qn);
+                    SaveQN();
+                    RegisterScriptRefreshQN();
+                    return;
+                }
+                var saveqn = SaveQN();
+                if (saveqn != "")
+                {
+                    ShowErrorMessageNew(saveqn);
+                    return;
+                }
+
+                // return;
+                //if (Page.IsValid)
+
+                if (true)
+                {
+                    decimal projectId = Convert.ToDecimal(HiddenFieldProjectID.Value);
+                    decimal? totalAmount = Convert.ToDecimal(TextBoxTotalAmount.Text.Trim());
+                    bool? supportFlag = null;
+                    string supportName = string.Empty;
+                    string tmpSupportAmount;
+                    decimal? supportAmount = (decimal?)null;
+
+
+                    var viewStateDetail = ViewState[BUDGET_DETAIL_LIST_VIEWSTATE_KEY];
+                    List<ServiceModels.ProjectInfo.BudgetDetail> list2 = (viewStateDetail != null) ? (List<ServiceModels.ProjectInfo.BudgetDetail>)viewStateDetail : new List<ServiceModels.ProjectInfo.BudgetDetail>();
+                    model.ActivityID = NewCopyActivityID>0 ? NewCopyActivityID :ActivityID;
+                    model.ProjectID = projectId;
+                    model.TotalRequestAmount = totalAmount;
+                    model.IsBudgetGotSupport = supportFlag;
+                    model.BudgetGotSupportName = supportName;
+                    model.BudgetGotSupportAmount = supportAmount;
+                    model.BudgetDetails = list2;
+                    model.BudgetActivities = GridViewActivityData;
+
+                    var result = _service.SaveProjectBudgetActivity(model);
+                    if (result.IsCompleted)
+                    {
+                        RequiredSubmitData = result.Data.RequiredSubmitData;
+                        // Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                        //  page.RebindData("TabPanelProjectBudget");      
+
+                        //ShowResultMessage(result.Message);
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "savecomplete",
+                             "c2x.closeFormDialog();", true);
+                    }
+                    else
+                    {
+                        ShowErrorMessageNew(result.Message);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                ShowErrorMessageNew(ex.Message);
             }
         }
         private void SaveData(bool CheckValid)
@@ -377,31 +619,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             ServiceModels.ProjectInfo.ProjectBudget model = new ServiceModels.ProjectInfo.ProjectBudget();
             try
             {
-                //if (!Page.IsValid)
-                //{
-                //    SaveQN();
-                //    RegisterScriptRefreshQN();
-                //   // this.BindData();
-                //    return;
-                //}
-
-
-                //var qn = AddQNToBudget();
-                //if (qn != "")
-                //{
-                //    ShowErrorMessage(qn);
-                //    return;
-                //}
-                //var saveqn = SaveQN();
-                //if (saveqn != "")
-                //{
-                //    ShowErrorMessage(saveqn);
-                //    return;
-                //}
-
-                // return;
-                //if (Page.IsValid)
-
                 if (Page.IsValid || !CheckValid)
                 {
                     decimal projectId = Convert.ToDecimal(HiddenFieldProjectID.Value);
@@ -414,19 +631,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     string supportName = string.Empty;
                     string tmpSupportAmount;
                     decimal? supportAmount = (decimal?)null;
-                    if (RadioButtonGotSupportYes.Checked)
-                    {
-                        supportFlag = true;
-                        supportName = TextBoxGotSupportName.Text.Trim();
-                        tmpSupportAmount = TextBoxGotSupportAmount.Text;
-                        supportAmount = Convert.ToDecimal(tmpSupportAmount);
-                    }
-
-                    if (RadioButtonGotSupportNo.Checked)
-                    {
-                        supportFlag = false;
-                    }
-
 
                     var viewStateDetail = ViewState[BUDGET_DETAIL_LIST_VIEWSTATE_KEY];
                     List<ServiceModels.ProjectInfo.BudgetDetail> list = (viewStateDetail != null) ? (List<ServiceModels.ProjectInfo.BudgetDetail>)viewStateDetail : new List<ServiceModels.ProjectInfo.BudgetDetail>();
@@ -443,6 +647,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     var result = _service.SaveProjectBudget(model);
                     if (result.IsCompleted)
                     {
+                        NewCopyActivityID = (Decimal)result.Data.BudgetActivities[result.Data.BudgetActivities.Count - 1].ActivityID;
                         RequiredSubmitData = result.Data.RequiredSubmitData;
                         Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
                         page.RebindData("TabPanelProjectBudget");
@@ -461,6 +666,40 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 ShowErrorMessage(ex.Message);
             }
         }
+        private void UpdateActivityRunno()
+        {
+            long i = 1;
+            var data = GridViewActivityData;
+            foreach (ServiceModels.ProjectInfo.BudgetActivity a in data)
+            {
+                a.RunNo = i;
+                i++;
+            }
+            GridViewActivityData = data;
+        }
+
+        protected void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Decimal projectId = 0;
+                decimal.TryParse(HiddenFieldProjectID.Value, out projectId);
+                if (projectId > 0)
+                {
+                    var result = _service.DeleteProject(projectId);
+                    if (result.IsCompleted)
+                        Response.Redirect(Page.ResolveClientUrl("~/ProjectInfo/ProjectInfoList.aspx?isDeleteSuccess=true"));
+                    else
+                        ShowErrorMessageNew(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                ShowErrorMessageNew(ex.Message);
+            }
+        }
+
         protected void ButtonSendProjectInfo_Click(object sender, EventArgs e)
         {
             decimal projectID = ProjectID;
@@ -479,12 +718,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     }
                     else
                     {
-                        ShowErrorMessage(sendDataToReviewResult.Message[0]);
+                        ShowErrorMessageNew(sendDataToReviewResult.Message[0]);
                     }
                 //}
                 //else
                 //{
-                //    ShowErrorMessage(result.Message);
+                //    ShowErrorMessageNew(result.Message);
                 //}
             }
         }
@@ -540,7 +779,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             var result = _service.GetProjectBudgetInfoByProjectID(projectId);
             if (result.IsCompleted)
             {
-                foreach (var item in result.Data.BudgetDetails)
+                foreach (var item in result.Data.BudgetDetails.Where(w => w.ActivityID == (NewCopyActivityID > 0 ? NewCopyActivityID : ActivityID)).ToList() )
                 {
                     ServiceModels.ProjectInfo.BudgetDetail d = new ServiceModels.ProjectInfo.BudgetDetail();
                     d.UID = Guid.NewGuid().ToString();
@@ -553,7 +792,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     d.Revise2Amount = item.Revise2Amount;
                     d.ReviseDetail = item.ReviseDetail;
                     d.BudgetCode = item.BudgetCode;
-                    d.ActivityID = item.ActivityID;
                     list.Add(d);
                 }
 
@@ -580,8 +818,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 GridViewBudgetDetail.EditIndex = 0;
                 GridViewBudgetDetail.DataBind();
             }
-            GridViewActivity.DataSource = GridViewActivityData;
-            GridViewActivity.DataBind();
         }
 
         protected void GridViewBudgetDetail_RowDataBound(Object sender, GridViewRowEventArgs e)
@@ -664,7 +900,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             CreateBudgetDetail(list, "B22_1_2", "สนับสนุนการจัดตั้งศูนย์บริการคนพิการทั่วไป ค่าจัดทำป้ายชื่อศูนย์บริการคนพิการทั่วไป", jo, new string[] { "B22_1_2" }, new string[] { "บาท" }, 0);
 
             //2.1
-            CreateBudgetDetail(list, "B21_2_1", "การบริหารจัดการศูนย์บริการคนพิการทั่วไป ค่าสาธารณูปโภค", jo, new string[] { "B21_2_1_1", "B21_2_1_2" }, new string[] { "บาท", "เดือน" }, 0);
+            CreateBudgetDetail(list, "B21_2_1", "การบริหารจัดการศูนย์บริการคนพิการทั่วไป ค่าสาธารณูปโภค", jo, new string[] { "B21_2_1_1", "B21_2_1_2" }, new string[] { "บาท", "วัน" }, 0);
             //2.2
             CreateBudgetDetail(list, "B21_2_2", "การบริหารจัดการศูนย์บริการคนพิการทั่วไป ค่าตอบแทนผู้ปฏิบัติงาน", jo, new string[] { "B21_2_2_1", "B21_2_2_2", "B21_2_2_3" }, new string[] { "บาท", "คน", "วัน" }, 0);
 
@@ -689,7 +925,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             CreateBudgetDetail(list, "B22_2_4", "ค่าวัสดุอุปกรณ์สำนักงาน", jo, new string[] { "B22_2_4_1", "B22_2_4_2" }, new string[] { "บาท", "เดือน" }, 0);
 
             //3.1
-            CreateBudgetDetail(list, "B21_3_1", "การประเมินศักยภาพคนพิการ และทำแผนพัฒนาศักยภาพ คนพิการรายบุคคล ก่อนการจัดบริการ", jo, new string[] { "B21_3_1_1", "B21_3_1_2" }, new string[] { "บาท", "คน" }, 0);
+            CreateBudgetDetail(list, "B21_3_1", "การประเมินศักยภาพคนพิการ และทำแผนพัฒนาศักยภาพ คนพิการรายบุคคล ก่อนการจัดบริการ", jo, new string[] { "B21_3_1_1", "B21_3_1_2", "B21_3_1_3" }, new string[] { "บาท", "คน" ,"ครั้ง"}, 0);
             //3.2
             CreateBudgetDetail(list, "B21_3_2", "การฝึกทักษะด้านการทำ ความคุ้นเคยกับสภาพแวดล้อม และการเคลื่อนไหว (Orientation & Mobility : O&M) สำหรับ คนพิการทางการเห็น", jo, new string[] { "B21_3_2_1", "B21_3_2_2" }, new string[] { "บาท", "คน" }, 0);
             //3.3
@@ -697,15 +933,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //local
             CreateBudgetDetail(list, "B22_3_3", "การบริการผู้ช่วยคนพิการ", jo, new string[] { "B22_3_3_1", "B22_3_3_2", "B22_3_3_3" }, new string[] { "บาท", "คน", "วัน" }, 0);
             //3.4
-            CreateBudgetDetail(list, "B21_3_4", "การบริการล่ามภาษามือ", jo, new string[] { "B21_3_4_1", "B21_3_4_2", "B21_3_4_3" }, new string[] { "บาท", "คน", "วัน" }, 0);
+            CreateBudgetDetail(list, "B21_3_4", "การบริการล่ามภาษามือ", jo, new string[] { "B21_3_4_1", "B21_3_4_2", "B21_3_4_3", "B21_3_4_4" }, new string[] { "บาท", "คน", "วัน", "ครั้ง" }, 0);
             //local
-            CreateBudgetDetail(list, "B22_4_3", "การบริการล่ามภาษามือ", jo, new string[] { "B22_3_4_1", "B22_3_4_2", "B22_3_4_3" }, new string[] { "บาท", "คน", "วัน" }, 0);
+            CreateBudgetDetail(list, "B22_4_3", "การบริการล่ามภาษามือ", jo, new string[] { "B22_3_4_1", "B22_3_4_2", "B22_3_4_3", "B22_3_4_4" }, new string[] { "บาท", "คน", "วัน","ครั้ง" }, 0);
 
             //3.5
-
-            CreateBudgetDetail(list, "B21_3_5", "การปรับสภาพแวดล้อม ที่อยู่อาศัยให้แก่คนพิการ", jo, new string[] { "B21_3_5" }, new string[] { "บาท" }, 0);
+          
+            var jv = jo["B21_3_5_text"].ToString();
+            jv = (string.IsNullOrEmpty(jv)) ? "" : jv;
+            string b1Other = "การปรับสภาพแวดล้อม ที่อยู่อาศัยให้แก่คนพิการ ";
+            if (!string.IsNullOrEmpty(jv)) b1Other += "\n" + jv;
+         
+            CreateBudgetDetail(list, "B21_3_5",b1Other, jo, new string[] { "B21_3_5" }, new string[] { "บาท" }, 0);
             //local
-            CreateBudgetDetail(list, "B22_3_5", "การปรับสภาพแวดล้อม ที่อยู่อาศัยให้แก่คนพิการ", jo, new string[] { "B22_3_5" }, new string[] { "บาท" }, 0);
+            jv = jo["B22_3_5_text"].ToString();
+            jv = (string.IsNullOrEmpty(jv)) ? "" : jv;
+            b1Other = "การปรับสภาพแวดล้อม ที่อยู่อาศัยให้แก่คนพิการ ";
+            if (!string.IsNullOrEmpty(jv)) b1Other += "\n" + jv;
+            CreateBudgetDetail(list, "B22_3_5", b1Other, jo, new string[] { "B22_3_5" }, new string[] { "บาท" }, 0);
 
             //3.6
             CreateBudgetDetail(list, "B21_3_6", "การฟื้นฟูสมรรถภาพ ทางด้านร่างกาย", jo, new string[] { "B21_3_6_1", "B21_3_6_2", "B21_3_6_3" }, new string[] { "บาท", "คน", "ครั้ง" }, 0);
@@ -739,9 +984,11 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             CreateBudgetDetail(list, "B21_3_13_2", "การเสริมสร้างพัฒนาการ รายกลุ่ม", jo, new string[] { "B21_3_13_2_1", "B21_3_13_2_2", "B21_3_13_2_3" }, new string[] { "บาท", "คน", "ครั้ง" }, 0);
 
             //3.14
-            CreateBudgetDetail(list, "B21_3_14", "บริการกายอุปกรณ์ รถโยกคนพิการ ไม้เท้าขาว", jo, new string[] { "B21_3_14_1", "B21_3_14_2" }, new string[] { "บาท", "อัน" }, 0);
+            CreateBudgetDetail(list, "B21_3_14", "บริการกายอุปกรณ์ รถโยกคนพิการ", jo, new string[] { "B21_3_14_1", "B21_3_14_2" }, new string[] { "บาท", "อัน" }, 0);
+            CreateBudgetDetail(list, "B21_3_14_1", "บริการกายอุปกรณ์ ไม้เท้าขาว", jo, new string[] { "B21_3_14_1_1", "B21_3_14_2_1" }, new string[] { "บาท", "อัน" }, 0);
             //local
-            CreateBudgetDetail(list, "B22_3_14", "บริการกายอุปกรณ์ รถโยกคนพิการ ไม้เท้าขาว", jo, new string[] { "B22_3_14_1", "B22_3_14_2" }, new string[] { "บาท", "อัน" }, 0);
+            CreateBudgetDetail(list, "B22_3_14", "บริการกายอุปกรณ์ รถโยกคนพิการ", jo, new string[] { "B22_3_14_1", "B22_3_14_2" }, new string[] { "บาท", "อัน" }, 0);
+            CreateBudgetDetail(list, "B22_3_14_1", "บริการกายอุปกรณ์ ไม้เท้าขาว", jo, new string[] { "B22_3_14_1_1", "B22_3_14_2_1" }, new string[] { "บาท", "อัน" }, 0);
             //3.15
             CreateBudgetDetail(list, "B21_3_15", "ค่าบริการประสานส่งต่อ", jo, new string[] { "B21_3_15_1", "B21_3_15_2" }, new string[] { "บาท", "คน" }, 0);
             
@@ -758,16 +1005,20 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         public void GetBudgetType1(List<ServiceModels.ProjectInfo.BudgetDetail> list, Newtonsoft.Json.Linq.JObject jo)
         {   //1.1
             //CreateBudgetDetail(list, "B1_1_1_1", "ค่าอาหาร (จัดอาหารครบ 3 มื้อ) จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ ", jo, new string[] { "B1_1_1_1" }, new string[] { "บาท" }, 0);
-            CreateBudgetDetail(list, "B1_1_1_2_M", "ค่าอาหารจัดในโรงแรม อาหารเช้า", jo, new string[] { "B1_1_1_2_M_1", "B1_1_1_2_M_2", "B1_1_1_2_M_3" }, new string[] { "คน" ,"มื้อ","บาท" }, 0);
-            CreateBudgetDetail(list, "B1_1_1_2_L", "ค่าอาหารจัดในโรงแรม อาหารกลางวัน", jo, new string[] { "B1_1_1_2_L_1", "B1_1_1_2_L_2", "B1_1_1_2_L_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
-            CreateBudgetDetail(list, "B1_1_1_2_D", "ค่าอาหารจัดในโรงแรม อาหารเย็น", jo, new string[] { "B1_1_1_2_D_1", "B1_1_1_2_D_2", "B1_1_1_2_D_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
+            string meal1_1 = string.Format("ค่าอาหารจัดในสถานที่{0} ({1})"
+                , (jo["Food3Meals"].ToString() == "1") ? "ราชการ" : "เอกชน" 
+                , jo["SelectMealCount"].ToString() == "1" ? "ครบ 3 มื้อ" : "ไม่ครบ 3 มื้อ");
+          
+            CreateBudgetDetail(list, "B1_1_1_2_M", meal1_1 + " อาหารเช้า", jo, new string[] { "B1_1_1_2_M_1", "B1_1_1_2_M_2", "B1_1_1_2_M_3" }, new string[] { "คน" ,"มื้อ","บาท" }, 0);
+            CreateBudgetDetail(list, "B1_1_1_2_L", meal1_1 + " อาหารกลางวัน", jo, new string[] { "B1_1_1_2_L_1", "B1_1_1_2_L_2", "B1_1_1_2_L_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_1_1_2_D", meal1_1 + " อาหารเย็น", jo, new string[] { "B1_1_1_2_D_1", "B1_1_1_2_D_2", "B1_1_1_2_D_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
             //1.2
            // CreateBudgetDetail(list, "B1_1_2_1", "ค่าอาหาร (ไม่ครบ 3 มื้อ) จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ ", jo, new string[] { "B1_1_2_1" }, new string[] { "บาท" }, 0);
-            CreateBudgetDetail(list, "B1_1_2_2_L", "ค่าอาหารจัดในโรงแรม อาหารกลางวัน", jo, new string[] { "B1_1_2_2_L_1", "B1_1_2_2_L_2", "B1_1_2_2_L_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
-            CreateBudgetDetail(list, "B1_1_2_2_D", "ค่าอาหารจัดในโรงแรม อาหารเย็น", jo, new string[] { "B1_1_2_2_D_1", "B1_1_2_2_D_2", "B1_1_2_2_D_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
+           // CreateBudgetDetail(list, "B1_1_2_2_L", "ค่าอาหารจัดในโรงแรม อาหารกลางวัน", jo, new string[] { "B1_1_2_2_L_1", "B1_1_2_2_L_2", "B1_1_2_2_L_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_1_2_2_D", "ค่าอาหารจัดในโรงแรม อาหารเย็น", jo, new string[] { "B1_1_2_2_D_1", "B1_1_2_2_D_2", "B1_1_2_2_D_3" }, new string[] { "คน", "มื้อ", "บาท" }, 0);
             //2.1.1
-            CreateBudgetDetail(list, "B1_2_1", "ค่าอาหารและเครื่องดื่ม จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ", jo, new string[] { "B1_2_1_1", "B1_2_1_2", "B1_2_1_3" }, new string[] { "คน", "มื้อ", "บาท" }, 35);
-            CreateBudgetDetail(list, "B1_2_2", "ค่าอาหารและเครื่องดื่ม จัดในสถานที่เอกชนหรือโรงแรม", jo, new string[] { "B1_2_2_1", "B1_2_2_2", "B1_2_2_3" }, new string[] { "คน", "มื้อ", "บาท" }, 75);
+            CreateBudgetDetail(list, "B1_2_1", "ค่าอาหารว่างและเครื่องดื่ม จัดในสถานที่ราชการหรือเอกชนที่ไม่ใช่มืออาชีพ", jo, new string[] { "B1_2_1_1", "B1_2_1_2", "B1_2_1_3" }, new string[] { "คน", "มื้อ", "บาท" }, 35);
+            CreateBudgetDetail(list, "B1_2_2", "ค่าอาหารว่างและเครื่องดื่ม จัดในสถานที่เอกชนหรือโรงแรม", jo, new string[] { "B1_2_2_1", "B1_2_2_2", "B1_2_2_3" }, new string[] { "คน", "มื้อ", "บาท" }, 75);
             //3.1.1
             CreateBudgetDetail(list, "B1_3_1_1", "ค่าที่พัก ค่าเช่าห้องพักคนเดียว", jo, new string[] { "B1_3_1_1_1", "B1_3_1_1_2", "B1_3_1_1_3" }, new string[] { "คน", "คืน", "บาท" }, 75);
             //3.1.2
@@ -777,45 +1028,57 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //3.2.1
             CreateBudgetDetail(list, "B1_3_2_1", "ค่าที่พัก เหมาจ่ายเป็นค่าสาธารณูปโภค", jo, new string[] { "B1_3_2_1_1", "B1_3_2_1_2", "B1_3_2_1_3" }, new string[] { "คน", "คืน", "บาท" }, 75);
             //4.1
-            CreateBudgetDetail(list, "B1_4_1", "ค่าพาหนะ เดินทางภายในจังหวัดหน่วยจัด", jo, new string[] { "B1_4_1_1", "B1_4_1_2"  }, new string[] { "คน",  "บาท" }, 1000);
+            CreateBudgetDetail(list, "B1_4_1", "ค่าพาหนะ เดินทางภายในจังหวัดหน่วยจัด", jo, new string[] { "B1_4_1_1", "B1_4_1_3", "B1_4_1_2"  }, new string[] { "คน", "วัน", "บาท" }, 1000);
             //4.2
-            CreateBudgetDetail(list, "B1_4_2", "ค่าพาหนะ เดินทางจากจังหวัดที่มีพื้นที่ติดต่อกับหน่วยจัด", jo, new string[] { "B1_4_2_1", "B1_4_2_2" }, new string[] { "คน", "บาท" }, 1200);
+            CreateBudgetDetail(list, "B1_4_2", "ค่าพาหนะ เดินทางจากจังหวัดที่มีพื้นที่ติดต่อกับหน่วยจัด", jo, new string[] { "B1_4_2_1", "B1_4_2_3", "B1_4_2_2" }, new string[] { "คน", "วัน", "บาท" }, 1200);
             //4.3
-            CreateBudgetDetail(list, "B1_4_3", "ค่าพาหนะ เดินทางจากทั่วประเทศมายังหน่วยจัด", jo, new string[] { "B1_4_3_1", "B1_4_3_2" }, new string[] { "คน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_4_3", "ค่าพาหนะ เดินทางจากทั่วประเทศมายังหน่วยจัด", jo, new string[] { "B1_4_3_1", "B1_4_3_3", "B1_4_3_2" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //4.4.1
-            CreateBudgetDetail(list, "B1_4_4_1", "เดินทางโดยเครื่องบิน วิทยากร เดินทางโดยเครื่องบินชั้นประหยัด", jo, new string[] { "B1_4_4_1_1", "B1_4_4_1_2" }, new string[] { "คน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_4_4_1", "เดินทางโดยเครื่องบิน วิทยากร เดินทางโดยเครื่องบินชั้นประหยัด", jo, new string[] { "B1_4_4_1_1", "B1_4_4_1_3", "B1_4_4_1_2" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //4.4.2
-            CreateBudgetDetail(list, "B1_4_4_2", "เดินทางโดยเครื่องบิน เจ้าหน้าที่โครงการ ไม่เกิน 3 คน เดินทางโดยสายการบินต้นทุนต่ำ", jo, new string[] { "B1_4_4_2_1", "B1_4_4_2_2" }, new string[] { "คน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_4_4_2", "เดินทางโดยเครื่องบิน เจ้าหน้าที่โครงการ ไม่เกิน 3 คน เดินทางโดยสายการบินต้นทุนต่ำ", jo, new string[] { "B1_4_4_2_1", "B1_4_4_2_3", "B1_4_4_2_2" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //4.5.1
-            CreateBudgetDetail(list, "B1_4_5_1", "ค่าชดเชยกรณีใช้ยานพาหนะส่วนตัว (รถยนต์)", jo, new string[] { "B1_4_5_1_1", "B1_4_5_1_2" }, new string[] { "กิโลเมตร", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_4_5_1", "ค่าชดเชยกรณีใช้ยานพาหนะส่วนตัว (รถยนต์)", jo, new string[] { "B1_4_5_1_1", "B1_4_5_1_3", "B1_4_5_1_2" }, new string[] { "กิโลเมตร", "วัน", "บาท" }, 0);
             //4.5.2
-            CreateBudgetDetail(list, "B1_4_5_2", "ค่าชดเชยกรณีใช้ยานพาหนะส่วนตัว (รถจักรยานยนต์)", jo, new string[] { "B1_4_5_2_1", "B1_4_5_2_2" }, new string[] { "กิโลเมตร", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_4_5_2", "ค่าชดเชยกรณีใช้ยานพาหนะส่วนตัว (รถจักรยานยนต์)", jo, new string[] { "B1_4_5_2_1", "B1_4_5_2_3", "B1_4_5_2_2" }, new string[] { "กิโลเมตร", "วัน", "บาท" }, 0);
             //5
             CreateBudgetDetail(list, "B1_5", "ค่าเบี้ยเลี้ยงสำหรับเจ้าหน้าที่โครงการในวันเดินทางไปและกลับ", jo, new string[] { "B1_5_1", "B1_5_2", "B1_5_3" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //6.1.1
-            CreateBudgetDetail(list, "B1_6_1_1", "ค่าตอบแทน วิทยากรภาครัฐ", jo, new string[] { "B1_6_1_1_1", "B1_6_1_1_2", "B1_6_1_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            // CreateBudgetDetail(list, "B1_6_1_1", "ค่าตอบแทน วิทยากรภาครัฐ", jo, new string[] { "B1_6_1_1_1", "B1_6_1_1_2", "B1_6_1_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_1_1", "ค่าตอบแทน วิทยากรภาครัฐ", jo, "vue_6_1_1", new string[] { "คน", "ชม.","วัน", "บาท" } );
             //6.1.2
-            CreateBudgetDetail(list, "B1_6_1_2", "ค่าตอบแทน วิทยากรเอกชน", jo, new string[] { "B1_6_1_2_1", "B1_6_1_2_2", "B1_6_1_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_1_2", "ค่าตอบแทน วิทยากรเอกชน", jo, new string[] { "B1_6_1_2_1", "B1_6_1_2_2", "B1_6_1_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_1_2", "ค่าตอบแทน วิทยากรเอกชน", jo, "vue_6_1_2", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.1.3
-            CreateBudgetDetail(list, "B1_6_1_3", "ค่าตอบแทน วิทยากรผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_1_3_1", "B1_6_1_3_2", "B1_6_1_3_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_1_3", "ค่าตอบแทน วิทยากรผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_1_3_1", "B1_6_1_3_2", "B1_6_1_3_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_1_3", "ค่าตอบแทน วิทยากรผู้ทรงคุณวุฒิ", jo, "vue_6_1_3", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.2.1
-            CreateBudgetDetail(list, "B1_6_2_1", "ค่าตอบแทน วิทยากรอภิปรายภาครัฐ", jo, new string[] { "B1_6_2_1_1", "B1_6_2_1_2", "B1_6_2_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_2_1", "ค่าตอบแทน วิทยากรอภิปรายภาครัฐ", jo, new string[] { "B1_6_2_1_1", "B1_6_2_1_2", "B1_6_2_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_2_1", "ค่าตอบแทน วิทยากรอภิปรายภาครัฐ", jo, "vue_6_2_1", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.2.2
-            CreateBudgetDetail(list, "B1_6_2_2", "ค่าตอบแทน วิทยากรอภิปรายเอกชน", jo, new string[] { "B1_6_2_2_1", "B1_6_2_2_2", "B1_6_2_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+           // CreateBudgetDetail(list, "B1_6_2_2", "ค่าตอบแทน วิทยากรอภิปรายเอกชน", jo, new string[] { "B1_6_2_2_1", "B1_6_2_2_2", "B1_6_2_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_2_2", "ค่าตอบแทน วิทยากรอภิปรายเอกชน", jo, "vue_6_2_2", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.2.3
-            CreateBudgetDetail(list, "B1_6_2_3", "ค่าตอบแทน วิทยากรอภิปรายผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_2_3_1", "B1_6_2_3_2", "B1_6_2_3_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_2_3", "ค่าตอบแทน วิทยากรอภิปรายผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_2_3_1", "B1_6_2_3_2", "B1_6_2_3_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_2_3", "ค่าตอบแทน วิทยากรอภิปรายผู้ทรงคุณวุฒิ", jo, "vue_6_2_3", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.3.1
-            CreateBudgetDetail(list, "B1_6_3_1", "ค่าตอบแทน วิทยากรกลุ่มภาครัฐ", jo, new string[] { "B1_6_3_1_1", "B1_6_3_1_2", "B1_6_3_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+           // CreateBudgetDetail(list, "B1_6_3_1", "ค่าตอบแทน วิทยากรกลุ่มภาครัฐ", jo, new string[] { "B1_6_3_1_4", "B1_6_3_1_1", "B1_6_3_1_2", "B1_6_3_1_3" }, new string[] {"กลุ่ม", "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_3_1", "ค่าตอบแทน วิทยากรกลุ่มภาครัฐ", jo, "vue_6_3_1", new string[] {"กลุ่ม", "คน", "ชม.", "วัน", "บาท" });
             //6.3.2
-            CreateBudgetDetail(list, "B1_6_3_2", "ค่าตอบแทน วิทยากรกลุ่มเอกชน", jo, new string[] { "B1_6_3_2_1", "B1_6_3_2_2", "B1_6_3_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_3_2", "ค่าตอบแทน วิทยากรกลุ่มเอกชน", jo, new string[] { "B1_6_3_2_4", "B1_6_3_2_1", "B1_6_3_2_2", "B1_6_3_2_3" }, new string[] { "กลุ่ม", "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_3_2", "ค่าตอบแทน วิทยากรกลุ่มเอกชน", jo, "vue_6_3_2", new string[] { "กลุ่ม", "คน", "ชม.", "วัน", "บาท" });
             //6.3.3
-            CreateBudgetDetail(list, "B1_6_3_3", "ค่าตอบแทน วิทยากรกลุ่มผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_3_3_1", "B1_6_3_3_2", "B1_6_3_3_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_3_3", "ค่าตอบแทน วิทยากรกลุ่มผู้ทรงคุณวุฒิ ", jo, new string[] { "B1_6_3_3_4", "B1_6_3_3_1", "B1_6_3_3_2", "B1_6_3_3_3" }, new string[] { "กลุ่ม", "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_3_3", "ค่าตอบแทน วิทยากรกลุ่มผู้ทรงคุณวุฒิ", jo, "vue_6_3_3", new string[] { "กลุ่ม", "คน", "ชม.", "วัน", "บาท" });
             //6.4.1
-            CreateBudgetDetail(list, "B1_6_4_1", "ค่าตอบแทน วิทยากรฝึกอาชีพทั่วไป", jo, new string[] { "B1_6_4_1_1", "B1_6_4_1_2", "B1_6_4_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_6_4_1", "ค่าตอบแทน วิทยากรฝึกอาชีพทั่วไป", jo, new string[] { "B1_6_4_1_1", "B1_6_4_1_2", "B1_6_4_1_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_4_1", "ค่าตอบแทน วิทยากรฝึกอาชีพทั่วไป", jo, "vue_6_4_1", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //6.4.2
-            CreateBudgetDetail(list, "B1_6_4_2", "ค่าตอบแทน วิทยากรภาคฝึกอาชีพเชี่ยวชาญ", jo, new string[] { "B1_6_4_2_1", "B1_6_4_2_2", "B1_6_4_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            // CreateBudgetDetail(list, "B1_6_4_2", "ค่าตอบแทน วิทยากรภาคฝึกอาชีพเชี่ยวชาญ", jo, new string[] { "B1_6_4_2_1", "B1_6_4_2_2", "B1_6_4_2_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_6_4_2", "ค่าตอบแทน วิทยากรภาคฝึกอาชีพเชี่ยวชาญ", jo, "vue_6_4_2", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //7
-            CreateBudgetDetail(list, "B1_7", "ค่าตอบแทนล่ามภาษามือ", jo, new string[] { "B1_7_1", "B1_7_2", "B1_7_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_7", "ค่าตอบแทนล่ามภาษามือ", jo, new string[] { "B1_7_1", "B1_7_2", "B1_7_3" }, new string[] { "คน", "ชม.", "บาท" }, 0);
+            CreateBudgetDetailGrid(list, "B1_7", "ค่าตอบแทนล่ามภาษามือ", jo, "vue1_7", new string[] { "คน", "ชม.", "วัน", "บาท" });
             //8.1
             CreateBudgetDetail(list, "B1_8_1", "ค่าเช่าสถานที่ (จัดในโรงแรม)", jo, new string[] { "B1_8_1_1", "B1_8_1_2"  }, new string[] {   "วัน", "บาท" }, 0);
             //8.2
@@ -843,19 +1106,26 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //11.3
             CreateBudgetDetail(list, "B1_11_3", "ค่าเอกสารเสียงหรือซีดีประกอบการอบรม", jo, new string[] { "B1_11_3_1", "B1_11_3_2" }, new string[] { "ชุด", "บาท" }, 0);
             //12
-            CreateBudgetDetail(list, "B1_12", "ค่ากระเป๋าผ้า", jo, new string[] { "B1_12_1", "B1_12_2" }, new string[] { "คน", "บาท" }, 0);
+            //CreateBudgetDetail(list, "B1_12", "ค่ากระเป๋าผ้า", jo, new string[] { "B1_12_1", "B1_12_2" }, new string[] { "คน", "บาท" }, 0);
             //13
             CreateBudgetDetail(list, "B1_13", "ค่าวัสดุฝึกอบรมหรือฝึกอาชีพ", jo, new string[] { "B1_13_1", "B1_13_2" }, new string[] { "คน", "บาท" }, 0);
             //13 other
-            CreateBudgetDetail(list, "B1_13", "B1_13_other", jo, new string[] { "B1_13_other"  }, new string[] {  "บาท" }, 0);
+            var jv = jo["B1_13_text"].ToString();
+            jv = (string.IsNullOrEmpty(jv)) ? "" : jv;
+            string b1Other = "ค่าวัสดุฝึกอบรมหรือฝึกอาชีพ(อื่นๆ) ";
+            if (!string.IsNullOrEmpty(jv)) b1Other += "\n" + jv;
+
+            //13. รายการค่าใช้จ่ายอื่นๆ
+            CreateBudgetDetailGrid(list, "B1_B1OtherExpense", "รายการค่าใช้จ่ายอื่นๆ", jo, "vue1_B1OtherExpense", new string[] { "", "บาท" });
+            CreateBudgetDetail(list, "B1_13_other", b1Other, jo, new string[] { "B1_13_other"  }, new string[] {  "บาท" }, 0);
             //14.1
             CreateBudgetDetail(list, "B1_14_1", "ค่าใช้จ่ายในการติดตามหรือประเมินผลโครงการหรือถอดบทเรียน", jo, new string[] { "B1_14_1_1", "B1_14_1_2" }, new string[] { "ครั้ง", "บาท" }, 0);
             //14.2
-            CreateBudgetDetail(list, "B1_14_2", "ตอบแทนผู้ช่วยเหลือคนพิการเฉพาะกิจ", jo, new string[] { "B1_14_2_1", "B1_14_2_2", "B1_14_2_3" }, new string[] { "คัน", "วัน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_14_2", "ตอบแทนผู้ช่วยเหลือคนพิการเฉพาะกิจ", jo, new string[] { "B1_14_2_1", "B1_14_2_2", "B1_14_2_3" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //14.3
-            CreateBudgetDetail(list, "B1_14_3", "ตอบแทนอาสาสมัครที่ทำหน้าที่ประสานงานโครงการ", jo, new string[] { "B1_14_3_1", "B1_14_3_2", "B1_14_3_3" }, new string[] { "คัน", "วัน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_14_3", "ตอบแทนอาสาสมัครที่ทำหน้าที่ประสานงานโครงการ", jo, new string[] { "B1_14_3_1", "B1_14_3_2", "B1_14_3_3" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //14.4
-            CreateBudgetDetail(list, "B1_14_4", "ค่าจ้างเจ้าหน้าที่บันทึกวีดีโอภาษามือ", jo, new string[] { "B1_14_4_1", "B1_14_4_2", "B1_14_4_3" }, new string[] { "คัน", "วัน", "บาท" }, 0);
+            CreateBudgetDetail(list, "B1_14_4", "ค่าจ้างเจ้าหน้าที่บันทึกวีดีโอภาษามือ", jo, new string[] { "B1_14_4_1", "B1_14_4_2", "B1_14_4_3" }, new string[] { "คน", "วัน", "บาท" }, 0);
             //14.5
             CreateBudgetDetail(list, "B1_14_5", "ค่าจัดทำและบันทึกวีดีโอหรือซีดี", jo, new string[] { "B1_14_5_1", "B1_14_5_2" }, new string[] { "ชุด", "บาท" }, 0);
             //14.6
@@ -865,7 +1135,48 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //14.8
             CreateBudgetDetail(list, "B1_14_8", "ค่าจดบันทึกการประชุม", jo, new string[] { "B1_14_8_1", "B1_14_8_2" }, new string[] { "คน", "บาท" }, 0);
             //14.9
-            CreateBudgetDetail(list, "B1_14_9_other", "ค่าใช้จ่ายอื่นๆ ตามความจำเป็น", jo, new string[] { "B1_14_9_other"  }, new string[] {   "บาท" }, 0);
+            //B1_14_9_text
+           // jv = jo["B1_14_9_text"].ToString();
+           // jv = (string.IsNullOrEmpty(jv)) ? "" : jv;
+            b1Other = "ค่าใช้จ่ายอื่นๆ ตามความจำเป็น ";
+            decimal amt = 0;
+            //if (!string.IsNullOrEmpty(jv)) b1Other += "\n" + jv;
+            // CreateBudgetDetail(list, "B1_14_9_other", b1Other, jo, new string[] { "B1_14_9_other"  }, new string[] {   "บาท" }, 0);
+            if (jo["other_expenses"] != null)
+            {
+                var jos = jo["other_expenses"].ToList();
+        
+                b1Other = "ค่าใช้จ่ายอื่นๆ ตามความจำเป็น \n";
+                foreach (Newtonsoft.Json.Linq.JObject j in jos)
+                {
+                    decimal amttmp = 0;
+                    amttmp = decimal.Parse(j["amount"].ToString());
+                    if (amttmp > 0)
+                    {
+                        amt += amttmp;
+                        b1Other += string.Format("{0} ({1:##,##.#0} บาท) \n", j["detail"].ToString(), amttmp);
+                    }
+                }
+                if (amt > 0)
+                {
+                    //CreateBudgetDetail(list, "other_expenses", b1Other, jo, new string[] { "B1_14_9_other" }, new string[] { "บาท" }, 0);
+                    ServiceModels.ProjectInfo.BudgetDetail bg;
+                    bg = list.Where(s => s.BudgetCode == "other_expenses").FirstOrDefault();
+                    if (bg == null)
+                    {
+                        bg = new ServiceModels.ProjectInfo.BudgetDetail();
+                        list.Add(bg);
+                        bg.ReviseAmount = amt;
+                        bg.ReviseDetail = b1Other;
+                    }
+                    bg.BudgetCode = "other_expenses";
+                    bg.Detail = b1Other;
+                    bg.Amount = amt;
+                    if (!bg.ReviseAmount.HasValue) bg.ReviseAmount = 0;
+                }
+            }
+
+
         }
 
 
@@ -898,8 +1209,16 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 return err.Detail;
             }
 
-            var zero = list.Where(w => w.Amount == 0);
-            foreach(ServiceModels.ProjectInfo.BudgetDetail z in zero.ToList() )
+            var zero = (list.Where(w => w.Amount == 0)).ToList();
+            if (BudgetType == "1")
+            {
+                zero.AddRange(list.Where(w => w.BudgetCode.Substring(0, 2) == "B2").ToList());
+            }
+            if (BudgetType == "2")
+            {
+                zero.AddRange(list.Where(w => w.BudgetCode.Substring(0, 2) == "B1").ToList());
+            }
+            foreach (ServiceModels.ProjectInfo.BudgetDetail z in zero )
             {
                 list.Remove(z);
             }
@@ -931,6 +1250,89 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //}
             return msg;
         }
+        private void CreateBudgetDetailGrid(List<ServiceModels.ProjectInfo.BudgetDetail> obj, string budgetCode, string budjetDetail, Newtonsoft.Json.Linq.JObject jobj,string fname,  string[] bgUnit)
+
+        {
+            ServiceModels.ProjectInfo.BudgetDetail ret;
+            try
+            {
+                string detail = budjetDetail;
+                string sAmt = "";
+                string sAmtItem = "";
+                decimal Amount = 0;
+                var j1 = jobj[fname].ToList();
+                foreach (var j1tmp in j1)
+                {
+                    var j2 = j1tmp.ToList();
+                    var jtot = j2[bgUnit.Count()].ToString();
+                    sAmtItem = "";
+                    if (!string.IsNullOrEmpty(jtot))
+                    {
+                        Decimal decTot;
+                        if (decimal.TryParse(jtot, out decTot))
+                        {
+                            if (decTot > 0)
+                            {
+                                Amount += decTot;
+                                for (int i = 0; i < bgUnit.Count(); i++)
+                                {
+                                    string jv = j2[i].ToString();
+                                    if (bgUnit[i] == "")
+                                    {
+                                        sAmtItem += jv + " " ;
+                                    }
+                                    else
+                                    {
+                                        jv = (string.IsNullOrEmpty(jv)) ? "0" : jv;
+                                        Decimal dec;
+                                        decimal.TryParse(jv, out dec);
+                                        //  Amount *= dec;
+                                        sAmtItem += string.Format("{0:##,##.#0} {1} ", dec, bgUnit[i]) + " X ";
+                                    }
+
+                                }
+
+                                sAmtItem = sAmtItem.Trim();
+                                if (sAmtItem.Length > 0)
+                                {
+                                    if (sAmtItem[sAmtItem.Length - 1] == 'X')
+                                    {
+                                        sAmtItem = sAmtItem.Substring(0, sAmtItem.Length - 1);
+                                    }
+                                    sAmt += string.Format("({0} = {1:##,##.#0} บาท) \n", sAmtItem, decTot);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+                var sdetail = detail + "\n  " + sAmt ;
+                ret = obj.Where(s => s.BudgetCode == budgetCode).FirstOrDefault();
+                if (ret == null)
+                {
+                    ret = new ServiceModels.ProjectInfo.BudgetDetail();
+                    obj.Add(ret);
+                    ret.ReviseAmount = Amount;
+                    ret.ReviseDetail = sdetail;
+                }
+                ret.BudgetCode = budgetCode;
+                ret.Detail = sdetail;
+                ret.Amount = Amount;
+                if (!ret.ReviseAmount.HasValue) ret.ReviseAmount = 0;
+
+            }
+            catch (Exception ex)
+            {
+                ret = new ServiceModels.ProjectInfo.BudgetDetail();
+                ret.BudgetCode = "error";
+                ret.Detail = "Error get budget from scrren : " + budgetCode + " : " + ex.Message;
+                obj.Add(ret);
+            }
+
+
+        }
         private void CreateBudgetDetail(List<ServiceModels.ProjectInfo.BudgetDetail> obj,string budgetCode, string budjetDetail , Newtonsoft.Json.Linq.JObject jo,string[] bgField, string[] bgUnit, decimal maxBudget)
 
         {
@@ -943,12 +1345,21 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 for (int i = 0; i < bgField.Count(); i++)
                 {
                     var jv = jo[bgField[i]].ToString();
-                    Decimal dec = decimal.Parse(jv);
+                    jv = (string.IsNullOrEmpty(jv)) ? "0" : jv;
+                    Decimal dec;
+                    decimal.TryParse(jv,out  dec);
                     Amount *= dec;
-                    sAmt += string.Format("{0:##,#0} {1} ", dec, bgUnit[i]);
+                    sAmt += string.Format("{0:##,#0} {1} ", dec, bgUnit[i]) + " X " ;
                 }
-
-                    var sdetail = detail + " ( " + sAmt + " )";
+                sAmt = sAmt.Trim();
+                if (sAmt.Length > 0)
+                {
+                    if (sAmt[sAmt.Length - 1] == 'X')
+                    {
+                        sAmt = sAmt.Substring(0,sAmt.Length - 1);
+                    }
+                }
+                var sdetail = detail + " ( " + sAmt + " )";
                 ret = obj.Where(s => s.BudgetCode == budgetCode).FirstOrDefault();
                     if (ret == null)
                     {
@@ -1095,8 +1506,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         private void RebindBudgetActivityDataSource()
         {
           
-            GridViewActivity.DataSource = GridViewActivityData;
-            GridViewActivity.DataBind();
+          
         }
         private void RebindBudgetDetailDataSource()
         {
@@ -1149,21 +1559,21 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             }
         }
 
-        protected void CustomValidatorGotSupportInfo_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            bool isChecked = RadioButtonGotSupportYes.Checked;
-            string gotSupportName = TextBoxGotSupportName.Text;
-            string gotSupportAmont = TextBoxGotSupportAmount.Text;
-            string fieldName = String.Format("{0} และ {1}", Nep.Project.Resources.UI.LabelGotSupportName, Nep.Project.Resources.UI.LabelGotSupportAmount);
-            string error = String.Format(Nep.Project.Resources.Error.RequiredField, fieldName);
-            if (isChecked && (String.IsNullOrEmpty(gotSupportName) || String.IsNullOrEmpty(gotSupportAmont)))
-            {
-                args.IsValid = false;
-                CustomValidator validator = (CustomValidator)source;
-                validator.Text = error;
-                validator.ErrorMessage = error;
-            }
-        }
+        //protected void CustomValidatorGotSupportInfo_ServerValidate(object source, ServerValidateEventArgs args)
+        //{
+        //    bool isChecked = RadioButtonGotSupportYes.Checked;
+        //    string gotSupportName = TextBoxGotSupportName.Text;
+        //    string gotSupportAmont = TextBoxGotSupportAmount.Text;
+        //    string fieldName = String.Format("{0} และ {1}", Nep.Project.Resources.UI.LabelGotSupportName, Nep.Project.Resources.UI.LabelGotSupportAmount);
+        //    string error = String.Format(Nep.Project.Resources.Error.RequiredField, fieldName);
+        //    if (isChecked && (String.IsNullOrEmpty(gotSupportName) || String.IsNullOrEmpty(gotSupportAmont)))
+        //    {
+        //        args.IsValid = false;
+        //        CustomValidator validator = (CustomValidator)source;
+        //        validator.Text = error;
+        //        validator.ErrorMessage = error;
+        //    }
+        //}
 
         private void RegisterClientScript()
         {
@@ -1181,15 +1591,48 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                         }
                     }                
                     args.IsValid = isValid;
-                }";
-                //$('#" + TextBoxTotalAmount.ClientID + @"').prop('disabled', true); 
-        
-            ScriptManager.RegisterClientScriptBlock(
-                       UpdatePanelProjectBudget,
-                       this.GetType(),
-                       "ValidateProjectBudgetDetailScript",
-                       validateScript,
-                       true);
+                }
+                $('#" + TextBoxTotalAmount.ClientID + @"').prop('disabled', true); 
+            ";
+            //ScriptManager.RegisterClientScriptBlock(
+            //           UpdatePanelProjectBudget,
+            //           this.GetType(),
+            //           "ValidateProjectBudgetDetailScript",
+            //           validateScript,
+            //           true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "ValidateProjectBudgetDetailScript",
+                             validateScript, true);
+            string disableRadio = "";
+            var info = (from i in _service.GetDB().ProjectGeneralInfoes where i.ProjectID == ProjectID select i).FirstOrDefault();
+            if (info != null)
+            {
+                if (info.OrganizationTypeID.HasValue)
+                {
+
+                    var otype = _service.GetDB().MT_OrganizationType.Where(w => w.OrganizationTypeID == info.OrganizationTypeID).FirstOrDefault();
+                    if (otype != null)
+                    {
+                        if(otype.ToBeUnder == "1") //Goverment
+                        {  //$('#rdBudgetType1').attr('disabled','true');
+                            //$('#rdSupportBudgetType1').prop('checked', true)
+                            disableRadio = @"  
+                                             $('#rdSupportBudgetType1').attr('disabled','true');
+                                             $('div.divSupportBudgetType1')[0].style.display = 'none';
+                                             $('div.divSupportBudgetType2')[0].style.display = 'block';";
+                        }
+                        else
+                        {
+                            disableRadio = @"$('#rdSupportBudgetType2').attr('disabled','true');
+                                            $('div.divSupportBudgetType2')[0].style.display = 'none';
+                                            $('div.divSupportBudgetType1')[0].style.display = 'block';";
+                                          
+                        }
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "DisableRadiobutton",
+                        disableRadio, true);
+                    }
+                }
+            }
+
 
             //            String validateBudgetTotalAmountScript = @"
             //                function projectBudgetDetailValidateTotalAmount(oSrc, args) {
@@ -1221,21 +1664,28 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
         private void RegisterRequiredData()
         {
-            
-                String onloadScript = @"
+
+            //String onloadScript = @"
+            //     $(function () {      
+            //        SetTabHeader(" + Common.Web.WebUtility.ToJSON(RequiredSubmitData) + @");
+            //     });
+
+            //";
+            String onloadScript = @"
                  $(function () {      
-                    SetTabHeader(" + Common.Web.WebUtility.ToJSON(RequiredSubmitData) + @");
+                
                  });
             
             ";
-                ScriptManager.RegisterStartupScript(
-                          UpdatePanelProjectBudget,
-                          this.GetType(),
-                          "UpdatePanelProjectBudgetPlancript",
-                          onloadScript,
-                          true);
-            
-           
+            //ScriptManager.RegisterStartupScript(
+            //          UpdatePanelProjectBudget,
+            //          this.GetType(),
+            //          "UpdatePanelProjectBudgetPlancript",
+            //          onloadScript,
+            //          true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "UpdatePanelProjectBudgetPlancript",
+                             onloadScript, true);
+
         }
 
         protected void CustomValidatorMaxAmount_ServerValidate(object source, ServerValidateEventArgs args)
@@ -1271,285 +1721,22 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
         }
 
-        protected void GridViewActivity_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-          
 
-            Page.Validate("SaveBudgetApprovalDetail");
-            if (e.CommandName == "cancel")
+
+
+        private void ShowErrorMessageNew(string s)
+        {
+            ErrorLabel.Text = s;
+        }
+        private void ShowErrorMessageNew(List<string> s)
+        {
+            string err = "";
+            foreach (string t in s)
             {
-                GridViewActivity.EditIndex = -1;
-            
-                GridViewActivity.DataSource = GridViewActivityData;
-                GridViewActivity.DataBind();
+                err += t + "<br>";
             }
-            if ((e.CommandName == "save" || e.CommandName == "delete") && Page.IsValid)
-            {
-                //String txtProjectBudgetID = GridViewApprovalBudgetDetail.DataKeys[GridViewApprovalBudgetDetail.EditIndex].Values["ProjectBudgetID"].ToString();
-                //decimal projectBudgetID = Decimal.Parse(txtProjectBudgetID);
-                int idx = int.Parse(e.CommandArgument.ToString());
-                var data = GridViewActivityData;
-                var editRow = GridViewActivity.Rows[idx - 1];
-                
-                //  var act = (ServiceModels.ProjectInfo.BudgetActivity)editRow.DataItem;
-
-                TextBox TextBoxActivityName = (TextBox)editRow.FindControl("TextBoxActivityName");
-                TextBox TextBoxActivityDesc = (TextBox)editRow.FindControl("TextBoxActivityDesc");
-                Label LabelRunno = (Label)editRow.FindControl("LabelRunno");
-                 
-
-                ServiceModels.ProjectInfo.BudgetActivity oldItem = data.Where(x => x.RunNo == (long)idx).FirstOrDefault();
-                if (oldItem != null)
-                {
-                    if (e.CommandName == "save")
-                    {
-                        oldItem.ActivityName = TextBoxActivityName.Text;
-                        oldItem.ActivityDESC = TextBoxActivityDesc.Text;
-                        GridViewActivityData = data;
-                        GridViewActivity.EditIndex = -1;
-                    }
-
-                    if (e.CommandName == "delete")
-                    {
-                        GridViewActivityData.Remove(oldItem);
-                        GridViewActivity.DeleteRow(idx - 1);
-                        UpdateActivityRunno();
-
-                    }
-                    UpdateTotalProjectBudget();
-
-
-                    SaveData(false);
-                    //GridViewActivity.DataSource = GridViewActivityData;
-                    //GridViewActivity.DataBind();
-                }
-
-
-            }
-
+            ErrorLabel.Text = err;
         }
-
-        protected void GridViewActivity_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            GridViewActivity.EditIndex = e.NewEditIndex;
-            RebindBudgetActivityDataSource();
-
-            var editRow =  GridViewActivity.Rows[GridViewActivity.EditIndex];
-            var tName = (TextBox)editRow.FindControl("TextBoxActivityName");
-            var tDESC = (TextBox)editRow.FindControl("TextBoxActivityDESC");
-            tName.Enabled = false;
-            tDESC.Enabled = false;
-        }
-
-        protected void GridViewActivity_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                HiddenField HiddenActivityID = (HiddenField)e.Row.FindControl("HiddenActivityID");
-                Nep.Project.Web.ProjectInfo.Controls.BudgetGridControl grid = (Nep.Project.Web.ProjectInfo.Controls.BudgetGridControl)e.Row.FindControl("BudgetGridControl");
-                if (HiddenActivityID != null)
-                {
-                    Button ButtonPleaseSave = (Button)e.Row.FindControl("ButtonPleaseSave");
-                    Button BudgetButtonEdit = (Button)e.Row.FindControl("BudgetButtonEdit");
-                    ImageButton ActivityButtonEdit = (ImageButton)e.Row.FindControl("ActivityButtonEdit");
-                    ImageButton ActivityButtonDelete = (ImageButton)e.Row.FindControl("ActivityButtonDelete");
-
-                    BudgetButtonEdit.Visible = !string.IsNullOrEmpty(HiddenActivityID.Value);
-                    BudgetButtonEdit.Enabled = IsEditableProjectBudget;
-                    ActivityButtonEdit.Enabled = IsEditableProjectBudget;
-                    ActivityButtonDelete.Enabled = IsEditableProjectBudget;
-
-                    BudgetButtonEdit.Visible = IsEditableProjectBudget;
-                    ActivityButtonEdit.Visible = IsEditableProjectBudget;
-                    ActivityButtonDelete.Visible = IsEditableProjectBudget;
-
-                    ButtonPleaseSave.Visible = false;
-                    if (HiddenActivityID.Value != null)
-                    {
-                        var obj = ViewState[BUDGET_DETAIL_LIST_VIEWSTATE_KEY];
-                        if (obj != null && !string.IsNullOrEmpty( HiddenActivityID.Value) )
-                        {
-                            var list = (List<ServiceModels.ProjectInfo.BudgetDetail>)obj;
-                            grid.RefreshData(list, Decimal.Parse(HiddenActivityID.Value),IsEditableProjectBudget,IsApproved,IsRequestCenterBudget);
-                        }
-                    }
-    
-                }
- 
-
-            }
-        }
-        private void UpdateTotalProjectBudget()
-        {
-
-        }
-        private void UpdateActivityRunno()
-        {
-            long i = 1;
-            var data = GridViewActivityData;
-            foreach ( ServiceModels.ProjectInfo.BudgetActivity a in data)
-            {
-                a.RunNo = i;
-                i++;
-            }
-            GridViewActivityData = data;
-        }
-
-        protected void GridViewActivity_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
-            //GridViewActivity.DeleteRow(e.RowIndex);
-
-            //GridViewActivityData = (List<ServiceModels.ProjectInfo.BudgetActivity>)GridViewActivity.DataSource;
-
-            //UpdateActivityRunno();
-            //GridViewActivity.DataSource = GridViewActivity;
-            //GridViewActivity.DataBind();
-        }
-        protected void btnMangaeExpense_Click(object sender, EventArgs e)
-        {
-            var db = _service.GetDB();
-            var act = (from acts in db.PROJECTBUDGETACTIVITies where acts.PROJECTID == ProjectID && 
-                      acts.ACTIVITYNAME == Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE select acts).FirstOrDefault();
-            if (act != null)
-            {
-                ShowErrorMessage(string.Format("ข้อมูล '{0}' มีได้เพียง 1 รายการต่อโครงการเท่านั้น" , Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE ));
-                return;
-            }
-            var list = GridViewActivityData;
-            var newAct = new ServiceModels.ProjectInfo.BudgetActivity
-            {
-                ActivityDESC = "จะต้องไม่เกิน 10% ของค่าใช้จ่ายทั้งหมดของโครงการที่ได้รับการอนุมัติ",
-                ActivityName = Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE,
-                TotalAmount = 0
-
-            };
-
-            list.Add(newAct);
-            GridViewActivityData = list;
-            UpdateActivityRunno();
-            //GridViewActivity.DataSource = GridViewActivityData;
-            // GridViewActivity.DataBind();
-            TextBoxAddActivityDESC.Text = "";
-            TextBoxAddActivityName.Text = "";
-            SaveData(false);
-
-            //act = new DBModels.Model.PROJECTBUDGETACTIVITY
-            //{
-            //    ACTIVITYDESC = "จะต้องไม่เกิน 10% ของค่าใช้จ่ายทั้งหมดของโครงการที่ได้รับการอนุมัติ",
-            //    ACTIVITYNAME = Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE,
-            //    CREATEBYID = this.UserInfo.UserID,
-            //    CREATEDATE = DateTime.Now,
-            //    PROJECTID = ProjectID,
-            //    RUNNO = 999,
-            //    UPDATEBYID = this.UserInfo.UserID,
-            //    TOTALAMOUNT = 0,
-            //    UPDATEDATE = DateTime.Now
-            //};
-            //db.PROJECTBUDGETACTIVITies.Add(act);
-            //try
-            //{
-            //    db.SaveChanges();
-            //}catch (Exception ex)
-            //{
-            //    ShowErrorMessage(ex.Message);
-            //}
-
-            //SaveData(false);
-        }
-        protected void ImageButtonSaveProductTargetGroup_Click(object sender, ImageClickEventArgs e)
-        {
-            if (TextBoxAddActivityName.Text.Trim() == Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE)
-            {
-                ShowErrorMessage("ไม่สามารถตั้งชื่อ '" + Constants.ACTIVITY_BUDGET_MANAGE_EXPENSE_CODE + "' ซ้ำได้" );
-                return;
-            }
-            var list = GridViewActivityData;
-            var newAct = new ServiceModels.ProjectInfo.BudgetActivity
-            {
-                ActivityDESC = TextBoxAddActivityDESC.Text.Trim(),
-                ActivityName = TextBoxAddActivityName.Text.Trim(),
-                TotalAmount = 0
-
-            };
-          
-            list.Add(newAct);
-            GridViewActivityData = list;
-            UpdateActivityRunno();
-            //GridViewActivity.DataSource = GridViewActivityData;
-           // GridViewActivity.DataBind();
-            TextBoxAddActivityDESC.Text = "";
-            TextBoxAddActivityName.Text = "";
-            SaveData(false);
-        }
-        public string PopupActivityScreen(object actid)
-        {
-
-            if (actid != null)
-            {
-                string dialog = "";
-                decimal dAct = decimal.Parse(actid.ToString());
-                var act = (from a in _service.GetDB().PROJECTBUDGETACTIVITies where a.ACTIVITYID == dAct select a).FirstOrDefault();
-                if (act != null && act.CREATEDATE.HasValue && act.CREATEDATE == new DateTime(2000, 1, 1))
-                {
-                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetdetailpopup2.aspx?actid=" + actid.ToString()
-                    + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:450, title:'รายละเอียดงบประมาณ (แบบฟอร์มเดิม)' , 
-                    buttons : {},
-                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
-                } else
-                {
-                    //string dialog = "c2x.openFormDialog('../projectinfo/budgetdetailpopup.aspx?actid=" + actid.ToString() + "', 'รายละเอียดงบประมาณ', " + 
-                    //    "{ width: 1100, height: 800, buttons: [{text:'google'}] }, null); return false;";
-                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetdetailpopup.aspx?actid=" + actid.ToString()
-                     + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:700, title:'รายละเอียดงบประมาณ' , 
-                    buttons : {},
-                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
-                }
-
-
-                return dialog;
-            }
-            //c2x.openFormDialog("../projectinfo/budgetdetailpopup.aspx?actid=<%# Eval("ACTIVITYID")%>", "รายละเอียดงบประมาณ", { width: 1100, height: 800 }, null); return false;
-            return "";
-        }
-        public string PopupActivityCopyScreen(object actid)
-        {
-
-            if (actid != null)
-            {
-                string dialog = "";
-                decimal dAct = decimal.Parse(actid.ToString());
-                var act = (from a in _service.GetDB().PROJECTBUDGETACTIVITies where a.ACTIVITYID == dAct select a).FirstOrDefault();
-                if (act != null && act.CREATEDATE.HasValue && act.CREATEDATE == new DateTime(2000, 1, 1))
-                {
-                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetdetailpopup2.aspx?actid=" + actid.ToString()
-                    + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:450, title:'รายละเอียดงบประมาณ (แบบฟอร์มเดิม)' , 
-                    buttons : {},
-                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
-                }
-                else
-                {
-                    //string dialog = "c2x.openFormDialog('../projectinfo/budgetdetailpopup.aspx?actid=" + actid.ToString() + "', 'รายละเอียดงบประมาณ', " + 
-                    //    "{ width: 1100, height: 800, buttons: [{text:'google'}] }, null); return false;";
-                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetcopydetailpopup.aspx?actid=" + actid.ToString()
-                     + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:700, title:'รายละเอียดงบประมาณ' , 
-                    buttons : {},
-                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
-                }
-
-
-                return dialog;
-            }
-            //c2x.openFormDialog("../projectinfo/budgetdetailpopup.aspx?actid=<%# Eval("ACTIVITYID")%>", "รายละเอียดงบประมาณ", { width: 1100, height: 800 }, null); return false;
-            return "";
-        }
-
-        protected void ImageButtonRefreshActivity_Click(object sender, ImageClickEventArgs e)
-        {
-            //GridViewActivity.DataSource = GridViewActivityData;
-            //GridViewActivity.DataBind();
-            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
-            page.RebindData("TabPanelProjectBudget");
-        }
+  
     }
 }

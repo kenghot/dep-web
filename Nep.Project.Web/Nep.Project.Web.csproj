@@ -436,6 +436,7 @@
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="ProjectInfo\ActivityBudgetPopUp.aspx" />
+    <Content Include="ProjectInfo\BudgetCopyDetailPopUp.aspx" />
     <Content Include="ProjectInfo\BudgetDetailPopUp2.aspx" />
     <Content Include="ProjectInfo\BudgetDetailPopUp.aspx" />
     <Content Include="ProjectInfo\CancelProjectRequestPopup.aspx" />
@@ -443,6 +444,7 @@
     <Content Include="ProjectInfo\Controls\AttachmentProvideControl.ascx" />
     <Content Include="ProjectInfo\Controls\BudgetGridControl.ascx" />
     <Content Include="ProjectInfo\Controls\CommitteeControl.ascx" />
+    <Content Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx" />
     <Content Include="ProjectInfo\Controls\ProjectBudgetDetail2.ascx" />
     <Content Include="ProjectInfo\Controls\ProjectBudgetDetail.ascx" />
     <Content Include="ProjectInfo\Controls\TabApprovalControl.ascx" />
@@ -833,6 +835,13 @@
     <Compile Include="ProjectInfo\ActivityBudgetPopUp.aspx.designer.cs">
       <DependentUpon>ActivityBudgetPopUp.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectInfo\BudgetCopyDetailPopUp.aspx.cs">
+      <DependentUpon>BudgetCopyDetailPopUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\BudgetCopyDetailPopUp.aspx.designer.cs">
+      <DependentUpon>BudgetCopyDetailPopUp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectInfo\BudgetDetailPopUp2.aspx.cs">
       <DependentUpon>BudgetDetailPopUp2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -881,6 +890,13 @@
     </Compile>
     <Compile Include="ProjectInfo\Controls\CommitteeControl.ascx.designer.cs">
       <DependentUpon>CommitteeControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx.cs">
+      <DependentUpon>ProjectBudgetCopyDetail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx.designer.cs">
+      <DependentUpon>ProjectBudgetCopyDetail.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\Controls\ProjectBudgetDetail2.ascx.cs">
       <DependentUpon>ProjectBudgetDetail2.ascx</DependentUpon>

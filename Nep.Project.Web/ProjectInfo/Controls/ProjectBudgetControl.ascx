@@ -210,15 +210,21 @@
                                                        <asp:Button runat="server" ID="BudgetButtonEdit" Text="กรอกรายละเอียดงบประมาณ" CommandName="budget" 
                                                             OnClientClick = '<%# PopupActivityScreen(Eval("ACTIVITYID")) %>'
                                                            CommandArgument='<%# Eval("ACTIVITYID")%>' />
+                                                     
+                                                      
                                                     </td>
                                                     <td>
+                                                           <asp:Button runat="server" ID="Button1" Text="ทำสำเนางบประมาณ" CommandName="budget" 
+                                                            OnClientClick = '<%# PopupActivityCopyScreen(Eval("ACTIVITYID")) %>'
+                                                           CommandArgument='<%# Eval("ACTIVITYID")%>' />   
+                                                        <br /><br />
                                                         <asp:ImageButton ID="ActivityButtonEdit" runat="server" ImageUrl="~/Images/icon/doc_edit_icon_16.png" 
                                                         CommandName="edit" CommandArgument='<%# Eval("Runno")%>' CausesValidation="false"
                                                         Visible="<%# GridViewActivity.EditIndex < 0 %>"/>    
                                                         <asp:ImageButton ID="ActivityButtonDelete" runat="server" ImageUrl="~/Images/icon/round_delete_icon_16.png" 
                                                         CommandName="delete" CommandArgument='<%# Eval("Runno")%>' CausesValidation="false"
                                                         Visible="<%# GridViewActivity.EditIndex < 0 %>" OnClientClick="return confirm('การลบกิจกรรมจะเป็นการลบข้อมูลของการของบประมาณทั้งหมดที่ได้กรอกไว้ในกิจกรรมนี้แล้วด้วย ท่านยืนยันที่จะต้องการลบกิจกรรมนี้หรือไม่')" />
-                                                    </td>
+                                                   </td>
                                        
                                                 </ItemTemplate>
                                            
