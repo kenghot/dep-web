@@ -37,6 +37,8 @@ namespace Nep.Project.IServices
 
         List<ServiceModels.GenericDropDownListData> ListDisabilityType();
 
+        List<ServiceModels.GenericDropDownListData> ListStrategic();
+
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> SaveProjectInformation(ServiceModels.ProjectInfo.TabProjectInfo model
             , List<ServiceModels.ProjectInfo.ProjectTarget> targetList);
 

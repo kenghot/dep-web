@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IItemService.cs" />
     <Compile Include="IReportsService.cs" />
     <Compile Include="IReport4Service.cs" />
     <Compile Include="IReportOrganizationClientService.cs" />

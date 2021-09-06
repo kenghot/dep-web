@@ -15,6 +15,9 @@ namespace Nep.Project.ServiceModels
         public String ITEMNAME { get; set; }
         public Decimal ORDERNO { get; set; }
         public Boolean ISACTIVE { get; set; }
+
+        public Boolean ISDELETE { get; set; }
+
     }
     [Serializable]
     public class ItemList

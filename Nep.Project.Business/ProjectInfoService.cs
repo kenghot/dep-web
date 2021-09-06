@@ -964,6 +964,21 @@ namespace Nep.Project.Business
             result = q;
             return result;
         }
+        public List<ServiceModels.GenericDropDownListData> ListStrategic()
+        {
+            List<ServiceModels.GenericDropDownListData> result = new List<GenericDropDownListData>();
+            var q = (from e in _db.MT_ITEM
+                     where e.ITEMGROUP == "EVALUATIONSTRATEGIC" && e.ISACTIVE == "1" && e.ISDELETE == "0"
+                     select new ServiceModels.GenericDropDownListData()
+                     {
+                         Text = e.ITEMNAME,
+                         Value = e.ITEMID.ToString(),
+                         OrderNo = e.ORDERNO
+                     }).OrderBy(or => or.OrderNo).ToList();
+
+            result = q;
+            return result;
+        }
 
         public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> GetProjectInformationByProjecctID(Decimal id)
         {
@@ -6667,7 +6682,7 @@ namespace Nep.Project.Business
                                                                         AssessmentDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.AssessmentDesc : null,
 
                                                                         ProvinceMissionDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ProvinceMissionDesc : null,
-
+                                                                        StrategicID = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.STRATEGICITEMID : null,
                                                                         ProvinceID = p.ProvinceID,
 
                                                                         CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
@@ -6779,6 +6794,8 @@ namespace Nep.Project.Business
                     dbEval.IsPassMission5 = (model.IsPassMission5 == true) ? "1" : "0";
                     dbEval.ISPASSMISSION6 = (model.IsPassMission6 == true) ? "1" : "0";
 
+                    //Beer05092021
+                    dbEval.STRATEGICITEMID = model.StrategicID;
                     dbEval.AssessmentDesc = model.AssessmentDesc;
                     dbEval.ProvinceMissionDesc = model.ProvinceMissionDesc;
 

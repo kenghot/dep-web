@@ -32,5 +32,10 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<Int32> GetUserAdministratorRoleID();
 
         ServiceModels.ReturnObject<Int32> GetUserProvicnceRoleID();
+        ServiceModels.ReturnObject<ServiceModels.Item> GetItem(decimal ItemId, string ItemGroup);
+
+        ServiceModels.ReturnMessage UpdateItem(ServiceModels.UserProfile userProfile, ServiceModels.Item dataItem);
+         ServiceModels.ReturnObject<ServiceModels.Item> CreateItem(ServiceModels.Item dataItem);
+         ServiceModels.ReturnMessage DeleteItem(decimal itemId);
     }
 }

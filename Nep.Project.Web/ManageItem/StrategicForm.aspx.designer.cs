@@ -7,74 +7,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.ManageItem
+namespace Nep.Project.Web.User
 {
 
 
-    public partial class StrategicList
+    public partial class StrategicForm
     {
 
         /// <summary>
-        /// UpdatePanel1 control.
+        /// UpdatePanelUserForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelUserForm;
 
         /// <summary>
-        /// TextBoxOrganizationName control.
+        /// ItemName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Nep.Project.Web.UserControls.TextBox TextBoxOrganizationName;
+        protected global::Nep.Project.Web.UserControls.TextBox ItemName;
 
         /// <summary>
-        /// ButtonSearch control.
+        /// RequiredFieldValidatorTxtFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonSearch;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorTxtFirstName;
 
         /// <summary>
-        /// ButtonAdd control.
+        /// IsActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ButtonAdd;
+        protected global::System.Web.UI.WebControls.CheckBox IsActive;
 
         /// <summary>
-        /// btnRefreshDashBoard control.
+        /// ButtonSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRefreshDashBoard;
+        protected global::System.Web.UI.WebControls.Button ButtonSave;
 
         /// <summary>
-        /// GridViewStrategicList control.
+        /// ButtonDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewStrategicList;
+        protected global::System.Web.UI.WebControls.Button ButtonDelete;
 
         /// <summary>
-        /// SqlDataSource1 control.
+        /// ButtonCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.LinkButton ButtonCancel;
     }
 }

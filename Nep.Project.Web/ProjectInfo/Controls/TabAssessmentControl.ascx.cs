@@ -84,7 +84,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             BindDropdownList();
             //BindComboBoxOrganizationProvince();
             BindChcekBoxStandardStrategics();
-
+            BindCheckBoxListTypeStrategic();
             if (ProjectID > 0)
             {
                 var result = _productService.GetAssessmentProject(ProjectID);
@@ -358,33 +358,55 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                     #region ยุทธศาสตร์     
                     if((obj.IsPassMission1.HasValue) && (obj.IsPassMission1 == true)){
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[0].Selected = true;
                     }
 
                     if ((obj.IsPassMission2.HasValue) && (obj.IsPassMission2 == true))
                     {
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[1].Selected = true;
                     }
 
                     if ((obj.IsPassMission3.HasValue) && (obj.IsPassMission3 == true))
                     {
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[2].Selected = true;
                     }
 
                     if ((obj.IsPassMission4.HasValue) && (obj.IsPassMission4 == true))
                     {
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[3].Selected = true;
                     }
 
                     if ((obj.IsPassMission5.HasValue) && (obj.IsPassMission5 == true))
                     {
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[4].Selected = true;
                     }
                     if ((obj.IsPassMission6.HasValue) && (obj.IsPassMission6 == true))
                     {
+                        divStrategicsOld.Visible = true;
+                        divStrategicsNew.Visible = false;
                         RadioButtonListStandardStrategics.Items[5].Selected = true;
                     }
                     #endregion
+
+
+                    //Beer05092021
+                    // for save draft
+                    RadioButtonListTypeStrategic.SelectedValue = (obj.StrategicID.HasValue) ? obj.StrategicID.ToString() : null;
+                    if (string.IsNullOrEmpty(RadioButtonListTypeStrategic.SelectedValue))
+                    {
+                        RadioButtonListTypeStrategic.SelectedIndex = 0;
+                    }
+                    decimal? disabilityTypeID = Convert.ToDecimal(RadioButtonListTypeStrategic.SelectedValue);
 
                     //ยุทธศาสตร์จังหวัด
                     TextBoxProvinceMissionDesc.Text = obj.ProvinceMissionDesc;
@@ -753,6 +775,13 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //ยุทธศาสตร์
             var checkboxList = RadioButtonListStandardStrategics.Items;
 
+            // Beer05092021
+            if (string.IsNullOrEmpty(RadioButtonListTypeStrategic.SelectedValue))
+            {
+                RadioButtonListTypeStrategic.SelectedIndex = 0;
+            }
+            decimal? disabilityTypeID = Convert.ToDecimal(RadioButtonListTypeStrategic.SelectedValue);
+            obj.StrategicID = disabilityTypeID;
             //ยุทธศาสตร์จังหวัด
             obj.ProvinceMissionDesc = TextBoxProvinceMissionDesc.Text.TrimEnd();
             obj.IPAddress = Request.UserHostAddress;
@@ -945,6 +974,45 @@ for (j = 0; j < result.length; j++)
                        script,
                        true);
 
+            String validateDisabilityTypeScript = @"
+                function ValidateRadioButtonList(sender, args) {
+                    var checkBoxList = document.getElementById('" + RadioButtonListTypeStrategic.ClientID + @"');
+                    var checkboxes = checkBoxList.getElementsByTagName('input');
+                    var isValid = false;
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        if (checkboxes[i].checked) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                    args.IsValid = isValid;
+                }
+            ";
+            ScriptManager.RegisterClientScriptBlock(
+                       this.Page,
+                       this.GetType(),
+                       "ValidateDisabilityTypeScript",
+                       validateDisabilityTypeScript,
+                       true);
+
+        }
+        private void BindCheckBoxListTypeStrategic()
+        {
+            try
+            {
+                List<ServiceModels.GenericDropDownListData> list = new List<ServiceModels.GenericDropDownListData>();
+                list = _productService.ListStrategic();
+
+                RadioButtonListTypeStrategic.DataSource = list;
+                RadioButtonListTypeStrategic.DataTextField = "Text";
+                RadioButtonListTypeStrategic.DataValueField = "Value";
+                RadioButtonListTypeStrategic.DataBind();
+            }
+            catch (Exception ex)
+            {
+                //Common.Logging.LogError(Logging.ErrorType.WebError, "Project Info", ex);
+                ShowErrorMessage(ex.Message);
+            }
         }
     }
 }

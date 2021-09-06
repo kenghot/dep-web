@@ -79,6 +79,7 @@
           <Property Name="ITEMGROUP" Type="varchar2" MaxLength="500" Nullable="false" />
           <Property Name="ITEMNAME" Type="varchar2" MaxLength="500" Nullable="false" />
           <Property Name="ORDERNO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ISDELETE" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ISACTIVE" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="CREATEDBY" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="CREATEDDATE" Type="timestamp" Precision="6" Nullable="false" />
@@ -5387,6 +5388,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="UPDATEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UPDATEDDATE" Type="DateTime" Precision="6" />
           <NavigationProperty Name="PROJECTEVALUATIONs" Relationship="Model.FK_STRATEGIC" FromRole="MT_ITEM" ToRole="ProjectEvaluation" />
+          <Property Name="ISDELETE" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <Association Name="FK_STRATEGIC">
           <End Type="Model.MT_ITEM" Role="MT_ITEM" Multiplicity="0..1" />
@@ -6550,6 +6552,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="MT_ITEM">
             <EntityTypeMapping TypeName="Model.MT_ITEM">
               <MappingFragment StoreEntitySet="MT_ITEM">
+                <ScalarProperty Name="ISDELETE" ColumnName="ISDELETE" />
                 <ScalarProperty Name="UPDATEDDATE" ColumnName="UPDATEDDATE" />
                 <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
                 <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />

@@ -14,8 +14,6 @@ namespace Nep.Project.Web.ManageItem
         public IServices.IOrganizationService _service { get; set; }
         public IServices.IProviceService _provinceService { get; set; }
 
-        public IServices.IItemService _itemService { get; set; }
-
 
         public Boolean IsDeleteRole
         {
@@ -275,7 +273,7 @@ namespace Nep.Project.Web.ManageItem
         }
         protected void btnRefreshDashBoard_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/ProjectInfo/OrganizationDashboard.aspx");
+            //Response.Redirect("~/ProjectInfo/OrganizationDashboard.aspx");
             //lblDashBoard.Text = string.Format("{0:dd/MM/yyyy hh:mm:ss}", DateTime.Now);
 
             //ServiceModels.KendoChart pie = ProjectService.GetDashBoardData();  

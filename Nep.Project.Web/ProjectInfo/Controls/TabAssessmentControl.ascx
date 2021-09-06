@@ -590,7 +590,7 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-12 form-group-title"><%= Model.ProjectInfo_StandardStrategic %><span class="required"></span></label>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class="form-group form-group-sm"  runat="server"  id="divStrategicsOld" visible="false">
                         <div class="col-sm-12">
                             <asp:RadioButtonList ID="RadioButtonListStandardStrategics" runat="server"
                                 CssClass="form-control-checkbox-horizontal standard-strategic-checkbox"
@@ -602,6 +602,23 @@
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_StandardStrategic) %>"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_StandardStrategic) %>"
                                 ValidationGroup="SaveAssessment" />
+
+
+                        </div>
+                    </div>
+                      <div class="form-group form-group-sm" runat="server"  id="divStrategicsNew">
+                        <div class="col-sm-12">
+                          <%--Beer05092021--%>
+
+                               <asp:RadioButtonList ID="RadioButtonListTypeStrategic" runat="server" CssClass="form-control-checkbox" RepeatDirection="Vertical"></asp:RadioButtonList>
+                                        <span class="required"></span>
+                                  
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorStandardStrategicsNew" runat="server" ControlToValidate="RadioButtonListTypeStrategic"
+                                CssClass="error-text" SetFocusOnError="true"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_StandardStrategic) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_StandardStrategic) %>"
+                                ValidationGroup="SaveAssessment" />
+
 
                         </div>
                     </div>
@@ -616,6 +633,7 @@
                 </div>
             </div>
         </div>
+          
 
         <div class="form-horizontal">
             <div class="form-group form-group-sm">

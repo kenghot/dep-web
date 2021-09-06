@@ -181,7 +181,7 @@ namespace Nep.Project.Web.Report
         private void SaveReportProjectContractCenter(ServiceModels.Report.ReportFormatContract ReportContract, ServiceModels.ProjectInfo.TabContract TabContract)
         {
             GetDataReportFormatContract(ReportContract, TabContract);
-            string oldFile = Server.MapPath("~/Content/Files/nep-contract-center.pdf");
+            string oldFile = Server.MapPath("~/Content/Files/nep-contract-center-new.pdf");
             MemoryStream ms = new MemoryStream();
             Stream pdfStream = new FileStream(oldFile, FileMode.Open);
             var pdfReader = new PdfReader(pdfStream);
@@ -195,33 +195,39 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.BeginText();
             // postion and write page1
             pdfContentPage1.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 502, 705, 0);//สัญญาที่ 
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 490, 705, 0);//สัญญาที่ 
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.SignAt, 360, 680, 0);//สัญญานี้ทำขึ้น ณ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 140, 660, 0); //ตั้งอยู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 210, 660, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 380, 660, 0);//ถนน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, subDistrict, 185, 642, 0);//ตำบล
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, district,320, 642, 0);//อำเภอ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, province, 460, 642, 0);//จังหวัด
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractDate,215, 625, 0); //วันที่ ระหว่าง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 300, 608, 0);//โดย
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 310, 588, 0);//ตำแหน่ง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, refNoAndrefyear, 460, 570, 0);//ผู้รับมอบ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 185, 552, 0);//ลงวันที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverName, 310, 535, 0);//ฝ่ายหนึ่งกลับ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverAddressNo, 175, 515, 0);//สำนักงานเลขที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo!=null)? ReportContract.ReceiverMoo:"-", 245, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 350, 515, 0);//ถนน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverSubdistrict, 490, 515, 0);//ตำบล
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverDistrict, 215, 498, 0);//อำเภอ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 420, 498, 0);//จังหวัด
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 300, 480, 0);//โดย
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveDate, 400, 463, 0);//25.ผู้มีอำนาจ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 210, 372, 0);//จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 372, 0); //จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 335, 0);//ส่งคำร้อง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 330, 265, 0); //ครั้งที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 460, 265, 0);//ลงวันที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 200, 660, 0); //ตั้งอยู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 450, 660, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 200, 642, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, subDistrict, 450, 642, 0);//ตำบล
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, district,215, 625, 0);//อำเภอ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, province, 450, 625, 0);//จังหวัด
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractDate,200, 608, 0); //วันที่ ระหว่าง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 300, 588, 0);//โดย
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 320, 570, 0);//ตำแหน่ง
+                                                                                                               //Beer28082021 edit
+            if (TabContract.ExtendData != null)
+            {
+                pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine2 != null) ? TabContract.ExtendData.DirectorPositionLine2 : "", 320, 553, 0);//ตำแหน่ง
+                pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine3 != null) ? TabContract.ExtendData.DirectorPositionLine3 : "", 320, 534, 0);//ตำแหน่ง
+            }
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, refNoAndrefyear, 460, 518, 0);//ผู้รับมอบ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 185, 500, 0);//ลงวันที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverName, 310, 480, 0);//ฝ่ายหนึ่งกลับ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverAddressNo, 245, 462, 0);//สำนักงานเลขที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo!=null)? ReportContract.ReceiverMoo:"-", 430, 460, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 215, 443, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverSubdistrict, 430, 443, 0);//ตำบล
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverDistrict, 215, 425, 0);//อำเภอ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 430, 425, 0);//จังหวัด
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 300, 408, 0);//โดย
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveDate, 400, 392, 0);//25.ผู้มีอำนาจ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 210, 301, 0);//จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 301, 0); //จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 266, 0);//ส่งคำร้อง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 330, 155, 0); //ครั้งที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 460, 155, 0);//ลงวันที่
             pdfContentPage1.EndText();
             //Page2
             PdfContentByte pdfContentPage2 = pdfStamper.GetOverContent(2);
@@ -229,13 +235,7 @@ namespace Nep.Project.Web.Report
             pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.BeginText();
             pdfContentPage2.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 138, 183, 0);
-            pdfContentPage2 = checklLengthAttachPage(textAttachPage1, pdfContentPage2); //fucntion check  Length
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 180, 183, 0);
-            pdfContentPage2.SetFontAndSize(baseFont, 14);
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 448, 122, 0);
-            pdfContentPage2 = checklLengthAttachPage(textAttachPage2, pdfContentPage2); //fucntion check  Length
-            pdfContentPage2.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 490, 122, 0);
+           
             pdfContentPage2.SetFontAndSize(baseFont, 14);
             pdfContentPage2.EndText();
             //Page3
@@ -244,22 +244,32 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 400, 740, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 155, 720, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 240, 720, 0);
-            pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 290, 720, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 165, 680, 0);
+            pdfContentPage3 = checklLengthAttachPage(textAttachPage1, pdfContentPage3); //fucntion check  Length
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 290, 680, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 465, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 440, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 490, 615, 0);
+            pdfContentPage3 = checklLengthAttachPage(textAttachPage2, pdfContentPage3); //fucntion check  Length
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 145, 599, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_LEFT, approvalNoAndYear, 400, 552, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 162, 534, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 310, 534, 0);
+            pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 425, 534, 0);
+            pdfContentPage3.SetFontAndSize(baseFont, 14);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 340, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 315, 0);
             //Beer28082021 edit
-            //pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine2, 330, 440, 0);
-            //pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine3, 330, 430, 0);
+            if (TabContract.ExtendData != null)
+            {
+                pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine2 != null) ? TabContract.ExtendData.DirectorPositionLine2 : "", 330, 295, 0);
+                pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine3 != null) ? TabContract.ExtendData.DirectorPositionLine3 : "", 330, 275, 0);
 
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 375, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 355, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 290, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName2, 330, 230, 0);
+            }
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 215, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 195, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 140, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName2, 330, 85, 0);
             pdfContentPage3.EndText();
             pdfStamper.Close();
 
@@ -388,7 +398,7 @@ namespace Nep.Project.Web.Report
         {
             GetDataReportFormatContract(ReportContract, TabContract);
             // file formate nep ->insert text
-            string oldFile = Server.MapPath("~/Content/Files/nep-contract-research.pdf");
+            string oldFile = Server.MapPath("~/Content/Files/nep-contract-research-new.pdf");
             MemoryStream ms = new MemoryStream();
             Stream pdfStream = new FileStream(oldFile, FileMode.Open);
             var pdfReader = new PdfReader(pdfStream);
@@ -403,33 +413,39 @@ namespace Nep.Project.Web.Report
             pdfContentPage1.BeginText();
             // postion and write page1
             pdfContentPage1.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 502, 705, 0);//สัญญาที่ 
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractNo.Replace("/", " / "), 495, 705, 0);//สัญญาที่ 
             pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.SignAt, 360, 680, 0);//สัญญานี้ทำขึ้น ณ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 140, 660, 0); //ตั้งอยู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 205, 660, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 350, 660, 0);//ถนน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, subDistrict, 178, 642, 0);//ตำบล
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, district, 323, 642, 0);//อำเภอ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, province, 465, 642, 0);//จังหวัด
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractDate, 195, 625, 0); //วันที่ ระหว่าง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 300, 608, 0);//โดย
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 300, 588, 0);//ตำแหน่ง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, refNoAndrefyear, 460, 570, 0);//ผู้รับมอบ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 190, 552, 0);//ลงวันที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverName, 310, 535, 0);//ฝ่ายหนึ่งกลับ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverAddressNo, 175, 515, 0);//สำนักงานเลขที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "-", 245, 515, 0);//หมู่ที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 340, 515, 0);//ถนน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverSubdistrict, 490, 515, 0);//ตำบล
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverDistrict, 215, 500, 0);//อำเภอ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 420, 500, 0);//จังหวัด
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 300, 482, 0);//โดย
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveDate, 400, 463, 0);//25.ผู้มีอำนาจ
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 195, 372, 0);//จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 372, 0); //จำนวนเงิน
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 335, 0);//ส่งคำร้อง
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 330, 263, 0); //ครั้งที่
-            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 460, 263, 0);//ลงวันที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, addressNo, 205, 660, 0); //ตั้งอยู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, moo, 460, 660, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, street, 200, 642, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, subDistrict, 460, 642, 0);//ตำบล
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, district, 200, 625, 0);//อำเภอ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, province, 465, 625, 0);//จังหวัด
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractDate, 195, 608, 0); //วันที่ ระหว่าง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 300, 588, 0);//โดย
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 320, 570, 0);//ตำแหน่ง
+
+            if (TabContract.ExtendData != null)
+            {
+                pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine2 != null) ? TabContract.ExtendData.DirectorPositionLine2 : "", 320, 553, 0);//ตำแหน่ง
+                pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine3 != null) ? TabContract.ExtendData.DirectorPositionLine3 : "", 320, 534, 0);//ตำแหน่ง
+            }
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, refNoAndrefyear, 460, 518, 0);//ผู้รับมอบ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractGiverDate, 185, 500, 0);//ลงวันที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverName, 310, 480, 0);//ฝ่ายหนึ่งกลับ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverAddressNo, 245, 462, 0);//สำนักงานเลขที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverMoo != null) ? ReportContract.ReceiverMoo : "-", 430, 460, 0);//หมู่ที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.ReceiverStreet != null) ? ReportContract.ReceiverStreet : "-", 215, 443, 0);//ถนน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverSubdistrict, 430, 443, 0);//ตำบล
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverDistrict, 215, 425, 0);//อำเภอ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ReceiverProvince, 430, 425, 0);//จังหวัด
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 300, 408, 0);//โดย
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveDate, 400, 392, 0);//25.ผู้มีอำนาจ
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Amount, 210, 301, 0);//จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.AmountString, 435, 301, 0); //จำนวนเงิน
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ProjectName, 300, 266, 0);//ส่งคำร้อง
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 330, 155, 0); //ครั้งที่
+            pdfContentPage1.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 460, 155, 0);//ลงวันที่
             pdfContentPage1.EndText();
             //Page2
             PdfContentByte pdfContentPage2 = pdfStamper.GetOverContent(2);

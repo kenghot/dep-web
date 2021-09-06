@@ -123,7 +123,7 @@
                             <a href="#"  title="<%#Nep.Project.Resources.UI.MenuManageData %>">
                             <%:Nep.Project.Resources.UI.MenuManageData %></a>
                             <ul class="children">
-                                <li class="page_item page-item-demo-list"><a id="A23"  runat="server" href="~/ManageItem/StrategicList">ยุทธศาสตร์</a></li>
+                                <li class="page_item page-item-demo-list"><a id="A23"  runat="server" href="~/ManageItem/StrategicList">ข้อมูลยุทธศาสตร์</a></li>
                         </ul>
                          
                         </li>   

@@ -564,7 +564,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
 
         [Display(Name = "ProjectInfo_StrategicProvice", ResourceType = typeof(Nep.Project.Resources.Model))]
         public String ProvinceMissionDesc { get; set; }
-
+        public Decimal? StrategicID { get; set; }
         public Decimal? EvaluationStatusID { get; set; }
         public String EvaluationScoreDesc { get; set; }
 
@@ -1694,7 +1694,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public DateTime? EndDateOld { get; set; }
 
         public Decimal? TotalDayOld { get; set; }
-
+        public string AddressJson { get; set; }
         public String EditByName { get; set; }
     }
 

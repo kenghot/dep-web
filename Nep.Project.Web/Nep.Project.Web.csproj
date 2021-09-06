@@ -420,6 +420,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ManageItem\StrategicList.aspx" />
+    <Content Include="ManageItem\StrategicForm.aspx" />
     <Content Include="mapmobile.html" />
     <Content Include="map.html" />
     <Content Include="offline.html" />
@@ -778,6 +779,13 @@
     </Compile>
     <Compile Include="ManageItem\StrategicList.aspx.designer.cs">
       <DependentUpon>StrategicList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageItem\StrategicForm.aspx.cs">
+      <DependentUpon>StrategicForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageItem\StrategicForm.aspx.designer.cs">
+      <DependentUpon>StrategicForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPages\Guest.Master.cs">
       <DependentUpon>Guest.Master</DependentUpon>

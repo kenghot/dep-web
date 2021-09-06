@@ -28,6 +28,7 @@ namespace Nep.Project.DBModels.Model
         public System.DateTime CREATEDDATE { get; set; }
         public string UPDATEDBY { get; set; }
         public Nullable<System.DateTime> UPDATEDDATE { get; set; }
+        public string ISDELETE { get; set; }
     
         public virtual ICollection<ProjectEvaluation> PROJECTEVALUATIONs { get; set; }
     }
