@@ -408,6 +408,7 @@
     <Content Include="Images\icon\pdf_small.jpg" />
     <Content Include="Images\icon\reload_icon_16.png" />
     <Content Include="Images\icon\reported.png" />
+    <Content Include="Images\icon\report_success.png" />
     <Content Include="Images\icon\round_delete_icon_16.png" />
     <Content Include="Images\icon\round_plus_icon_16.png" />
     <Content Include="Images\icon\save_icon_16.png" />

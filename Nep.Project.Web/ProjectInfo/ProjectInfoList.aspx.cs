@@ -8,6 +8,7 @@ using Nep.Project.Resources;
 using System.Web.ModelBinding;
 using Nep.Project.Common.Web;
 using System.ComponentModel;
+using Nep.Project.ServiceModels.ProjectInfo;
 
 namespace Nep.Project.Web.ProjectInfo
 {
@@ -975,7 +976,8 @@ namespace Nep.Project.Web.ProjectInfo
                 ServiceModels.ProjectInfo.ProjectInfoList r = (ServiceModels.ProjectInfo.ProjectInfoList)e.Row.DataItem;
                 Image img = (Image)e.Row.FindControl("imgApprovalStatus");
                 Image imgReported = (Image)e.Row.FindControl("imgReported");
-                Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
+                Image imgReportedSuccess = (Image)e.Row.FindControl("imgReportedSuccess");
+                 Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
                 if (img != null)
                 {
                     if (r.ApprovalStatus1 != null)
@@ -1002,6 +1004,35 @@ namespace Nep.Project.Web.ProjectInfo
                 if (imgReported != null)
                 {
                     imgReported.Visible = r.FollowupStatusID.HasValue && r.FollowupStatusID.Value == reportedLOV.LOVID;
+                }
+                var rep = (from rp in ProjectService.GetDB().ProjectReports where rp.ProjectID == r.ProjectInfoID select rp).FirstOrDefault();
+                bool IsReportSuccess = false;
+                if (rep != null)
+                {
+                    ServiceModels.ProjectInfo.ProjectReportResult model = new ServiceModels.ProjectInfo.ProjectReportResult();
+                    if (rep.EXTENDDATA != null)
+                    {
+                        model.ExtendData = new ServiceModels.ProjectInfo.ReportExtend();
+                        if (!string.IsNullOrEmpty(rep.EXTENDDATA))
+                        {
+                            try
+                            {
+                                model.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ReportExtend>(rep.EXTENDDATA);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            if (model.ExtendData.ConfirmReportFlag!= null && model.ExtendData.ConfirmReportFlag == "1")
+                            {
+                                IsReportSuccess = true;
+                            }
+                        }
+                    }
+
+                }
+                if (imgReportedSuccess!=null)
+                {
+                    imgReportedSuccess.Visible = IsReportSuccess;
                 }
                 if (btnAcknowledged != null && UserInfo.IsAdministrator)
                 {

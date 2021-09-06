@@ -454,7 +454,9 @@
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_3.png" />ไม่อนุมัติ<br />
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_4.png" />ชะลอการพิจารณา<br />
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_5.png" />ยกเลิก<br />
-                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น<br />
+                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/icon/reported.png" Width="35px" Height="35px" />ส่งรายงานแล้ว<br />
+                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/icon/report_success.png" Width="35px" Height="35px" />ตรวจสอบรายงานแล้ว
                     <br />
                         </div>
                     </div>
@@ -639,6 +641,7 @@
                             <td style="text-align: center; vertical-align: central">
                                 <asp:Image ID="imgApprovalStatus" alt="approve" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
                                 <asp:Image ImageUrl="~/Images/icon/reported.png" ID="imgReported" alt="ส่งรายงานแล้ว" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
+                                   <asp:Image ImageUrl="~/Images/icon/report_success.png" ID="imgReportedSuccess" alt="ตรวจสอบรายงานแล้ว" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
                                 <%--<%#Eval("BudgetYearThai") %>--%>                              
                             </td>
                         </ItemTemplate>
