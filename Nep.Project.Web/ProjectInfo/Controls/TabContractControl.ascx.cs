@@ -1150,7 +1150,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                     }
                     else
                     {
-                        ShowErrorMessage("โปรดกรอกข้อมูลการโอนเงิน");
+                        ShowErrorMessage("โปรดกรอกข้อมูลการคืนเงิน");
                     }
                    
 
