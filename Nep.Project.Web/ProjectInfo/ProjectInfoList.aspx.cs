@@ -948,6 +948,27 @@ namespace Nep.Project.Web.ProjectInfo
                             r.IsReportRevise = true;
                         }
                     }
+                    var contract = (from con in ProjectService.GetDB().ProjectContracts where con.ProjectID == r.ProjectInfoID select con).FirstOrDefault();
+                    if (contract != null && contract.EXTENDDATA!=null)
+                    {
+                        ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+                        model.ExtendData = new ServiceModels.ProjectInfo.ContractExtend();
+                        if (!string.IsNullOrEmpty(contract.EXTENDDATA))
+                        {
+                            try
+                            {
+                                model.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ContractExtend>(contract.EXTENDDATA);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            if (model.ExtendData !=null && model.ExtendData.RefundDetail != null && model.ExtendData.RefundDetail != "")
+                            {
+                                r.IsRefund = true;
+                            }
+                        }
+                        
+                    }
                 }
                 totalRowCount = result.TotalRow;
                 GridProjectInfo.TotalRows = result.TotalRow;

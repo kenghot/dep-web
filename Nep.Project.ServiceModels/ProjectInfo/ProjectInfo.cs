@@ -837,6 +837,10 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                 {
                     desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", "รอโอนเงิน");
                 }
+                if (this.IsRefund)
+                {
+                    desc += String.Format("<span style='color: green; font - weight:bold'> ({0}) </span>", "มีการคืนเงินแล้ว");
+                }
                 return desc;
             }
         }
@@ -950,6 +954,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string Day5 { get; set; }
         public string Day6 { get; set; }
         public bool IsReportRevise { get; set; }
+        public bool IsRefund { get; set; }
         public string RejectComment { get; set; }
         public string Acknowledged { get; set; }
         //end kenghot

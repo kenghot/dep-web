@@ -456,30 +456,33 @@ namespace Nep.Project.Web.Report
             pdfContentPage3.SetFontAndSize(baseFont, 14);
             pdfContentPage3.BeginText();
             pdfContentPage3.AddImage(GenQRCode(urlQRCode + ProjectID.ToString()));
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 165, 678, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage1 != null) ? ReportContract.AttachPage1 : "0", 212, 543, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage1, pdfContentPage3); //fucntion check  Length
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 217, 678, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage1, 320, 543, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 452, 615, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage2 != null) ? ReportContract.AttachPage2 : "0", 475, 480, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage2, pdfContentPage3); //fucntion check  Length
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 490, 615, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage2, 147, 461, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 333, 570, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 470, 570, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 132, 553, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalNoAndYear, 333, 417, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, approvalDate, 470, 417, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (ReportContract.AttachPage3 != null) ? ReportContract.AttachPage3 : "0", 170, 401, 0);
             pdfContentPage3 = checklLengthAttachPage(textAttachPage3, pdfContentPage3); //fucntion check  Length
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 180, 553, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, textAttachPage3, 288, 401, 0);
             pdfContentPage3.SetFontAndSize(baseFont, 14);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 338, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 315, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.ContractBy, 330, 217, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ReportContract.Position, 330, 198, 0);
             //Beer28082021 edit
-            //pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine2, 330, 440, 0);
-            //pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, TabContract.ExtendData.DirectorPositionLine3, 330, 430, 0);
+            if (TabContract.ExtendData != null)
+            {
+                pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine2 != null) ? TabContract.ExtendData.DirectorPositionLine2 : "", 330, 179, 0);
+                pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, (TabContract.ExtendData.DirectorPositionLine3 != null) ? TabContract.ExtendData.DirectorPositionLine3 : "", 330, 162, 0);
 
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 250, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 228, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 165, 0);
-            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName2, 330, 105, 0);
+            }
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, contractReceiveFullName, 330, 120, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, ContractReceivePositionSign, 330, 104, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName1, 330, 62, 0);
+            pdfContentPage3.ShowTextAligned(PdfContentByte.ALIGN_CENTER, witnessFullName2, 330, 23, 0);
             pdfContentPage3.EndText();
             pdfStamper.Close();
             Response.ClearContent();
