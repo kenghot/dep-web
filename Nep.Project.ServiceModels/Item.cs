@@ -30,11 +30,19 @@ namespace Nep.Project.ServiceModels
         [Display(Name = "Item_Name", ResourceType = typeof(Nep.Project.Resources.Model))]
         public string ITEMNAME { get; set; }
 
-        [Display(Name = "Item_Orderno", ResourceType = typeof(Nep.Project.Resources.Model))]
+        [Display(Name = "Item_Createby", ResourceType = typeof(Nep.Project.Resources.Model))]
 
+        public string CREATEDBY { get; set; }
+        public DateTime? CREATEDDATE { get; set; }
+
+        [Display(Name = "Item_Updateby", ResourceType = typeof(Nep.Project.Resources.Model))]
+        public string UPDATEDBY { get; set; }
+
+        public DateTime? UPDATEDDATE { get; set; }
         public Decimal ORDERNO { get; set; }
         public Boolean ISACTIVE { get; set; }
 
+        public string ISACTIVESTR { get; set; }
         public bool IsDeletable { get; set; }
     }
 }

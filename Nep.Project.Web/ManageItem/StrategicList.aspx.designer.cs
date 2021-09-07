@@ -24,13 +24,13 @@ namespace Nep.Project.Web.ManageItem
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// TextBoxOrganizationName control.
+        /// TextBoxStrategicName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Nep.Project.Web.UserControls.TextBox TextBoxOrganizationName;
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxStrategicName;
 
         /// <summary>
         /// ButtonSearch control.
@@ -51,30 +51,12 @@ namespace Nep.Project.Web.ManageItem
         protected global::System.Web.UI.WebControls.LinkButton ButtonAdd;
 
         /// <summary>
-        /// btnRefreshDashBoard control.
+        /// StrategicGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRefreshDashBoard;
-
-        /// <summary>
-        /// GridViewStrategicList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewStrategicList;
-
-        /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::Nep.Project.Web.UserControls.GridView StrategicGrid;
     }
 }

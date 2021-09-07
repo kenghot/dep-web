@@ -996,6 +996,23 @@ namespace Nep.Project.Business
             }
             return chkDup;
         }
+        public ServiceModels.ReturnQueryData<ServiceModels.ItemList> ListWithItem(ServiceModels.QueryParameter p)
+        {
+            var result = (from item in _db.MT_ITEM.Where(l => (l.ITEMGROUP == "EVALUATIONSTRATEGIC") && (l.ISDELETE == "0"))
+                          select new ServiceModels.ItemList()
+                          {
+                              ITEMID = item.ITEMID,
+                              ITEMGROUP = item.ITEMGROUP,
+                              ITEMNAME = item.ITEMNAME,
+                              ORDERNO = item.ORDERNO,
+                              CREATEDBY = item.CREATEDBY,
+                              CREATEDDATE = item.CREATEDDATE,
+                              UPDATEDBY = item.UPDATEDBY,
+                              UPDATEDDATE = item.UPDATEDDATE,
+                              ISACTIVESTR = (item.ISACTIVE == Common.Constants.BOOLEAN_TRUE) ? "เปิดใช้งาน" : "ปิดใช้งาน"
+                          }).ToQueryData(p);
+            return result;
+        }
         public ServiceModels.ReturnObject<ServiceModels.Item> GetItem(decimal ItemId, string ItemGroup)
         {
             ServiceModels.ReturnObject<ServiceModels.Item> result = new ServiceModels.ReturnObject<ServiceModels.Item>();
