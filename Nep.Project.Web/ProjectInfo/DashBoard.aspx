@@ -5,6 +5,7 @@
 <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <a href='<%= System.Configuration.ConfigurationManager.AppSettings["MIS_DASHBOARD_URL"] %>' class="btn btn-default btn-sm" target="_blank">DashBoard ภาพรวม</a>
     <!-- #include file="~/Html/DashBoard/DashBoard.html" -->
 
 </asp:Content>
