@@ -1289,7 +1289,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value> บาท (ถัวจ่ายทุกรายการแต่ไม่เกินสิทธจองทางราชการ) </Value>
+                                  <Value> บาท (ถัวจ่ายทุกรายการแต่ไม่เกินสิทธิของทางราชการ) </Value>
                                   <Style>
                                     <FontFamily>TH SarabunPSK</FontFamily>
                                     <FontSize>14pt</FontSize>
