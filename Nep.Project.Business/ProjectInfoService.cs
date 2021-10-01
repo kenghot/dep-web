@@ -3037,20 +3037,20 @@ namespace Nep.Project.Business
                     try
                     {
                         param = projectList[i];
-                        param.ContractNo = Common.Web.WebUtility.ParseToThaiNumber(param.ContractNo);
+                        param.ContractNo = param.ContractNo;
                         orgName = param.OrganizationNameTH;
                         orgMobile = param.Mobile;
                         personMobile = param.Mobile1;
                         endDateProjectReport = Common.Web.WebUtility.ToBuddhaDateFormat(param.EnddateProjectReport, "dMMMyy", "");
                         endDateProjectReport = endDateProjectReport.Replace(".", "");
-                        param.TELEPHONE1 = Common.Web.WebUtility.ParseToThaiNumber(param.TELEPHONE1);
-                        param.EXTENSION1 = Common.Web.WebUtility.ParseToThaiNumber(param.EXTENSION1);
-                        param.TELEPHONE2 = Common.Web.WebUtility.ParseToThaiNumber(param.TELEPHONE2);
-                        param.EXTENSION2 = Common.Web.WebUtility.ParseToThaiNumber(param.EXTENSION2);
-                        param.FAXNUMBER1 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXNUMBER1);
-                        param.FAXEXTENSION1 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXEXTENSION1);
-                        param.FAXNUMBER2 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXNUMBER2);
-                        param.FAXEXTENSION2 = Common.Web.WebUtility.ParseToThaiNumber(param.FAXEXTENSION2);
+                        param.TELEPHONE1 = param.TELEPHONE1;
+                        param.EXTENSION1 = param.EXTENSION1;
+                        param.TELEPHONE2 = param.TELEPHONE2;
+                        param.EXTENSION2 = param.EXTENSION2;
+                        param.FAXNUMBER1 = param.FAXNUMBER1;
+                        param.FAXEXTENSION1 = param.FAXEXTENSION1;
+                        param.FAXNUMBER2 = param.FAXNUMBER2;
+                        param.FAXEXTENSION2 = param.FAXEXTENSION2;
                         sms = String.Format(smsFormat, endDateProjectReport);
 
                         if (param.Email.ToLower() == param.Email1.ToLower())

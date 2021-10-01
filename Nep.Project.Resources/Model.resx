@@ -731,7 +731,7 @@
     <value>ตำแหน่ง</value>
   </data>
   <data name="ProjectReportResult_ProblemsAndObstacle" xml:space="preserve">
-    <value>ปัญหาอุปสรรค์และวิธีการแก้ปัญหาจากการดำเนินการ</value>
+    <value>ปัญหาอุปสรรคและวิธีการแก้ปัญหาจากการดำเนินการ</value>
   </data>
   <data name="ProjectReportResult_ReportAttachment" xml:space="preserve">
     <value>แนบไฟล์</value>
@@ -897,5 +897,8 @@
   </data>
   <data name="Contract_ContractRefPositionLine3" xml:space="preserve">
     <value>ตำแหน่ง บรรทัดที่ 3</value>
+  </data>
+  <data name="SignedContract" xml:space="preserve">
+    <value />
   </data>
 </root>

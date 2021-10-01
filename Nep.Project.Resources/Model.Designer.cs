@@ -2132,7 +2132,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ปัญหาอุปสรรค์และวิธีการแก้ปัญหาจากการดำเนินการ.
+        ///   Looks up a localized string similar to ปัญหาอุปสรรคและวิธีการแก้ปัญหาจากการดำเนินการ.
         /// </summary>
         public static string ProjectReportResult_ProblemsAndObstacle {
             get {
@@ -2200,6 +2200,15 @@ namespace Nep.Project.Resources {
         public static string ProjectTarget_TargetName {
             get {
                 return ResourceManager.GetString("ProjectTarget_TargetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SignedContract {
+            get {
+                return ResourceManager.GetString("SignedContract", resourceCulture);
             }
         }
         

@@ -1,0 +1,302 @@
+
+<style>
+	
+					
+				#the_table thead tr > *:nth-child(6) {display: none;}			
+				
+	
+	
+			/* #the_table tbody tr > *:nth-child() {
+			display: none;
+		} */
+			
+	
+</style>
+<div align="center">
+            <b>
+				แผนการชำระหนี้ของรัฐบาลและหนี้หน่วยงานของรัฐจากงบประมาณรายจ่ายประจำปีงบประมาณ  - ปี 2565               <br>
+				
+			  
+			 </b>
+</div>
+    
+    <table id="the_table" border="1" align="center" cellpadding="5" cellspacing="0">
+   	  <thead>
+      <tr bgcolor="#92cddc" style="color:white" >
+        <td align="center" bgcolor="#215967">&nbsp;</td>
+		<td align="center" bgcolor="#215967">&nbsp;</td>
+           
+            <td colspan="3" align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">วงเงินที่ชำระหนี้ (ตั้งต้น)</div></td>
+        <td  colspan="3" align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">วงเงินเดิมที่ชำระหนี้ (ปรับปรุงครั้งที่ 1)</div></td>
+		<td colspan="3" align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">วงเงินปรับปรุงครั้งที่ 2 ที่ชำระหนี้</div></td>
+             		
+        </tr>
+	</thead>
+      
+      
+      
+      
+     
+	<tbody>
+		<tr bgcolor="#92cddc" style="color:white" >
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">ลำดับที่ </div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">รายการ</div></td>
+               
+            	<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">เงินต้น</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">ดอกเบี้ย<br>และค่าธรรมเนียม</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">รวม</div></td>
+			
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">เงินต้น</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">ดอกเบี้ย<br>และค่าธรรมเนียม</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">รวม</div></td>		
+
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">เงินต้น</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">ดอกเบี้ย<br>และค่าธรรมเนียม</div></td>
+			<td align="center" bgcolor="#215967"><div align="center" style="vertical-align:middle;">รวม</div></td>
+             		
+        </tr>
+     
+	  
+	  
+	  
+	 
+			  
+			  				  
+				  
+				   <tr>
+						<td  valign="top" bgcolor="#92cddc"><div align="center">1)</div></td>
+						
+						
+						<td  valign="top" bgcolor="#92cddc"><div align="left">หนี้รัฐบาล</div></td>
+                           
+                        <td  valign="top" bgcolor="#92cddc"><div align="right">66,481.80</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">182,988.50</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">249,470.30</div></td>
+						
+						
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+						
+                        						
+						
+				</tr>
+				  
+				  
+				  					
+						<tr>
+						<td  valign="top" bgcolor="#fff"><div align="center"></div></td>
+						
+						
+						<td  valign="top" bgcolor="#fff"><div align="left">
+							1.1) หนี้ในประเทศ							
+									<br>&nbsp;&nbsp;&nbsp;1) เงินกู้เพื่อชดเชยการขาดดุลงบประมาณ
+									<br>&nbsp;&nbsp;&nbsp;2) เงินกู้บาททดแทนการกู้เงินตราต่างประเทศ (มาตรา 23)
+									<br>&nbsp;&nbsp;&nbsp;3) เงินกู้พระราชกำหนดไทยเข้มแข็ง (TKK)
+									<br>&nbsp;&nbsp;&nbsp;4) เงินกู้อื่นๆ
+														</div></td>
+						
+						
+						
+						
+                           
+                         <td rowspan=1  valign="top" bgcolor="#fff"
+                                							style="border-bottom: 0px;"
+												
+						><div align="right">61,139.75</div></td>
+						
+                        <td  valign="top" bgcolor="#fff"><div align="right">181,884.97</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">243,024.72</div></td>
+						
+						
+						<td rowspan=1 valign="top" bgcolor="#fff"
+													style="border-bottom: 0px;"
+												><div align="right">0.00</div></td>
+						
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+						
+						<td rowspan=1 valign="top" bgcolor="#fff"
+													style="border-bottom: 0px;"
+												><div align="right">0.00</div></td>
+						
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+						
+						
+                        						
+					  </tr>
+					  
+											  
+					  
+									
+						<tr>
+						<td  valign="top" bgcolor="#fff"><div align="center"></div></td>
+						
+						
+						<td  valign="top" bgcolor="#fff"><div align="left">
+							1.2) หนี้ต่างประเทศ							
+									<br>&nbsp;&nbsp;&nbsp;1) เงินกู้ธนาคารโลก
+									<br>&nbsp;&nbsp;&nbsp;2) เงินกู้องค์การความร่วมมือระหว่างประเทศแห่งญี่ปุ่น
+									<br>&nbsp;&nbsp;&nbsp;3) เงินกู้ธนาคารเพื่อการพัฒนาเอเชีย
+									<br>&nbsp;&nbsp;&nbsp;4) เงินกู้อื่นๆ
+									
+
+														</div></td>
+						
+						
+						
+						
+                           
+                         <td rowspan=1  valign="top" bgcolor="#fff"
+                                							style="border-bottom: 0px;"
+												
+						><div align="right">5,342.05</div></td>
+						
+                        <td  valign="top" bgcolor="#fff"><div align="right">1,103.52</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">6,445.58</div></td>
+						
+						
+						<td rowspan=1 valign="top" bgcolor="#fff"
+													style="border-bottom: 0px;"
+												><div align="right">0.00</div></td>
+						
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+						
+						<td rowspan=1 valign="top" bgcolor="#fff"
+													style="border-bottom: 0px;"
+												><div align="right">0.00</div></td>
+						
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+						
+						
+                        						
+					  </tr>
+					  
+											  
+					  
+								  
+				  
+			  
+	  
+	  	  
+		<tr>
+				<td  valign="top" bgcolor="#92cddc"><div align="center">2)</div></td>
+				
+				
+				<td  valign="top" bgcolor="#92cddc"><div align="left">หนี้รัฐวิสาหกิจ</div></td>
+                   
+                    <td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">6,396.55</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">6,396.55</div></td>
+				
+				
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#92cddc"><div align="right">0.00</div></td>
+				
+                				
+				
+				
+		</tr>
+		
+					
+				<tr>
+				<td  valign="top" bgcolor="#fff"><div align="center"></div></td>
+				
+				
+				<td  valign="top" bgcolor="#fff"><div align="left">1) ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร</div></td>
+                   
+                    <td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">4,384.13</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">4,384.13</div></td>
+				
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+                				
+				
+			  </tr>
+			  
+			  
+					
+				<tr>
+				<td  valign="top" bgcolor="#fff"><div align="center"></div></td>
+				
+				
+				<td  valign="top" bgcolor="#fff"><div align="left">2) องค์การขนส่งมวลชนกรุงเทพ</div></td>
+                   
+                    <td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">2,012.42</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">2,012.42</div></td>
+				
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+				<td  valign="top" bgcolor="#fff"><div align="right">0.00</div></td>
+						
+                				
+				
+			  </tr>
+			  
+			  
+			  
+		 <tr bgcolor="#92cddc">
+			<td   align="right" bgcolor="#403151" style="color: #fff;" ><div align="right"></div></td>
+			<td   align="right" bgcolor="#403151" style="color: #fff;" ><div align="right">รวมทั้งสิ้น</div></td>
+			
+               
+            <td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">66,481.80</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">189,385.05</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">255,866.85</div></td>
+			
+			
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			<td  valign="top" bgcolor="#403151" style="color: #fff;"><div align="right">0.00</div></td>
+			
+			
+             			
+			
+        </tr>
+	  
+     
+	  </tbody>
+       
+	
+      
+     
+      
+		
+</table>
+    
+    
+    
+<div align="right">ข้อมูล ณ วันที่ 11 มิถุนายน 2564    </div>
+

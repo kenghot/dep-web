@@ -702,11 +702,11 @@
                         <label class="col-sm-3">เอกสารแนบคู่ฉบับสัญญาที่ลงนามแล้ว</span></label>
                         <div class="col-sm-9">
                             <nep:C2XFileUpload runat="server" ID="C2XFileUploadSignedContract" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
-                          <%--  <asp:CustomValidator ID="CustomValidator2" runat="server" CssClass="error-text" ValidateEmptyText="true"
-                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="C2XFileUploadSignedContract"
-                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
-                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
-                                    ValidationGroup="SaveContract" />--%>
+                            <asp:CustomValidator ID="CustomValidatorFileUploadSignedContract" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CheckFileSignedContract_ServerValidate" ControlToValidate="C2XFileUploadSignedContract"
+                                    Text="กรุณาแนบไฟล์ PDF หรือไฟล์ภาพเท่านั้น"
+                                    ErrorMessage="กรุณาแนบไฟล์ PDF หรือไฟล์ภาพเท่านั้น"
+                                    ValidationGroup="SaveContract" />
                         </div>
                     </div>
                    </div>

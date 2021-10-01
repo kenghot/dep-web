@@ -247,16 +247,16 @@ namespace Nep.Project.Business
                 {"name", param.OrganizationNameTH},
 
                 {"contractno", param.ContractNo}, 
-                {"contractdate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.ContractDate)},
+                {"contractdate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.ContractDate)},
 
                 {"organizationname", param.OrganizationNameTH},
 
                 {"projectname", param.ProjectNameTH},
-                {"budgetamount", Common.Web.WebUtility.ToThaiNumber(param.BudgetReviseValue, "#,###.00")},
+                {"budgetamount", Convert.ToDecimal(param.BudgetReviseValue).ToString("#,###.00") },
                 {"budgetamounttext", Common.Web.WebUtility.ToThaiBath(param.BudgetReviseValue)},
-                {"projectenddate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EndDate)},
+                {"projectenddate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EndDate)},
 
-                {"enddateprojectreport", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EnddateProjectReport)},               
+                {"enddateprojectreport", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EnddateProjectReport)},               
 
                 {"followupcontact", folloupContact},
                 {"orgapprove", param.ORGANIZATIONNAME!=null?param.ORGANIZATIONNAME:""},
@@ -287,16 +287,16 @@ namespace Nep.Project.Business
                 {"name", param.PersonalName},
 
                 {"contractno", param.ContractNo}, 
-                {"contractdate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.ContractDate)},
+                {"contractdate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.ContractDate)},
 
                 {"organizationname", param.OrganizationNameTH},
 
                 {"projectname", param.ProjectNameTH},
-                {"budgetamount", Common.Web.WebUtility.ToThaiNumber(param.BudgetReviseValue , "#,###.00")},
+                {"budgetamount", Convert.ToDecimal(param.BudgetReviseValue).ToString("#,###.00")},
                 {"budgetamounttext", Common.Web.WebUtility.ToThaiBath(param.BudgetReviseValue)},
-                {"projectenddate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EndDate)},
+                {"projectenddate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EndDate)},
 
-                {"enddateprojectreport", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EnddateProjectReport)},                
+                {"enddateprojectreport", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EnddateProjectReport)},                
 
                 {"followupcontact", folloupContact},
                {"orgapprove", param.ORGANIZATIONNAME!=null?param.ORGANIZATIONNAME:""},

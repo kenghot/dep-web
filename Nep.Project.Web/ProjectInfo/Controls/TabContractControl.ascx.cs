@@ -718,6 +718,28 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             args.IsValid = isValid;
         }
+        protected void CheckFileSignedContract_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            bool isValid = true;
+            //Attachment
+            IEnumerable<ServiceModels.KendoAttachment> addedFiles = C2XFileUploadSignedContract.AddedFiles;
+            if (addedFiles.Count() > 0 )
+            {
+                foreach (ServiceModels.KendoAttachment item in addedFiles)
+                {
+                    if (item.extension == ".pdf" || item.extension == ".jpg" || item.extension == ".gif" || item.extension == ".png" || item.extension == ".tif" || item.extension == ".raw")
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+            args.IsValid = isValid;
+        }
         protected void CustomRequiredSupportReceive_ServerValidate(object source, ServerValidateEventArgs args)
         {
             bool chkValue = CheckBoxAuthorizeFlag.Checked;

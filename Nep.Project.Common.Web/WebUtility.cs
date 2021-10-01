@@ -257,6 +257,29 @@ namespace Nep.Project.Common.Web
                 return y;
             }
         }
+        public static String ToDateDDMMMMYYYY(DateTime? date)
+        {
+            StringBuilder thaiFormat = new StringBuilder();
+            String tempFormat;
+
+            DateTime thaiDate;
+            if (date.HasValue)
+            {
+                thaiDate = (DateTime)date;
+                tempFormat = thaiDate.ToString("d MMMM yyyy", new System.Globalization.CultureInfo("th-TH"));
+                String[] temp = tempFormat.Split(new char[] { ' ' });
+
+                String strDay = Convert.ToDecimal(temp[0]).ToString("#");
+
+                String strYear = Convert.ToDecimal(temp[2]).ToString("####");
+
+                thaiFormat.AppendFormat("{0} {1} {2}", strDay, temp[1], strYear);
+            }
+
+
+
+            return thaiFormat.ToString();
+        }
         public static String ToThaiDateDDMMMMYYYY(DateTime? date)
         {
             StringBuilder thaiFormat = new StringBuilder();
