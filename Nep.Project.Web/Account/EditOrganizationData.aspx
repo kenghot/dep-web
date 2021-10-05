@@ -137,17 +137,19 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-4 control-label"><%= Model.ProjectInfo_RegisterYear %><span class="required"></span></label>
                             <div class="col-sm-2 ">
-                                <nep:DatePicker ID="DatePickerRegisterYear" runat="server" Format="yyyy" EnabledTextBox="true" Width="155"
+                                  <asp:TextBox ID="TextBoxRegisterYear" runat="server" CssClass="form-control" Width="160" ReadOnly="true"></asp:TextBox>
+                            <%--    <nep:DatePicker ID="DatePickerRegisterYear" runat="server" Format="yyyy" EnabledTextBox="true" Width="155" readonly="true"
                                     OnClientDateSelectionChanged="onOrganizationYearChange" OnClientDateTextChanged="onOrganizationYearTextChange(event)" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidatorRegisterYear" ControlToValidate="DatePickerRegisterYear" runat="server" CssClass="error-text"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_RegisterYear) %>"
                                     ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_RegisterYear) %>"
-                                    ValidationGroup="Save" SetFocusOnError="true" />
+                                    ValidationGroup="Save" SetFocusOnError="true" />--%>
                             </div>
 
                             <label class="col-sm-2 control-label org-register-date" style="visibility: hidden" id="OrganizationRegisterDateLabel"><%= Model.ProjectInfo_RegisterDate %><span class="required"></span></label>
                             <div class="col-sm-4 org-register-date" id="OrganizationRegisterDateControl" style="visibility: hidden">
-                                <nep:DatePicker runat="server" ID="DatePickerRegisterDate" ClearTime="true" EnabledTextBox="true" Width="155"
+                               <asp:TextBox ID="TextBoxRegisterDate" runat="server" CssClass="form-control" Width="160" ReadOnly="true"></asp:TextBox>
+                                <%-- <nep:DatePicker runat="server" ID="DatePickerRegisterDate" ClearTime="true" EnabledTextBox="true" Width="155"
                                     ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.ValidationWrongFormat, Nep.Project.Resources.UI.LebelDate) %>" />
 
                                 <asp:CustomValidator ID="CustomValidatorRegisterDate" runat="server" CssClass="error-text" ValidateEmptyText="true"
@@ -156,7 +158,7 @@
                                     ClientValidationFunction="validatorRegisterDate"
                                     Text="<%$ code: Nep.Project.Resources.Error.ValicateOrgnizationRegisterDate %>"
                                     ErrorMessage="<%$ code: Nep.Project.Resources.Error.ValicateOrgnizationRegisterDate%>"
-                                    ValidationGroup="Save" />
+                                    ValidationGroup="Save" />--%>
                             </div>
                         </div>
                     </div>

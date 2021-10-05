@@ -5306,11 +5306,11 @@ namespace Nep.Project.Business
 
                               IsFollowup = (proj.IsFollowup.HasValue && proj.IsFollowup > 0) ? true : false,
 
-                              IsPassMission1 = (proj.IsPassMission1 == "1") ? true : false,
-                              IsPassMission2 = (proj.IsPassMission2 == "1") ? true : false,
-                              IsPassMission3 = (proj.IsPassMission3 == "1") ? true : false,
-                              IsPassMission4 = (proj.IsPassMission4 == "1") ? true : false,
-                              IsPassMission5 = (proj.IsPassMission5 == "1") ? true : false,
+                              IsPassMission1 = (proj.IsPassMission1 == "1" || proj.STRATEGICITEMID ==1) ? true : false,
+                              IsPassMission2 = (proj.IsPassMission2 == "1" || proj.STRATEGICITEMID == 2) ? true : false,
+                              IsPassMission3 = (proj.IsPassMission3 == "1" || proj.STRATEGICITEMID == 3) ? true : false,
+                              IsPassMission4 = (proj.IsPassMission4 == "1" || proj.STRATEGICITEMID == 4) ? true : false,
+                              IsPassMission5 = (proj.IsPassMission5 == "1" || proj.STRATEGICITEMID == 5) ? true : false,
 
                               IsStep1Approved = (proj.IsStep1Approved.HasValue && proj.IsStep1Approved > 0) ? true : false,
                               IsStep2Approved = (proj.IsStep2Approved.HasValue && proj.IsStep2Approved > 0) ? true : false,
@@ -6668,12 +6668,12 @@ namespace Nep.Project.Business
                                                                         Assessment610 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT610 : (decimal?)null,
                                                                         Assessment611 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT611 : (decimal?)null,
 
-                                                                        IsPassMission1 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission1 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission2 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission2 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission3 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission3 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission4 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission4 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission5 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission6 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.ISPASSMISSION6 == "1" ? true : false) : (bool?)null,
+                                                                        IsPassMission1 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission1 == "1" || p.ProjectEvaluation.STRATEGICITEMID==1 ? true : false) : (bool?)null,
+                                                                        IsPassMission2 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission2 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 2 ? true : false) : (bool?)null,
+                                                                        IsPassMission3 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission3 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 3 ? true : false) : (bool?)null,
+                                                                        IsPassMission4 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission4 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 4 ? true : false) : (bool?)null,
+                                                                        IsPassMission5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission5 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 5 ? true : false) : (bool?)null,
+                                                                        IsPassMission6 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.ISPASSMISSION6 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 6 ? true : false) : (bool?)null,
 
                                                                         TotalScore = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
 
@@ -8533,11 +8533,11 @@ namespace Nep.Project.Business
 
                                 DisabilityTypeCode = (g.ProjectInformation != null) ? _db.MT_ListOfValue.Where(dis => dis.LOVID == g.ProjectInformation.DisabilityTypeID).Select(disObj => disObj.LOVCode).FirstOrDefault() : null,
 
-                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1")) ? Resources.UI.LabelStandardStrategic1 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "2")) ? Resources.UI.LabelStandardStrategic2 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "3")) ? Resources.UI.LabelStandardStrategic3 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "4")) ? Resources.UI.LabelStandardStrategic4 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "5")) ? Resources.UI.LabelStandardStrategic5 : null
+                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1" || g.ProjectEvaluation.STRATEGICITEMID == 1)) ? Resources.UI.LabelStandardStrategic1 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "2" || g.ProjectEvaluation.STRATEGICITEMID == 2)) ? Resources.UI.LabelStandardStrategic2 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "3" || g.ProjectEvaluation.STRATEGICITEMID == 3)) ? Resources.UI.LabelStandardStrategic3 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "4" || g.ProjectEvaluation.STRATEGICITEMID == 4)) ? Resources.UI.LabelStandardStrategic4 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "5" || g.ProjectEvaluation.STRATEGICITEMID == 5)) ? Resources.UI.LabelStandardStrategic5 : null
 
                             }).FirstOrDefault();
 

@@ -401,13 +401,20 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                     //Beer05092021
                     // for save draft
-                    RadioButtonListTypeStrategic.SelectedValue = (obj.StrategicID.HasValue) ? obj.StrategicID.ToString() : null;
-                    if (string.IsNullOrEmpty(RadioButtonListTypeStrategic.SelectedValue))
+                    try
                     {
-                        RadioButtonListTypeStrategic.SelectedIndex = 0;
-                    }
-                    decimal? disabilityTypeID = Convert.ToDecimal(RadioButtonListTypeStrategic.SelectedValue);
+                        RadioButtonListTypeStrategic.SelectedValue = (obj.StrategicID.HasValue) ? obj.StrategicID.ToString() : null;
+                        if (string.IsNullOrEmpty(RadioButtonListTypeStrategic.SelectedValue))
+                        {
+                            RadioButtonListTypeStrategic.SelectedIndex = 0;
+                        }
+                        decimal? disabilityTypeID = Convert.ToDecimal(RadioButtonListTypeStrategic.SelectedValue);
 
+                    }
+                    catch
+                    {
+
+                    }
                     //ยุทธศาสตร์จังหวัด
                     TextBoxProvinceMissionDesc.Text = obj.ProvinceMissionDesc;
                                        

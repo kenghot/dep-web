@@ -140,9 +140,10 @@ namespace Nep.Project.Web.Account
                 TextBoxOrganizationNameTH.Text = data.OrganizationNameTH;
                 TextBoxOrgUnderSupport.Text = data.OrganizationUnder;
                 TextBoxPostCode.Text = data.PostCode;
-                DatePickerRegisterYear.SelectedDate = new DateTime(Int32.Parse(data.OrganizationYear), 1, 1);
-                DatePickerRegisterDate.SelectedDate = data.OrgEstablishedDate;
-
+                //DatePickerRegisterYear.SelectedDate = new DateTime(Int32.Parse(data.OrganizationYear), 1, 1);
+                //DatePickerRegisterDate.SelectedDate = data.OrgEstablishedDate;
+                TextBoxRegisterYear.Text = (Int32.Parse(data.OrganizationYear)+543).ToString();
+                TextBoxRegisterDate.Text = data.OrgEstablishedDate.ToString();
                 TextBoxSoi.Text = data.Soi;
                 TextBoxStreet.Text = data.Road;
                 TextBoxTelephone.Text = data.Telephone;
@@ -222,13 +223,13 @@ namespace Nep.Project.Web.Account
 
             entry.OrganizationUnder = TextBoxOrgUnderSupport.Text.Trim();
 
-            int orgYear = DatePickerRegisterYear.SelectedDate.Value.Year;
+            //int orgYear = DatePickerRegisterYear.SelectedDate.Value.Year;
             int currYear = DateTime.Today.Year - 1;
 
-            entry.OrganizationYear = orgYear.ToString();
-            entry.OrgEstablishedDate = (orgYear >= currYear) ? DatePickerRegisterDate.SelectedDate : (DateTime?)null;
+            //entry.OrganizationYear = orgYear.ToString();
+            //entry.OrgEstablishedDate = (orgYear >= currYear) ? DatePickerRegisterDate.SelectedDate : (DateTime?)null;
 
-            entry.OrganizationYear = DatePickerRegisterYear.SelectedDate.Value.Year.ToString();
+            //entry.OrganizationYear = DatePickerRegisterYear.SelectedDate.Value.Year.ToString();
 
             entry.Address = TextBoxAddressNo.Text.Trim();
             entry.Building = TextBoxBuilding.Text.Trim();
@@ -458,22 +459,22 @@ namespace Nep.Project.Web.Account
 
         protected void CustomValidatorRegisterDate_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            if (DatePickerRegisterYear.SelectedDate.HasValue)
-            {
-                int year = ((DateTime)DatePickerRegisterYear.SelectedDate).Year;
-                int currentYear = DateTime.Today.Year - 1;
+            //if (DatePickerRegisterYear.SelectedDate.HasValue)
+            //{
+            //    int year = ((DateTime)DatePickerRegisterYear.SelectedDate).Year;
+            //    int currentYear = DateTime.Today.Year - 1;
 
-                if ((year >= currentYear) && (!DatePickerRegisterDate.SelectedDate.HasValue))
-                {
-                    args.IsValid = false;
-                }
-                else if ((year >= currentYear) && (DatePickerRegisterDate.SelectedDate.HasValue))
-                {
-                    DateTime selectedDate = (DateTime)DatePickerRegisterDate.SelectedDate;
-                    DateTime dateCompare = DateTime.Today.AddDays(-180);
-                    args.IsValid = (selectedDate <= dateCompare);
-                }
-            }
+            //    if ((year >= currentYear) && (!DatePickerRegisterDate.SelectedDate.HasValue))
+            //    {
+            //        args.IsValid = false;
+            //    }
+            //    else if ((year >= currentYear) && (DatePickerRegisterDate.SelectedDate.HasValue))
+            //    {
+            //        DateTime selectedDate = (DateTime)DatePickerRegisterDate.SelectedDate;
+            //        DateTime dateCompare = DateTime.Today.AddDays(-180);
+            //        args.IsValid = (selectedDate <= dateCompare);
+            //    }
+            //}
         }
 
         private void RegisterClientScript()

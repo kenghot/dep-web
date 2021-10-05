@@ -1121,6 +1121,7 @@ warning 6002: The table/view 'NEP_APP02.VIEW_PROJECTLIST' does not have a primar
           <Property Name="ISPASSMISSION3" Type="char" MaxLength="1" />
           <Property Name="ISPASSMISSION4" Type="char" MaxLength="1" />
           <Property Name="ISPASSMISSION5" Type="char" MaxLength="1" />
+          <Property Name="STRATEGICITEMID" Type="number" Precision="38" Scale="0" />
           <Property Name="DISABILITYTYPEID" Type="number" Precision="38" Scale="0" />
           <Property Name="CREATORORGANIZATIONID" Type="number" Precision="38" Scale="0" />
           <Property Name="CREATORPROVINCEID" Type="number" Precision="38" Scale="0" />
@@ -2317,6 +2318,7 @@ FROM "NEP_APP02"."VIEW_PARTICIPANTPROVINCEDUP" "VIEW_PARTICIPANTPROVINCEDUP"</De
 "VIEW_PROJECTLIST"."ISPASSMISSION3" AS "ISPASSMISSION3", 
 "VIEW_PROJECTLIST"."ISPASSMISSION4" AS "ISPASSMISSION4", 
 "VIEW_PROJECTLIST"."ISPASSMISSION5" AS "ISPASSMISSION5", 
+"VIEW_PROJECTLIST"."STRATEGICITEMID" AS "STRATEGICITEMID", 
 "VIEW_PROJECTLIST"."DISABILITYTYPEID" AS "DISABILITYTYPEID", 
 "VIEW_PROJECTLIST"."CREATORORGANIZATIONID" AS "CREATORORGANIZATIONID", 
 "VIEW_PROJECTLIST"."CREATORPROVINCEID" AS "CREATORPROVINCEID", 
@@ -4377,6 +4379,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <Property Name="ProjectEndDate" Type="DateTime" Nullable="true" Precision="6" />
           <Property Name="REJECTCOMMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ACKNOWLEDGED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="STRATEGICITEMID" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <Association Name="FK_EMPCARD_USER">
           <End Type="Model.MT_Attachment" Role="MT_Attachment" Multiplicity="0..1" />
@@ -6173,6 +6176,7 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
           <EntitySetMapping Name="View_ProjectList">
             <EntityTypeMapping TypeName="Model.View_ProjectList">
               <MappingFragment StoreEntitySet="VIEW_PROJECTLIST">
+                <ScalarProperty Name="STRATEGICITEMID" ColumnName="STRATEGICITEMID" />
                 <ScalarProperty Name="ACKNOWLEDGED" ColumnName="ACKNOWLEDGED" />
                 <ScalarProperty Name="REJECTCOMMENT" ColumnName="REJECTCOMMENT" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CREATEDDATE" />
@@ -6579,8 +6583,8 @@ FROM "NEP_APP02"."VIEW_PROJECTLIST" "VIEW_PROJECTLIST"</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

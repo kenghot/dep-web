@@ -315,7 +315,7 @@ var VueDashBoard = new Vue({
            
             this.projectDialog.title = o.subText
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + this.budgetYear.BC + '/' + o.objId)
+            axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + (this.budgetYear.BC ? this.budgetYear.BC : this.budgetYear) + '/' + o.objId)
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {
@@ -365,7 +365,8 @@ var VueDashBoard = new Vue({
             var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/Get/' + this.budgetYear.BC  )
+            console.log(j);
+            axios.get(this.VueUrl + '/api/dashboard/Get/' + (this.budgetYear.BC ? this.budgetYear.BC:  this.budgetYear))
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {

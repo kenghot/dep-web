@@ -182,7 +182,7 @@ namespace Nep.Project.Web.APIController
                                 IsPassMission4 = ev.IsPassMission4,
                                 IsPassMission5 = ev.IsPassMission5,
                                 IsPassMission6 = ev.ISPASSMISSION6,
-
+                                IsPassMissionID = ev.STRATEGICITEMID,
                             };
                 
                 var projs = query.ToList();
@@ -245,8 +245,8 @@ namespace Nep.Project.Web.APIController
                             description = proj.DisabilityName,
                             id = proj.DisabilityCode
                         });
-                        string mission = (proj.IsPassMission1 == "1") ? "1" : (proj.IsPassMission2 == "1") ? "2" : (proj.IsPassMission3 == "1") ? "3" :
-                            (proj.IsPassMission4 == "1") ? "4" : (proj.IsPassMission5 == "1") ? "5" : (proj.IsPassMission6 == "1") ? "6" : "";
+                        string mission = (proj.IsPassMission1 == "1" || proj.IsPassMissionID==1) ? "1" : (proj.IsPassMission2 == "1" || proj.IsPassMissionID == 2) ? "2" : (proj.IsPassMission3 == "1" || proj.IsPassMissionID == 3) ? "3" :
+                            (proj.IsPassMission4 == "1" || proj.IsPassMissionID == 4) ? "4" : (proj.IsPassMission5 == "1" || proj.IsPassMissionID == 5) ? "5" : (proj.IsPassMission6 == "1") ? "6" : "";
                         collectLegned(result.Data.missionData.legendDatas, new LegendData
                         {
                             amount = proj.BudgetReviseValue.HasValue ? proj.BudgetReviseValue.Value : 0,

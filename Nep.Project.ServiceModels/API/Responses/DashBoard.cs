@@ -39,7 +39,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string IsPassMission4 { get; set; }
         public string IsPassMission5 { get; set; }
         public string IsPassMission6 { get; set; }
-
+        public decimal? IsPassMissionID { get; set; }
 
     }
     public class ProjectDetail
