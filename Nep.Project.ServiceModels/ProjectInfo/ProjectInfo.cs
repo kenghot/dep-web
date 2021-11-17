@@ -805,7 +805,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
             get
             {
                 String desc = this.ProjectName;
-                if ((this.IsFollowup.HasValue) && (this.IsFollowup == true))
+                if ((this.IsFollowup.HasValue) && (this.IsFollowup == true) &&(!this.IsRefund))
                 {
                     desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", FollowupStatusName);
                 }

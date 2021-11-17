@@ -162,7 +162,7 @@ namespace Nep.Project.Web.User
             this.UserProfileGrid.DataBind();
 
         }
-
+       
         public List<ServiceModels.UserList> UserProfileGrid_GetData(int startRowIndex, int maximumRows, string sortByExpression, out int totalRowCount)
         {
             var result = _service.ListAccessWithCriteria(UserProfileGrid.QueryParameter);

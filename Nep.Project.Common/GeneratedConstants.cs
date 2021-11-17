@@ -296,6 +296,7 @@ namespace Nep.Project.Common
             public const String ถึงกำหนดติดตาม_45_วัน = "2";
             public const String รายงานผลแล้ว = "3";
             public const String กำลังติดตาม = "4";
+            public const String ยกเลิกติดตาม = "5";
         }
 
         public static class Logaccess

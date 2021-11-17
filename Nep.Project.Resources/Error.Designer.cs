@@ -358,7 +358,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ข้อมูลผู้สมัครหมดอายุแล้ว กรุณาลงทะเบียนใหม่อีครั้งคะ.
+        ///   Looks up a localized string similar to ข้อมูลผู้สมัครหมดอายุแล้ว กรุณาลงทะเบียนใหม่อีกครั้ง.
         /// </summary>
         public static string RegisterExpired {
             get {

@@ -3082,6 +3082,8 @@ namespace Nep.Project.Business
             ServiceModels.ReturnMessage result = new ReturnMessage();
             try
             {
+                DBModels.Model.MT_ListOfValue cancelStatus = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ยกเลิกติดตาม)).FirstOrDefault();
+                DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();
                 DBModels.Model.ProjectContract projectContract = _db.ProjectContracts.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
                 if (projectContract != null)
                 {
@@ -3094,6 +3096,7 @@ namespace Nep.Project.Business
                     {
 
                     }
+                    genInfo.FollowUpStatus = cancelStatus.LOVID;
                     projectContract.UpdatedDate = DateTime.Now;
                     projectContract.UpdatedBy = _user.UserName;
                     projectContract.UpdatedByID = _user.UserID;
