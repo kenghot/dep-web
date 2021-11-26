@@ -179,6 +179,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             
                             
                             HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
+                            HyperLinkPrintInstallment.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             ButtonCancelContract.Visible = functions.Contains(Common.ProjectFunction.CancelContract);
                             ButtonEditContractNo.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             if (ButtonEditContractNo.Visible)

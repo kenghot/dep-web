@@ -412,6 +412,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to สัญญาแบ่งงวด.
+        /// </summary>
+        public static string ContractInstallment {
+            get {
+                return ResourceManager.GetString("ContractInstallment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --- ทั้งหมด ---.
         /// </summary>
         public static string DropdownAll {

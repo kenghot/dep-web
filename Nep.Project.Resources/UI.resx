@@ -773,4 +773,7 @@
   <data name="MenuManageData" xml:space="preserve">
     <value>ระบบจัดการ</value>
   </data>
+  <data name="ContractInstallment" xml:space="preserve">
+    <value>สัญญาแบ่งงวด</value>
+  </data>
 </root>
