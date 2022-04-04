@@ -390,8 +390,14 @@ namespace Nep.Project.Business
                         {"projectname", genInfo.ProjectInformation.ProjectNameTH},
                     
                     };
+                    try
+                    {
+                        SendMailWithTemplate("SendDataToReview", parameters, tmp[1]);
+                    }
+                    catch
+                    {
 
-                    SendMailWithTemplate("SendDataToReview", parameters, tmp[1]);
+                    }
 
                 }
 

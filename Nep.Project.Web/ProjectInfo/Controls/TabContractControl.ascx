@@ -691,9 +691,9 @@
                         <label class="col-sm-1">บาท</span></label>
                     </div>
                     <div class="form-group form-group-sm">
-                         <asp:HyperLink ID="HyperLinkPrintInstallment" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ContractInstallment %>"
+                       <%--  <asp:HyperLink ID="HyperLinkPrintInstallment" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ContractInstallment %>"
                         CssClass="btn btn-default btn-sm" Visible="false"
-                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractInstallmentControlNew?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractInstallmentControlNew?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />--%>
                     </div>
                 </div>
             </div>

@@ -19,10 +19,16 @@ namespace Nep.Project.ServiceModels.Report
         public String SignSubdistrict {get;set;}
         public String SignProvince {get;set;}
         public String ContractDate {get;set;}
+        public String ContractDay { get; set; }
+        public String ContractMonth { get; set; }
+        public String ContractYear { get; set; }
         public String ContractBy {get;set;}
         public String Position {get;set;}
         public String DirectiveNo {get;set;}
         public String DirectiveDate {get;set;}
+        public String DirectiveDay { get; set; }
+        public String DirectiveMonth { get; set; }
+        public String DirectiveYear { get; set; }
         public String DirectiveProvince {get;set;}
         public String DirectProvinceNo {get;set;}
         public String DirectProvinceDate {get;set;}
@@ -84,5 +90,8 @@ namespace Nep.Project.ServiceModels.Report
         public string MsgAuthorizeFlag { get; set; }
         public string SupportGivenDesc { get; set; }
         public ContractExtend ExtendData { get; set; }
+        public string MeetingDay { get; set; }
+        public string MeetingMonth { get; set; }
+        public string MeetingYear { get; set; }
     }
 }

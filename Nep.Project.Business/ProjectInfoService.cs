@@ -3352,10 +3352,16 @@ namespace Nep.Project.Business
                         obj.ContractNo = contract.ContractNo;
                         obj.SignAt = contract.ContractLocation;
                         obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
+                        obj.ContractDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "dd").TrimStart('0');
+                        obj.ContractMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "MMMM");
+                        obj.ContractYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "yyyy");
                         obj.ContractBy = contractBy;
                         obj.Position = contract.DirectorPosition;
                         obj.DirectiveNo = directiveNo;
                         obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
+                        obj.DirectiveDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "dd").TrimStart('0');
+                        obj.DirectiveMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "MMMM");
+                        obj.DirectiveYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "yyyy");
                         obj.DirectiveProvince = provinceName;
                         obj.DirectProvinceNo = directProvinceNo;
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
@@ -3387,6 +3393,9 @@ namespace Nep.Project.Business
                         obj.AttachPage3 = contract.ATTACHPAGE3?.ToString();
                         obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
                         obj.MeetingDate = contract.MEETINGDATE;
+                        obj.MeetingDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "dd").TrimStart('0');
+                        obj.MeetingMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "MMMM");
+                        obj.MeetingYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "yyyy");
                         obj.MeetingNo = contract.MEETINGNO?.ToString();
                         obj.AuthorizeDate = contract.AuthorizeDate;
                         obj.AuthorizeDateText = Common.Web.WebUtility.ToBuddhaDateFormat(contract.AuthorizeDate, "d MMMM yyyy");
@@ -3506,10 +3515,16 @@ namespace Nep.Project.Business
                         obj.ContractNo = contract.ContractNo;
                         obj.SignAt = contract.ContractLocation;
                         obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
+                        obj.ContractDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "dd").TrimStart('0');
+                        obj.ContractMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "MMMM");
+                        obj.ContractYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "yyyy");
                         obj.ContractBy = contractBy;
                         obj.Position = contract.DirectorPosition;
                         obj.DirectiveNo = directiveNo;
                         obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
+                        obj.DirectiveDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "dd").TrimStart('0');
+                        obj.DirectiveMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "MMMM");
+                        obj.DirectiveYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "yyyy");
                         obj.DirectiveProvince = provinceName;
                         obj.DirectProvinceNo = directProvinceNo;
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
@@ -3538,6 +3553,9 @@ namespace Nep.Project.Business
                         obj.AttachPage3 = contract.ATTACHPAGE3?.ToString();
                         obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
                         obj.MeetingDate = contract.MEETINGDATE;
+                        obj.MeetingDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "dd").TrimStart('0');
+                        obj.MeetingMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "MMMM");
+                        obj.MeetingYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "yyyy");
                         obj.MeetingNo = contract.MEETINGNO?.ToString();
                         result.IsCompleted = true;
                         result.Data = obj;
@@ -6811,6 +6829,8 @@ namespace Nep.Project.Business
                     DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน, Common.LOVGroup.ProjectApprovalStatus);
                     DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => (x.ProjectID == model.ProjectID) && (
                            x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ)).SingleOrDefault();
+                    DBModels.Model.MT_ListOfValue status1 = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ, Common.LOVGroup.ProjectApprovalStatus);
+
 
                     if (evaluationID == 0)
                     {
@@ -6845,6 +6865,13 @@ namespace Nep.Project.Business
                             genInfo.RESPONSETEL = u.TelephoneNo;
                         }
 
+                    }
+                    else if ((genInfo != null) && (evaluationID != 0) && (genInfo.ProjectApprovalStatusID == status1.LOVID))
+                    {
+                        genInfo.ProjectApprovalStatusID = status.LOVID;
+                        genInfo.UpdatedBy = _user.UserName;
+                        genInfo.UpdatedByID = _user.UserID;
+                        genInfo.UpdatedDate = DateTime.Now;
                     }
 
                     _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "2", _user.UserID.Value, model.IPAddress));
