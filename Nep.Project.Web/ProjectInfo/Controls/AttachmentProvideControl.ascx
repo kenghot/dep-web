@@ -18,7 +18,10 @@
                     </div>
                     <div class="col-sm-7">
                         <span style="margin-left:-50px; padding-top:6px;" class="label-no"><%# Eval("DocumentNo") %></span>
-                        <span style="margin-left:-30px; padding-top:6px; display:inline-block;"><%# Eval("DocumentProvideName") %><span class="required"></span></span>  
+                        <span style="margin-left:-30px; padding-top:6px; display:inline-block;"><%# Eval("DocumentProvideName") %>
+                              <span class='<%# Eval("DocumentNo").ToString() == "1" ||  Eval("DocumentNo").ToString() == "2" ||  Eval("DocumentNo").ToString() == "3" ||  Eval("DocumentNo").ToString() == "5" ||  Eval("DocumentNo").ToString() == "8"    ? "required" : "" %>'></span>
+
+                        </span>  
                          
                                              
                     </div>                                    

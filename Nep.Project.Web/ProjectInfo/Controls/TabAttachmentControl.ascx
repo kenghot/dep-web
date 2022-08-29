@@ -105,7 +105,7 @@
         <div class="form-horizontal">        
             <div class="form-group form-group-sm">
                 <div class="col-sm-12 text-center">
-                           <asp:Button runat="server" ID="ButtonDraft" CssClass="btn btn-primary btn-sm" Visible="false"  
+                           <asp:Button runat="server" ID="ButtonDraft" CssClass="btn btn-primary btn-sm" Visible="false"  style="display: none"
                         Text="บันทึกร่าง" OnClick="ButtonSave_Click" />
                     <asp:Button runat="server" ID="ButtonSave" CssClass="btn btn-primary btn-sm" Visible="false"
                         ValidationGroup="SaveProjectAttachment"
