@@ -24,6 +24,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.UpdatePanel UpdatePanelContract;
 
         /// <summary>
+        /// DivRefundSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivRefundSuccess;
+
+        /// <summary>
+        /// LabelRefundSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelRefundSuccess;
+
+        /// <summary>
         /// TextBoxReferenceNo control.
         /// </summary>
         /// <remarks>
@@ -112,6 +130,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorContractDate;
+
+        /// <summary>
+        /// divHistoryEditStartEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHistoryEditStartEndDate;
+
+        /// <summary>
+        /// LabelHistoryEditStartEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelHistoryEditStartEndDate;
 
         /// <summary>
         /// LabelBudgetRequestAmount control.
@@ -393,6 +429,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorRefPosition;
 
         /// <summary>
+        /// TextBoxRefPositionLine2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRefPositionLine2;
+
+        /// <summary>
+        /// TextBoxRefPositionLine3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRefPositionLine3;
+
+        /// <summary>
         /// ContractRefNoBlock control.
         /// </summary>
         /// <remarks>
@@ -598,6 +652,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadAuthorizeDoc;
+
+        /// <summary>
+        /// C2XFileUploadAuthorizeDocMulti control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadAuthorizeDocMulti;
 
         /// <summary>
         /// CustomRequiredAuthorizeDoc control.
@@ -897,6 +960,78 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::Nep.Project.Web.UserControls.TextBox TextBoxDueAmount3;
 
         /// <summary>
+        /// Div2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
+
+        /// <summary>
+        /// C2XFileUploadSignedContract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadSignedContract;
+
+        /// <summary>
+        /// CustomValidatorFileUploadSignedContract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorFileUploadSignedContract;
+
+        /// <summary>
+        /// myDivUploadFileKTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl myDivUploadFileKTB;
+
+        /// <summary>
+        /// FileUploadKTB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload FileUploadKTB;
+
+        /// <summary>
+        /// DivRefund control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivRefund;
+
+        /// <summary>
+        /// C2XFileUploadRefund control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.C2XFileUpload C2XFileUploadRefund;
+
+        /// <summary>
+        /// TextBoxRefund control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Nep.Project.Web.UserControls.TextBox TextBoxRefund;
+
+        /// <summary>
         /// Div1 control.
         /// </summary>
         /// <remarks>
@@ -958,6 +1093,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonEditContractNo;
+
+        /// <summary>
+        /// ButtonEditStartEndContractDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonEditStartEndContractDate;
+
+        /// <summary>
+        /// ButtonRefund control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonRefund;
 
         /// <summary>
         /// ImageButtonRefresh control.

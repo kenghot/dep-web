@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nep.Project.Web.ProjectInfo {
-    
-    
-    public partial class ProjectInfoList {
-        
+namespace Nep.Project.Web.ProjectInfo
+{
+
+
+    public partial class ProjectInfoList
+    {
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// lblDashBoard control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDashBoard;
-        
+
         /// <summary>
         /// hdfDashBoard control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdfDashBoard;
-        
+
         /// <summary>
         /// UpdatePanelSearch control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelSearch;
-        
+
         /// <summary>
         /// LabelTotalIsFollowup control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelTotalIsFollowup;
-        
+
         /// <summary>
         /// ColumnLeft control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ColumnLeft;
-        
+
         /// <summary>
         /// LinkButtonExpandAdvanceSearch control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonExpandAdvanceSearch;
-        
+
         /// <summary>
         /// LinkButtonCollapseAdvanceSearch control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonCollapseAdvanceSearch;
-        
+
         /// <summary>
         /// FormGroupOrgName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FormGroupOrgName;
-        
+
         /// <summary>
         /// TextBoxContractOrgName control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxContractOrgName;
-        
+
         /// <summary>
         /// FormGroupOrgType control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FormGroupOrgType;
-        
+
         /// <summary>
         /// DropDownListOrgType control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListOrgType;
-        
+
         /// <summary>
         /// TextBoxProjectNo control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxProjectNo;
-        
+
         /// <summary>
         /// TextBoxProjectName control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxProjectName;
-        
+
         /// <summary>
         /// DropDownListProjectInfoType control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListProjectInfoType;
-        
+
         /// <summary>
         /// DatePickerBudgetYear control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerBudgetYear;
-        
+
         /// <summary>
         /// DatePickerSubmitedDateStart control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerSubmitedDateStart;
-        
+
         /// <summary>
         /// DatePickerSubmitedDateEnd control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerSubmitedDateEnd;
-        
+
         /// <summary>
         /// DatePickerEndDateStart control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerEndDateStart;
-        
+
         /// <summary>
         /// DatePickerEndDateEnd control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Nep.Project.Web.UserControls.DatePicker DatePickerEndDateEnd;
-        
+
         /// <summary>
         /// FormGroupProvince control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FormGroupProvince;
-        
+
         /// <summary>
         /// DdlProvince control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox DdlProvince;
-        
+
         /// <summary>
         /// IsAlertFollowup control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox IsAlertFollowup;
-        
+
         /// <summary>
         /// CheckBoxCancelContractStatus control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxCancelContractStatus;
-        
+
         /// <summary>
         /// CheckBoxNotApprovalStatus control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxNotApprovalStatus;
-        
+
         /// <summary>
         /// CheckBoxCancelledProjectRequest control.
         /// </summary>
@@ -245,7 +247,16 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxCancelledProjectRequest;
-        
+
+        /// <summary>
+        /// CheckBoxWaitingTransferKTBStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxWaitingTransferKTBStatus;
+
         /// <summary>
         /// CheckConsiderCancel control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckConsiderCancel;
-        
+
         /// <summary>
         /// CheckApproveCancel control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckApproveCancel;
-        
+
         /// <summary>
         /// ColumnRight control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ColumnRight;
-        
+
         /// <summary>
         /// CheckBoxListTypeDisabilitys control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListTypeDisabilitys;
-        
+
         /// <summary>
         /// AdvanceSerchBlock2 control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl AdvanceSerchBlock2;
-        
+
         /// <summary>
         /// CheckBoxListStandardStrategics control.
         /// </summary>
@@ -299,7 +310,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListStandardStrategics;
-        
+
         /// <summary>
         /// CheckBoxListApprovalProcess control.
         /// </summary>
@@ -308,7 +319,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxListApprovalProcess;
-        
+
         /// <summary>
         /// ButtonSearch control.
         /// </summary>
@@ -317,7 +328,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonSearch;
-        
+
         /// <summary>
         /// ButtonAdd control.
         /// </summary>
@@ -326,7 +337,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonAdd;
-        
+
         /// <summary>
         /// ButtonClear control.
         /// </summary>
@@ -335,7 +346,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonClear;
-        
+
         /// <summary>
         /// btnRefreshDashBoard control.
         /// </summary>
@@ -344,7 +355,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRefreshDashBoard;
-        
+
         /// <summary>
         /// lblCannotAdd control.
         /// </summary>
@@ -353,7 +364,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCannotAdd;
-        
+
         /// <summary>
         /// imgHelp control.
         /// </summary>
@@ -362,7 +373,7 @@ namespace Nep.Project.Web.ProjectInfo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgHelp;
-        
+
         /// <summary>
         /// GridProjectInfo control.
         /// </summary>

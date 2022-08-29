@@ -412,6 +412,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to สัญญาแบ่งงวด.
+        /// </summary>
+        public static string ContractInstallment {
+            get {
+                return ResourceManager.GetString("ContractInstallment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --- ทั้งหมด ---.
         /// </summary>
         public static string DropdownAll {
@@ -1263,6 +1272,15 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ระบบจัดการ.
+        /// </summary>
+        public static string MenuManageData {
+            get {
+                return ResourceManager.GetString("MenuManageData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ผู้ใช้งาน.
         /// </summary>
         public static string MenuManageUser {
@@ -1481,8 +1499,8 @@ namespace Nep.Project.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;b&gt;๑. กรุงเทพมหานคร (ส่วนกลาง)&lt;/b&gt; สามารถยื่นเสนอโครงการได้ที่ &lt;br /&gt;
-        ///&amp;#8195; กองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ สำนักงานส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการแห่งชาติ
-        ///&amp;#8195; เลขที่ ๒๔๔ อาคาร ๖๐ ปี กรมประชาสงเคราะห์ ถนนราชวิถึ เขตราชเทวี กรุงเทพฯ ๑๐๔๐๐.
+        ///&amp;#8195; กองกองทุนและส่งเสริมความเสมอภาคคนพิการ กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ &lt;br /&gt;
+        ///&amp;#8195; เลขที่ ๑๐๒/๔๑  ถนนเศรษฐศิริ แขวงพญาไท เขตพญาไท กรุงเทพฯ ๑๐๔๐๐.
         /// </summary>
         public static string ProjectInfoLocationProposeDesc1 {
             get {
@@ -1881,7 +1899,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ผู้ให้เงินอุดหนุน.
+        ///   Looks up a localized string similar to ผู้ให้เงินสนับสนุน.
         /// </summary>
         public static string TitleSupportGiven {
             get {
@@ -1890,7 +1908,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ผู้รับเงินอุดหนุน.
+        ///   Looks up a localized string similar to ผู้รับเงินสนับสนุน.
         /// </summary>
         public static string TitleSupportReciever {
             get {

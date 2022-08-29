@@ -149,9 +149,36 @@ Vue.component('bar-chart', {
             this.$refs.polar.renderChart(this.chartdata, this.options)
         }
     },
-
+    //Beer03262021 ปรับ Dashboard จำนวนเงินให้มีลูกน้ำ
     mounted() {
-        this.renderChart(this.chartdata, this.options)
+        this.renderChart(this.chartdata, {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { //hides the legend
+                display: false,
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                    }
+                }
+            },
+            scales: { //hides the y axis
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function (value, index, values) {
+                            // Convert the number to a string and splite the string every 3 charaters from the end
+                            value = value.toString();
+                            value = value.split(/(?=(?:...)*$)/);
+                            value = value.join(',');
+                            return value;
+                        }
+                    }
+                }]
+            }
+        })
     }
 })
 Vue.component('group-chart', {
@@ -162,7 +189,7 @@ Vue.component('group-chart', {
                 { text: 'สี', value: 'color' },
                 { text: 'รายละเอียด', value: 'description' },
                 { text: 'โครงการ', value: 'projects' },
-                { text: 'จำนวนเงิน', value: 'amount' }
+                { text: 'จำนวนเงิน', value: 'amountString' }
             ],
         }
     },
@@ -190,6 +217,7 @@ var VueDashBoard = new Vue({
     data() {
         return {
             dialog: false,
+            search: '',
             projectDialog: {
                 title: "",
                 items: [],
@@ -287,7 +315,7 @@ var VueDashBoard = new Vue({
            
             this.projectDialog.title = o.subText
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + this.budgetYear.BC + '/' + o.objId)
+            axios.get(this.VueUrl + '/api/dashboard/GetProjects/' + (this.budgetYear.BC ? this.budgetYear.BC : this.budgetYear) + '/' + o.objId)
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {
@@ -337,7 +365,8 @@ var VueDashBoard = new Vue({
             var j = { "ProjID": this.projId, "QNGroup": "EVALUATE" };
 
             var data = this
-            axios.get(this.VueUrl + '/api/dashboard/Get/' + this.budgetYear.BC  )
+            console.log(j);
+            axios.get(this.VueUrl + '/api/dashboard/Get/' + (this.budgetYear.BC ? this.budgetYear.BC:  this.budgetYear))
                 .then(response => {
                     console.log(response.data)
                     if (response.data != "") {

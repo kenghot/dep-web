@@ -230,23 +230,38 @@ namespace Nep.Project.Business
         public void SendWarningProjectReportResultToOrg(String folloupContact, String nepProjectDirectorPosition,  ServiceModels.TemplateConfig.OrgWaringReportParam param)
         {
             string email = param.Email;
+            string telorgapprove1 = param.TELEPHONE1 != null ? param.TELEPHONE1 : "";
+            string extenorgapprove1 = param.EXTENSION1 != null ? " ต่อ " + param.EXTENSION1 : "";
+            string telorgapprove2 = param.TELEPHONE2 != null ? param.TELEPHONE2 : "";
+            string extenorgapprove2 = param.EXTENSION2 != null ? " ต่อ " + param.EXTENSION2 : "";
+            string telorg = "โทร. " + telorgapprove1 + extenorgapprove1;
+            telorg += telorgapprove2 != "" ? "," + telorgapprove2 + extenorgapprove2 : "";
+            string faxorgapprove1 = param.FAXNUMBER1 != null ? param.FAXNUMBER1 : "";
+            string faxextenorgapprove1 = param.FAXEXTENSION1 != null ? " ต่อ " + param.FAXEXTENSION1 : "";
+            string faxtelorgapprove2 = param.FAXNUMBER2 != null ? param.FAXNUMBER2 : "";
+            string faxextenorgapprove2 = param.FAXEXTENSION2 != null ? " ต่อ " + param.FAXEXTENSION2 : "";
+            string faxorg = "โทรสาร. " + faxorgapprove1 + faxextenorgapprove1;
+            faxorg += faxtelorgapprove2 != "" ? "," + faxtelorgapprove2 + faxextenorgapprove2 : "";
             var parameters = new Dictionary<String, String>()
             {
                 {"name", param.OrganizationNameTH},
 
                 {"contractno", param.ContractNo}, 
-                {"contractdate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.ContractDate)},
+                {"contractdate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.ContractDate)},
 
                 {"organizationname", param.OrganizationNameTH},
 
                 {"projectname", param.ProjectNameTH},
-                {"budgetamount", Common.Web.WebUtility.ToThaiNumber(param.BudgetReviseValue, "#,###.00")},
+                {"budgetamount", Convert.ToDecimal(param.BudgetReviseValue).ToString("#,###.00") },
                 {"budgetamounttext", Common.Web.WebUtility.ToThaiBath(param.BudgetReviseValue)},
-                {"projectenddate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EndDate)},
+                {"projectenddate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EndDate)},
 
-                {"enddateprojectreport", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EnddateProjectReport)},               
+                {"enddateprojectreport", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EnddateProjectReport)},               
 
-                {"followupcontact", folloupContact}
+                {"followupcontact", folloupContact},
+                {"orgapprove", param.ORGANIZATIONNAME!=null?param.ORGANIZATIONNAME:""},
+                {"orgapprovetel", telorg},
+                {"orgapprovefax", faxorg}
             };            
 
             SendMailWithTemplate("WarningReportProjectResult", parameters, email);
@@ -255,23 +270,39 @@ namespace Nep.Project.Business
         public void SendWarningProjectReportResultToPerson(String folloupContact, String nepProjectDirectorPosition, ServiceModels.TemplateConfig.OrgWaringReportParam param)
         {
             string email = param.Email1;
+            string telorgapprove1 = param.TELEPHONE1 != null ? param.TELEPHONE1 : "";
+            string extenorgapprove1 = param.EXTENSION1 != null ? " ต่อ " + param.EXTENSION1 : "";
+            string telorgapprove2 = param.TELEPHONE2 != null ? param.TELEPHONE2 : "";
+            string extenorgapprove2 = param.EXTENSION2 != null ? " ต่อ " + param.EXTENSION2 : "";
+            string telorg = "โทร. " + telorgapprove1 + extenorgapprove1;
+            telorg += telorgapprove2 != "" ? "," + telorgapprove2 + extenorgapprove2 : "";
+            string faxorgapprove1 = param.FAXNUMBER1 != null ? param.FAXNUMBER1 : "";
+            string faxextenorgapprove1 = param.FAXEXTENSION1 != null ? " ต่อ " + param.FAXEXTENSION1 : "";
+            string faxtelorgapprove2 = param.FAXNUMBER2 != null ? param.FAXNUMBER2 : "";
+            string faxextenorgapprove2 = param.FAXEXTENSION2 != null ? " ต่อ " + param.FAXEXTENSION2 : "";
+            string faxorg = "โทรสาร. " + faxorgapprove1 + faxextenorgapprove1;
+            faxorg +=  faxtelorgapprove2 != "" ? "," + faxtelorgapprove2 + faxextenorgapprove2 : "";
             var parameters = new Dictionary<String, String>()
             {
                 {"name", param.PersonalName},
 
                 {"contractno", param.ContractNo}, 
-                {"contractdate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.ContractDate)},
+                {"contractdate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.ContractDate)},
 
                 {"organizationname", param.OrganizationNameTH},
 
                 {"projectname", param.ProjectNameTH},
-                {"budgetamount", Common.Web.WebUtility.ToThaiNumber(param.BudgetReviseValue , "#,###.00")},
+                {"budgetamount", Convert.ToDecimal(param.BudgetReviseValue).ToString("#,###.00")},
                 {"budgetamounttext", Common.Web.WebUtility.ToThaiBath(param.BudgetReviseValue)},
-                {"projectenddate", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EndDate)},
+                {"projectenddate", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EndDate)},
 
-                {"enddateprojectreport", Common.Web.WebUtility.ToThaiDateDDMMMMYYYY(param.EnddateProjectReport)},                
+                {"enddateprojectreport", Common.Web.WebUtility.ToDateDDMMMMYYYY(param.EnddateProjectReport)},                
 
-                {"followupcontact", folloupContact}
+                {"followupcontact", folloupContact},
+               {"orgapprove", param.ORGANIZATIONNAME!=null?param.ORGANIZATIONNAME:""},
+                {"orgapprovetel", telorg},
+                {"orgapprovefax", faxorg}
+
             };
 
             SendMailWithTemplate("WarningReportProjectResult", parameters, email);
@@ -359,8 +390,14 @@ namespace Nep.Project.Business
                         {"projectname", genInfo.ProjectInformation.ProjectNameTH},
                     
                     };
+                    try
+                    {
+                        SendMailWithTemplate("SendDataToReview", parameters, tmp[1]);
+                    }
+                    catch
+                    {
 
-                    SendMailWithTemplate("SendDataToReview", parameters, tmp[1]);
+                    }
 
                 }
 

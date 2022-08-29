@@ -208,13 +208,13 @@
     <value>ข้อมูลโครงการนี้ยังไม่ถูกต้อง</value>
   </data>
   <data name="RegisterExpired" xml:space="preserve">
-    <value>ข้อมูลผู้สมัครหมดอายุแล้ว กรุณาลงทะเบียนใหม่อีครั้งคะ</value>
+    <value>ข้อมูลผู้สมัครหมดอายุแล้ว กรุณาลงทะเบียนใหม่อีกครั้ง</value>
   </data>
   <data name="RegisterNoFound" xml:space="preserve">
     <value>ไม่พบข้อมูลการสมัคร</value>
   </data>
   <data name="RequiredAttachment" xml:space="preserve">
-    <value>กรุณาแนนไฟล์  {0}</value>
+    <value>กรุณาแนบไฟล์  {0}</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>กรุณาระบุข้อมูล {0}</value>

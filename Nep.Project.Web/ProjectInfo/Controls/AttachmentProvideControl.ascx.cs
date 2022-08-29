@@ -15,6 +15,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
     public partial class AttachmentProvideControl : Nep.Project.Web.Infra.BaseUserControl
     {
         public IServices.IProjectInfoService _service { get; set; }
+        int attachmentNo;
         public String ViewAttachmentPrefix
         {
             get
@@ -261,26 +262,47 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             // end kenghot
         }
 
-        protected void CustomValidatorProjectAttachment_ServerValidate(object source, ServerValidateEventArgs args)
+        //protected void CustomValidatorProjectAttachment_ServerValidate(object source, ServerValidateEventArgs args)
+        //{
+        //    CustomValidator validator = (CustomValidator)source;
+        //    String controlToValidate = validator.ControlToValidate;
+        //    C2XFileUpload fileUpload;
+        //    RepeaterItemCollection items = RepeaterAttachemnt.Items;
+        //    bool isAttached = false;
+          
+        //    for (int i = 0; i < items.Count; i++)
+        //    {
+        //        fileUpload = (C2XFileUpload)items[i].FindControl("C2XFileUploadProjectAttachment");
+        //        if (fileUpload.AllFiles != null)
+        //        {
+        //            isAttached = true;
+        //            break;
+        //        }
+        //    }            
+
+        //    args.IsValid = isAttached;         
+                      
+        //}
+        
+        protected void CustomValidatorProjectAttachment_ServerValidate_New(object source, ServerValidateEventArgs args)
         {
+            //Beer06082021 ปรับปรุงหน้าจอเอกสารแนบให้บังคับแนบเอกสารในหัวข้อที่ 1 2 3 5 8
             CustomValidator validator = (CustomValidator)source;
             String controlToValidate = validator.ControlToValidate;
             C2XFileUpload fileUpload;
             RepeaterItemCollection items = RepeaterAttachemnt.Items;
             bool isAttached = false;
-          
-            for (int i = 0; i < items.Count; i++)
+            fileUpload = (C2XFileUpload)items[attachmentNo].FindControl("C2XFileUploadProjectAttachment");
+            if (fileUpload.AllFiles == null &&(attachmentNo == 0 || attachmentNo == 1|| attachmentNo == 2 || attachmentNo == 4 || attachmentNo == 7) )
             {
-                fileUpload = (C2XFileUpload)items[i].FindControl("C2XFileUploadProjectAttachment");
-                if (fileUpload.AllFiles != null)
-                {
-                    isAttached = true;
-                    break;
-                }
-            }            
-
-            args.IsValid = isAttached;         
-                      
+                isAttached = false;
+            }
+            else
+            {
+                isAttached = true;
+            }
+            attachmentNo = attachmentNo + 1;
+            args.IsValid = isAttached;
         }
 
         protected override void RenderChildren(HtmlTextWriter writer)

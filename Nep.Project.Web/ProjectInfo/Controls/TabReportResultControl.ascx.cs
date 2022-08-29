@@ -320,6 +320,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                 ButtonSaveReportResult.Visible = isEditable;
                 //ButtonAddParticipant.Visible = isEditable;
                 ButtonSaveAndSendProjectReport.Visible = isEditable;
+                ButtonConfirmReport.Visible = isReported && (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer);
                 LabelNeedQN.Visible = false;
                 if (ButtonSaveAndSendProjectReport.Visible)
                 {
@@ -452,6 +453,19 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
                         RegisterClientScript();
                         return;   
+                    }
+                }
+                if (model.ExtendData != null)
+                {
+
+                    if(model.ExtendData.ConfirmReportFlag !=null && model.ExtendData.ConfirmReportFlag == "1")
+                    {
+                        DivConfirmReport.Visible = true;
+                        LabelConfirmReport.Visible = true;
+                        LabelConfirmReport.Text = "ยืนยันผลการตรวจสอบแบบรายงานผลการปฏิบัติงานแล้ว";
+                        LabelConfirmReport.Text += "โดย:";
+                        LabelConfirmReport.Text += model.ExtendData.ConfirmReportByName;
+                        LabelConfirmReport.Attributes.Add("style", "color:Green;");
                     }
                 }
 
@@ -1585,6 +1599,44 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         {
             if(!IsEditable){
                 e.Row.Cells[e.Row.Cells.Count - 1].Visible = false;
+            }
+        }
+
+        protected void ButtonConfirmReport_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.ProjectReportResult model = new ServiceModels.ProjectInfo.ProjectReportResult();
+            try
+            {
+                if (Page.IsValid)
+                {
+                    var resultGetData = _projectService.GetProjectReportResult(ProjectID);
+                    if (resultGetData.IsCompleted)
+                    {
+                        model = resultGetData.Data;
+                        if (model.ExtendData == null)
+                        {
+                            model.ExtendData = new ServiceModels.ProjectInfo.ReportExtend();
+                        }
+                        var result = _projectService.ConfirmReportProjectReport(model);
+                        if (result.IsCompleted)
+                        {
+                            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                            page.RebindData("TabPanelReportResult");
+                            ShowResultMessage(result.Message);
+                        }
+                        else
+                        {
+                            ShowErrorMessage(result.Message);
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Contract", ex);
+                ShowErrorMessage(ex.Message);
             }
         }
     }

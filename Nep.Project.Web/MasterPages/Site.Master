@@ -71,6 +71,9 @@
                         <li class="" runat="server" id="MenuAddORGUser" menu="AddORGUser" visible="false">
                             <a runat="server" href="~/Register/RegisterForm" 
                             title="เพิ่มผู้ใช้งานภายในองค์กรตนเอง">เพิ่มผู้ใช้งานภายในองค์กรตนเอง</a></li>
+                           <li class="" runat="server" id="MenuEditORGData" menu="EditORGData" visible="false">
+                            <a runat="server" href="~/Account/EditOrganizationData" 
+                            title="แก้ไขข้อมูลองค์กร">แก้ไขข้อมูลองค์กร</a></li>
                         <li class="page_item page-item-report" runat="server" id="MenuReport" menu="Report">
                             <a href="#"  title="รายงานการอนุมัติ">รายงานการอนุมัติ</a>
                             <ul class="children">
@@ -114,7 +117,14 @@
                                 <li class="page_item page-item-demo-list"><a id="A4"  runat="server" href="~/User/UserProfileList">รายการผู้ใช้งาน</a></li>
                                 <li class="page_item page-item-demo-list"><a id="A7"  runat="server" href="~/User/NewUserProfileList">จัดการผู้สมัครใหม่</a></li>
                                 <li class="page_item page-item-demo-list"><a id="A11"  runat="server" href="~/User/UserAccessList">รายการผู้เข้าใช้งาน</a></li>
-                            </ul>
+                        </ul>
+                        </li>
+                        <li class="page_item page-item-managedata"  runat="server" id="MenuManageData" menu="Manage" visible="false">
+                            <a href="#"  title="<%#Nep.Project.Resources.UI.MenuManageData %>">
+                            <%:Nep.Project.Resources.UI.MenuManageData %></a>
+                            <ul class="children">
+                                <li class="page_item page-item-demo-list"><a id="A23"  runat="server" href="~/ManageItem/StrategicList">ข้อมูลยุทธศาสตร์</a></li>
+                        </ul>
                          
                         </li>   
                        <%-- <li class="" runat="server" id="Li2" menu="Manual">

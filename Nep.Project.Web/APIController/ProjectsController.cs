@@ -1,5 +1,6 @@
 ﻿
 using Autofac.Integration.Web.Forms;
+using ClosedXML.Excel;
 using Ionic.Zip;
 using Nep.Project.DBModels.Model;
 using Nep.Project.ServiceModels;
@@ -12,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -421,15 +423,25 @@ namespace Nep.Project.Web.APIController
                 var gens = db.ProjectGeneralInfoes.Where(w => projIds.Contains(w.ProjectID)).ToList();
                 var dataTxt = new StringBuilder();
                 var senderBank = "006";
-                var senderAcc = "1234567890";
+                var senderAcc = "1234567898";
                 var senderBranch = "012";
-                var status = "00";
+                var status = "09";
                 int totRec = 0;
                 decimal totAmt = 0;
+                //excel
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Receiving Bank Code รหัสธนาคาร");
+                dt.Columns.Add("Receiving A/C No. เลขที่บัญชี");
+                dt.Columns.Add("Receiver Name ชื่อบัญชี");
+                dt.Columns.Add("Transfer Amount จำนวนเงิน");
+                dt.Columns.Add("Email อีเมล์");
+                dt.Columns.Add("Mobile No. เบอร์โทรศัพท์");
                 foreach (var gen in gens)
                 {
                     totRec++;
                     totAmt += gen.BudgetReviseValue.Value;
+                    // MT_Organization
                     var org = db.MT_Organization.Where(w => w.OrganizationID == gen.OrganizationID).FirstOrDefault();
                     if (gen.ProjectContract == null)
                     {
@@ -451,23 +463,55 @@ namespace Nep.Project.Web.APIController
                       
                 
                     }
-                    if (string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))
+                    //SC_USER
+                    decimal userID = (decimal)userInfo.UserID;
+                    var user = db.SC_User.Where(w => w.UserID == userID).FirstOrDefault();
+                    UserExtend userBank = new UserExtend();
+                    try
+                    {
+                        userBank = Newtonsoft.Json.JsonConvert.DeserializeObject<UserExtend>(user.EXTENDDATA);
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
+                    if ((string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))&&(string.IsNullOrWhiteSpace(userBank.BranchNo) || string.IsNullOrWhiteSpace(userBank.AccountName)  || string.IsNullOrWhiteSpace(userBank.AccountNo)  || string.IsNullOrWhiteSpace(userBank.BankNo) ))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"1.ไม่พบข้อมูลธนาคารของหน่วยงาน ({org.OrganizationNameTH}) 2.ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
+                    }
+                    else if (string.IsNullOrWhiteSpace(oex.BranchNo) || string.IsNullOrWhiteSpace(oex.AccountName) || string.IsNullOrWhiteSpace(oex.AccountNo) || string.IsNullOrWhiteSpace(oex.BankNo))
                     {
                         return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของหน่วยงาน ({org.OrganizationNameTH})"));
                     }
+                    else if (string.IsNullOrWhiteSpace(userBank.BranchNo) || string.IsNullOrWhiteSpace(userBank.AccountName) || string.IsNullOrWhiteSpace(userBank.AccountNo)  || string.IsNullOrWhiteSpace(userBank.BankNo) )
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError($"ไม่พบข้อมูลธนาคารของผู้ใช้งาน(บัญชีผู้โอน)"));
+                    }
+                    string personelMobile1 = (gen.ProjectPersonel.Mobile1 !=null) ? gen.ProjectPersonel.Mobile1 :"";
+                    string personelEmail1 = (gen.ProjectPersonel.Email1 != null) ? gen.ProjectPersonel.Email1 : "";
                     string txt = "";
-                    txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadRight(10, ' ').Substring(0, 3)}{oex.BranchNo.PadRight(10, ' ').Substring(0, 4)}";
-                    txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadRight(10, ' ').Substring(0, 3)}{senderBranch.PadRight(10, ' ').Substring(0, 4)}{senderAcc.PadLeft(15, '0').Substring(0, 11)}";
-                    txt += $"{DateTime.Now:ddMMyyyy}0600{string.Format("{0:0.00}",gen.BudgetReviseValue).PadRight(20, ' ').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, ' ')}";
-                    txt += $"{oex.AccountName.PadRight(100,' ').Substring(0,100)}{"ชื่อทดสอบ ผู้โอน".PadRight(100, ' ')}{"other info 1".PadRight(40, ' ')}{"DDA Ref 1 ".PadRight(18, ' ')}";
-                    txt += $"  {"DDA Ref 2".PadRight(18, ' ')}  {"other inf 2".PadRight(20, ' ')}000000{status}{gen.ProjectPersonel.Email1.PadRight(40,' ').Substring(0,40)}";
-                    txt += $"{"".PadRight(20, ' ').Substring(0, 20)}{"".PadRight(38,' ')}\r\n";
+                    txt = $"102{totRec.ToString().PadLeft(6, '0')}{oex.BankNo.PadLeft(3, ' ').Substring(0, 3)}{oex.BranchNo.PadLeft(4, '0').Substring(0, 4)}";
+                    txt += $"{oex.AccountNo.PadLeft(11, '0').Substring(0, 11)}{senderBank.PadLeft(3, '0').Substring(0, 3)}{userBank.BranchNo.PadLeft(4, '0').Substring(0, 4)}{userBank.AccountNo.PadLeft(11, '0').Substring(0, 11)}";
+                    txt += $"{DateTime.Now:ddMMyyyy}1400{string.Format("{0:0.00}", gen.BudgetReviseValue).Replace(".", string.Empty).PadLeft(17, '0').Substring(0, 17)}{"".PadRight(8, ' ')}{"".PadRight(10, '0')}";
+                    txt += $"{oex.AccountName.PadRight(100, ' ').Substring(0, 100)}{userBank.AccountName.PadRight(100, ' ')}{"".PadRight(40, ' ')}{" ".PadRight(18, ' ')}";
+                    txt += $"  {"".PadRight(18, ' ')}  {"".PadRight(20, ' ')}{totRec.ToString().PadLeft(6, '0')}{status}{personelEmail1.PadRight(40, ' ').Substring(0, 40)}";
+                    txt += $"{personelMobile1.Replace("-", string.Empty).PadLeft(20, ' ').Substring(0, 20)}0000{"".PadRight(34, ' ')}"+ Environment.NewLine;
                     dataTxt.Append(txt);
                     
+                    //excel
+                    DataRow dataExcel = dt.NewRow();
+                    dataExcel["Receiving Bank Code รหัสธนาคาร"] = oex.BankNo;
+                    dataExcel["Receiving A/C No. เลขที่บัญชี"] = oex.AccountNo;
+                    dataExcel["Receiver Name ชื่อบัญชี"] = oex.AccountName;
+                    dataExcel["Transfer Amount จำนวนเงิน"] = string.Format("{0:0.00}", gen.BudgetReviseValue);
+                    dataExcel["Email อีเมล์"] = gen.ProjectPersonel.Email1;
+                    dataExcel["Mobile No. เบอร์โทรศัพท์"] = personelMobile1.Replace("-", string.Empty);
+                    dt.Rows.Add(dataExcel);
                 }
 
-                var head = $"101{DateTime.Now.Ticks.ToString().PadLeft(6, '0').Substring(0, 6)}{senderBank.PadRight(3, ' ').Substring(0, 3)}{totRec.ToString().PadRight(7, ' ').Substring(0, 7)}";
-                   head += $"{string.Format("{0:0.00}",totAmt).PadRight(19,' ').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,' ')}{"".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}\r\n";
+                var head = $"101{"1".PadLeft(6, '0').Substring(0, 6)}{senderBank.PadRight(3, ' ').Substring(0, 3)}{totRec.ToString().PadLeft(7, '0').Substring(0, 7)}";
+                   head += $"{(string.Format("{0:0.00}",totAmt).Replace(".", string.Empty)).PadLeft(19,'0').Substring(0,19)}{DateTime.Now:ddMMyyyy}C{"".PadRight(8,'0')}{"001".PadRight(16, ' ')}{"".PadRight(20, ' ')}{"".PadRight(407, ' ')}"+Environment.NewLine;
                 dataTxt.Insert(0, head);
                 string strDT = $"{DateTime.Now:ddMMyyyyhhmmss}";
                 var txtSW = $"UPLD_SERVICE_NAME=KTB iPay Direct 04\r\n";
@@ -479,22 +523,56 @@ namespace Nep.Project.Web.APIController
                 txtSW += $"FILE_NAME=DDR{strDT}.txt";
                 var compressedFileStream = new MemoryStream();
 
+                //----------------txt only-------------------
+                //byte[] buffer;
+                //using (var memoryStream = new System.IO.MemoryStream())
+                //{
+                //    buffer = Encoding.Default.GetBytes(dataTxt.ToString());
+                //    memoryStream.Write(buffer, 0, buffer.Length);
+                //    var bytes = memoryStream.ToArray();
+                //    var data = Convert.ToBase64String(bytes);
+                //    // File.WriteAllText("e:\\base64-" + zipName, data);
+                //    response.Content = new StringContent(data);
+
+                //    //Set the Response Content Length.
+                //    //response.Content.Headers.ContentLength = bytes.LongLength;
+                //    response.Content.Headers.ContentLength = data.Length;
+                //    //Set the Content Disposition Header Value and FileName.
+                //    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                //    response.Content.Headers.ContentDisposition.FileName = "KTB" + DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
+
+                //    //Set the File Content Type.
+                //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+                //    return response;
+                //}
+                //--------------------excel-------------
+                MemoryStream memoryStreamExcel = new MemoryStream();
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    var sheet1 = wb.Worksheets.Add(dt, "Sheet1");
+                    sheet1.Table("Table1").ShowAutoFilter = false;
+                    sheet1.Table("Table1").Theme = XLTableTheme.None;
+                    sheet1.ColumnWidth = 30;
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        wb.SaveAs(memoryStream);
+                        memoryStreamExcel = memoryStream;
+                    }
+                }
+
+                //----------------Zip file -----------------------
+                string txtFileName = "KTB"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".txt";
+                string excelFileName = "KTB"+ DateTime.Now.ToString("yyyy-MM-dd-HHmmss") + ".xlsx";
                 using (ZipFile zip = new ZipFile())
                 {
                     zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                    //zip.AddDirectoryByName("Files");
-                    //foreach (FileModel file in files)
-                    //{
-                    //    if (file.IsSelected)
-                    //    {
-                    //        zip.Ad file.FilePath, "Files");
-                    //    }
-                    //}
-                   
-                    var DDR = Encoding.UTF8.GetBytes(dataTxt.ToString());
-                    var SW = Encoding.UTF8.GetBytes(txtSW); ;
-                    zip.AddEntry($"DDR{strDT}.txt", DDR);
-                    zip.AddEntry($"SW_DDR{strDT}.txt", SW);
+                    var DataExcel = memoryStreamExcel.ToArray();
+                    var DDR = ToTIS620(dataTxt.ToString());
+                    //var SW = Encoding.UTF8.GetBytes(txtSW); 
+                    zip.AddEntry(txtFileName, DDR);
+                    //zip.AddEntry($"SW_DDR{strDT}.txt", SW);
+                    zip.AddEntry(excelFileName, DataExcel);
+
                     //zip.AddFile("e:\\qr_cashcard_60060001-60060500.txt");
 
                     //Set the Name of Zip File.
@@ -504,14 +582,14 @@ namespace Nep.Project.Web.APIController
                     {
                         //Save the Zip File to MemoryStream.
                         zip.Save(memoryStream);
-                        
+
                         var bytes = memoryStream.ToArray();
                         //File.WriteAllBytes("e:\\byte-" + zipName, bytes);
                         //memoryStream.Seek(0, SeekOrigin.Begin);
                         //Set the Response Content.
                         //response.Content = new ByteArrayContent(bytes);
                         var data = Convert.ToBase64String(bytes);
-                       // File.WriteAllText("e:\\base64-" + zipName, data);
+                        // File.WriteAllText("e:\\base64-" + zipName, data);
                         response.Content = new StringContent(data);
 
                         //Set the Response Content Length.
@@ -535,9 +613,9 @@ namespace Nep.Project.Web.APIController
 
                 //        // add the item name to the zip
                 //        System.IO.Compression.ZipArchiveEntry zipDDR = zip.CreateEntry("DDR" + DateTime.Now.Ticks.ToString() + ".txt");
-                       
+
                 //        var DDR = Encoding.UTF8.GetBytes("DDR ทดสอบ");
-                      
+
                 //        // add the item bytes to the zip entry by opening the original file and copying the bytes
                 //        using (System.IO.MemoryStream originalFileMemoryStream = new System.IO.MemoryStream(DDR))
                 //        {
@@ -621,6 +699,32 @@ namespace Nep.Project.Web.APIController
                 result.SetExceptionMessage(ex);
             }
             return result;
+        }
+        public static byte[] ToTIS620(string utf8String)
+        {
+            List<byte> buffer = new List<byte>();
+            byte utf8Identifier = 224;
+            for (var i = 0; i < utf8String.Length; i++)
+            {
+                string utf8Char = utf8String.Substring(i, 1);
+                byte[] utf8CharBytes = Encoding.UTF8.GetBytes(utf8Char);
+                if (utf8CharBytes.Length > 1 && utf8CharBytes[0] == utf8Identifier)
+                {
+                    var tis620Char = (utf8CharBytes[2] & 0x3F);
+                    tis620Char |= ((utf8CharBytes[1] & 0x3F) << 6);
+                    tis620Char |= ((utf8CharBytes[0] & 0x0F) << 12);
+                    tis620Char -= (0x0E00 + 0xA0);
+                    byte tis620Byte = (byte)tis620Char;
+                    tis620Byte += 0xA0;
+                    tis620Byte += 0xA0;
+                    buffer.Add(tis620Byte);
+                }
+                else
+                {
+                    buffer.Add(utf8CharBytes[0]);
+                }
+            }
+            return buffer.ToArray();
         }
     }
 

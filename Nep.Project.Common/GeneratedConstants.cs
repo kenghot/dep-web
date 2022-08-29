@@ -138,6 +138,8 @@ namespace Nep.Project.Common
         public const String ApprovalStatus2 = "ApprovalStatus2";
         public const String AttachmentType = "AttachmentType";
         public const String BudgetType = "BudgetType";
+        public const String BudgetTypeCenter = "BudgetTypeCenter";
+        public const String BudgetTypeProvince = "BudgetTypeProvince";
         public const String DisabilityCommittee = "DisabilityCommittee";
         public const String DisabilityType = "DisabilityType";
         public const String EvaluationStatus = "EvaluationStatus";
@@ -228,6 +230,35 @@ namespace Nep.Project.Common
             public const String บริหารจัดการสมาคมสภาฯ = "9";
         }
 
+        public static class Budgettypecenter
+        {
+            public const String งบบริหารจัดการสมาคม = "1";
+            public const String กรอบการให้บริการล่ามภาษามือ__ส่วนกลาง = "10";
+            public const String กรอบการปรับสภาพแวดล้อมที่อยู่อาศัยสำหรับคนพิการ__ส่วนกลาง = "11";
+            public const String กรอบการจัดบริการผู้ช่วยคนพิการ__ส่วนกลาง = "12";
+            public const String กรอบส่วนกลาง = "2";
+            public const String กรอบบูรณาการอาชีพ = "3";
+            public const String กรอบประชาสัมพันธ = "4";
+            public const String กรอบแต่ละประเภทความพิการ = "5";
+            public const String กรอบวิจัย_นวัตกรรม = "6";
+            public const String กรอบศูนย์บริการคนพิการ__ส่วนกลาง = "7";
+            public const String กรอบคณะอนุกรรมการฯ_กรุงเทพมหานคร__ส่วนกลาง = "8";
+            public const String กรอบคณะอนุกรรมการฯ_ประจำจังหวัด__ส่วนกลาง = "9";
+        }
+
+        public static class Budgettypeprovince
+        {
+            public const String โครงการตามแผนพัฒนาคุณภาพชีวิตคนพิการ__หัวละบาท = "1";
+            public const String สนับสนุนการให้บริการล่ามภาษามือ = "2";
+            public const String สนับสนุนการจัดบริการผู้ช่วยคนพิการ = "3";
+            public const String สนับสนุนการปรับสภาพแวดล้อมที่อยู่อาศัยสำหรับคนพิการ_ = "4";
+            public const String สนับสนุนการขับเคลื่อนและติดตามผลแผนพัฒนาคุณภาพชีวิตคนพิการ = "5";
+            public const String สนับสนุนการขับเคลื่อนแผนการพัฒนาสตรีพิการ = "6";
+            public const String สนับสนุนการขับเคลื่อนแผนการจัดการภัยพิบัติ = "7";
+            public const String สนับสนุนการจัดงานวันคนพิการสากล = "8";
+            public const String สนับสนุนศูนย์บริการคนพิการ = "9";
+        }
+
         public static class Disabilitycommittee
         {
             public const String คณะอนุกรรมการบุคคลพิการทางการเห็น = "1";
@@ -265,6 +296,7 @@ namespace Nep.Project.Common
             public const String ถึงกำหนดติดตาม_45_วัน = "2";
             public const String รายงานผลแล้ว = "3";
             public const String กำลังติดตาม = "4";
+            public const String ยกเลิกติดตาม = "5";
         }
 
         public static class Logaccess
@@ -298,6 +330,7 @@ namespace Nep.Project.Common
             public const String นาย = "1";
             public const String นาง = "2";
             public const String นางสาว = "3";
+            public const String อื่นๆ = "4";
         }
 
         public static class Projectapprovalstatus
@@ -312,6 +345,7 @@ namespace Nep.Project.Common
             public const String ขั้นตอนที่_4_1_ชะลอการพิจารณา = "15";
             public const String ขั้นตอนที่_5_1_ชะลอการพิจารณา = "16";
             public const String ยืนยันการปรับปรุง = "17";
+            public const String ขั้นตอน_6_1_รอโอนเงิน = "18";
             public const String ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน = "2";
             public const String ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด = "3";
             public const String ขั้นตอนที่_4_อนุมัติโดยคณะกรรมการกลั่นกรอง = "4";
@@ -350,6 +384,10 @@ namespace Nep.Project.Common
             public const String การติดตามประเมินผล = "10";
             public const String ส่งเสริมมาตราฐานองค์กร = "11";
             public const String ค่าตอบแทนล่ามภาษามือ = "12";
+            public const String ผลิตสื่อโฆษณา = "13";
+            public const String ประชุมอนุกรรมการ_ฯ_ประจำจังหวัด = "14";
+            public const String การเข้าสิทธิคนพิการ = "15";
+            public const String เงินอุดหนุนเพื่อช่วยเหลือคนพิการ = "16";
             public const String การฝึกอาชีพ = "2";
             public const String การส่งเสริมการมีงานทำ = "3";
             public const String การประชาสัมพันธ์ = "4";

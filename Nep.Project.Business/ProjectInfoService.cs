@@ -18,6 +18,7 @@ using Nep.Project.Common.Web;
 using System.Web;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Newtonsoft.Json;
+using KeepAutomation;
 
 namespace Nep.Project.Business
 {
@@ -44,7 +45,11 @@ namespace Nep.Project.Business
         private const String REPORT_ACTIVITY = "REPORT_ACTIVITY";
         private const String REPORT_PARTICIPANT = "REPORT_PARTICIPANT";
         private const String REPORT_RESULT = "REPORT_RESULT";
+        private const String CONTRACT_AUTHORIZEDOC = "CONTRACT_AUTHORIZEDOC";
         private const String CONTRACT_SUPPORT = "CONTRACT_SUPPORT";
+        private const String CONTRACT_SIGNED = "CONTRACT_SIGNED";
+        private const String CONTRACT_KTB = "CONTRACT_KTB";
+        private const String CONTRACT_REFUND = "CONTRACT_REFUND";
 
         public ProjectInfoService(DBModels.Model.NepProjectDBEntities db,
             ServiceModels.Security.SecurityInfo user,
@@ -959,6 +964,21 @@ namespace Nep.Project.Business
             result = q;
             return result;
         }
+        public List<ServiceModels.GenericDropDownListData> ListStrategic()
+        {
+            List<ServiceModels.GenericDropDownListData> result = new List<GenericDropDownListData>();
+            var q = (from e in _db.MT_ITEM
+                     where e.ITEMGROUP == "EVALUATIONSTRATEGIC" && e.ISACTIVE == "1" && e.ISDELETE == "0"
+                     select new ServiceModels.GenericDropDownListData()
+                     {
+                         Text = e.ITEMNAME,
+                         Value = e.ITEMID.ToString(),
+                         OrderNo = e.ORDERNO
+                     }).OrderBy(or => or.OrderNo).ToList();
+
+            result = q;
+            return result;
+        }
 
         public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> GetProjectInformationByProjecctID(Decimal id)
         {
@@ -1681,6 +1701,7 @@ namespace Nep.Project.Business
                                 TotalDay = (pro.ProjectOperation != null) ? pro.ProjectOperation.TotalDay : (decimal?)null,
                                 TimeDesc = (pro.ProjectOperation != null) ? pro.ProjectOperation.TimeDesc : null,
                                 Method = (pro.ProjectOperation != null) ? pro.ProjectOperation.Method : null,
+                                ExtendJson = (pro.ProjectOperation != null) ?  pro.ProjectOperation.EXTENDDATA : null,
                                 CreatorOrganizationID = _db.SC_User.Where(users => (users.UserID == pro.CreatedByID) && (users.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
                                 ProjectProvinceID = pro.ProvinceID,
                                 OrgProjectProvinceID = _db.MT_Organization.Where(org => org.OrganizationID == pro.OrganizationID).Select(orgr => orgr.ProvinceID).FirstOrDefault()
@@ -1713,6 +1734,38 @@ namespace Nep.Project.Business
                     if (data.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ร่างเอกสาร)
                     {
                         data.RequiredSubmitData = GetKeyRequiredSubmitData(data.ProjectID);
+                    }
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(data.ExtendJson))
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ProcessingPlanExtend>(data.ExtendJson);
+                            //if (data.ExtendData.AddressAt != null)
+                            //{
+                            //    var ad = data.ExtendData.AddressAt;
+                            //    var prov = _db.MT_Province.Where(w => w.ProvinceID == ad.ProvinceId).FirstOrDefault();
+                            //    if (prov != null)
+                            //    {
+                            //        ad.ProvinceName = prov.ProvinceName;
+                            //    }
+                            //    var dis = _db.MT_District.Where(w => w.DistrictID == ad.DistrictId).FirstOrDefault();
+                            //    if (dis != null)
+                            //    {
+                            //        ad.DistrictName = dis.DistrictName;
+                            //    }
+                            //    var sdis = _db.MT_SubDistrict.Where(w => w.SubDistrictID == ad.SubDistrictId).FirstOrDefault();
+                            //    if (sdis != null)
+                            //    {
+                            //        ad.SubDistrictName = sdis.SubDistrictName;
+                            //    }
+                            //}
+                        }
+
+                    }
+                    catch
+                    {
+
                     }
 
                 }
@@ -1824,6 +1877,11 @@ namespace Nep.Project.Business
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
+                        if (model.ExtendData.StartDateOld != null || model.ExtendData.EndDateOld != null)
+                        {
+                            model.ExtendData.EditByName = _user.FullName;
+                        }
+                        dataDBModel.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
                         _db.SaveChanges();
 
                     }
@@ -2642,8 +2700,13 @@ namespace Nep.Project.Business
                         }
                     }
                 }
-                var att = new Business.AttachmentService(_db);
+               var att = new Business.AttachmentService(_db);
+                //Beer28082021
+                data.AuthorizeDocAttachmentMulti = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC, id);
                 data.SupportAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT, id);
+                data.SignedContractAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_SIGNED, id);
+                data.KTBAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_KTB, id);
+                data.RefundAttachments = att.GetAttachmentOfTable(TABLE_PROJECTCONTRACT, CONTRACT_REFUND, id);
                 result.Data = data;
                 result.IsCompleted = true;
             }
@@ -2697,8 +2760,28 @@ namespace Nep.Project.Business
                             dataDBModel.CONTRACTDUEs.Add(newDue);
                             i++;
                         }
-                        
-                        
+                        DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
+                           ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน) ||
+                            (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว))).SingleOrDefault();
+
+                        DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
+                        //if (model.AddedKTBAttachments == null)
+                        //{
+                        //    status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
+                        //}
+                        if (genInfo != null)
+                        {
+                            dataDBModel.APPROVESTATUS = genInfo.ProjectApprovalStatusID;
+                            genInfo.ProjectApprovalStatusID = status.LOVID;
+                            genInfo.UpdatedBy = _user.UserName;
+                            genInfo.UpdatedByID = _user.UserID;
+                            genInfo.UpdatedDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            throw new Exception(Nep.Project.Resources.Error.ProjectApprovalStatusInvalid);
+                        }
+
                         dataDBModel.UpdatedDate = DateTime.Now;
                         dataDBModel.UpdatedBy = _user.UserName;
                         dataDBModel.UpdatedByID = _user.UserID;
@@ -2709,6 +2792,7 @@ namespace Nep.Project.Business
                         DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID &&
                             ((x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_3_อนุมัติโดยอนุกรรมการจังหวัด) ||
                              (x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที_5_อนุมัติโดยอนุกรรมการกองทุน))).SingleOrDefault();
+                        //DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน, Common.LOVGroup.ProjectApprovalStatus);
                         DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว, Common.LOVGroup.ProjectApprovalStatus);
 
                         if (genInfo != null)
@@ -2756,7 +2840,10 @@ namespace Nep.Project.Business
                         _db.ProjectContracts.Add(dataDBModel);
                         _db.SaveChanges();
                     }
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedAuthorizeDocAttachmentMulti, model.AddedAuthorizeDocAttachmentMulti, TABLE_PROJECTCONTRACT, CONTRACT_AUTHORIZEDOC);
                     SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSupportAttachments, model.AddedSupportAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SUPPORT);
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedSignedContractAttachments, model.AddedSignedContractAttachments, TABLE_PROJECTCONTRACT, CONTRACT_SIGNED);
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedKTBAttachments, model.AddedKTBAttachments, TABLE_PROJECTCONTRACT, CONTRACT_KTB);
 
                     result.Data = MappDBProjectContractToTabProjectContract(dataDBModel);
                     result.IsCompleted = true;
@@ -2774,7 +2861,266 @@ namespace Nep.Project.Business
 
             return result;
         }
+        public ServiceModels.ReturnMessage UpdateProjectContractStartEndDate(ServiceModels.ProjectInfo.TabContract model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectContract projectContract = _db.ProjectContracts.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                if (projectContract != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บวันที่เดิมใน json ExtendData
+                        model.ExtendData.ContractStartDateOld = projectContract.ContractStartDate;
+                        model.ExtendData.ContractEndDateOld = projectContract.ContractEndDate;
+                        model.ExtendData.ContractStartEndDateByName = _user.FullName;
+                        projectContract.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
 
+                    }
+                    projectContract.ContractStartDate = Convert.ToDateTime(model.ContractStartDate);
+                    projectContract.ContractEndDate = Convert.ToDateTime(model.ContractEndDate);
+                    projectContract.UpdatedDate = DateTime.Now;
+                    projectContract.UpdatedBy = _user.UserName;
+                    projectContract.UpdatedByID = _user.UserID;
+                    _db.SaveChanges();
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.UpdateProjectContractStartEndDate);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+                DateTime toDay = DateTime.Today;
+                //Beer29082021 clear FollowUpStatus condition  ContractEndDate > today
+                    DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                    if(genInfo != null)
+                    {
+                            string FollowUpStatusText = "";
+                            DateTime compareDate = toDay.AddDays(0);
+                            DateTime compareDate30 = toDay.AddDays(-30);
+                            DateTime compareDate45 = toDay.AddDays(-45);
+                            DBModels.Model.MT_ListOfValue followupStatus30 = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ถึงกำหนดติดตาม_30_วัน)).FirstOrDefault();
+                            DBModels.Model.MT_ListOfValue followupStatus45 = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ถึงกำหนดติดตาม_45_วัน)).FirstOrDefault();
+                            
+                            if (Convert.ToDateTime(model.ContractEndDate) <= compareDate45)
+                            {
+                                compareDate = toDay.AddDays(-45);
+                                genInfo.FollowUpStatus = followupStatus45.LOVID;
+                                FollowUpStatusText = "(ถึงกำหนดติดตาม 45 วัน)";
+                            }
+                            else if(Convert.ToDateTime(model.ContractEndDate) <= compareDate30)
+                            {
+                                    compareDate = toDay.AddDays(-30);
+                                    genInfo.FollowUpStatus = followupStatus30.LOVID;
+                                    FollowUpStatusText = "(ถึงกำหนดติดตาม 30 วัน)";
+                            }
+                            else
+                            {
+                                genInfo.FollowUpStatus = null;
+                            }
+                            //genInfo.FollowUpStatus = null;
+                            genInfo.LastedFollowupDate = toDay;
+                            genInfo.UpdatedBy = _user.UserName;
+                            genInfo.UpdatedByID = _user.UserID;
+                            genInfo.UpdatedDate = DateTime.Now;
+
+                            _db.SaveChanges();
+
+                            if(genInfo.FollowUpStatus == followupStatus30.LOVID || genInfo.FollowUpStatus == followupStatus45.LOVID)
+                            {
+                                    int cYear = compareDate.Year;
+                                    int cMonth = compareDate.Month;
+                                    int cDay = compareDate.Day;
+                                    List<ServiceModels.TemplateConfig.OrgWaringReportParam> projectList;
+                                     var query = (from g in _db.ProjectGeneralInfoes
+                                     join person in _db.ProjectPersonels on g.ProjectID equals person.ProjectID
+                                     join c in _db.ProjectContracts on g.ProjectID equals c.ProjectID
+                                     join org in _db.MT_Organization on g.OrganizationID equals org.OrganizationID
+                                     join tel in _db.MT_TELEPHONE on org.ProvinceID equals tel.PROVINCEID
+                                     where ((g.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) &&
+                                         (g.ProjectID== model.ProjectID))
+                                     select new ServiceModels.TemplateConfig.OrgWaringReportParam
+                                     {
+                                         ProjectID = g.ProjectID,
+                                         LOVName = person.Prefix1Personel.LOVName,
+                                         Firstname1 = person.Firstname1,
+                                         Lastname1 = person.Lastname1,
+                                         Mobile1 = person.Mobile1,
+                                         Email1 = person.Email1,
+
+                                         ContractNo = g.ProjectContract.ContractNo,
+                                         ContractDate = g.ProjectContract.ContractDate,
+
+                                         OrganizationNameTH = org.OrganizationNameTH,
+
+                                         ProjectNameTH = g.ProjectInformation.ProjectNameTH,
+                                         EndDate = g.ProjectOperation.EndDate,
+                                         BudgetReviseValue = g.BudgetReviseValue,
+
+                                         Mobile = org.Mobile,
+                                         Email = org.Email,
+
+                                         ORGANIZATIONNAME = tel.ORGANIZATIONNAME,
+                                         TELEPHONE1 = tel.TELEPHONE1,
+                                         EXTENSION1 = tel.EXTENSION1,
+                                         TELEPHONE2 = tel.TELEPHONE2,
+                                         EXTENSION2 = tel.EXTENSION2,
+                                         FAXNUMBER1 = tel.FAXNUMBER1,
+                                         FAXEXTENSION1 = tel.FAXEXTENSION1,
+                                         FAXNUMBER2 = tel.FAXNUMBER2,
+                                         FAXEXTENSION2 = tel.FAXEXTENSION2
+                                     });
+
+                                    string sql = query.ToString();
+                                    sql = sql.Replace(":p__linq__0", model.ProjectID.ToString());
+                                    sql = sql.Replace(":p__linq__1", cYear.ToString());
+                                    sql = sql.Replace(":p__linq__2", cMonth.ToString());
+                                    sql = sql.Replace(":p__linq__3", cDay.ToString());
+
+                                    //Common.Logging.LogInfo("45 Date->>", String.Format("{0}-{1}-{2}", cYear, cMonth, cDay));
+                                    //Common.Logging.LogInfo("Send 45->>", sql);
+                                    var sqlResult = _db.Database.SqlQuery<ServiceModels.TemplateConfig.OrgWaringReportParam>(sql);
+                                    //_db.Database.Log = ((x) => { Common.Logging.LogInfo("45 ->>", x); });
+                                    projectList = (sqlResult != null) ? sqlResult.ToList() : null;
+                                    SendTrackingWarning(projectList, genInfo.FollowUpStatus);
+                                    result.IsCompleted = true;
+                                    result.Message.Add(Nep.Project.Resources.Message.ResetFollowUpStatus + FollowUpStatusText + "และส่ง Email แจ้งเตือนสำเร็จ");
+                            }
+                            else
+                            {
+                                result.IsCompleted = true;
+                                result.Message.Add(Nep.Project.Resources.Message.ResetFollowUpStatus + FollowUpStatusText);
+                            }
+                               
+                    }
+                    else
+                    {
+                        result.IsCompleted = false;
+                        result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                    }
+
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
+        private void SendTrackingWarning(List<ServiceModels.TemplateConfig.OrgWaringReportParam> projectList, decimal? followupStatusID)
+        {
+            var folloupContact = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.FOLLOWUP_CONTACT).Select(y => y.ParameterValue).FirstOrDefault();
+            var nepProjectDirectorPosition = _db.MT_OrganizationParameter.Where(x => x.ParameterCode == Common.OrganizationParameterCode.NEP_PROJECT_DIRECTOR_POSITION).Select(y => y.ParameterValue).FirstOrDefault();
+
+            ServiceModels.TemplateConfig.OrgWaringReportParam param;
+            String smsFormat = Nep.Project.Resources.Message.WarningProjectReportResultSMS;
+            String sms;
+            String endDateProjectReport;
+            String errorSendTracking = Nep.Project.Resources.Error.TrackingProjectReportError;
+            String orgName = "";
+            String orgMobile = "";
+            String personMobile = "";
+
+
+            if (projectList != null)
+            {
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    try
+                    {
+                        param = projectList[i];
+                        param.ContractNo = param.ContractNo;
+                        orgName = param.OrganizationNameTH;
+                        orgMobile = param.Mobile;
+                        personMobile = param.Mobile1;
+                        endDateProjectReport = Common.Web.WebUtility.ToBuddhaDateFormat(param.EnddateProjectReport, "dMMMyy", "");
+                        endDateProjectReport = endDateProjectReport.Replace(".", "");
+                        param.TELEPHONE1 = param.TELEPHONE1;
+                        param.EXTENSION1 = param.EXTENSION1;
+                        param.TELEPHONE2 = param.TELEPHONE2;
+                        param.EXTENSION2 = param.EXTENSION2;
+                        param.FAXNUMBER1 = param.FAXNUMBER1;
+                        param.FAXEXTENSION1 = param.FAXEXTENSION1;
+                        param.FAXNUMBER2 = param.FAXNUMBER2;
+                        param.FAXEXTENSION2 = param.FAXEXTENSION2;
+                        sms = String.Format(smsFormat, endDateProjectReport);
+
+                        if (param.Email.ToLower() == param.Email1.ToLower())
+                        {
+                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
+                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
+                        }
+                        else
+                        {
+                            _mailService.SendWarningProjectReportResultToOrg(folloupContact, nepProjectDirectorPosition, param);
+                            _mailService.SendWarningProjectReportResultToPerson(folloupContact, nepProjectDirectorPosition, param);
+                            _smsService.Send("แจ้งเตือนการส่งรายงานผลโครงการ", _db, param.ProjectID);
+                        }
+
+                        _smsService.Send(sms, param.Mobile, param.Mobile1);
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", String.Format(errorSendTracking, orgName));
+                        Common.Logging.LogError(Logging.ErrorType.ServiceError, "Set Followup Status Job", ex);
+                    }
+                }
+            }
+        }
+
+
+        public ServiceModels.ReturnMessage UpdateProjectContractRefund(ServiceModels.ProjectInfo.TabContract model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.MT_ListOfValue cancelStatus = _db.MT_ListOfValue.Where(x => (x.LOVGroup == Common.LOVGroup.FollowupStatus) && (x.LOVCode == Common.LOVCode.Followupstatus.ยกเลิกติดตาม)).FirstOrDefault();
+                DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();
+                DBModels.Model.ProjectContract projectContract = _db.ProjectContracts.Where(x => x.ProjectID == model.ProjectID).SingleOrDefault();
+                if (projectContract != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บข้อมูลใน json ExtendData
+                        projectContract.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
+
+                    }
+                    genInfo.FollowUpStatus = cancelStatus.LOVID;
+                    projectContract.UpdatedDate = DateTime.Now;
+                    projectContract.UpdatedBy = _user.UserName;
+                    projectContract.UpdatedByID = _user.UserID;
+                    _db.SaveChanges();
+                    SaveAttachFile(model.ProjectID, Common.LOVCode.Attachmenttype.PROJECT_CONTRACT, model.RemovedRefundAttachments, model.AddedRefundAttachments, TABLE_PROJECTCONTRACT, CONTRACT_REFUND);
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.UpdateProjectContractRefund);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
         public ServiceModels.ReturnMessage CancelProjectContract(Decimal id)
         {
             ServiceModels.ReturnMessage result = new ReturnMessage();
@@ -3006,16 +3352,23 @@ namespace Nep.Project.Business
                         obj.ContractNo = contract.ContractNo;
                         obj.SignAt = contract.ContractLocation;
                         obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
+                        obj.ContractDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "dd").TrimStart('0');
+                        obj.ContractMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "MMMM");
+                        obj.ContractYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "yyyy");
                         obj.ContractBy = contractBy;
                         obj.Position = contract.DirectorPosition;
                         obj.DirectiveNo = directiveNo;
                         obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
+                        obj.DirectiveDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "dd").TrimStart('0');
+                        obj.DirectiveMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "MMMM");
+                        obj.DirectiveYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "yyyy");
                         obj.DirectiveProvince = provinceName;
                         obj.DirectProvinceNo = directProvinceNo;
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
                         obj.ReceiverName = genIn.OrganizationNameTH;
                         obj.ReceiverAddressNo = genIn.Address;
-
+                        obj.ReceiverMoo= genIn.Moo;
+                        obj.ReceiverStreet = genIn.Road;
                         obj.ReceiverSubdistrict = genIn.SubDistrict;
                         obj.ReceiverDistrict = genIn.District;
                         obj.ReceiverProvince = receiverProvince;
@@ -3040,6 +3393,9 @@ namespace Nep.Project.Business
                         obj.AttachPage3 = contract.ATTACHPAGE3?.ToString();
                         obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
                         obj.MeetingDate = contract.MEETINGDATE;
+                        obj.MeetingDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "dd").TrimStart('0');
+                        obj.MeetingMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "MMMM");
+                        obj.MeetingYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "yyyy");
                         obj.MeetingNo = contract.MEETINGNO?.ToString();
                         obj.AuthorizeDate = contract.AuthorizeDate;
                         obj.AuthorizeDateText = Common.Web.WebUtility.ToBuddhaDateFormat(contract.AuthorizeDate, "d MMMM yyyy");
@@ -3159,10 +3515,16 @@ namespace Nep.Project.Business
                         obj.ContractNo = contract.ContractNo;
                         obj.SignAt = contract.ContractLocation;
                         obj.ContractDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "d MMMM yyyy");
+                        obj.ContractDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "dd").TrimStart('0');
+                        obj.ContractMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "MMMM");
+                        obj.ContractYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractDate, "yyyy");
                         obj.ContractBy = contractBy;
                         obj.Position = contract.DirectorPosition;
                         obj.DirectiveNo = directiveNo;
                         obj.DirectiveDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "d MMMM yyyy");
+                        obj.DirectiveDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "dd").TrimStart('0');
+                        obj.DirectiveMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "MMMM");
+                        obj.DirectiveYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ContractGiverDate, "yyyy");
                         obj.DirectiveProvince = provinceName;
                         obj.DirectProvinceNo = directProvinceNo;
                         obj.DirectProvinceDate = Common.Web.WebUtility.ToBuddhaDateFormat(contract.ProvinceContractDate, "d MMMM yyyy");
@@ -3191,6 +3553,9 @@ namespace Nep.Project.Business
                         obj.AttachPage3 = contract.ATTACHPAGE3?.ToString();
                         obj.MeetingDateText = contract.MEETINGDATE.HasValue ? Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "d MMMM yyyy") : "";
                         obj.MeetingDate = contract.MEETINGDATE;
+                        obj.MeetingDay = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "dd").TrimStart('0');
+                        obj.MeetingMonth = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "MMMM");
+                        obj.MeetingYear = Common.Web.WebUtility.ToBuddhaDateFormat(contract.MEETINGDATE, "yyyy");
                         obj.MeetingNo = contract.MEETINGNO?.ToString();
                         result.IsCompleted = true;
                         result.Data = obj;
@@ -4024,7 +4389,7 @@ namespace Nep.Project.Business
                                                                           RepotDate2 = (pro.ProjectReport != null) ? pro.ProjectReport.RepotDate2 : (DateTime?)null,
                                                                           Telephone2 = (pro.ProjectReport != null) ? pro.ProjectReport.Telephone2 : null,
                                                                           ReportAttachmentID = (pro.ProjectReport != null) ? pro.ProjectReport.ReportAttachmentID : null,
-
+                                                                          ExtendJson = (pro.ProjectReport != null) ? pro.ProjectReport.EXTENDDATA : null,
                                                                           ProjectApprovalStatusID = pro.ProjectApprovalStatusID,
                                                                           ProjectApprovalStatusCode = (pro.ProjectApprovalStatus != null) ? pro.ProjectApprovalStatus.LOVCode : null,
                                                                           CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == pro.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
@@ -4111,6 +4476,21 @@ namespace Nep.Project.Business
                     data.SueDocument7.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC7", projectID);
                     data.SueDocument8.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC8", projectID);
                     data.SueDocument9.Attachment = att.GetAttachmentOfTable(TABLE_REPORT, "SUEDOC9", projectID);
+
+                    //Beer31082021
+                    data.ExtendData = new ReportExtend();
+                    if (!string.IsNullOrEmpty(data.ExtendJson))
+                    {
+                        try
+                        {
+                            data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ReportExtend>(data.ExtendJson);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
                 }
 
                 result.IsCompleted = true;
@@ -4657,6 +5037,48 @@ namespace Nep.Project.Business
 
             return result;
         }
+        public ServiceModels.ReturnMessage ConfirmReportProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.ProjectReport dbReport = _db.ProjectReports.Where(x => x.ProjectID == model.ProjectID).FirstOrDefault();
+                if (dbReport != null)
+                {
+                    try
+                    {
+                        //Beer29082021 เก็บข้อมูลใน json ExtendData
+                        model.ExtendData.ConfirmReportFlag = "1";
+                        model.ExtendData.ConfirmReportByName = _user.FullName;
+                        dbReport.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+                    }
+                    catch
+                    {
+
+                    }
+                    dbReport.UpdatedBy = _user.UserName;
+                    dbReport.UpdatedByID = _user.UserID;
+                    dbReport.UpdatedDate = DateTime.Now;
+
+                    _db.SaveChanges();
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.ConfirmReport);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "Project Info", ex);
+            }
+
+            return result;
+        }
 
         public ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectTargetNameList> GetProjectTargetForParticipant(decimal projectID)
         {
@@ -4905,11 +5327,11 @@ namespace Nep.Project.Business
 
                               IsFollowup = (proj.IsFollowup.HasValue && proj.IsFollowup > 0) ? true : false,
 
-                              IsPassMission1 = (proj.IsPassMission1 == "1") ? true : false,
-                              IsPassMission2 = (proj.IsPassMission2 == "1") ? true : false,
-                              IsPassMission3 = (proj.IsPassMission3 == "1") ? true : false,
-                              IsPassMission4 = (proj.IsPassMission4 == "1") ? true : false,
-                              IsPassMission5 = (proj.IsPassMission5 == "1") ? true : false,
+                              IsPassMission1 = (proj.IsPassMission1 == "1" || proj.STRATEGICITEMID ==1) ? true : false,
+                              IsPassMission2 = (proj.IsPassMission2 == "1" || proj.STRATEGICITEMID == 2) ? true : false,
+                              IsPassMission3 = (proj.IsPassMission3 == "1" || proj.STRATEGICITEMID == 3) ? true : false,
+                              IsPassMission4 = (proj.IsPassMission4 == "1" || proj.STRATEGICITEMID == 4) ? true : false,
+                              IsPassMission5 = (proj.IsPassMission5 == "1" || proj.STRATEGICITEMID == 5) ? true : false,
 
                               IsStep1Approved = (proj.IsStep1Approved.HasValue && proj.IsStep1Approved > 0) ? true : false,
                               IsStep2Approved = (proj.IsStep2Approved.HasValue && proj.IsStep2Approved > 0) ? true : false,
@@ -6267,12 +6689,12 @@ namespace Nep.Project.Business
                                                                         Assessment610 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT610 : (decimal?)null,
                                                                         Assessment611 = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ASSESSMENT611 : (decimal?)null,
 
-                                                                        IsPassMission1 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission1 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission2 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission2 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission3 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission3 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission4 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission4 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission5 == "1" ? true : false) : (bool?)null,
-                                                                        IsPassMission6 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.ISPASSMISSION6 == "1" ? true : false) : (bool?)null,
+                                                                        IsPassMission1 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission1 == "1" || p.ProjectEvaluation.STRATEGICITEMID==1 ? true : false) : (bool?)null,
+                                                                        IsPassMission2 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission2 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 2 ? true : false) : (bool?)null,
+                                                                        IsPassMission3 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission3 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 3 ? true : false) : (bool?)null,
+                                                                        IsPassMission4 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission4 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 4 ? true : false) : (bool?)null,
+                                                                        IsPassMission5 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.IsPassMission5 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 5 ? true : false) : (bool?)null,
+                                                                        IsPassMission6 = (p.ProjectEvaluation != null) ? (p.ProjectEvaluation.ISPASSMISSION6 == "1" || p.ProjectEvaluation.STRATEGICITEMID == 6 ? true : false) : (bool?)null,
 
                                                                         TotalScore = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.EvaluationValue : (decimal?)null,
 
@@ -6281,7 +6703,7 @@ namespace Nep.Project.Business
                                                                         AssessmentDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.AssessmentDesc : null,
 
                                                                         ProvinceMissionDesc = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.ProvinceMissionDesc : null,
-
+                                                                        StrategicID = (p.ProjectEvaluation != null) ? p.ProjectEvaluation.STRATEGICITEMID : null,
                                                                         ProvinceID = p.ProvinceID,
 
                                                                         CreatorOrganizationID = _db.SC_User.Where(x => (x.UserID == p.CreatedByID) && (x.IsDelete == "0")).Select(y => y.OrganizationID).FirstOrDefault(),
@@ -6393,6 +6815,8 @@ namespace Nep.Project.Business
                     dbEval.IsPassMission5 = (model.IsPassMission5 == true) ? "1" : "0";
                     dbEval.ISPASSMISSION6 = (model.IsPassMission6 == true) ? "1" : "0";
 
+                    //Beer05092021
+                    dbEval.STRATEGICITEMID = model.StrategicID;
                     dbEval.AssessmentDesc = model.AssessmentDesc;
                     dbEval.ProvinceMissionDesc = model.ProvinceMissionDesc;
 
@@ -6405,6 +6829,8 @@ namespace Nep.Project.Business
                     DBModels.Model.MT_ListOfValue status = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_2_เจ้าหน้าที่พิจารณาเกณฑ์ประเมิน, Common.LOVGroup.ProjectApprovalStatus);
                     DBModels.Model.ProjectGeneralInfo genInfo = _db.ProjectGeneralInfoes.Where(x => (x.ProjectID == model.ProjectID) && (
                            x.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ)).SingleOrDefault();
+                    DBModels.Model.MT_ListOfValue status1 = GetListOfValue(Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ, Common.LOVGroup.ProjectApprovalStatus);
+
 
                     if (evaluationID == 0)
                     {
@@ -6439,6 +6865,13 @@ namespace Nep.Project.Business
                             genInfo.RESPONSETEL = u.TelephoneNo;
                         }
 
+                    }
+                    else if ((genInfo != null) && (evaluationID != 0) && (genInfo.ProjectApprovalStatusID == status1.LOVID))
+                    {
+                        genInfo.ProjectApprovalStatusID = status.LOVID;
+                        genInfo.UpdatedBy = _user.UserName;
+                        genInfo.UpdatedByID = _user.UserID;
+                        genInfo.UpdatedDate = DateTime.Now;
                     }
 
                     _db.PROJECTHISTORies.Add(CreateRowProjectHistory(model.ProjectID, "2", _user.UserID.Value, model.IPAddress));
@@ -6773,7 +7206,7 @@ namespace Nep.Project.Business
                         projectFunctions.Add(Common.ProjectFunction.PrintBudget);
                     }
                 }
-                else if (param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว)
+                else if (param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว || param.ProjectApprovalStatus == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน)
                 {
                     if (param.IsReportedResult)
                     {
@@ -8130,11 +8563,11 @@ namespace Nep.Project.Business
 
                                 DisabilityTypeCode = (g.ProjectInformation != null) ? _db.MT_ListOfValue.Where(dis => dis.LOVID == g.ProjectInformation.DisabilityTypeID).Select(disObj => disObj.LOVCode).FirstOrDefault() : null,
 
-                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1")) ? Resources.UI.LabelStandardStrategic1 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "2")) ? Resources.UI.LabelStandardStrategic2 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "3")) ? Resources.UI.LabelStandardStrategic3 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "4")) ? Resources.UI.LabelStandardStrategic4 :
-                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "5")) ? Resources.UI.LabelStandardStrategic5 : null
+                                Strategy = ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "1" || g.ProjectEvaluation.STRATEGICITEMID == 1)) ? Resources.UI.LabelStandardStrategic1 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "2" || g.ProjectEvaluation.STRATEGICITEMID == 2)) ? Resources.UI.LabelStandardStrategic2 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "3" || g.ProjectEvaluation.STRATEGICITEMID == 3)) ? Resources.UI.LabelStandardStrategic3 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "4" || g.ProjectEvaluation.STRATEGICITEMID == 4)) ? Resources.UI.LabelStandardStrategic4 :
+                                            ((g.ProjectEvaluation != null) && (g.ProjectEvaluation.IsPassMission1 == "5" || g.ProjectEvaluation.STRATEGICITEMID == 5)) ? Resources.UI.LabelStandardStrategic5 : null
 
                             }).FirstOrDefault();
 
@@ -9656,7 +10089,14 @@ namespace Nep.Project.Business
             {
                 result.LocationMapID = SaveFile(model.AddedLocationMapAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
             }
+            try
+            {
+                result.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(model.ExtendData);
+            }
+            catch
+            {
 
+            }
 
 
             return result;
@@ -9982,6 +10422,16 @@ namespace Nep.Project.Business
             {
                 result.AuthorizeDocID = SaveFile(model.AddedAuthorizeDocAttachment, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
             }
+            ////KTBFile
+            //if (model.RemovedKTBAttachments != null)
+            //{
+            //    RemoveFile(model.RemovedKTBAttachments, rootDestinationFolderPath);
+            //    result.FileKTBID = (decimal?)null;
+            //}
+            //if (model.AddedKTBAttachments != null)
+            //{
+            //    result.FileKTBID = SaveFile(model.AddedKTBAttachments, rootFolderPath, rootDestinationFolderPath, folder, attachmentTypeID);
+            //}
 
             return result;
         }

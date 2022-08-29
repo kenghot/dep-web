@@ -166,6 +166,7 @@ namespace Nep.Project.Web.APIController
                                 BudgetValue = gen.BudgetValue,
                                 BudgetReviseValue = gen.BudgetReviseValue,
                                 OrganizationTypeCode = org.OrganizationType.OrganizationTypeCode,
+                                OrganizationToBeUnder = org.OrganizationType.ToBeUnder,
                                 OrganizationType = org.OrganizationType.OrganizationType,
                                 ProjectTypeCode = inf.ProjectType.LOVCode,
                                 ProjectTypeName = inf.ProjectType.LOVName,
@@ -181,7 +182,7 @@ namespace Nep.Project.Web.APIController
                                 IsPassMission4 = ev.IsPassMission4,
                                 IsPassMission5 = ev.IsPassMission5,
                                 IsPassMission6 = ev.ISPASSMISSION6,
-
+                                IsPassMissionID = ev.STRATEGICITEMID,
                             };
                 
                 var projs = query.ToList();
@@ -211,11 +212,26 @@ namespace Nep.Project.Web.APIController
 
                     if (proj.IsApproved)
                     {
-                        collectLegned(result.Data.orgTypeData.legendDatas, new LegendData
+                        //ปรับ Dashboard ประเภทองค์กร เอามาโชว์แค่ หน่วยงานภาครัฐ กับ องค์กรภาคเอกชน beer03262021
+                        string Organization ;
+                        if (proj.OrganizationToBeUnder=="1")
                         {
+                            Organization = "หน่วยงานภาครัฐ";
+                        }else if (proj.OrganizationToBeUnder == "2")
+                        {
+                            Organization = "องค์กรภาคเอกชน";
+                        }
+                        else
+                        {
+                            Organization = proj.OrganizationType;
+                        }
+
+                        collectLegned(result.Data.orgTypeData.legendDatas, new LegendData
+                        {//beer03262021
                             amount = proj.BudgetReviseValue.HasValue ? proj.BudgetReviseValue.Value : 0,
-                            description = proj.OrganizationType,
-                            id = proj.OrganizationTypeCode
+                            description = Organization,
+                            //description = proj.OrganizationType, //old
+                            id = proj.OrganizationToBeUnder
                         });
                         collectLegned(result.Data.projectTypeData.legendDatas, new LegendData
                         {
@@ -229,8 +245,8 @@ namespace Nep.Project.Web.APIController
                             description = proj.DisabilityName,
                             id = proj.DisabilityCode
                         });
-                        string mission = (proj.IsPassMission1 == "1") ? "1" : (proj.IsPassMission2 == "1") ? "2" : (proj.IsPassMission3 == "1") ? "3" :
-                            (proj.IsPassMission4 == "1") ? "4" : (proj.IsPassMission5 == "1") ? "5" : (proj.IsPassMission6 == "1") ? "6" : "";
+                        string mission = (proj.IsPassMission1 == "1" || proj.IsPassMissionID==1) ? "1" : (proj.IsPassMission2 == "1" || proj.IsPassMissionID == 2) ? "2" : (proj.IsPassMission3 == "1" || proj.IsPassMissionID == 3) ? "3" :
+                            (proj.IsPassMission4 == "1" || proj.IsPassMissionID == 4) ? "4" : (proj.IsPassMission5 == "1" || proj.IsPassMissionID == 5) ? "5" : (proj.IsPassMission6 == "1") ? "6" : "";
                         collectLegned(result.Data.missionData.legendDatas, new LegendData
                         {
                             amount = proj.BudgetReviseValue.HasValue ? proj.BudgetReviseValue.Value : 0,
@@ -285,6 +301,7 @@ namespace Nep.Project.Web.APIController
 
             }
             s.amount += data.amount;
+            s.amountString = s.amount.ToString("#,##0.##");
             s.projects++;
         }
         private Random r = new Random();

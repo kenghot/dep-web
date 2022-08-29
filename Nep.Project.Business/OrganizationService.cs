@@ -209,13 +209,14 @@ namespace Nep.Project.Business
 
             string orgNameTh = model.OrganizationNameTH;
             string orgNameEn = model.OrganizationNameEN;
-            var date = DateTime.Now.AddDays(-3);
+            //เช็คว่ามีชื่อองค์กรซ้ำหรือไม่
             var chkOrg = (from o in _db.OrganizationRegisterEntries
-                          where (o.OrganizationNameTH.Equals(orgNameTh) || ((o.OrganizationNameEN != null) && o.OrganizationNameEN.Equals(orgNameEn))) && (o.RegisterDate < date)
+                          where (o.OrganizationNameTH.Equals(orgNameTh) || ((o.OrganizationNameEN != null) && o.OrganizationNameEN.Equals(orgNameEn))) && (o.ApprovedDate ==null)
                           select o).Count() == 0 &&
                                   (from o in _db.MT_Organization
                                    where (o.OrganizationNameTH.Equals(orgNameTh) || ((o.OrganizationNameEN != null) && o.OrganizationNameEN.Equals(orgNameEn))) && (o.OrganizationID != model.OrganizationID)
                                    select o).Count() == 0;
+            
             if (chkOrg)
             {
                 using (var tran = _db.Database.BeginTransaction())
@@ -475,5 +476,6 @@ namespace Nep.Project.Business
             }
             return result;
         }
+       
     }
 }

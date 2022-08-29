@@ -564,7 +564,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
 
         [Display(Name = "ProjectInfo_StrategicProvice", ResourceType = typeof(Nep.Project.Resources.Model))]
         public String ProvinceMissionDesc { get; set; }
-
+        public Decimal? StrategicID { get; set; }
         public Decimal? EvaluationStatusID { get; set; }
         public String EvaluationScoreDesc { get; set; }
 
@@ -805,7 +805,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
             get
             {
                 String desc = this.ProjectName;
-                if ((this.IsFollowup.HasValue) && (this.IsFollowup == true))
+                if ((this.IsFollowup.HasValue) && (this.IsFollowup == true) &&(!this.IsRefund))
                 {
                     desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", FollowupStatusName);
                 }
@@ -832,6 +832,14 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                 if (this.IsReportRevise)
                 {
                     desc += String.Format("<span class='alert-folloup-desc'> ({0}) </span>", "ส่งแก้ไขผลปฎิบัติงาน");
+                }
+                if (this.ProjectApprovalStatusCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน)
+                {
+                    desc += String.Format("<span class='alert-cancelcontract-desc'> ({0}) </span>", "รอโอนเงิน");
+                }
+                if (this.IsRefund)
+                {
+                    desc += String.Format("<span style='color: green; font - weight:bold'> ({0}) </span>", "มีการคืนเงินแล้ว");
                 }
                 return desc;
             }
@@ -946,6 +954,7 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string Day5 { get; set; }
         public string Day6 { get; set; }
         public bool IsReportRevise { get; set; }
+        public bool IsRefund { get; set; }
         public string RejectComment { get; set; }
         public string Acknowledged { get; set; }
         //end kenghot
@@ -1679,9 +1688,22 @@ namespace Nep.Project.ServiceModels.ProjectInfo
 
         public List<ProjectOperationAddress> ProjectOperationAddresses { get; set; }
 
+        public ProcessingPlanExtend ExtendData { get; set; }
+
+        public string ExtendJson { get; set; }
+
+    }
+    public class ProcessingPlanExtend
+    {
+        public DateTime? StartDateOld { get; set; }
+        public DateTime? EndDateOld { get; set; }
+
+        public Decimal? TotalDayOld { get; set; }
+        public string AddressJson { get; set; }
+        public String EditByName { get; set; }
     }
 
-    [Serializable]
+   [Serializable]
     public partial class ProjectOperationAddress
     {
         public string UID { get; set; }
@@ -1944,6 +1966,10 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public ServiceModels.KendoAttachment AddedAuthorizeDocAttachment { get; set; }
         public ServiceModels.KendoAttachment RemovedAuthorizeDocAttachment { get; set; }
 
+        public List<ServiceModels.KendoAttachment> AuthorizeDocAttachmentMulti { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedAuthorizeDocAttachmentMulti { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedAuthorizeDocAttachmentMulti { get; set; }
+
         //Budget
         public Decimal? RequestBudgetAmount { get; set; }
         public Decimal? ReviseBudgetAmount { get; set; }
@@ -1967,6 +1993,18 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public string ExtendJson { get; set; }
 
         public List<ContractDue> Dues { get; set; }
+
+        public List<ServiceModels.KendoAttachment> SignedContractAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedSignedContractAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedSignedContractAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> KTBAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedKTBAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedKTBAttachments { get; set; }
+
+        public List<ServiceModels.KendoAttachment> RefundAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> AddedRefundAttachments { get; set; }
+        public List<ServiceModels.KendoAttachment> RemovedRefundAttachments { get; set; }
+
     }
     public class ContractDue
     {
@@ -2007,6 +2045,15 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         /// </summary>
         public Address AddressAuth { get; set; }
         public string ReferenceNo { get; set; }
+
+        //ตำแหน่งผู้ให้เงินสนับสนุน
+        //public string DirectorPositionLine1 { get; set; }
+        public string DirectorPositionLine2 { get; set; }
+        public string DirectorPositionLine3 { get; set; }
+        public DateTime ContractStartDateOld { get; set; }
+        public DateTime ContractEndDateOld { get; set; }
+        public string ContractStartEndDateByName { get; set; }
+        public string RefundDetail { get; set; }
     }
     public class Contact
     {
@@ -2260,6 +2307,13 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public MultipleAttachFile SueDocument7 { get; set; } = new MultipleAttachFile();
         public MultipleAttachFile SueDocument8 { get; set; } = new MultipleAttachFile();
         public MultipleAttachFile SueDocument9 { get; set; } = new MultipleAttachFile();
+        public ReportExtend ExtendData { get; set; }
+        public string ExtendJson { get; set; }
+    }
+    public class ReportExtend
+    {
+        public string ConfirmReportFlag { get; set; }
+        public string ConfirmReportByName { get; set; }
     }
 
     [Serializable]
@@ -2323,7 +2377,8 @@ namespace Nep.Project.ServiceModels.ProjectInfo
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "อาสาสมัครประชุมหน้าที่ประสานงาน", Value = "3" });
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "เจ้าหน้าที่โครงการ", Value = "4" });
                     _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "กลุ่มเป้าหมายอื่นๆ ", Value = "5" });
-                
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "ล่ามภาษามือ", Value = "6" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListData { Text = "ผู้ช่วยเหลือคนพิการเฉพาะกิจ", Value = "7" });
                 }
                 return  _isCrippleList;
             }

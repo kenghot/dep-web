@@ -75,32 +75,52 @@
                         <label class="col-sm-12 form-group-title">สถานภาพของโครงการ</label>
                     </div>
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-4">ชื่อผู้ให้ข้อมูล</div>
-                        <div class="col-sm-8">
-                            <nep:TextBox ID="T_0_1" data-bind="value: T_0_1" runat="server" Width="100%"></nep:TextBox>
+                        <div class="col-sm-3"><%= Model.ProjectInfo_OrganizationName %>/องค์กร  :</div>
+                        <div class="col-sm-9">
+                            <asp:Label ID="LabelOrganizationName" runat="server"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-3"><%= Model.ProjectInfo_Name %>  :</div>
+                        <div class="col-sm-9">
+                            <asp:Label ID="LabelProjectName" runat="server"></asp:Label>
+                        </div>
+                    </div>
+                     <div class="form-group form-group-sm">
+                        <div class="col-sm-3">ชื่อผู้รับผิดชอบการประเมินตนเอง</div>
+                       <div class="col-sm-4">
+                            <nep:TextBox ID="T_0_4" data-bind="value: T_0_4" runat="server" Width="100%" CssClass="form-control"></nep:TextBox>
+                        </div>
+                         <div class="col-sm-2">ตำแหน่งในโครงการ</div>
+                        <div class="col-sm-3">
+                            <nep:TextBox ID="T_0_5" data-bind="value: T_0_5" runat="server" Width="100%" CssClass="form-control"></nep:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-2">ชื่อผู้ให้ข้อมูล</div>
+                        <div class="col-sm-5">
+                            <nep:TextBox ID="T_0_1" data-bind="value: T_0_1" runat="server" Width="100%" CssClass="form-control"></nep:TextBox>
+                        </div>
+                         <div class="col-sm-2">ความเกี่ยวข้องกับโครงการ</div>
+                        <div class="col-sm-3">
+                            <nep:TextBox ID="T_0_2" data-bind="value: T_0_2" runat="server" Width="100%" CssClass="form-control"></nep:TextBox>
                         </div>
                     </div>
 
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-4">ความเกี่ยวข้องกับโครงการ</div>
-                        <div class="col-sm-8">
-                            <nep:TextBox ID="T_0_2" data-bind="value: T_0_2" runat="server" Width="100%"></nep:TextBox>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
                         <div class="col-sm-4">ประเภทของความพิการ</div>
                         <div class="col-sm-8">
-                            <nep:TextBox ID="T_0_3" data-bind="value: T_0_3" runat="server" Width="100%"></nep:TextBox>
+                            <nep:TextBox ID="T_0_3" data-bind="value: T_0_3" runat="server" Width="100%" CssClass="form-control"></nep:TextBox>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
                         <div class="col-sm-12"> 1.ลักษณะโครงการ </div>
                     </div>
                     <div class="form-group form-group-sm">
-                        <%--                        <div class="col-sm-4">
+                            <div class="col-sm-4">
                             <input type="radio" name="R_0_4" value="1" data-bind="checked: R_0_4" />
  โครงการที่อยู่ระหว่างดำเนินการ 
-                        </div>--%>
+                        </div>
                         <div class="col-sm-4">
                             <input type="radio" name="R_0_4" value="2" checked="checked"/>
  โครงการที่ดำเนินการเสร็จสิ้นแล้ว  
@@ -133,10 +153,10 @@
 
                         <thead class="k-grid-header" role="rowgroup">
                             <tr role="row">
-                                <th scope="col" role="columnheader" class="k-header" style="width:30%">ประเด็น</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:25%">ประเด็น</th>
                                 <th scope="col" role="columnheader" class="k-header" style="width:30%">เกณฑ์การประเมิน</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:10%">คะแนน</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:30%">คำอธิบาย</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:25%">คะแนน</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:20%">คำอธิบาย</th>
                             </tr>
                         </thead>
                         <tr >
@@ -150,7 +170,15 @@
 มีความสามารถในการบริหารจัดการโครงการจนบรรลุวัตถุประสงค์ของโครงการ
                             </td>
                             <td style="vertical-align:top">
-                                <span id="T_1_1_3" data-bind="text: T_1_1_3">0.00</span>
+                                  <input type="radio" name="T_1_1_3" value="6" onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_1_3" />
+เหมาะสมและสอดคล้อง (6 คะแนน)                        <br />
+                                <input type="radio" name="T_1_1_3" value="3.1"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_1_3" />
+เหมาะสมข้อเดียว (3 คะแนน)   <br />
+                                   <input type="radio" name="T_1_1_3" value="3.2"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_1_3" />
+สอดคล้องข้อเดียว (3 คะแนน)                        <br />
+                                <input type="radio" name="T_1_1_3" value="0" onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_1_3" />
+ไม่เหมาะสมและไม่สอดคล้อง (0 คะแนน)    <br />
+                                <%--<span id="T_1_1_3" data-bind="text: T_1_1_3">0.00</span>--%>
                                 <!-- <input style="width:80px" type="text" min="0" id="T_1_1_3" data-bind="kendoNumericTextBox: { value: T_1_1_3, spinners: false, format: '##,#0' }" /> -->
                             </td >
                             <td style="vertical-align:top">
@@ -168,8 +196,16 @@
 มีคุณวุฒิ/ประสบการณ์ในการดำเนินโครงการ
                             </td>
                             <td style="vertical-align:top">
-                                <span id="T_1_2_3" data-bind="text: T_1_2_3">0.00</span>
+                                <%--<span id="T_1_2_3" data-bind="text: T_1_2_3">0.00</span>--%>
                                 <!-- <input style="width:80px" type="text" min="0" id="T_1_2_3" data-bind="kendoNumericTextBox: { value: T_1_2_3, spinners: false, format: '##,#0' }" /> -->
+                              <input type="radio" name="T_1_2_3" value="6"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_2_3" />
+เพียงพอและเหมาะสม (6 คะแนน)                   <br />
+                                <input type="radio" name="T_1_2_3" value="3.1"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_2_3" />
+เพียงพอข้อเดียว (3 คะแนน)  <br />
+                                   <input type="radio" name="T_1_2_3" value="3.2"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_2_3" />
+เหมาะสมข้อเดียว (3 คะแนน)                      <br />
+                                <input type="radio" name="T_1_2_3" value="0"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_2_3" />
+ไม่เพียงพอและไม่เหมาะสม (0 คะแนน)    <br />
                             </td >
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_1_2_4" data-bind="value: T_1_2_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -186,9 +222,15 @@
   ครั้ง 
                             </td>
                             <td style="vertical-align:top">
-                                <span id="T_1_3_3" data-bind="text: T_1_3_3">0.00</span>
+                                <%--<span id="T_1_3_3" data-bind="text: T_1_3_3">0.00</span>--%>
                                 <%--<input style="width:80px" type="text" min="0" id="T_1_3_3" data-bind="kendoNumericTextBox: { value: T_1_3_3, spinners: false, format: '##,#0' }" />
 --%>
+                                 <input type="radio" name="T_1_3_3" value="6"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_3_3" />
+ดําเนินการประชุมทุกครั้ง (6 คะแนน)                 <br />
+                                <input type="radio" name="T_1_3_3" value="3" onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_3_3" />
+ดําเนินการประชุมบางครั้ง (3 คะแนน)  <br />
+                                   <input type="radio" name="T_1_3_3" value="0" onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_3_3" />
+ไม่มีการประชุม (0 คะแนน)                   <br />
                             </td >
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_1_3_4" data-bind="value: T_1_3_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -203,9 +245,15 @@
                               
                             </td>
                             <td style="vertical-align:top">
-                                <span id="T_1_4_3" data-bind="text: T_1_4_3">0.00</span>
+                                <%--<span id="T_1_4_3" data-bind="text: T_1_4_3">0.00</span>--%>
                                 <!-- <input style="width:80px" type="text" min="0" id="T_1_4_3" data-bind="kendoNumericTextBox: { value: T_1_4_3, spinners: false, format: '##,#0' }" /> -->
-                            </td >
+                                <input type="radio" name="T_1_4_3" value="6"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_4_3" />
+เหมาะสม มีเครื่องมือครบ (6 คะแนน)               <br />
+                                <input type="radio" name="T_1_4_3" value="3"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_4_3" />
+มีเครื่องมือไม่ครบแต่สามารถดําเนินการได้ ( 3 คะแนน)<br />
+                                   <input type="radio" name="T_1_4_3" value="0"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_4_3" />
+ไม่เหมาะสม และไม่มีเครื่องมือ (0 คะแนน)               <br />
+                                </td >
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_1_4_4" data-bind="value: T_1_4_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -223,8 +271,16 @@
 งบประมาณพอเพียงกับการดำเนินโครงการ
                             </td>
                             <td style="vertical-align:top">
-                                <span id="T_1_5_3" data-bind="text: T_1_5_3">0.00</span>
+                                <%--<span id="T_1_5_3" data-bind="text: T_1_5_3">0.00</span>--%>
                                 <!-- <input style="width:80px" type="text" min="0" id="T_1_5_3" data-bind="kendoNumericTextBox: { value: T_1_5_3, spinners: false, format: '##,#0' }" /> -->
+                                <input type="radio" name="T_1_5_3" value="6"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_5_3" />
+มีทั้ง 3 ข้อ (6 คะแนน)               <br />
+                                <input type="radio" name="T_1_5_3" value="4"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_5_3" />
+มี 2 ใน 3 ข้อ (4 คะแนน) <br />
+                                 <input type="radio" name="T_1_5_3" value="2"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_5_3" />
+มี 1 ใน 3 ข้อ (2 คะแนน) <br />
+                                 <input type="radio" name="T_1_5_3" value="0"  onchange="khProjBG.SECT_1_total();" data-bind="checked: T_1_5_3" />
+ไม่มี (0 คะแนน) <br />
                             </td >
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_1_5_4" data-bind="value: T_1_5_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -233,7 +289,7 @@
                         <tr>
                             <td colspan="2" style="text-align:right">รวมคะแนน</td>
                             <td colspan="2">
-                                <span id="SECT_1_total" data-bind="text: SECT_1_total">0.00</span> คะแนน 
+                                เต็ม 30 คะแนน ได้คะแนน   <span id="SECT_1_total" data-bind="text: SECT_1_total">0.00</span>
                             </td>
                         </tr>
                     </table>
@@ -241,26 +297,30 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-12 form-group-title">องค์ประกอบที่ 2 ด้านการดำเนินโครงการ</label>
                     </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-12 form-group-title">2.1 วัตถุประสงค์การดําเนินโครงการ</label>
+                    </div>
                     <table style="width:100%;border-style: solid;border-color: #ccc;border-width: 1px;" class="k-grid">
 
                         <thead class="k-grid-header" role="rowgroup">
                             <tr role="row">
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header">ประเด็น</th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header" style="width:150px">เกณฑ์การประเมิน</th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header">ผลการดำเนินงาน</th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header">เกณฑ์การ ให้คะแนน</th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header">กลุ่มเป้าหมาย</th>
-                                <th colspan="3" scope="col" role="columnheader" class="k-header">จน.ระยะเวลา</th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header">คำอธิบาย</th>
+                                <th rowspan="1" scope="col" role="columnheader" class="k-header" style="width:20%">ประเด็น</th>
+                                <th rowspan="1" scope="col" role="columnheader" class="k-header" style="width:20%">เกณฑ์การประเมิน</th>
+                                <th rowspan="1" scope="col" role="columnheader" class="k-header" style="width:10%">ผลการดำเนินงาน</th>
+                                <th rowspan="1" scope="col" role="columnheader" class="k-header" style="width:30%">เกณฑ์การให้คะแนน</th>
+                                <%--<th rowspan="2" scope="col" role="columnheader" class="k-header">กลุ่มเป้าหมาย</th>--%>
+                                <%--<th colspan="3" scope="col" role="columnheader" class="k-header">จน.ระยะเวลา</th>--%>
+                                <th rowspan="1" scope="col" role="columnheader" class="k-header" style="width:20%">เอกสารหลักฐาน/คำอธิบาย</th>
                             </tr>
-                            <tr role="row">
+                         <%--   <tr role="row">
                                 <th scope="col" role="columnheader" class="k-header" style="width:30px">วัน</th>
                                 <th scope="col" role="columnheader" class="k-header" style="width:30px">เดือน</th>
                                 <th scope="col" role="columnheader" class="k-header" style="width:30px">ปี</th>
-                            </tr>
+                            </tr>--%>
                         </thead>
                         <tr >
-                            <td rowspan="6" style="vertical-align:top">กิจกรรมที่ 2 <nep:TextBox ID="T_2_1_1" data-bind="value: T_2_1_1" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
+                            <td rowspan="6" style="vertical-align:top">2.1 วัตถุประสงค์การดําเนินโครงการ 
+                                <%--<nep:TextBox ID="T_2_1_1" data-bind="value: T_2_1_1" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>--%>
                             </td>
                             <td style="vertical-align:top">
 
@@ -271,8 +331,18 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_1_3" data-bind="value: T_2_1_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
-                                <select data-bind="value: S_2_1_4" onclick="khProjBG.C_2_1();" style="width:120px">
+                            <td rowspan="6" style="vertical-align:top">
+                                  <input type="radio" name="S_2_1_4" onchange="khProjBG.SECT_2_total();" value="30" data-bind="checked: S_2_1_4" />
+มีความสอดคล้องกับวัตถุประสงค์และคนกลุ่มเป้าหมายได้รับความรู้ความเข้าใจ พร้อมทั้ง
+สามารถพัฒนาศักยภาพทางร่างกาย (30 คะแนน)  <br />
+                                <input type="radio" name="S_2_1_4" onchange="khProjBG.SECT_2_total();" value="15.00001" data-bind="checked: S_2_1_4" />
+มีความสอดคล้องกับวัตถุประสงค์ข้อเดียว(15 คะแนน)<br />
+                                 <input type="radio" name="S_2_1_4" onchange="khProjBG.SECT_2_total();" value="15.00002" data-bind="checked: S_2_1_4" />
+คนกลุ่มเป้าหมายได้รับความรู้ความเข้าใจพร้อมทั้งสามารถพัฒนาศักยภาพทางร่างกาย อย่างเดียว (15 คะแนน)<br />
+                                 <input type="radio" name="S_2_1_4" onchange="khProjBG.SECT_2_total();" value="0" data-bind="checked: S_2_1_4" />
+ไม่มี (0 คะแนน) <br />
+
+                                <%--<select data-bind="value: S_2_1_4" onclick="khProjBG.C_2_1();" style="width:100%;">
                                     <option value="">กรุณาระบุคะแนน </option>
                                     <option value="5">5 คะแนน - สอดคล้องครบ</option>
                                     <option value="4">4 คะแนน - สอดคล้อง 3 ใน 4 ข้อ</option>
@@ -280,14 +350,19 @@
                                     <option value="2">2 คะแนน - สอดคล้อง 1 ใน 3 ข้อ</option>
                                     <option value="1">1 คะแนน - สอดคล้อง 1 ข้อ</option>
                                     <option value="0">0 คะแนน - ไม่มีความสอดคล้อง </option>
-                                </select>       
+                                        <option value="30">มีความสอดคล้องกับวัตถุประสงค์และคนกลุ่มเป้าหมายได้รับความรู้ความเข้าใจ พร้อมทั้ง
+สามารถพัฒนาศักยภาพทางร่างกาย (30 คะแนน)</option>
+                                    <option value="15">มีความสอดคล้องกับวัตถุประสงค์ข้อเดียว(15 คะแนน)</option>
+                                    <option value="15">คนกลุ่มเป้าหมายได้รับความรู้ความเข้าใจพร้อมทั้งสามารถพัฒนาศักยภาพทางร่างกาย อย่างเดียว (15 คะแนน)</option>
+                                   <option value="0">ไม่มี (0 คะแนน)</option>
+                                </select>    --%>   
                                 <br>                         
-                                <span style="display:none;" id="T_2_1_4_1" data-bind="text: T_2_1_4_1">0.00</span>
+                                <%--<span style="display:none;" id="T_2_1_4_1" data-bind="text: T_2_1_4_1">0.00</span>--%>
                             </td>
-                            <td style="vertical-align:top">
+                           <%-- <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_1_5" data-bind="value: T_2_1_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                           <%-- <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_1_6" data-bind="kendoNumericTextBox: { value: T_1_1_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -295,7 +370,7 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_1_8" data-bind="kendoNumericTextBox: { value: T_2_1_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_1_9" data-bind="value: T_2_1_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -309,9 +384,9 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_2_3" data-bind="value: T_2_2_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
+                            <%--<td style="vertical-align:top">
                                 <span id="S_2_2_4" data-bind="text: S_2_2_4">0.00</span>
-                                <!-- <select data-bind="value: S_2_2_4" style="width:120px">
+                                 <select data-bind="value: S_2_2_4" style="width:120px">
                                  <option value="">กรุณาระบุคะแนน </option>  
                                  <option value="5">5 คะแนน - สอดคล้องครบ</option>
                                  <option value="4">4 คะแนน - สอดคล้อง 3 ใน 4 ข้อ</option>     
@@ -319,12 +394,12 @@
                                  <option value="2">2 คะแนน - สอดคล้อง 1 ใน 3 ข้อ</option>     
                                  <option value="1">1 คะแนน - สอดคล้อง 1 ข้อ</option>     
                                  <option value="0">0 คะแนน - ไม่มีความสอดคล้อง </option>            
-                             </select> -->
-                            </td>
-                            <td style="vertical-align:top">
+                             </select> 
+                            </td>--%>
+                            <%--<td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_2_5" data-bind="value: T_2_2_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                          <%--  <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_2_6" data-bind="kendoNumericTextBox: { value: T_2_2_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -332,7 +407,7 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_2_8" data-bind="kendoNumericTextBox: { value: T_2_2_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_2_9" data-bind="value: T_2_2_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -345,13 +420,13 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_3_3" data-bind="value: T_2_3_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
+                           <%-- <td style="vertical-align:top">
                                 <span id="S_2_3_4" data-bind="text: S_2_3_4">0.00</span>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                            <%--<td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_3_5" data-bind="value: T_2_3_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                           <%-- <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_3_6" data-bind="kendoNumericTextBox: { value: T_2_3_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -359,7 +434,7 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_3_8" data-bind="kendoNumericTextBox: { value: T_2_3_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_3_9" data-bind="value: T_2_3_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -372,13 +447,13 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_4_3" data-bind="value: T_2_4_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
+                        <%--    <td style="vertical-align:top">
                                 <span id="S_2_4_4" data-bind="text: S_2_4_4">0.00</span>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                          <%--  <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_4_5" data-bind="value: T_2_4_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                           <%-- <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_4_6" data-bind="kendoNumericTextBox: { value: T_2_4_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -386,7 +461,7 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_4_8" data-bind="kendoNumericTextBox: { value: T_2_4_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_4_9" data-bind="value: T_2_4_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -401,13 +476,13 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_5_3" data-bind="value: T_2_5_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
+                           <%-- <td style="vertical-align:top">
                                 <span id="S_2_5_4" data-bind="text: S_2_5_4">0.00</span>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                            <%--<td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_5_5" data-bind="value: T_2_5_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                          <%--  <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_5_6" data-bind="kendoNumericTextBox: { value: T_2_5_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -415,7 +490,7 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_5_8" data-bind="kendoNumericTextBox: { value: T_2_5_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_5_9" data-bind="value: T_2_5_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
@@ -429,9 +504,9 @@
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_6_3" data-bind="value: T_2_6_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
-                            <td style="vertical-align:top">
+                            <%--<td style="vertical-align:top">
                                 <span id="S_2_6_4" data-bind="text: S_2_6_4">0.00</span>
-                                <!-- <select data-bind="value: S_2_6_4" style="width:120px">
+                                 <select data-bind="value: S_2_6_4" style="width:120px">
                                  <option value="">กรุณาระบุคะแนน </option>  
                                  <option value="5">5 คะแนน - สอดคล้องครบ</option>
                                  <option value="4">4 คะแนน - สอดคล้อง 3 ใน 4 ข้อ</option>     
@@ -439,12 +514,12 @@
                                  <option value="2">2 คะแนน - สอดคล้อง 1 ใน 3 ข้อ</option>     
                                  <option value="1">1 คะแนน - สอดคล้อง 1 ข้อ</option>     
                                  <option value="0">0 คะแนน - ไม่มีความสอดคล้อง </option>            
-                             </select> -->
-                            </td>
-                            <td style="vertical-align:top">
+                             </select> 
+                            </td>--%>
+                            <%--<td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_6_5" data-bind="value: T_2_6_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
-                            </td>
-                            <td style="vertical-align:top">
+                            </td>--%>
+                           <%-- <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_6_6" data-bind="kendoNumericTextBox: { value: T_2_6_6, spinners: false, format: '##,#0' }" />
                             </td >
                             <td style="vertical-align:top">
@@ -452,27 +527,47 @@
                             </td >
                             <td style="vertical-align:top">
                                 <input style="width:25px" type="text" min="0" id="T_2_6_8" data-bind="kendoNumericTextBox: { value: T_2_6_8, spinners: false, format: '##,#0' }" />
-                            </td >
+                            </td >--%>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_2_6_9" data-bind="value: T_2_6_9" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5" style="text-align:right">รวมคะแนน</td>
-                            <td colspan="4">
-                                <span id="SECT_2_total" data-bind="text: SECT_2_total">0.00</span> คะแนน 
+                            <td colspan="3" style="text-align:right">รวมคะแนน</td>
+                            <td colspan="1">
+                                เต็ม 30 คะแนน ได้คะแนน   <span id="SECT_2_total" data-bind="text: SECT_2_total">0.00</span> 
                             </td>
                             <!-- <td colspan="5"></td>
                         <td colspan="4"></td> -->
                         </tr>
                     </table>
                     <p></p>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-12 form-group-title">2.2  ผลการดําเนินกิจกรรมโครงการ</label>
+                    </div>
+                       <div class="form-group form-group-sm">
+                        <div class="col-sm-12">ผลการดําเนินงานกิจกรรมตามระยะเวลาที่กําหนดในโครงการ</div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-4">
+                            <input type="radio" name="R_2_CC" value="0"  onchange="khProjBG.SECT_3_total();" data-bind="checked: R_2_CC" />
+ ล่าช้ากว่าโครงการ 
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" name="R_2_CC" value="1" onchange="khProjBG.SECT_3_total();"data-bind="checked: R_2_CC" />
+ ตามโครงการ  
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" name="R_2_CC" value="2" onchange="khProjBG.SECT_3_total();"data-bind="checked: R_2_CC" />
+ เร็วกว่าโครงการ  
+                        </div>
+                    </div>
                     <table style="width:100%;border-style: solid;border-color: #ccc;border-width: 1px;" class="k-grid">
 
                         <thead class="k-grid-header" role="rowgroup">
                             <tr role="row">
                                 <th rowspan="2" scope="col" role="columnheader" class="k-header" style="width:25px"></th>
-                                <th rowspan="2" scope="col" role="columnheader" class="k-header" style="width:300px">กิจกรรม/โครงการ</th>
+                                <th rowspan="2" scope="col" role="columnheader" class="k-header" style="width:300px">กิจกรรม/โครงการ (ระบุกิจกรรมดําเนินการตามที่ได้กําหนดไว้ในรายละเอียดเสนอโครงการ)</th>
                                 <th colspan="2" scope="col" role="columnheader" class="k-header">งบประมาณ</th>
                                 <th rowspan="2" scope="col" role="columnheader" class="k-header">อุปสรรคที่เกิดขึ้น</th>
                                 <th colspan="2" scope="col" role="columnheader" class="k-header">การบรรลุวัตถุประสงค์</th>
@@ -725,13 +820,13 @@
                                 </td>
 
                             </tr>
-                            <tr>
+                           <%-- <tr>
                                 <td colspan="6" style="text-align:right;border: 1px solid #ccc;">รวมคะแนน</td>
                                 <td colspan="4" style="border: 1px solid #ccc;">
                                     <span id="SECT_2_1_total" data-bind="text: SECT_2_1_total"></span> คะแนน
                                 </td>
-                            </tr>
-                            <tr style="border:1px">
+                            </tr>--%>
+                          <%--  <tr style="border:1px">
                                 <td colspan="3" style="text-align:right;">กิจกรรม/โครงการ</td>
                                 <td colspan="5" style="border: 1px solid #ccc;">
                                     <select data-bind="value: S_2_2" onclick="khProjBG.SECT_3_total();">
@@ -742,33 +837,23 @@
                                         <option value="0">0 คะแนน – ไม่ได้ดำเนินกิจกรรม</option>
                                     </select>
                                 </td>
-                            </tr>
+                            </tr>--%>
                         </thead>
                     </table>
-
+                    <br /> <br />
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-12"> สรุปการดำเนินงานกิจกรรมตามระยะเวลาที่กำหนดในโครงการ </div>
+                              <input type="radio" name="S_2_2" onchange="khProjBG.SECT_3_total();" value="10" data-bind="checked: S_2_2" />
+กิจกรรมการดําเนินการมีงบประมาณเพียงพอและมีการดําเนินการบรรลุวัตถุประสงค์ (10 คะแนน) <br />
+                                <input type="radio" name="S_2_2" onchange="khProjBG.SECT_3_total();" value="5.00001" data-bind="checked: S_2_2" />
+กิจกรรมการดําเนินการมีงบประมาณเพียงพอ แต่มีการดําเนินการบรรลุไม่วัตถุประสงค์ (5 คะแนน)<br />
+                                 <input type="radio" name="S_2_2" onchange="khProjBG.SECT_3_total();" value="5.00002" data-bind="checked: S_2_2" />
+กิจกรรมการดําเนินกามีการดําเนินการบรรลุวัตถุประสงค์ แต่งบประมาณไม่เพียงพอ (5 คะแนน)<br />
+                                 <input type="radio" name="S_2_2" onchange="khProjBG.SECT_3_total();" value="0" data-bind="checked: S_2_2" />
+กิจกรรมการดําเนินการมีงบประมาณไม่เพียงพอและดําเนินการไม่บรรลุวัตถุประสงค์ (0 คะแนน) <br />
                     </div>
                     <div class="form-group form-group-sm">
-                        <div class="col-sm-4">
-                            <input type="radio" name="R_2_CC" value="0"  onchange="khProjBG.SECT_3_total();" data-bind="checked: R_2_CC" />
- ล่าช้ากว่าโครงการ 
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="radio" name="R_2_CC" value="1" onchange="khProjBG.SECT_3_total();"data-bind="checked: R_2_CC" />
- ตามโครงการ  
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="radio" name="R_2_CC" value="2" onchange="khProjBG.SECT_3_total();"data-bind="checked: R_2_CC" />
- เร็วกว่าโครงการ  
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        <div class="col-sm-1 text-left">
-                        รวมคะแนน
-                        </div>
-                        <div class="col-sm-11 text-left">
-                            <span id="SECT_3_total" data-bind="text: SECT_3_total"></span> คะแนน
+                        <div class="col-sm-12 text-left">
+                            เต็ม 10 คะแนน ได้คะแนน   <span id="SECT_3_total" data-bind="text: SECT_3_total"></span>
                         </div>
                     </div>
 
@@ -797,7 +882,16 @@
                                 <nep:TextBox ID="T_3_1_3" data-bind="value: T_3_1_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
                             <td style="vertical-align:top">
-                                <nep:TextBox ID="T_3_1_4" data-bind="value: T_3_1_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
+                                <%--<nep:TextBox ID="T_3_1_4" data-bind="value: T_3_1_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>--%>
+                                            <input type="radio" name="T_3_1_4" onchange="khProjBG.SECT_4_total();" value="10" data-bind="checked: T_3_1_4" />
+มีการดําเนินการติดตาม และประเมินผล 
+ การจัดกิจกรรม (10 คะแนน)<br />
+                                <input type="radio" name="T_3_1_4" onchange="khProjBG.SECT_4_total();" value="5" data-bind="checked: T_3_1_4" />
+มีการดําเนินการติดตาม แต่ไม่มี 
+ การประเมินผลการจัดกิจกรรม (5 คะแนน)<br />
+                                 <input type="radio" name="T_3_1_4" onchange="khProjBG.SECT_4_total();" value="0" data-bind="checked: T_3_1_4" />
+ไม่มีการดําเนินการติดตามและประเมินผล
+การจัดกิจกรรม (0 คะแนน)<br />
                             </td>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_3_1_5" data-bind="value: T_3_1_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -823,7 +917,13 @@
                                 <nep:TextBox ID="T_3_2_3" data-bind="value: T_3_2_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
                             <td style="vertical-align:top">
-                                <nep:TextBox ID="T_3_2_4" data-bind="value: T_3_2_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
+                                <%--<nep:TextBox ID="T_3_2_4" data-bind="value: T_3_2_4" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>--%>
+                                  <input type="radio" name="T_3_2_4" onchange="khProjBG.SECT_4_total();" value="10" data-bind="checked: T_3_2_4" />
+มี 3 ข้อขึ้นไป (10 คะแนน)<br />
+                                <input type="radio" name="T_3_2_4" onchange="khProjBG.SECT_4_total();" value="5" data-bind="checked: T_3_2_4" />
+มี 1 – 2 ข้อ (5 คะแนน) <br />
+                                 <input type="radio" name="T_3_2_4" onchange="khProjBG.SECT_4_total();" value="0" data-bind="checked: T_3_2_4" />
+ไม่มี (0 คะแนน)<br />
                             </td>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_3_2_5" data-bind="value: T_3_2_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -841,13 +941,25 @@
                                 <nep:TextBox ID="T_3_3_3" data-bind="value: T_3_3_3" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
                             </td>
                             <td style="vertical-align:top">
-                                <select data-bind="value: S_3_3_4" onclick="khProjBG.SECT_4_total();">
+                               <%-- <select data-bind="value: S_3_3_4" onclick="khProjBG.SECT_4_total();">
                                     <option value="">กรุณาระบุคะแนน </option>
                                     <option value="3">3 คะแนน – เข้าร่วมครบ</option>
                                     <option value="2">2 คะแนน - เข้าร่วมมากกว่า 1 ใน 3</option>
                                     <option value="1">1 คะแนน – เข้าร่วมน้อยกว่า 1 ใน 3</option>
                                     <option value="0">0 คะแนน – ไม่มีกลุ่มเป้าหมายเข้าร่วม</option>
-                                </select>
+                                </select>--%>
+                                   <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="10" data-bind="checked: S_3_3_4" />
+เข้าร่วมครบ ร้อยละ 100 (10 คะแนน)<br />
+                                <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="8" data-bind="checked: S_3_3_4" />
+เข้าร่วมร้อยละ 80 - 99 (8 คะแนน)<br />
+                                 <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="6" data-bind="checked: S_3_3_4" />
+เข้าร่วมร้อยละ 60 – 79 (6 คะแนน)<br />
+                                 <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="4" data-bind="checked: S_3_3_4" />
+เข้าร่วมร้อยละ 50 – 57 (4 คะแนน)<br />
+                                  <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="2" data-bind="checked: S_3_3_4" />
+เข้าร่วมร้อยละ 40 – 47 (2 คะแนน)<br />
+                                 <input type="radio" name="S_3_3_4" onchange="khProjBG.SECT_4_total();" value="0" data-bind="checked: S_3_3_4" />
+เข้าร่วมน้อยกว่าร้อยละ 40 (0 คะแนน) <br />
                             </td>
                             <td style="vertical-align:top">
                                 <nep:TextBox ID="T_3_3_5" data-bind="value: T_3_3_5" runat="server" CssClass="form-control  textarea-height" TextMode="MultiLine"></nep:TextBox>
@@ -858,13 +970,84 @@
                         <tr>
                             <td colspan="3" style="text-align:right">รวมคะแนน</td>
                             <td colspan="2">
-                                <span id="SECT_4_total" data-bind="text: SECT_4_total">0.00</span> คะแนน
+                                เต็ม 30 คะแนน ได้คะแนน   <span id="SECT_4_total" data-bind="text: SECT_4_total">0.00</span>
                             </td>
                         </tr>
                     </table>
                     <br />
-                รวมคะแนนทั้งสิ้น <span id="total_score" data-bind="text: Total_Score">0.00</span> คะแนน เต็ม 40 คะแนน คิดเป็นร้อยละ <span id="Percent_Score" data-bind="text: Percent_Score">0.00</span>
+                      <div class="form-group form-group-sm">
+                        <label class="col-sm-12 form-group-title">สรุปผลการประเมินตนเอง</label>
+                    </div>
+                <%--รวมคะแนนทั้งสิ้น <span id="total_score" data-bind="text: Total_Score">0.00</span> คะแนนเต็ม 100 คะแนน คิดเป็นร้อยละ <span id="Percent_Score" data-bind="text: Percent_Score">0.00</span>--%>
 
+                    <table style="width:100%;border-style: solid;border-color: #ccc;border-width: 1px;" class="k-grid">
+
+                        <thead class="k-grid-header" role="rowgroup">
+                            <tr role="row">
+                                <th scope="col" role="columnheader" class="k-header" style="width:60%">เกณฑ์คะแนน</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:20%">คะแนนเต็ม</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:20%">คะแนนที่ได้</th>
+                            </tr>
+                        </thead>
+                        <tr >
+                            <td style="vertical-align:top">องค์ประกอบที่ 1 ด้านการบริหารโครงการ</td>
+                            <td style="text-align:center">30 คะแนน</td>
+                              <td style="text-align:center"><span id="SECT_1_total_sum" data-bind="text: SECT_1_total">0.00</span> คะแนน</td>
+                        </tr>
+                       <tr >
+                            <td style="vertical-align:top">องค์ประกอบที่ 2 ด้านการดําเนินโครงการ</td>
+                            <td style="vertical-align:top"></td>
+                              <td style="vertical-align:top"></td>
+                        </tr>
+                        <tr >
+                            <td style="vertical-align:top">2.1 วัตถุประสงค์การดําเนินโครงการ</td>
+                            <td style="text-align:center">30 คะแนน</td>
+                              <td style="text-align:center"><span id="SECT_2_total_sum" data-bind="text: SECT_2_total">0.00</span> คะแนน</td>
+                        </tr>
+                        <tr >
+                            <td style="vertical-align:top">2.2 ผลการดําเนินกิจกรรมโครงการ</td>
+                            <td style="text-align:center">10 คะแนน</td>
+                              <td style="text-align:center"><span id="SECT_3_total_sum" data-bind="text: SECT_3_total">0.00</span> คะแนน</td>
+                        </tr>
+                        <tr >
+                            <td style="vertical-align:top">องค์ประกอบที่ 3 ด้านผลลัพธ์การดําเนินโครงการ</td>
+                            <td style="text-align:center">30 คะแนน</td>
+                              <td style="text-align:center"><span id="SECT_4_total_sum" data-bind="text: SECT_4_total">0.00</span> คะแนน</td>
+                        </tr>
+                        <tr>
+                            <td  style="vertical-align:top">รวมคะแนน</td>
+                           <td  style="text-align:center">100 คะแนน</td>
+                             <td  style="text-align:center"><span id="total_score_sum" data-bind="text: Total_Score">0.00</span> คะแนน</td>
+                        </tr>
+                    </table>
+                    <br /><br />
+                    <table style="width:100%;border-style: solid;border-color: #ccc;border-width: 1px;" class="k-grid">
+
+                        <thead class="k-grid-header" role="rowgroup">
+                            <tr role="row">
+                                <th scope="col" role="columnheader" class="k-header" style="width:30%">เกณฑ์คะแนน</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:70%">การแปรผล</th>
+                            </tr>
+                        </thead>
+                        <tr >
+                            <td style="vertical-align:top">ได้เกณฑ์การประเมิน 80 คะแนน ขึ้นไป</td>
+                            <td style="text-align:left">โครงการประสบผลสําเร็จ วัตถุประสงค์โครงการเหมาะสม สอดคล้อง ตรวจตามความต้องการของ
+กลุ่มเป้าหมาย สมควรได้รับการขยายผลดําเนินการต่อ/ดําเนินการต่อ</td>
+                              </tr>
+                       <tr >
+                           <td style="vertical-align:top">ได้เกณฑ์การประเมิน 60-79 คะแนน </td>
+                            <td style="text-align:left">โครงการประสบผลสําเร็จ แต่ยังสามารถปรับปรุงประสิทธิภาพและประสิทธิผลในการดําเนินโครงการ
+เนื่องจากอาจยังไม่สามารถบรรลุวัตถุประสงค์ หรือสอดคล้องเพียงบางส่วน </td>
+                        </tr>
+                        <tr >
+                          <td style="vertical-align:top">ได้เกณฑ์การประเมิน 40-49 คะแนน</td>
+                            <td style="text-align:left">โครงการประสบผลสําเร็จ แต่ไม่อยู่ในระดับที่สมควรขยายผล/ดําเนินต่อ หากไม่มีการปรับเปลี่ยน เช่น 
+ตรงตามความต้องการของกลุ่มเป้าหมาย ตรงตามวัตถุประสงค์โครงการเป็นต้น</td>        </tr>
+                           <tr >
+                          <td style="vertical-align:top">ได้เกณฑ์การประเมินต่ํากว่า 50 คะแนน</td>
+                            <td style="text-align:left">โครงการไม่ประสบผลสําเร็จ เห็นควรจัดทําโครงการอื่น</td>        </tr>
+                       
+                    </table>
 
 
                 </div>                <!--form-horizontal-->

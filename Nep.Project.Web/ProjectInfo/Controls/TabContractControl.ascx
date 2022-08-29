@@ -5,7 +5,9 @@
     UpdateMode="Conditional"
     runat="server">
     <ContentTemplate>
-
+         <div class="alert alert-success" role="alert" visible="false" id="DivRefundSuccess" runat="server">
+          <asp:Label ID="LabelRefundSuccess" runat="server" Text="" Visible="false" ></asp:Label>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><%= UI.TabTitleContract %></h3>
@@ -78,20 +80,25 @@
                                 ValidationGroup="SaveContract" />
                         </div>
                     </div>
+                     <%--ประวัติการแก้ไข Contract_StartDate Contract_EndDate --%> 
+                     <div class="form-group form-group-sm" id="divHistoryEditStartEndDate" style="color:gray;" runat="server" visible="false" >
+                        <label class="col-sm-2 control-label" style="color:gray;">ระยะเวลาเดิม</label>
+                        <div class="col-sm-10">
+                            <asp:Label ID="LabelHistoryEditStartEndDate" runat="server" Text=""></asp:Label>
+                        </div>
+                    </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= UI.LabelBudgetDetailRequestAmount %></label>
                         <div class="col-sm-4 control-value">
-                            <asp:Label runat="server" ID="LabelBudgetRequestAmount" />&nbsp;&nbsp;<%=UI.LabelBath %>
-                        </div>
+                            <asp:Label runat="server" ID="LabelBudgetRequestAmount" />&nbsp;&nbsp;<%=UI.LabelBath %></div>
                         <label class="col-sm-2 control-label"><%= UI.LabelBudgetDetailApprovedAmount %></label>
                         <div class="col-sm-4 control-value">
-                            <asp:Label runat="server" ID="LabelApprovedAmount" />&nbsp;&nbsp;<%=UI.LabelBath %>
-                        </div>
+                            <asp:Label runat="server" ID="LabelApprovedAmount" />&nbsp;&nbsp;<%=UI.LabelBath %></div>
                     </div>
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.Contract_Location %><span class="required"></span></label>
                         <div class="col-sm-10">
-                            <asp:TextBox ID="TextBoxContractLocation" runat="server" MaxLength="200" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxContractLocation" runat="server" MaxLength="70" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldTextBoxContractLocation" ControlToValidate="TextBoxContractLocation"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_Location) %>"
@@ -103,7 +110,7 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-2 control-label"><%= Model.ProjectInfo_AddressNo %><span class="required"></span></label>
                         <div class="col-sm-1">
-                            <asp:TextBox ID="TextBoxAddressNo" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxAddressNo" runat="server" CssClass="form-control" MaxLength="60"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorAddressNo" ControlToValidate="TextBoxAddressNo" runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_AddressNo) %>"
@@ -236,12 +243,37 @@
                     <div class="form-group form-group-sm">
                         <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefProsition %><span class="required"></span></label>
                         <div class="col-sm-4">
-                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="300" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TextBoxRefPosition" runat="server" MaxLength="80" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorRefPosition" ControlToValidate="TextBoxRefPosition"
                                 runat="server" CssClass="error-text"
                                 Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
                                 ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
                                 ValidationGroup="SaveContract" />
+                        </div>
+
+                    </div
+                       <div class="form-group form-group-sm">
+                        <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine2 %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxRefPositionLine2" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
+                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="TextBoxRefPosition"
+                                runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ValidationGroup="SaveContract" />--%>
+                        </div>
+
+                    </div>
+                    <br />
+                       <div class="form-group form-group-sm">
+                        <label class="col-sm-8 control-label"><%= Model.Contract_ContractRefPositionLine3 %></label>
+                        <div class="col-sm-4">
+                            <asp:TextBox ID="TextBoxRefPositionLine3" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
+                           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TextBoxRefPosition"
+                                runat="server" CssClass="error-text"
+                                Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_ContractRefProsition) %>"
+                                ValidationGroup="SaveContract" />--%>
                         </div>
 
                     </div>
@@ -354,9 +386,15 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-8 control-label"><%= Model.Contract_AuthorizeDocID %><span class="required"></span></label>
                             <div class="col-sm-4">
-                                <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDoc" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
-                                <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDoc" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" visible="false" />
+                               <%-- <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
                                     OnServerValidate="CustomRequiredAuthorize_ServerValidate" ControlToValidate="C2XFileUploadAuthorizeDoc"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                                  <nep:C2XFileUpload runat="server" ID="C2XFileUploadAuthorizeDocMulti" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />
+                                 <asp:CustomValidator ID="CustomRequiredAuthorizeDoc" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredAuthorize_ServerValidate" ControlToValidate="C2XFileUploadAuthorizeDocMulti"
                                     Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
                                     ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_AuthorizeDocID) %>"
                                     ValidationGroup="SaveContract" />
@@ -399,7 +437,7 @@
                         <div class="form-group form-group-sm">
                             <label class="col-sm-8 control-label"><%= Model.Contract_ReceiverPosition %></label>
                             <div class="col-sm-4">
-                                <asp:TextBox ID="TextBoxContractReceivePosition" runat="server" MaxLength="100" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxContractReceivePosition" runat="server" MaxLength="60" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -447,7 +485,7 @@
                 </div>
             </div>
             <div class="panel-heading">
-                <h3 class="panel-title">ข้อมูลการจ่ายเงินอุดหนุน</h3>
+                <h3 class="panel-title">ข้อมูลการจ่ายเงินสนับสนุน</h3>
             </div>
             <span class="form-control-desc"><b>เอกสารแนบท้ายสัญญาต่อไปนี้ ให้ถือว่าเป็นส่วนหนึ่งของสัญญานี้</b></span>
 
@@ -652,11 +690,81 @@
                         </div>
                         <label class="col-sm-1">บาท</span></label>
                     </div>
+                    <div class="form-group form-group-sm">
+                       <%--  <asp:HyperLink ID="HyperLinkPrintInstallment" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ContractInstallment %>"
+                        CssClass="btn btn-default btn-sm" Visible="false"
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractInstallmentControlNew?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />--%>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default"  id="Div2" runat="server">
+                 <div class="panel-heading">
+                <h3 class="panel-title">เอกสารแนบคู่ฉบับสัญญาที่ลงนามแล้ว</h3>
+                </div>
+                <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">เอกสารแนบคู่ฉบับสัญญาที่ลงนามแล้ว</span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="C2XFileUploadSignedContract" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                            <asp:CustomValidator ID="CustomValidatorFileUploadSignedContract" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CheckFileSignedContract_ServerValidate" ControlToValidate="C2XFileUploadSignedContract"
+                                    Text="กรุณาแนบไฟล์ PDF หรือไฟล์ภาพเท่านั้น"
+                                    ErrorMessage="กรุณาแนบไฟล์ PDF หรือไฟล์ภาพเท่านั้น"
+                                    ValidationGroup="SaveContract" />
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
+            <div class="panel panel-default"  id="myDivUploadFileKTB" runat="server">
+                 <div class="panel-heading">
+                <h3 class="panel-title">ผลการโอนเงินผ่านระบบ KTB Corporate Online </h3>
+                </div>
+                <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">อัพโหลดไฟล์ที่ได้จากระบบ KTB </span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="FileUploadKTB" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                            <%--<asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="FileUploadKTB"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
+             <div class="panel panel-default"  id="DivRefund" runat="server" visible="false">
+                 <div class="panel-heading">
+                <h3 class="panel-title">การคืนเงิน(ในกรณีทำสัญญาแล้ว)</h3>
+                </div>
+                <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-3">แนบเอกสารการคืนเงิน</span></label>
+                        <div class="col-sm-9">
+                            <nep:C2XFileUpload runat="server" ID="C2XFileUploadRefund" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>"  />
+                            <%--<asp:CustomValidator ID="CustomValidator1" runat="server" CssClass="error-text" ValidateEmptyText="true"
+                                    OnServerValidate="CustomRequiredFileKTB_ServerValidate" ControlToValidate="FileUploadKTB"
+                                    Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.Contract_FileKTB) %>"
+                                    ValidationGroup="SaveContract" />--%>
+                        </div>
+                    </div>
+                     <div class="form-group form-group-sm">
+                        <div class="col-sm-6">
+                            <nep:TextBox ID="TextBoxRefund" runat="server" TextMode="MultiLine"
+                                MaxLength="4000" CssClass="form-control textarea-height"></nep:TextBox>
+                        </div>
+                        </div>
+                    </div>
+                   </div>
                 </div>
             </div>
         </div>
-
-
 
         <div id="Div1" class="form-horizontal" runat="server">
             <div class="form-group form-group-sm">
@@ -665,11 +773,10 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonSave %>" OnClick="ButtonSave_Click" Visible="false" />
                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false"
-                        NavigateUrl='<%$ code:String.Format("~/Report/ShowReportService?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
+                        NavigateUrl='<%$ code:String.Format("~/Report/ReportContractControlNew?projectID={0}&report=contract", ProjectID ) %>' Target="_blank" />
                     <%--                     <asp:HyperLink ID="HyperLinkPrint" runat="server" Text="<%$ code:Nep.Project.Resources.UI.ButtonPrint %>"
                         CssClass="btn btn-default btn-sm" Visible="false" 
                         NavigateUrl='<%$ code:String.Format("~/Report/ReportFormatContract?projectID={0}", ProjectID ) %>' Target="_blank" />   --%>
-
                     <asp:Button runat="server" ID="ButtonUndoCancelContract" CssClass="btn btn-default btn-sm" OnClientClick="return confirm('ต้องการทำสัญญาใหม่หรือไม่ ?')"
                         Text="ทำสัญญาใหม่" OnClick="ButtonUndoCancelContract_Click" Visible="false" />
                     <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-default btn-sm"
@@ -679,6 +786,10 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancelContract%>" OnClick="ButtonCancelContract_Click" Visible="false" />
                     <asp:Button runat="server" ID="ButtonEditContractNo" CssClass="btn btn-default btn-sm" OnClientClick="VueContract.EditContractNo(1);return false;"
                         Text="แก้ไขเลขที่สัญญา" Visible="false" />
+                    <asp:Button runat="server" ID="ButtonEditStartEndContractDate" CssClass="btn btn-default btn-sm" ValidationGroup="SaveStartEndContractDate"
+                        Text="บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญา" Visible="false" OnClick="ButtonEditStartEndContractDate_Click" />
+                      <asp:Button runat="server" ID="ButtonRefund" CssClass="btn btn-default btn-sm" ValidationGroup="SaveRefund"
+                        Text="บันทึกการคืนเงิน(ทำสัญญาแล้ว)" Visible="false" OnClick="ButtonRefund_Click" />
                     <asp:ImageButton ID="ImageButtonRefresh" runat="server" ToolTip="รีเฟรช"
                         ImageUrl="~/Images/icon/reload_icon_16.png" BorderStyle="None" CssClass="button-add-targetgroup"
                         OnClick="ImageButtonRefresh_Click" />

@@ -80,5 +80,16 @@ namespace Nep.Project.ServiceModels.TemplateConfig
         /// OrgEmail
         /// </summary>
         public String Email { get; set; }
+
+        public String ORGANIZATIONNAME { get; set; }
+        public String TELEPHONE1 { get; set; }
+        public String EXTENSION1 { get; set; }
+        public String TELEPHONE2 { get; set; }
+        public String EXTENSION2 { get; set; }
+        public String FAXNUMBER1 { get; set; }
+        public String FAXEXTENSION1 { get; set; }
+        public String FAXNUMBER2 { get; set; }
+        public String FAXEXTENSION2 { get; set; }
+
     }
 }

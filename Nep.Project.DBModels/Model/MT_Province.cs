@@ -23,6 +23,7 @@ namespace Nep.Project.DBModels.Model
             this.User = new HashSet<SC_User>();
             this.OrganizationRegisterEntries = new HashSet<OrganizationRegisterEntry>();
             this.ProjectOperationAddresses = new HashSet<ProjectOperationAddress>();
+            this.MT_TELEPHONE = new HashSet<MT_TELEPHONE>();
         }
     
         public decimal ProvinceID { get; set; }
@@ -42,5 +43,6 @@ namespace Nep.Project.DBModels.Model
         public virtual ICollection<SC_User> User { get; set; }
         public virtual ICollection<OrganizationRegisterEntry> OrganizationRegisterEntries { get; set; }
         public virtual ICollection<ProjectOperationAddress> ProjectOperationAddresses { get; set; }
+        public virtual ICollection<MT_TELEPHONE> MT_TELEPHONE { get; set; }
     }
 }

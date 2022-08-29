@@ -87,7 +87,15 @@ namespace Nep.Project.ServiceModels
         public DateTime? UpdatedDate { get; set; }
 
         public string ContractPWD { get; set; }
-        
+        public string ExtendJSON { get; set; }
+        public UserExtend ExtendData { get; set; }
+    }
+    public class UserExtend
+    {
+        public string BankNo { get; set; }
+        public string BranchNo { get; set; }
+        public string AccountNo { get; set; }
+        public string AccountName { get; set; }
     }
 
     //[Serializable]

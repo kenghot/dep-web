@@ -65,7 +65,9 @@
                 border-width: thin;
             }
         </style>
-        
+        <div class="alert alert-success" role="alert" visible="false" id="DivConfirmReport" runat="server">
+          <asp:Label ID="LabelConfirmReport" runat="server" Text="" Visible="false" ></asp:Label>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><%: UI.TitleProjectReport %></h3>
@@ -562,7 +564,7 @@
                                     <nep:C2XFileUpload runat="server" ID="FileUploadResultAttachment" MultipleFileMode="true" ViewAttachmentPrefix="<%$ code:FollowupViewAttachmentPrefix %>" />  
                                 </div>                      
                             </div>
-                    <!--ปัญหาอุปสรรค์และวิธีการแก้ปัญหาจากการดำเนินการ-->
+                    <!--ปัญหาอุปสรรคและวิธีการแก้ปัญหาจากการดำเนินการ-->
                     <div class="form-group form-group-sm">
                         <label class="col-sm-12 form-group-title"><%= Model.ProjectReportResult_ProblemsAndObstacle %></label>
                     </div>
@@ -915,6 +917,7 @@
                         Text="<%$ code:Nep.Project.Resources.UI.ButtonCancel %>"></asp:HyperLink>
                     <asp:Button runat="server" ID="ButtonSueCase" CssClass="btn btn-primary btn-sm" 
                         OnClientClick="return sendSueConfirm()"  Text="ส่งข้อมูลไปสู่ระบบดำเนินคดี" OnClick="ButtonSueCase_Click" Visible="false"/>
+                    <asp:Button ID="ButtonConfirmReport" runat="server" CssClass="btn btn-default btn-sm" Text="﻿ยืนยันผลการตรวจสอบการยื่นแบบรายงาน" OnClick="ButtonConfirmReport_Click" Visible="false"/>
                 </div>
             </div>
         </div>

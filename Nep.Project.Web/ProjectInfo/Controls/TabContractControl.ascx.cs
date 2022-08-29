@@ -16,7 +16,6 @@ namespace Nep.Project.Web.ProjectInfo.Controls
     public partial class TabContractControl : Nep.Project.Web.Infra.BaseUserControl
     {
         public IServices.IProjectInfoService _service { get; set; }
-       
         public Decimal ProjectID
         {
             get
@@ -151,8 +150,9 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                             CanSaveContract = canSave;
                             ButtonSave.Visible = canSave;
                             CheckBoxAuthorizeFlag.Enabled = canSave;
-                            
+                            myDivUploadFileKTB.Visible = false;//hide div upload file ktb
                             ButtonUndoCancelContract.Visible = false;
+                            ButtonRefund.Visible = false;
                             if (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer)
                             {
                                 DBModels.Model.MT_ListOfValue status = _service.GetListOfValue(Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา, Common.LOVGroup.ProjectApprovalStatus);
@@ -162,9 +162,24 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     ButtonUndoCancelContract.Visible = true;
                                 }
                             }
+                            if (UserInfo.IsAdministrator || UserInfo.IsCenterOfficer || UserInfo.IsProvinceOfficer)
+                            {
+                                var gen = _service.GetDB().ProjectGeneralInfoes.Where(w => w.ProjectID == model.ProjectID).FirstOrDefault();
+                                if (gen != null && (gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน || gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว) && result.Data.LastApproveStatus.HasValue)
+                                {
+                                    myDivUploadFileKTB.Visible = true; //open div upload file ktb
+                                }
+                                ButtonEditStartEndContractDate.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
+                                if (gen != null && ( gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว || gen.ProjectApprovalStatus.LOVCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา))
+                                {
+                                    DivRefund.Visible = true;
+                                    ButtonRefund.Visible = true;
+                                }
+                            }
                             
                             
                             HyperLinkPrint.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
+                            //HyperLinkPrintInstallment.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             ButtonCancelContract.Visible = functions.Contains(Common.ProjectFunction.CancelContract);
                             ButtonEditContractNo.Visible = functions.Contains(Common.ProjectFunction.PrintContract);
                             if (ButtonEditContractNo.Visible)
@@ -226,6 +241,8 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 //DatePickerMeeting.SelectedDate = model.ExtendData.MeetingDate;
                                 //TextBoxMeetingOrder.Text = model.ExtendData.MeetingOrder.ToString();
                                 TextBoxReferenceNo.Text = model.ExtendData.ReferenceNo;
+                                TextBoxRefPositionLine2.Text= model.ExtendData.DirectorPositionLine2;
+                                TextBoxRefPositionLine3.Text= model.ExtendData.DirectorPositionLine3;
                                 if (model.ExtendData.AddressAt != null)
                                 {
                                     var data = model.ExtendData.AddressAt;
@@ -234,26 +251,54 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                     DdlSubDistrict.Value = ((int)data.SubDistrictId).ToString();
                                     TextBoxAddressNo.Text = data.AddressNo;
                                     TextBoxBuilding.Text = data.Building;
+                                    TextBoxSoi.Text = data.Soi;
+                                    TextBoxStreet.Text = data.Street;
                                     TextBoxMoo.Text = data.Moo;
                                     TextBoxPostCode.Text = data.ZipCode;
                                 }
-                                //if (model.ExtendData.AddressAuth != null)
-                                //{
-                                //    var data = model.ExtendData.AddressAuth;
-                                //    DdlProvince2.Value = data.ProvinceId == 0 ? null : ((int)data.ProvinceId).ToString();
-                                //    DdlDistrict2.Value = data.DistrictId == 0 ? null : ((int)data.DistrictId).ToString();
-                                //    DdlSubDistrict2.Value = data.SubDistrictId == 0 ? null : ((int)data.SubDistrictId).ToString();
-                                //    TextBoxAddressNo2.Text = data.AddressNo;
-                                //    TextBoxBuilding2.Text = data.Building;
-                                //    TextBoxMoo2.Text = data.Moo;
-                                //    TextBoxPostCode2.Text = data.ZipCode;
-                                //}
+
+                                //Beer29082021
+                                //LabelHistoryEditStartEndDate
+                                if(model.ExtendData.ContractStartEndDateByName != null)
+                                {
+                                    divHistoryEditStartEndDate.Visible = true;
+                                    LabelHistoryEditStartEndDate.Text = "วันที่เริ่มสัญญาเดิม: " + model.ExtendData.ContractStartDateOld.ToString("dd/MM/yyyy");
+                                    LabelHistoryEditStartEndDate.Text+= " ,วันที่สิ้นสุดสัญญาเดิม : " + model.ExtendData.ContractEndDateOld.ToString("dd/MM/yyyy");
+                                    LabelHistoryEditStartEndDate.Text += " ,แก้ไขโดย : " + model.ExtendData.ContractStartEndDateByName;
+                                }
+                                if (model.ExtendData.RefundDetail != null && model.ExtendData.RefundDetail != "")
+                                {
+                                    DivRefundSuccess.Visible = true;
+                                    LabelRefundSuccess.Visible = true;
+                                    LabelRefundSuccess.Text = "คืนเงินสำเร็จ";
+                                    //LabelRefundSuccess.Text += "โดย:";
+                                    //LabelRefundSuccess.Text += model.ExtendData.ConfirmReportByName;
+                                    LabelRefundSuccess.Attributes.Add("style", "color:Green;");
+                                    TextBoxRefund.Text = model.ExtendData.RefundDetail;
+                                }
                             }
 
                             //end kenghot
                             FileUploadSupport.ClearChanges();
                             FileUploadSupport.ExistingFiles = SupportFiles;
                             FileUploadSupport.DataBind();
+
+                            //Beer28082021
+                            List<ServiceModels.KendoAttachment> SignedContractFiles = model.SignedContractAttachments;
+                            C2XFileUploadSignedContract.ClearChanges();
+                            C2XFileUploadSignedContract.ExistingFiles = SignedContractFiles;
+                            C2XFileUploadSignedContract.DataBind();
+
+                            List<ServiceModels.KendoAttachment> KTBFiles = model.KTBAttachments;
+                            FileUploadKTB.ClearChanges();
+                            FileUploadKTB.ExistingFiles = KTBFiles;
+                            FileUploadKTB.DataBind();
+
+                            //Beer28082021
+                            List<ServiceModels.KendoAttachment> RefundFiles = model.RefundAttachments;
+                            C2XFileUploadRefund.ClearChanges();
+                            C2XFileUploadRefund.ExistingFiles = RefundFiles;
+                            C2XFileUploadRefund.DataBind();
 
                             int refNo2 = 0;
                             if (!String.IsNullOrEmpty(model.AttorneyYear) && Int32.TryParse(model.AttorneyYear, out refNo2))
@@ -320,11 +365,22 @@ namespace Nep.Project.Web.ProjectInfo.Controls
                                 List<ServiceModels.KendoAttachment> attach = new List<KendoAttachment>();
                                 if (model.AuthorizeDocID.HasValue)
                                 {
+                                    //C2XFileUploadAuthorizeDoc.Visible = true;
                                     attach.Add(model.AuthorizeDocAttachment);
                                 }
                                 C2XFileUploadAuthorizeDoc.ClearChanges();
                                 C2XFileUploadAuthorizeDoc.ExistingFiles = attach;
                                 C2XFileUploadAuthorizeDoc.DataBind();
+                                //beer28082021
+                                List<ServiceModels.KendoAttachment> AuthorizeDocMultis = model.AuthorizeDocAttachmentMulti;
+                                if (model.AuthorizeDocID.HasValue)
+                                {
+                                    AuthorizeDocMultis.Add(model.AuthorizeDocAttachment);
+                                }
+                                C2XFileUploadAuthorizeDocMulti.ClearChanges();
+                                C2XFileUploadAuthorizeDocMulti.ExistingFiles = AuthorizeDocMultis;
+                                C2XFileUploadAuthorizeDocMulti.DataBind();
+
                             }
                             else
                             {
@@ -418,6 +474,7 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             string directorName = TextBoxRefFirstName.Text.Trim();
             string directorSurName = TextBoxRefLastName.Text.Trim();
             string directorPosition = TextBoxRefPosition.Text.Trim();
+
             string attorneyNo = TextBoxRefNo1.Text.Trim();
                         
             string attorneyYear = (DatePickerRefNo2.SelectedDate.HasValue) ? ((DateTime)DatePickerRefNo2.SelectedDate).Year.ToString() : "";
@@ -473,6 +530,12 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             IEnumerable<ServiceModels.KendoAttachment> removedFiles = C2XFileUploadAuthorizeDoc.RemovedFiles;
             result.AddedAuthorizeDocAttachment = (addedFiles.Count() > 0) ? addedFiles.First() : null;
             result.RemovedAuthorizeDocAttachment = (removedFiles.Count() > 0) ? addedFiles.First() : null;
+            //Beer28082021 multi file
+            addedFiles = C2XFileUploadAuthorizeDocMulti.AddedFiles;
+            removedFiles = C2XFileUploadAuthorizeDocMulti.RemovedFiles;
+
+            result.AddedAuthorizeDocAttachmentMulti = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedAuthorizeDocAttachmentMulti = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
             //-----------------------------//
             result.Remark = TextBoxRemark.Text.Trim();
             result.ContractReceiveName = contractReceiveName;
@@ -485,11 +548,31 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             result.AddedSupportAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
             result.RemovedSupportAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
 
+            //Beer28082021
+            addedFiles = C2XFileUploadSignedContract.AddedFiles;
+            removedFiles = C2XFileUploadSignedContract.RemovedFiles;
+
+            result.AddedSignedContractAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedSignedContractAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+            addedFiles = FileUploadKTB.AddedFiles;
+            removedFiles = FileUploadKTB.RemovedFiles;
+
+            result.AddedKTBAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            result.RemovedKTBAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+            //Beer28082021
+            //addedFiles = C2XFileUploadRefund.AddedFiles;
+            //removedFiles = C2XFileUploadRefund.RemovedFiles;
+
+            //result.AddedRefundAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+            //result.RemovedRefundAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
             //result.MeetingNo = decimal.Parse(TextboxMeetingNo.Text);
             //result.AttachPage1 = 
             //result.AttachPage2 = decimal.Parse(TextBoxAttachPage2.Text);
             //result.AttachPage3 = decimal.Parse(TextBoxAttachPage3.Text);
-   
+
             decimal d;
             result.AttachPage1 = decimal.TryParse(TextBoxAttachPage1.Text, out d) ? d : 0;
             result.AttachPage2 = decimal.TryParse(TextBoxAttachPage2.Text, out d) ? d : 0;
@@ -516,6 +599,10 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //result.ExtendData.MeetingDate = DatePickerMeeting.SelectedDate.Value;
             //result.ExtendData.MeetingOrder = int.Parse(TextBoxMeetingOrder.Text);
             result.ExtendData.ReferenceNo = TextBoxReferenceNo.Text.Trim() ;
+            //Beer28082021
+            result.ExtendData.DirectorPositionLine2 = TextBoxRefPositionLine2.Text.Trim();
+            result.ExtendData.DirectorPositionLine3 = TextBoxRefPositionLine3.Text.Trim();
+
             var ad = new ServiceModels.ProjectInfo.Address();
             result.ExtendData.AddressAt = ad;
             ad.AddressNo = TextBoxAddressNo.Text.Trim();
@@ -622,7 +709,38 @@ namespace Nep.Project.Web.ProjectInfo.Controls
 
             args.IsValid = isValid;
         }
+        protected void CustomRequiredFileKTB_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            bool isValid = true;
+            if(myDivUploadFileKTB.Visible == true && (FileUploadKTB !=null ) && (string.IsNullOrEmpty(args.Value)))
+            {
+                isValid = false;
+            }
 
+            args.IsValid = isValid;
+        }
+        protected void CheckFileSignedContract_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            bool isValid = true;
+            //Attachment
+            IEnumerable<ServiceModels.KendoAttachment> addedFiles = C2XFileUploadSignedContract.AddedFiles;
+            if (addedFiles.Count() > 0 )
+            {
+                foreach (ServiceModels.KendoAttachment item in addedFiles)
+                {
+                    if (item.extension == ".pdf" || item.extension == ".jpg" || item.extension == ".gif" || item.extension == ".png" || item.extension == ".tif" || item.extension == ".raw")
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+            args.IsValid = isValid;
+        }
         protected void CustomRequiredSupportReceive_ServerValidate(object source, ServerValidateEventArgs args)
         {
             bool chkValue = CheckBoxAuthorizeFlag.Checked;
@@ -974,6 +1092,98 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //GridViewActivity.DataBind();
             Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
             page.RebindData("TabPanelContract");
+        }
+
+        protected void ButtonEditStartEndContractDate_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+            try
+            {
+                if (Page.IsValid)
+                {
+                    var resultGetData = _service.GetProjectContractByProjectID(ProjectID);
+                    if (resultGetData.IsCompleted)
+                    {
+                        model = resultGetData.Data;
+                        //Beer29082021 update
+                        DateTime startDate = Convert.ToDateTime(DatePickerContractStartDate.SelectedDate);
+                        DateTime endDate = Convert.ToDateTime(DatePickerContractEndDate.SelectedDate);
+                        model.ProjectID = ProjectID;
+                        model.ContractStartDate = startDate;
+                        model.ContractEndDate = endDate;
+
+                        var result = _service.UpdateProjectContractStartEndDate(model);
+                        if (result.IsCompleted)
+                        {
+                            Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                            page.RebindData("TabPanelContract");
+                            ShowResultMessage(result.Message);
+                        }
+                        else
+                        {
+                            ShowErrorMessage(result.Message);
+                        }
+
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Contract", ex);
+                ShowErrorMessage(ex.Message);
+            }
+        }
+
+        protected void ButtonRefund_Click(object sender, EventArgs e)
+        {
+            ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+            try
+            {
+                if (Page.IsValid)
+                {
+                    if(TextBoxRefund.Text!="")
+                    {
+                        var resultGetData = _service.GetProjectContractByProjectID(ProjectID);
+                        if (resultGetData.IsCompleted)
+                        {
+                            model = resultGetData.Data;
+
+                            IEnumerable<ServiceModels.KendoAttachment> addedFiles = C2XFileUploadRefund.AddedFiles;
+                            IEnumerable<ServiceModels.KendoAttachment> removedFiles = C2XFileUploadRefund.RemovedFiles;
+
+                            model.AddedRefundAttachments = (addedFiles.Count() > 0) ? addedFiles.ToList() : null;
+                            model.RemovedRefundAttachments = (removedFiles.Count() > 0) ? removedFiles.ToList() : null;
+
+                            //Beer29082021 update
+                            model.ExtendData.RefundDetail = TextBoxRefund.Text.Trim();
+                            var result = _service.UpdateProjectContractRefund(model);
+                            if (result.IsCompleted)
+                            {
+                                Nep.Project.Web.ProjectInfo.ProjectInfoForm page = (Nep.Project.Web.ProjectInfo.ProjectInfoForm)this.Page;
+                                page.RebindData("TabPanelContract");
+                                ShowResultMessage(result.Message);
+                            }
+                            else
+                            {
+                                ShowErrorMessage(result.Message);
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        ShowErrorMessage("โปรดกรอกข้อมูลการคืนเงิน");
+                    }
+                   
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.Logging.LogError(Logging.ErrorType.WebError, "Contract", ex);
+                ShowErrorMessage(ex.Message);
+            }
         }
     }
 }

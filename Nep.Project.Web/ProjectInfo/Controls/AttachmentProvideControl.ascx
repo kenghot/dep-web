@@ -18,28 +18,36 @@
                     </div>
                     <div class="col-sm-7">
                         <span style="margin-left:-50px; padding-top:6px;" class="label-no"><%# Eval("DocumentNo") %></span>
-                        <span style="margin-left:-30px; padding-top:6px; display:inline-block;"><%# Eval("DocumentProvideName") %></span>  
+                        <span style="margin-left:-30px; padding-top:6px; display:inline-block;"><%# Eval("DocumentProvideName") %>
+                              <span class='<%# Eval("DocumentNo").ToString() == "1" ||  Eval("DocumentNo").ToString() == "2" ||  Eval("DocumentNo").ToString() == "3" ||  Eval("DocumentNo").ToString() == "5" ||  Eval("DocumentNo").ToString() == "8"    ? "required" : "" %>'></span>
+
+                        </span>  
                          
                                              
                     </div>                                    
                     <div class="col-sm-4">
-                        <nep:C2XFileUpload runat="server" ID="C2XFileUploadProjectAttachment" MultipleFileMode="true" Enabled="<%$ code:IsEditabled %>"
-                             ViewAttachmentPrefix="<%$ code:ViewAttachmentPrefix %>"  />                        
-                                              
+                        <nep:C2XFileUpload runat="server" ID="C2XFileUploadProjectAttachment" MultipleFileMode="true" Enabled="<%$ code:IsEditabled %> "
+                             ViewAttachmentPrefix="<%$ code:ViewAttachmentPrefix %>"  /> 
+                         <asp:CustomValidator ID="CustomValidatorProjectAttachment" runat="server" 
+                            ValidateEmptyText="true"                            
+                            OnServerValidate="CustomValidatorProjectAttachment_ServerValidate_New" 
+                            CssClass="error-text" ValidationGroup="SaveProjectAttachment" 
+                            Text='<%$ code: Nep.Project.Resources.Error.RequiredAttachmentOne %>' 
+                            ErrorMessage='<%$ code: Nep.Project.Resources.Error.RequiredAttachmentOne%>'></asp:CustomValidator> 
                         
-                    </div>                 
+                    </div>      
                 </div>                
             </ItemTemplate>
         </asp:Repeater>
         </div>
-        <div>
+        <%--<div>
             <asp:CustomValidator ID="CustomValidatorProjectAttachment" runat="server" 
                             ValidateEmptyText="true"                            
                             OnServerValidate="CustomValidatorProjectAttachment_ServerValidate" 
                             CssClass="error-text" ValidationGroup="SaveProjectAttachment" 
                             Text='<%$ code: Nep.Project.Resources.Error.RequiredAttachmentOne %>' 
                             ErrorMessage='<%$ code: Nep.Project.Resources.Error.RequiredAttachmentOne%>'></asp:CustomValidator> 
-        </div>
+        </div>--%>
         
     </ContentTemplate>
 </asp:UpdatePanel>

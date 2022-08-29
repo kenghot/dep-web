@@ -1030,7 +1030,7 @@
             try {
                 console.log("C_1_1");
                 var q = QuestionareModel;
-                var T_1_1_3, t1 = 0,
+                var t1 = 0,
                     t2 = 0;
                 var C_1_1_2_1 = q.C_1_1_2_1();
                 var C_1_1_2_2 = q.C_1_1_2_2();
@@ -1038,10 +1038,10 @@
                 t1 = (C_1_1_2_1 == true) ? 1 : 0;
                 t2 = (C_1_1_2_2 == true) ? 1 : 0;
 
-                T_1_1_3 = t1 + t2;
-                q.T_1_1_3(T_1_1_3);
-                this.sect1();
-                console.log(t1 + " + " + t2 + " = " + T_1_1_3);
+                //T_1_1_3 = t1 + t2;
+                //q.T_1_1_3(T_1_1_3);
+                //this.sect1();
+                //console.log(t1 + " + " + t2 + " = " + T_1_1_3);
             } catch (e) {
                 console.log("ERROR: " + e);
             }
@@ -1051,18 +1051,18 @@
                 console.log("C_1_2");
                 var q = QuestionareModel;
 
-                var T_1_2_3, t1 = 0,
+                var  t1 = 0,
                     t2 = 0;
                 var C_1_2_2_1 = q.C_1_2_2_1();
                 var C_1_2_2_2 = q.C_1_2_2_2();
 
                 t1 = (C_1_2_2_1 == true) ? 1 : 0;
                 t2 = (C_1_2_2_2 == true) ? 1 : 0;
-                T_1_2_3 = t1 + t2;
+              /*  T_1_2_3 = t1 + t2;*/
 
-                q.T_1_2_3(T_1_2_3);
-                this.sect1();
-                console.log(t1 + " + " + t2 + " = " + T_1_2_3 + " : C_1_2_2_1 : " + C_1_2_2_1 + " : C_1_2_2_2 : " + C_1_2_2_2);
+                //q.T_1_2_3(T_1_2_3);
+                //this.sect1();
+                //console.log(t1 + " + " + t2 + " = " + T_1_2_3 + " : C_1_2_2_1 : " + C_1_2_2_1 + " : C_1_2_2_2 : " + C_1_2_2_2);
             } catch (e) {
                 console.log("ERROR: " + e);
             }
@@ -1072,23 +1072,23 @@
             try {
                 console.log("C_1_3");
                 var q = QuestionareModel;
-                var total, T_1_3_3, T_1_3_2_1, T_1_3_2_2;
+                var total, T_1_3_2_1, T_1_3_2_2;
                 T_1_3_2_1 = q.T_1_3_2_1();
                 T_1_3_2_2 = q.T_1_3_2_2();
-                T_1_3_3 = this.x(T_1_3_2_2) / this.x(T_1_3_2_1);
+               /* T_1_3_3 = this.x(T_1_3_2_2) / this.x(T_1_3_2_1);*/
 
-                if (T_1_3_3 == 1) {
-                    total = 2;
-                } else if (T_1_3_3 >= 0.5 && T_1_3_3 <= 0.999) {
-                    total = 1;
-                } else {
-                    total = 0;
-                }
+                //if (T_1_3_3 == 1) {
+                //    total = 2;
+                //} else if (T_1_3_3 >= 0.5 && T_1_3_3 <= 0.999) {
+                //    total = 1;
+                //} else {
+                //    total = 0;
+                //}
                 // total = (T_1_3_3 == 1) ? 2 : (T_1_3_3 >= 0.5 && T_1_3_3 <= 0.9) ? 1 : 0;
 
-                q.T_1_3_3(total);
-                this.sect1();
-                console.log("T_1_3_3 : " + T_1_3_3 + ": t-1-3-2-1 : " + T_1_3_2_1 + "; t-1-3-2-2 : " + T_1_3_2_2);
+               /* q.T_1_3_3(total);*/
+                //this.sect1();
+                //console.log("T_1_3_3 : " + T_1_3_3 + ": t-1-3-2-1 : " + T_1_3_2_1 + "; t-1-3-2-2 : " + T_1_3_2_2);
             } catch (e) {
                 console.log("ERROR: " + e);
             }
@@ -1098,15 +1098,15 @@
                 console.log("C_1_4");
                 var q = QuestionareModel;
 
-                var T_1_4_3;
+                /*var T_1_4_3;*/
                 var C_1_4_2 = q.C_1_4_2();
 
-                T_1_4_3 = (C_1_4_2 == true) ? 1 : 0;
+                //T_1_4_3 = (C_1_4_2 == true) ? 1 : 0;
 
 
-                q.T_1_4_3(T_1_4_3);
-                this.sect1();
-                console.log("C_1_4_2 : " + T_1_4_3);
+                //q.T_1_4_3(T_1_4_3);
+                //this.sect1();
+                //console.log("C_1_4_2 : " + T_1_4_3);
             } catch (e) {
                 console.log("ERROR: " + e);
             }
@@ -1126,9 +1126,9 @@
                 c3 = (C_1_5_2_3 == true) ? 1 : 0;
 
 
-                q.T_1_5_3(c1 + c2 + c3);
-                this.sect1();
-                console.log("T_1_5_3 : " + c1 + c2 + c3);
+                //q.T_1_5_3(c1 + c2 + c3);
+                //this.sect1();
+                //console.log("T_1_5_3 : " + c1 + c2 + c3);
 
             } catch (e) {
                 console.log("ERROR: " + e);
@@ -1139,62 +1139,87 @@
             var q = QuestionareModel;
             var S_2_1_4 = q.S_2_1_4(),
                 C_2_1_2 = q.C_2_1_2();
+
             var v = (C_2_1_2 == true) ? 1 : 0;
             var h = (v == "1") ? S_2_1_4 : "0";
-            q.T_2_1_4_1(h);
-            this.sect2();
+            //q.T_2_1_4_1(h);
+            //this.sect2();
         };
         this.C_2_2 = function () {
             var q = QuestionareModel;
             var C_2_2_2 = q.C_2_2_2();
             var c1 = C_2_2_2 == true ? 1 : 0;
-            q.S_2_2_4(c1);
-            this.sect2();
+            //q.S_2_2_4(c1);
+            //this.sect2();
         };
         this.C_2_3 = function () {
             var q = QuestionareModel;
             var C_2_3_2 = q.C_2_3_2();
             var t = C_2_3_2 == true ? 1 : 0;
-            q.S_2_3_4(t);
-            this.sect2();
+            //q.S_2_3_4(t);
+            //this.sect2();
         };
         this.C_2_4 = function () {
             var q = QuestionareModel;
             var C_2_4_2 = q.C_2_4_2();
             var t = C_2_4_2 == true ? 1 : 0;
-            q.S_2_4_4(t);
-            this.sect2();
+            //q.S_2_4_4(t);
+            //this.sect2();
         };
         this.C_2_5 = function () {
             var q = QuestionareModel;
             var C_2_5_2_2 = q.C_2_5_2_2();
             var t = C_2_5_2_2 == true ? 1 : 0;
-            q.S_2_5_4(t);
-            this.sect2();
+            //q.S_2_5_4(t);
+            //this.sect2();
         };
         this.C_2_6 = function () {
             var q = QuestionareModel;
             var C_2_6_2_1 = q.C_2_6_2_1();
             var t = C_2_6_2_1 == true ? 1 : 0;
-            q.S_2_6_4(t);
-            this.sect2();
+            //q.S_2_6_4(t);
+            //this.sect2();
         };
         //section 3
 
 
         this.sect1 = function () {
-            var q = QuestionareModel;
-            var SECT_1_total = this.x(q.T_1_1_3()) + this.x(q.T_1_2_3()) + this.x(q.T_1_3_3()) + this.x(q.T_1_4_3()) + this.x(q.T_1_5_3());
-            q.SECT_1_total(SECT_1_total);
+            //var q = QuestionareModel;
+            //var SECT_1_total = this.x(q.T_1_1_3()) + this.x(q.T_1_2_3()) + this.x(q.T_1_3_3()) + this.x(q.T_1_4_3()) + this.x(q.T_1_5_3());
+            //q.SECT_1_total(SECT_1_total);
+            //this.total_score();
+            //console.log(q.SECT_1_total);
+        };
+        this.SECT_1_total = function () {
+            var q = QuestionareModel,
+                T_1_1_3 = q.T_1_1_3() ? q.T_1_1_3() : "0",
+                T_1_2_3 = q.T_1_2_3() ? q.T_1_2_3() : "0",
+                T_1_3_3 = q.T_1_3_3() ? q.T_1_3_3() : "0",
+                T_1_4_3 = q.T_1_4_3() ? q.T_1_4_3() : "0",
+                T_1_5_3 = q.T_1_5_3() ? q.T_1_5_3() : "0";
+            var total = this.x(q.T_1_1_3()) + this.x(q.T_1_2_3()) + this.x(q.T_1_3_3()) + this.x(q.T_1_4_3()) + this.x(q.T_1_5_3()) ;
+
+            q.SECT_1_total(Math.floor(total));
             this.total_score();
-            console.log(q.SECT_1_total);
+
         };
         this.sect2 = function () {
-            var q = QuestionareModel;
-            var SECT_2_total = this.x(q.T_2_1_4_1()) + this.x(q.S_2_2_4()) + this.x(q.S_2_3_4()) + this.x(q.S_2_4_4()) + this.x(q.S_2_5_4()) + this.x(q.S_2_6_4());
-            q.SECT_2_total(SECT_2_total);
-            this.total_score();
+            //var q = QuestionareModel;
+            //Beer02092021
+            //var SECT_2_total = this.x(q.T_2_1_4_1()) + this.x(q.S_2_2_4()) + this.x(q.S_2_3_4()) + this.x(q.S_2_4_4()) + this.x(q.S_2_5_4()) + this.x(q.S_2_6_4());
+            //var SECT_2_total = Math.floor(this.x(q.T_2_1_4_1())) ;
+            // q.SECT_2_total(SECT_2_total);
+            //this.total_score();
             console.log(q.SECT_2_total);
+        };
+        this.SECT_2_total = function () {
+            var q = QuestionareModel,
+                S_2_1_4 = q.S_2_1_4() ? q.S_2_1_4() : "0";
+            var total = this.x(q.S_2_1_4());
+
+            q.SECT_2_total(Math.floor(total));
+            this.total_score();
+
         };
         this.SECT_2_1 = function () {
             var q = QuestionareModel,
@@ -1295,23 +1320,35 @@
         this.SECT_3_total = function () {
             var q = QuestionareModel,
                 SECT_3_total;
-            SECT_3_total = this.x(q.S_2_2()) + this.x(q.R_2_CC()) + this.x(q.SECT_2_1_total());
+            //SECT_3_total = this.x(q.S_2_2()) + this.x(q.R_2_CC()) + this.x(q.SECT_2_1_total());
+            SECT_3_total = Math.floor(this.x(q.S_2_2()));
             q.SECT_3_total(SECT_3_total);
             this.total_score();
             console.log("SECT_3_total = " + SECT_3_total);
         };
         this.SECT_4_total = function () {
             var q = QuestionareModel,
-                C_3_1_2 = q.C_3_1_2() == true ? "2" : "0",
-                C_3_2_2_1 = q.C_3_2_2_1() == true ? "1" : "0",
-                C_3_2_2_2 = q.C_3_2_2_2() == true ? "1" : "0",
-                C_3_2_2_3 = q.C_3_2_2_3() == true ? "1" : "0",
-                C_3_2_2_4 = q.C_3_2_2_4() == true ? "1" : "0",
-                C_3_2_2_5 = q.C_3_2_2_5() == true ? "1" : "0",
-                C_3_3_2_1 = q.C_3_3_2_1() == true ? "1" : "0",
-                S_3_3_4 = C_3_3_2_1 == 1 ? q.S_3_3_4() : "0";
+                //C_3_1_2 = q.C_3_1_2() == true ? "2" : "0",
+                //C_3_2_2_1 = q.C_3_2_2_1() == true ? "1" : "0",
+                //C_3_2_2_2 = q.C_3_2_2_2() == true ? "1" : "0",
+                //C_3_2_2_3 = q.C_3_2_2_3() == true ? "1" : "0",
+                //C_3_2_2_4 = q.C_3_2_2_4() == true ? "1" : "0",
+                //C_3_2_2_5 = q.C_3_2_2_5() == true ? "1" : "0",
+                //C_3_3_2_1 = q.C_3_3_2_1() == true ? "1" : "0",
+                //S_3_3_4 = C_3_3_2_1 == 1 ? q.S_3_3_4() : "0";
 
-            var total = this.x(C_3_1_2) + this.x(C_3_2_2_1) + this.x(C_3_2_2_2) + this.x(C_3_2_2_3) + this.x(C_3_2_2_4) + this.x(C_3_2_2_5) + this.x(S_3_3_4);
+                //C_3_1_2 = q.C_3_1_2() == true ? "2" : "0",
+                //C_3_2_2_1 = q.C_3_2_2_1() == true ? "1" : "0",
+                //C_3_2_2_2 = q.C_3_2_2_2() == true ? "1" : "0",
+                //C_3_2_2_3 = q.C_3_2_2_3() == true ? "1" : "0",
+                //C_3_2_2_4 = q.C_3_2_2_4() == true ? "1" : "0",
+                //C_3_2_2_5 = q.C_3_2_2_5() == true ? "1" : "0",
+                //C_3_3_2_1 = q.C_3_3_2_1() == true ? "1" : "0",
+                T_3_1_4 = q.T_3_1_4() ? q.T_3_1_4() : "0",
+                T_3_2_4 = q.T_3_2_4()? q.T_3_2_4() : "0",
+                S_3_3_4 = q.S_3_3_4() ? q.S_3_3_4() : "0";
+            //var total = this.x(C_3_1_2) + this.x(C_3_2_2_1) + this.x(C_3_2_2_2) + this.x(C_3_2_2_3) + this.x(C_3_2_2_4) + this.x(C_3_2_2_5) + this.x(S_3_3_4);
+            var total = this.x(T_3_1_4) + this.x(T_3_2_4) + this.x(S_3_3_4);
 
             q.SECT_4_total(total);
             this.total_score();
@@ -1322,9 +1359,9 @@
             var q = QuestionareModel;
 
             var subtotal = this.x(q.SECT_1_total()) + this.x(q.SECT_2_total()) + this.x(q.SECT_3_total()) + this.x(q.SECT_4_total());
-            var percent = (subtotal / 40) * 100;
+            var percent = (subtotal / 100) * 100;
             q.Total_Score(subtotal);
-            q.Percent_Score(percent);
+            q.Percent_Score(Math.floor(percent));
 
         };
 

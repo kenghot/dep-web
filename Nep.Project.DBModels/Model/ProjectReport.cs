@@ -45,6 +45,7 @@ namespace Nep.Project.DBModels.Model
         public Nullable<decimal> UpdatedByID { get; set; }
         public string REVISECOMMENT { get; set; }
         public Nullable<decimal> INTEREST { get; set; }
+        public string EXTENDDATA { get; set; }
     
         public virtual ProjectGeneralInfo ProjectGeneralInfo { get; set; }
     }

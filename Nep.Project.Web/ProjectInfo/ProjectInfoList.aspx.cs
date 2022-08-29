@@ -8,6 +8,7 @@ using Nep.Project.Resources;
 using System.Web.ModelBinding;
 using Nep.Project.Common.Web;
 using System.ComponentModel;
+using Nep.Project.ServiceModels.ProjectInfo;
 
 namespace Nep.Project.Web.ProjectInfo
 {
@@ -457,6 +458,17 @@ namespace Nep.Project.Web.ProjectInfo
                     Value = valueId
                 });
             }
+            //รอโอนเงิน //Beer
+            if (CheckBoxWaitingTransferKTBStatus.Checked)
+            {
+                Decimal.TryParse(CheckBoxWaitingTransferKTBStatus.Attributes["Value"], out valueId);
+                projAppStatusFields.Add(new ServiceModels.FilterDescriptor()
+                {
+                    Field = "ProjectApprovalStatusID",
+                    Operator = ServiceModels.FilterOperator.IsEqualTo,
+                    Value = valueId
+                });
+            }
             if (CheckConsiderCancel.Checked)
             {
                 Decimal.TryParse(CheckBoxCancelledProjectRequest.Attributes["Value"], out valueId);
@@ -870,7 +882,7 @@ namespace Nep.Project.Web.ProjectInfo
             CheckBoxCancelContractStatus.Checked = false;
             CheckBoxNotApprovalStatus.Checked = false;
             CheckBoxCancelledProjectRequest.Checked = false;
-
+            CheckBoxWaitingTransferKTBStatus.Checked = false;
             CheckBoxListTypeDisabilitys.ClearSelection();
             CheckBoxListStandardStrategics.ClearSelection();
             CheckBoxListApprovalProcess.ClearSelection();
@@ -936,6 +948,27 @@ namespace Nep.Project.Web.ProjectInfo
                             r.IsReportRevise = true;
                         }
                     }
+                    var contract = (from con in ProjectService.GetDB().ProjectContracts where con.ProjectID == r.ProjectInfoID select con).FirstOrDefault();
+                    if (contract != null && contract.EXTENDDATA!=null)
+                    {
+                        ServiceModels.ProjectInfo.TabContract model = new ServiceModels.ProjectInfo.TabContract();
+                        model.ExtendData = new ServiceModels.ProjectInfo.ContractExtend();
+                        if (!string.IsNullOrEmpty(contract.EXTENDDATA))
+                        {
+                            try
+                            {
+                                model.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ContractExtend>(contract.EXTENDDATA);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            if (model.ExtendData !=null && model.ExtendData.RefundDetail != null && model.ExtendData.RefundDetail != "")
+                            {
+                                r.IsRefund = true;
+                            }
+                        }
+                        
+                    }
                 }
                 totalRowCount = result.TotalRow;
                 GridProjectInfo.TotalRows = result.TotalRow;
@@ -964,7 +997,8 @@ namespace Nep.Project.Web.ProjectInfo
                 ServiceModels.ProjectInfo.ProjectInfoList r = (ServiceModels.ProjectInfo.ProjectInfoList)e.Row.DataItem;
                 Image img = (Image)e.Row.FindControl("imgApprovalStatus");
                 Image imgReported = (Image)e.Row.FindControl("imgReported");
-                Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
+                Image imgReportedSuccess = (Image)e.Row.FindControl("imgReportedSuccess");
+                 Button btnAcknowledged = (Button)e.Row.FindControl("ButtonAcknowledged");
                 if (img != null)
                 {
                     if (r.ApprovalStatus1 != null)
@@ -991,6 +1025,35 @@ namespace Nep.Project.Web.ProjectInfo
                 if (imgReported != null)
                 {
                     imgReported.Visible = r.FollowupStatusID.HasValue && r.FollowupStatusID.Value == reportedLOV.LOVID;
+                }
+                var rep = (from rp in ProjectService.GetDB().ProjectReports where rp.ProjectID == r.ProjectInfoID select rp).FirstOrDefault();
+                bool IsReportSuccess = false;
+                if (rep != null)
+                {
+                    ServiceModels.ProjectInfo.ProjectReportResult model = new ServiceModels.ProjectInfo.ProjectReportResult();
+                    if (rep.EXTENDDATA != null)
+                    {
+                        model.ExtendData = new ServiceModels.ProjectInfo.ReportExtend();
+                        if (!string.IsNullOrEmpty(rep.EXTENDDATA))
+                        {
+                            try
+                            {
+                                model.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ReportExtend>(rep.EXTENDDATA);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            if (model.ExtendData.ConfirmReportFlag!= null && model.ExtendData.ConfirmReportFlag == "1")
+                            {
+                                IsReportSuccess = true;
+                            }
+                        }
+                    }
+
+                }
+                if (imgReportedSuccess!=null)
+                {
+                    imgReportedSuccess.Visible = IsReportSuccess;
                 }
                 if (btnAcknowledged != null && UserInfo.IsAdministrator)
                 {
@@ -1083,6 +1146,7 @@ namespace Nep.Project.Web.ProjectInfo
                 approvalProcessList = approvalProcessResult.Data;
                 ServiceModels.ListOfValue approvalStatusCancel = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกสัญญา).FirstOrDefault();
                 ServiceModels.ListOfValue cancelledProjectRequestStatus = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ยกเลิกคำร้อง).FirstOrDefault();
+                ServiceModels.ListOfValue waitingTransferKTBStatus = approvalProcessList.Where(x => x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอน_6_1_รอโอนเงิน).FirstOrDefault();
 
                 approvalProcessList = approvalProcessList.Where(x =>
                     (x.LovCode == Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_1_เจ้าหน้าที่ประสานงานส่งแบบเสนอโครงการ) ||
@@ -1097,7 +1161,7 @@ namespace Nep.Project.Web.ProjectInfo
                 CheckBoxListApprovalProcess.DataBind();
                 CheckBoxCancelContractStatus.Attributes.Add("Value", approvalStatusCancel.LovID.ToString());
                 CheckBoxCancelledProjectRequest.Attributes.Add("Value", cancelledProjectRequestStatus.LovID.ToString());
-
+                CheckBoxWaitingTransferKTBStatus.Attributes.Add("Value", waitingTransferKTBStatus.LovID.ToString());
 
                 for (int i = 0; i < approvalProcessList.Count; i++)
                 {

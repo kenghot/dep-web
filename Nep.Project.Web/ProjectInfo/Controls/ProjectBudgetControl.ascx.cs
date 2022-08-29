@@ -1512,6 +1512,37 @@ namespace Nep.Project.Web.ProjectInfo.Controls
             //c2x.openFormDialog("../projectinfo/budgetdetailpopup.aspx?actid=<%# Eval("ACTIVITYID")%>", "รายละเอียดงบประมาณ", { width: 1100, height: 800 }, null); return false;
             return "";
         }
+        public string PopupActivityCopyScreen(object actid)
+        {
+
+            if (actid != null)
+            {
+                string dialog = "";
+                decimal dAct = decimal.Parse(actid.ToString());
+                var act = (from a in _service.GetDB().PROJECTBUDGETACTIVITies where a.ACTIVITYID == dAct select a).FirstOrDefault();
+                if (act != null && act.CREATEDATE.HasValue && act.CREATEDATE == new DateTime(2000, 1, 1))
+                {
+                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetdetailpopup2.aspx?actid=" + actid.ToString()
+                    + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:450, title:'รายละเอียดงบประมาณ (แบบฟอร์มเดิม)' , 
+                    buttons : {},
+                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
+                }
+                else
+                {
+                    //string dialog = "c2x.openFormDialog('../projectinfo/budgetdetailpopup.aspx?actid=" + actid.ToString() + "', 'รายละเอียดงบประมาณ', " + 
+                    //    "{ width: 1100, height: 800, buttons: [{text:'google'}] }, null); return false;";
+                    dialog = @"window.top.jQuery.FrameDialog.create({ url: '../projectinfo/budgetcopydetailpopup.aspx?actid=" + actid.ToString()
+                     + @"', position: { my: 'center', at: 'center', of: window}, width: 1100, height:700, title:'รายละเอียดงบประมาณ' , 
+                    buttons : {},
+                    close: function() {document.getElementById('" + ImageButtonRefreshActivity.ClientID + @"').click();} }); return false;";
+                }
+
+
+                return dialog;
+            }
+            //c2x.openFormDialog("../projectinfo/budgetdetailpopup.aspx?actid=<%# Eval("ACTIVITYID")%>", "รายละเอียดงบประมาณ", { width: 1100, height: 800 }, null); return false;
+            return "";
+        }
 
         protected void ImageButtonRefreshActivity_Click(object sender, ImageClickEventArgs e)
         {

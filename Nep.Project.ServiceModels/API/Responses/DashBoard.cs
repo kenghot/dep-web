@@ -23,6 +23,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public decimal? BudgetValue { get; set; }
         public decimal? BudgetReviseValue { get; set; }
         public string OrganizationTypeCode { get; set; }
+        public string OrganizationToBeUnder { get; set; }
         public string OrganizationType { get; set; }
         public string ProjectTypeCode { get; set; }
         public string ProjectTypeName { get; set; }
@@ -38,7 +39,7 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string IsPassMission4 { get; set; }
         public string IsPassMission5 { get; set; }
         public string IsPassMission6 { get; set; }
-
+        public decimal? IsPassMissionID { get; set; }
 
     }
     public class ProjectDetail
@@ -58,6 +59,8 @@ namespace Nep.Project.ServiceModels.API.Responses
         public string description { get; set; }
         public int projects { get; set; }
         public decimal amount { get; set; }
+        public string amountString { get; set; }
+
     }
     public class SummaryData
     {

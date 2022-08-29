@@ -125,8 +125,8 @@ namespace Nep.Project.Business
                                 IDNO = u.IDNo,
                                 IDCardFileID = u.IDCardFileID,
                                 EmpployeeCardFileID = u.EmploeeCardFileID,
-                                RegisterDate = u.RegisterDate
-                                                               
+                                RegisterDate = u.RegisterDate,
+                                ExtendJSON = u.EXTENDDATA
                             }).FirstOrDefault();
 
                 #region Add Attachment
@@ -175,6 +175,14 @@ namespace Nep.Project.Business
                         data.ContractPWD = qn.DATA;
                     }
                     #endregion
+                    try
+                    {
+                        data.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<UserExtend>(data.ExtendJSON);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     result.IsCompleted = true;
                     result.Data = data;
                 }
@@ -474,7 +482,7 @@ namespace Nep.Project.Business
         {
             var result = new ServiceModels.ReturnMessage();
             try
-            {
+            {//Beer24032021
                 bool chkAdministrator = IsAdministratorValid(userProfile);
                 if (chkAdministrator)
                 {
@@ -488,7 +496,14 @@ namespace Nep.Project.Business
                         dbUser.ProvinceID = userProfile.ProvinceID;
                         dbUser.Position = userProfile.Position;
                         dbUser.IsActive = userProfile.IsActive;
-
+                        if (userProfile.ExtendData != null)
+                        {
+                            dbUser.EXTENDDATA = Newtonsoft.Json.JsonConvert.SerializeObject(userProfile.ExtendData);
+                        }
+                        else
+                        {
+                            dbUser.EXTENDDATA = null;
+                        }
                         dbUser.UpdatedBy = _loggedUser.UserName;
                         dbUser.UpdatedByID = _loggedUser.UserID;
                         dbUser.UpdatedDate = DateTime.Now;
@@ -981,5 +996,198 @@ namespace Nep.Project.Business
             }
             return chkDup;
         }
+        public ServiceModels.ReturnQueryData<ServiceModels.ItemList> ListWithItem(ServiceModels.QueryParameter p)
+        {
+            var result = (from item in _db.MT_ITEM.Where(l => (l.ITEMGROUP == "EVALUATIONSTRATEGIC") && (l.ISDELETE == "0"))
+                          select new ServiceModels.ItemList()
+                          {
+                              ITEMID = item.ITEMID,
+                              ITEMGROUP = item.ITEMGROUP,
+                              ITEMNAME = item.ITEMNAME,
+                              ORDERNO = item.ORDERNO,
+                              CREATEDBY = item.CREATEDBY,
+                              CREATEDDATE = item.CREATEDDATE,
+                              UPDATEDBY = item.UPDATEDBY,
+                              UPDATEDDATE = item.UPDATEDDATE,
+                              ISACTIVESTR = (item.ISACTIVE == Common.Constants.BOOLEAN_TRUE) ? "เปิดใช้งาน" : "ปิดใช้งาน"
+                          }).ToQueryData(p);
+            return result;
+        }
+        public ServiceModels.ReturnObject<ServiceModels.Item> GetItem(decimal ItemId, string ItemGroup)
+        {
+            ServiceModels.ReturnObject<ServiceModels.Item> result = new ServiceModels.ReturnObject<ServiceModels.Item>();
+            try
+            {
+                var DataResult = (from item in _db.MT_ITEM.Where(l => (l.ITEMGROUP == ItemGroup) && (l.ITEMID == ItemId) && (l.ISDELETE == "0"))
+                                  select new ServiceModels.Item()
+                                  {
+                                      ITEMID = item.ITEMID,
+                                      ITEMGROUP = item.ITEMGROUP,
+                                      ITEMNAME = item.ITEMNAME,
+                                      ORDERNO = item.ORDERNO,
+                                      ISACTIVE = (item.ISACTIVE == Common.Constants.BOOLEAN_TRUE) ? true : false
+                                  }).FirstOrDefault();
+
+                if (DataResult != null)
+                {
+                    result.Data = DataResult;
+                    result.IsCompleted = true;
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "List of Value", ex);
+            }
+
+            return result;
+        }
+        public ServiceModels.ReturnMessage UpdateItem(ServiceModels.UserProfile userProfile, ServiceModels.Item dataItem)
+        {
+            var result = new ServiceModels.ReturnMessage();
+            try
+            {//Beer24032021
+                bool chkAdministrator = IsAdministratorValid(userProfile);
+                if (chkAdministrator)
+                {
+                    DBModels.Model.MT_ITEM item = _db.MT_ITEM.Where(x => x.ITEMID == dataItem.ITEMID).FirstOrDefault();
+                    if (item != null)
+                    {
+                        item.ITEMNAME = dataItem.ITEMNAME;
+                        item.ISACTIVE = dataItem.ISACTIVE == true ? "1" :"0" ;
+                        item.UPDATEDBY = _loggedUser.UserName;
+                        item.UPDATEDDATE = DateTime.Now;
+                        _db.SaveChanges();
+                        result.IsCompleted = true;
+                        result.Message.Add(Nep.Project.Resources.Message.SaveSuccess);
+                    }
+                    else
+                    {
+                        result.IsCompleted = false;
+                        result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                    }
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Error.ValidationAdministrator);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
+
+            }
+
+            return result;
+        }
+        public ServiceModels.ReturnObject<ServiceModels.Item> CreateItem(ServiceModels.Item dataItem)
+        {
+            var result = new ServiceModels.ReturnObject<ServiceModels.Item>();
+            try
+            {
+                IQueryable<DBModels.Model.MT_ITEM> query = _db.MT_ITEM;
+                var checkItemOrder = (from getitem in _db.MT_ITEM.Where(l => (l.ITEMGROUP == dataItem.ITEMGROUP))
+                                 select new ServiceModels.Item()
+                                 {
+                                     ORDERNO = getitem.ORDERNO
+                                 }).OrderByDescending(l => l.ORDERNO).FirstOrDefault();
+
+                if(checkItemOrder !=null)
+                {
+                    var itemObj = new DBModels.Model.MT_ITEM();
+                    
+                    using (var tran = _db.Database.BeginTransaction())
+                    {
+                        
+                        itemObj.ITEMGROUP = dataItem.ITEMGROUP;
+                        itemObj.ITEMNAME = dataItem.ITEMNAME;
+                        itemObj.ORDERNO = checkItemOrder.ORDERNO+1;
+                        itemObj.ISACTIVE = dataItem.ISACTIVE == true ? "1" : "0";
+                        itemObj.ISDELETE = "0";
+                        itemObj.CREATEDBY = _loggedUser.UserName;
+                        itemObj.CREATEDDATE = DateTime.Now;
+                        _db.MT_ITEM.Add(itemObj);
+                        _db.SaveChanges();
+
+                        dataItem.ITEMID = itemObj.ITEMID;
+                        result.IsCompleted = true;
+                        result.Message.Add(Resources.Message.SaveSuccess);
+                        
+                       
+                        tran.Commit();
+                        if(dataItem.ITEMID == 0)
+                        {
+
+                            var checkID = (from getitemId in _db.MT_ITEM.Where(l => (l.ITEMGROUP == dataItem.ITEMGROUP) && (l.ITEMNAME == dataItem.ITEMNAME) && (l.ORDERNO == itemObj.ORDERNO))
+                                           select new ServiceModels.Item()
+                                           {
+                                               ITEMID = getitemId.ITEMID
+                                           }).FirstOrDefault();
+                            dataItem.ITEMID = checkID.ITEMID;
+                        }
+                        result.Data = dataItem;
+                    }
+                    return result;
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
+                return result;
+            }
+           
+
+        }
+        public ServiceModels.ReturnMessage DeleteItem(decimal itemId)
+        {
+            ServiceModels.ReturnMessage result = new ReturnMessage();
+            try
+            {
+                DBModels.Model.MT_ITEM item = _db.MT_ITEM.Where(x => x.ITEMID == itemId).FirstOrDefault();
+                if (item != null)
+                {
+
+                    item.ISDELETE = "1";
+                    _db.SaveChanges();
+
+                    result.IsCompleted = true;
+                    result.Message.Add(Nep.Project.Resources.Message.DeleteSuccess);
+                }
+                else
+                {
+                    result.IsCompleted = false;
+                    result.Message.Add(Nep.Project.Resources.Message.NoRecord);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsCompleted = false;
+                result.Message.Add(ex.Message);
+                Common.Logging.LogError(Logging.ErrorType.ServiceError, "User Profile", ex);
+            }
+
+            return result;
+        }
+
     }
 }

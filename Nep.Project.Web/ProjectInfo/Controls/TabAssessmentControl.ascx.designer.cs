@@ -762,6 +762,15 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         protected global::System.Web.UI.WebControls.TextBox TextBoxAssessmentDesc;
 
         /// <summary>
+        /// divStrategicsOld control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStrategicsOld;
+
+        /// <summary>
         /// RadioButtonListStandardStrategics control.
         /// </summary>
         /// <remarks>
@@ -778,6 +787,33 @@ namespace Nep.Project.Web.ProjectInfo.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorStandardStrategics;
+
+        /// <summary>
+        /// divStrategicsNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStrategicsNew;
+
+        /// <summary>
+        /// RadioButtonListTypeStrategic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListTypeStrategic;
+
+        /// <summary>
+        /// RequiredFieldValidatorStandardStrategicsNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorStandardStrategicsNew;
 
         /// <summary>
         /// TextBoxProvinceMissionDesc control.

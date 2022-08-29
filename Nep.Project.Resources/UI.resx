@@ -337,8 +337,8 @@
   </data>
   <data name="ProjectInfoLocationProposeDesc1" xml:space="preserve">
     <value>&lt;b&gt;๑. กรุงเทพมหานคร (ส่วนกลาง)&lt;/b&gt; สามารถยื่นเสนอโครงการได้ที่ &lt;br /&gt;
-&amp;#8195; กองทุนส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ สำนักงานส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการแห่งชาติ
-&amp;#8195; เลขที่ ๒๔๔ อาคาร ๖๐ ปี กรมประชาสงเคราะห์ ถนนราชวิถึ เขตราชเทวี กรุงเทพฯ ๑๐๔๐๐</value>
+&amp;#8195; กองกองทุนและส่งเสริมความเสมอภาคคนพิการ กรมส่งเสริมและพัฒนาคุณภาพชีวิตคนพิการ &lt;br /&gt;
+&amp;#8195; เลขที่ ๑๐๒/๔๑  ถนนเศรษฐศิริ แขวงพญาไท เขตพญาไท กรุงเทพฯ ๑๐๔๐๐</value>
   </data>
   <data name="ProjectInfoLocationProposeDesc2" xml:space="preserve">
     <value>&lt;b&gt;๒. ส่วนภูมิภาค &lt;/b&gt; สามารถยื่นข้อเสนอโครงการได้ที่ &lt;br /&gt;
@@ -363,10 +363,10 @@
     <value>ข้อมูลสัญญา</value>
   </data>
   <data name="TitleSupportGiven" xml:space="preserve">
-    <value>ผู้ให้เงินอุดหนุน</value>
+    <value>ผู้ให้เงินสนับสนุน</value>
   </data>
   <data name="TitleSupportReciever" xml:space="preserve">
-    <value>ผู้รับเงินอุดหนุน</value>
+    <value>ผู้รับเงินสนับสนุน</value>
   </data>
   <data name="TabTitleProjectApproval" xml:space="preserve">
     <value>ผลการอนุมัติ</value>
@@ -769,5 +769,11 @@
   </data>
   <data name="LabelStandardStrategic6" xml:space="preserve">
     <value>หรือยุทธศาสตร์อื่นๆ ที่สอดคล้องกับโครงการ</value>
+  </data>
+  <data name="MenuManageData" xml:space="preserve">
+    <value>ระบบจัดการ</value>
+  </data>
+  <data name="ContractInstallment" xml:space="preserve">
+    <value>สัญญาแบ่งงวด</value>
   </data>
 </root>

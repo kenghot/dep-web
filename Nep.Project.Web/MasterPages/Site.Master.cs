@@ -67,6 +67,7 @@ namespace Nep.Project.Web.MasterPages
             if (UserInfo.UserGroupCode == Common.UserGroupCode.องค์กรภายนอก)
             {
                 MenuAddORGUser.Visible = true;
+                MenuEditORGData.Visible = true;
             }           
 
             if(roles.Contains(Common.FunctionCode.MANAGE_ORGANIZATION)){
@@ -76,6 +77,7 @@ namespace Nep.Project.Web.MasterPages
             if (roles.Contains(Common.FunctionCode.MANAGE_USER))
             {               
                 MenuManageUser.Visible = true;
+                MenuManageData.Visible = true;
             }
 
 

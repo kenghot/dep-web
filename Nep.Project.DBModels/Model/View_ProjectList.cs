@@ -57,5 +57,6 @@ namespace Nep.Project.DBModels.Model
         public Nullable<System.DateTime> ProjectEndDate { get; set; }
         public string REJECTCOMMENT { get; set; }
         public string ACKNOWLEDGED { get; set; }
+        public Nullable<decimal> STRATEGICITEMID { get; set; }
     }
 }

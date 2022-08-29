@@ -257,6 +257,29 @@ namespace Nep.Project.Common.Web
                 return y;
             }
         }
+        public static String ToDateDDMMMMYYYY(DateTime? date)
+        {
+            StringBuilder thaiFormat = new StringBuilder();
+            String tempFormat;
+
+            DateTime thaiDate;
+            if (date.HasValue)
+            {
+                thaiDate = (DateTime)date;
+                tempFormat = thaiDate.ToString("d MMMM yyyy", new System.Globalization.CultureInfo("th-TH"));
+                String[] temp = tempFormat.Split(new char[] { ' ' });
+
+                String strDay = Convert.ToDecimal(temp[0]).ToString("#");
+
+                String strYear = Convert.ToDecimal(temp[2]).ToString("####");
+
+                thaiFormat.AppendFormat("{0} {1} {2}", strDay, temp[1], strYear);
+            }
+
+
+
+            return thaiFormat.ToString();
+        }
         public static String ToThaiDateDDMMMMYYYY(DateTime? date)
         {
             StringBuilder thaiFormat = new StringBuilder();
@@ -466,6 +489,37 @@ namespace Nep.Project.Common.Web
         {   
             "๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"
         };
-        
+        public static string numberToThaiText(string num)
+        {
+            string  n, bahtTH = "";
+            string[] nums = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+            string[] ranks = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+            string intVal = num;
+            if (Convert.ToDouble(num) == 0)
+                bahtTH = "ศูนย์";
+            else if (Convert.ToDouble(num) == 1)
+                bahtTH = "หนึ่ง";
+            else
+            {
+                for (int i = 0; i < intVal.Length; i++)
+                {
+                    n = intVal.Substring(i, 1);
+                    if (n != "0")
+                    {
+                        if ((i == (intVal.Length - 1)) && (n == "1"))
+                            bahtTH += "เอ็ด";
+                        else if ((i == (intVal.Length - 2)) && (n == "2"))
+                            bahtTH += "ยี่";
+                        else if ((i == (intVal.Length - 2)) && (n == "1"))
+                            bahtTH += "";
+                        else
+                            bahtTH += nums[Convert.ToInt32(n)];
+                        bahtTH += ranks[(intVal.Length - i) - 1];
+                    }
+                }
+            }
+            return bahtTH;
+        }
+
     }
 }

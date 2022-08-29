@@ -50,7 +50,7 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=15.1.4.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\bin\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -75,6 +75,9 @@
     <Reference Include="Autofac.Integration.WebApi, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="ClosedXML, Version=0.95.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.95.3\lib\net40\ClosedXML.dll</HintPath>
     </Reference>
@@ -96,13 +99,16 @@
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="ExpressionBuilders">
-      <HintPath>..\packages\ExpressionBuilders.dll</HintPath>
+      <HintPath>..\..\bin\bin\ExpressionBuilders.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\bin\bin\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.xmlworker">
       <HintPath>..\packages\itextsharp.xmlworker.5.5.8\lib\itextsharp.xmlworker.dll</HintPath>
@@ -121,9 +127,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Solution Items\Library\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\..\BackupNEP\iis\wwwroot\bin\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="MoreLinq, Version=2.9.21302.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.9.0\lib\net40\MoreLinq.dll</HintPath>
@@ -132,22 +138,23 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
-      <HintPath>..\packages\NPOI.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OOXML">
-      <HintPath>..\packages\NPOI.OOXML.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OOXML.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>..\packages\NPOI.OpenXml4Net.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OpenXml4Net.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>..\packages\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>..\..\bin\bin\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Deploy\Develop\bin\Oracle.ManagedDataAccess.dll</HintPath>
+      <HintPath>..\..\bin\bin\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Deploy\Develop\bin\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BackupNap\bin\bin\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -250,11 +257,11 @@
     </Reference>
     <Reference Include="Telerik.Reporting, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\ictdev2\dev_team\temp\GOD\Telerik Report DLL\Telerik.Reporting.dll</HintPath>
+      <HintPath>..\..\bin\bin\Telerik.Reporting.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.ReportViewer.WebForms, Version=12.0.18.416, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\Telerik.ReportViewer.WebForms.dll</HintPath>
+      <HintPath>..\..\bin\bin\Telerik.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
@@ -275,8 +282,15 @@
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net45\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net45\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account\EditOrganizationData.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ForgetPasswordConfirm.aspx" />
     <Content Include="Account\ForgetPassword.aspx" />
@@ -394,6 +408,7 @@
     <Content Include="Images\icon\pdf_small.jpg" />
     <Content Include="Images\icon\reload_icon_16.png" />
     <Content Include="Images\icon\reported.png" />
+    <Content Include="Images\icon\report_success.png" />
     <Content Include="Images\icon\round_delete_icon_16.png" />
     <Content Include="Images\icon\round_plus_icon_16.png" />
     <Content Include="Images\icon\save_icon_16.png" />
@@ -405,6 +420,8 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ManageItem\StrategicList.aspx" />
+    <Content Include="ManageItem\StrategicForm.aspx" />
     <Content Include="mapmobile.html" />
     <Content Include="map.html" />
     <Content Include="offline.html" />
@@ -421,6 +438,7 @@
     <Content Include="Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="ProjectInfo\ActivityBudgetPopUp.aspx" />
+    <Content Include="ProjectInfo\BudgetCopyDetailPopUp.aspx" />
     <Content Include="ProjectInfo\BudgetDetailPopUp2.aspx" />
     <Content Include="ProjectInfo\BudgetDetailPopUp.aspx" />
     <Content Include="ProjectInfo\CancelProjectRequestPopup.aspx" />
@@ -428,6 +446,7 @@
     <Content Include="ProjectInfo\Controls\AttachmentProvideControl.ascx" />
     <Content Include="ProjectInfo\Controls\BudgetGridControl.ascx" />
     <Content Include="ProjectInfo\Controls\CommitteeControl.ascx" />
+    <Content Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx" />
     <Content Include="ProjectInfo\Controls\ProjectBudgetDetail2.ascx" />
     <Content Include="ProjectInfo\Controls\ProjectBudgetDetail.ascx" />
     <Content Include="ProjectInfo\Controls\TabApprovalControl.ascx" />
@@ -480,6 +499,9 @@
     <Content Include="Report\ReportApprovedOrg.aspx" />
     <Content Include="Report\ReportBudgetType.aspx" />
     <Content Include="Report\ReportApproved.aspx" />
+    <Content Include="Report\ReportContractInstallmentControlNew.aspx" />
+    <Content Include="Report\ReportContractControlNew.aspx" />
+    <Content Include="Report\ReportContractControl.aspx" />
     <Content Include="Report\ReportFollowUp.aspx" />
     <Content Include="Report\ReportSatisfy.aspx" />
     <Content Include="Report\ReportBudgetSummary.aspx" />
@@ -540,6 +562,14 @@
     <Content Include="Content\adminlte\css\adminlte.min.css.map" />
     <Content Include="Scripts\appScriptsJS\app.js.map" />
     <Content Include="Content\Files\ตรวจสอบความซ้ำซ้อนผู้เข้าร่วม.xlsx" />
+    <Content Include="Content\Files\nep-contract-center.pdf" />
+    <Content Include="Content\Files\nep-contract-province.pdf" />
+    <Content Include="Content\Files\nep-contract-research.pdf" />
+    <Content Include="Content\Files\bank.json" />
+    <Content Include="Content\Files\nep-contract-center-new.pdf" />
+    <Content Include="Content\Files\nep-contract-province-new.pdf" />
+    <Content Include="Content\Files\nep-contract-research-new.pdf" />
+    <Content Include="Content\Files\nep-contract-installment-center.pdf" />
     <None Include="Web References\NepServiceWS\NepService.disco" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.common.js" />
     <Content Include="Scripts\VueQrcode\vue-qrcode.esm.js" />
@@ -547,7 +577,6 @@
     <Content Include="Scripts\VueQrcode\vue-qrcode.min.js" />
     <Content Include="Scripts\Vue\FollowUpProcessing.js" />
     <Content Include="Scripts\Vue\Satisfy_2019.js" />
-    <Content Include="TelerikReport\TelerikRepContractProvince.aspx" />
     <Content Include="User\UserAccessList.aspx" />
     <Content Include="WebServices\NepService.asmx" />
     <None Include="Properties\Settings.settings">
@@ -652,6 +681,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\EditOrganizationData.aspx.cs">
+      <DependentUpon>EditOrganizationData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\EditOrganizationData.aspx.designer.cs">
+      <DependentUpon>EditOrganizationData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -740,6 +776,20 @@
     <Compile Include="Infra\JobHost.cs" />
     <Compile Include="Infra\ClearUserAccessJob.cs" />
     <Compile Include="Infra\SetFollowupStatusJob.cs" />
+    <Compile Include="ManageItem\StrategicList.aspx.cs">
+      <DependentUpon>StrategicList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageItem\StrategicList.aspx.designer.cs">
+      <DependentUpon>StrategicList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageItem\StrategicForm.aspx.cs">
+      <DependentUpon>StrategicForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageItem\StrategicForm.aspx.designer.cs">
+      <DependentUpon>StrategicForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterPages\Guest.Master.cs">
       <DependentUpon>Guest.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -796,6 +846,13 @@
     <Compile Include="ProjectInfo\ActivityBudgetPopUp.aspx.designer.cs">
       <DependentUpon>ActivityBudgetPopUp.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectInfo\BudgetCopyDetailPopUp.aspx.cs">
+      <DependentUpon>BudgetCopyDetailPopUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\BudgetCopyDetailPopUp.aspx.designer.cs">
+      <DependentUpon>BudgetCopyDetailPopUp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectInfo\BudgetDetailPopUp2.aspx.cs">
       <DependentUpon>BudgetDetailPopUp2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -844,6 +901,13 @@
     </Compile>
     <Compile Include="ProjectInfo\Controls\CommitteeControl.ascx.designer.cs">
       <DependentUpon>CommitteeControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx.cs">
+      <DependentUpon>ProjectBudgetCopyDetail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectInfo\Controls\ProjectBudgetCopyDetail.ascx.designer.cs">
+      <DependentUpon>ProjectBudgetCopyDetail.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectInfo\Controls\ProjectBudgetDetail2.ascx.cs">
       <DependentUpon>ProjectBudgetDetail2.ascx</DependentUpon>
@@ -1223,6 +1287,27 @@
     <Compile Include="Report\ReportApproved.aspx.designer.cs">
       <DependentUpon>ReportApproved.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Report\ReportContractInstallmentControlNew.aspx.cs">
+      <DependentUpon>ReportContractInstallmentControlNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportContractInstallmentControlNew.aspx.designer.cs">
+      <DependentUpon>ReportContractInstallmentControlNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportContractControlNew.aspx.cs">
+      <DependentUpon>ReportContractControlNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportContractControlNew.aspx.designer.cs">
+      <DependentUpon>ReportContractControlNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportContractControl.aspx.cs">
+      <DependentUpon>ReportContractControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\ReportContractControl.aspx.designer.cs">
+      <DependentUpon>ReportContractControl.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Report\ReportFollowUp.aspx.cs">
       <DependentUpon>ReportFollowUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1426,13 +1511,6 @@
     <Compile Include="Report\ShowReportService.aspx.designer.cs">
       <DependentUpon>ShowReportService.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.cs">
-      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TelerikReport\TelerikRepContractProvince.aspx.designer.cs">
-      <DependentUpon>TelerikRepContractProvince.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1561,10 +1639,6 @@
       <Project>{95122ea7-b3c4-4802-aa60-b148db0365bc}</Project>
       <Name>Nep.Project.ServiceModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nep.Project.TelerikReport\Nep.Project.TelerikReport.csproj">
-      <Project>{9883e4ad-ac7a-4800-976b-7acf76c9ae08}</Project>
-      <Name>Nep.Project.TelerikReport</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -1599,6 +1673,7 @@
   <ItemGroup>
     <Folder Include="App_Data\UploadImages\" />
     <Folder Include="Controllers\" />
+    <Folder Include="TelerikReport\" />
     <Folder Include="UploadImages\" />
   </ItemGroup>
   <PropertyGroup>

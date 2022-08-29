@@ -179,12 +179,16 @@
 <thead class="k-grid-header" role="rowgroup">
                         <tr role="row">
                                  <%--<th scope="col" role="columnheader" data-field="No" rowspan="1" data-title="ลำดับ" data-index="0" id="efdc983f-8432-4625-9261-e515c41db2c6" class="k-header">ลำดับ</th>--%>
-                                <th scope="col" role="columnheader" class="k-header" >ประเด็นการสารวจความพึงพอใจ</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">มากที่สุด</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">มาก</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">ปานกลาง</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">น้อย</th>
-                                <th scope="col" role="columnheader" class="k-header" style="width:50px">น้อยที่สุด</th>
+                                <th rowspan="2" scope="col" role="columnheader" class="k-header" style="vertical-align : middle;text-align:center;" >ประเด็นการสารวจความพึงพอใจ</th>
+                                <th colspan="5" scope="col" role="columnheader" class="k-header" >ระดับคะแนน</th>
+
+                        </tr>
+                        <tr>
+                                 <th scope="col" role="columnheader" class="k-header" style="width:50px">5</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:50px">4</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:50px">3</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:50px">2</th>
+                                <th scope="col" role="columnheader" class="k-header" style="width:50px">1</th>
                         </tr>
   <%--                      <tr role="row">
                                
@@ -205,44 +209,44 @@
                          </thead>
 
 <tr  role="row">
-<td role="gridcell">
+<td colspan="5" role="gridcell">
 <b>1. ความพึงพอใจเกี่ยวกับการให้บริการของเจ้าหน้าที่<b>
 </td>
-<td  style="text-align:center;vertical-align:central" role="gridcell">
-<div class="input-count">
-    <input type="radio" name="QN1_0" value="1" v-model="items[field.QN1_0].v"  />
+<%--<td  style="text-align:center;vertical-align:central" role="gridcell">--%>
+<%--<div class="input-count">--%>
+    <%--<input type="radio" name="QN1_0" value="1" v-model="items[field.QN1_0].v"  />--%>
 <%--<input type="number" :id="items[field.QN1_0_0].n" title="QN1_0_0" v-model.number="items[field.QN1_0_0].v" onblur="CalSastisfy(this)" />--%>
-</div>
+<%--</div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="2" v-model="items[field.QN1_0].v"  />
+    <input type="radio" name="QN1_0" value="2" v-model="items[field.QN1_0].v"  />--%>
 <%--<input type="number" :id="items[field.QN1_0_1].n" title="QN1_0_1" v-model.number="items[field.QN1_0_1].v" onblur="CalSastisfy(this)" />--%>
-</div>
+<%--</div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="3" v-model="items[field.QN1_0].v"  />
+    <input type="radio" name="QN1_0" value="3" v-model="items[field.QN1_0].v"  />--%>
 <%--<input type="number" :id="items[field.QN1_0_2].n" title="QN1_0_2" v-model.number="items[field.QN1_0_2].v" onblur="CalSastisfy(this)" />--%>
-</div>
+<%--</div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="4" v-model="items[field.QN1_0].v"  />
+    <input type="radio" name="QN1_0" value="4" v-model="items[field.QN1_0].v"  />--%>
 <%--<input type="number" :id="items[field.QN1_0_3].n" title="QN1_0_3" v-model.number="items[field.QN1_0_3].v" onblur="CalSastisfy(this)" />--%>
-</div>
+<%--</div>
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
-    <input type="radio" name="QN1_0" value="5" v-model="items[field.QN1_0].v"  />
+    <input type="radio" name="QN1_0" value="5" v-model="items[field.QN1_0].v"  />--%>
 <%--<input type="number" :id="items[field.QN1_0_4].n" title="QN1_0_4" v-model.number="items[field.QN1_0_4].v" onblur="CalSastisfy(this)" />--%>
-</div>
-</td>
+<%--</div>
+</td>--%>
 
 </tr>
 <tr  role="row">
 <td role="gridcell">
-1.1 ให้คาแนะนาและตอบข้อซักถามอย่างชัดเจน
+1.1 ให้คำแนะนำและตอบข้อซักถามอย่างชัดเจน
 </td>
 <td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
@@ -392,10 +396,10 @@
 </td>
 </tr>
 <tr  role="row">
-<td role="gridcell">
+<td colspan="5" role="gridcell">
 <b>2. ความพึงพอใจด้านกระบวนการหรือขั้นตอนการให้บริการ</b>
 </td>
-<td  style="text-align:center;vertical-align:central" role="gridcell">
+<%--<td  style="text-align:center;vertical-align:central" role="gridcell">
 <div class="input-count">
     <input type="radio" name="QN2_0" value="1" v-model="items[field.QN2_0].v"  />
 </div>
@@ -419,7 +423,7 @@
 <div class="input-count">
     <input type="radio" name="QN2_0" value="5" v-model="items[field.QN2_0].v"  />
 </div>
-</td>
+</td>--%>
 
 </tr>
 <tr  role="row">

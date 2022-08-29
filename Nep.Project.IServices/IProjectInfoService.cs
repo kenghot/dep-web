@@ -37,6 +37,8 @@ namespace Nep.Project.IServices
 
         List<ServiceModels.GenericDropDownListData> ListDisabilityType();
 
+        List<ServiceModels.GenericDropDownListData> ListStrategic();
+
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> SaveProjectInformation(ServiceModels.ProjectInfo.TabProjectInfo model
             , List<ServiceModels.ProjectInfo.ProjectTarget> targetList);
 
@@ -61,6 +63,8 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabContract> GetProjectContractByProjectID(Decimal id);
 
         ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabContract> SaveProjectContract(ServiceModels.ProjectInfo.TabContract model);
+        ServiceModels.ReturnMessage UpdateProjectContractStartEndDate(ServiceModels.ProjectInfo.TabContract model);
+        ServiceModels.ReturnMessage UpdateProjectContractRefund(ServiceModels.ProjectInfo.TabContract model);
 
         ServiceModels.ReturnMessage CancelProjectContract(Decimal id);
         ServiceModels.ReturnMessage UndoCancelProjectContract(Decimal id);
@@ -115,6 +119,7 @@ namespace Nep.Project.IServices
         ServiceModels.ReturnObject<PROJECTQUESTIONHD> GetDocumentByDocId(decimal docID, string QNGroup);
         ServiceModels.ReturnObject<bool> SaveAttachFile(decimal projectID, string attachType, List<ServiceModels.KendoAttachment> removeFiles, List<ServiceModels.KendoAttachment> addFiles, string tableName, string fieldName);
         ServiceModels.ReturnMessage SaveOfficerProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
+        ServiceModels.ReturnMessage ConfirmReportProjectReport(ServiceModels.ProjectInfo.ProjectReportResult model);
 
         ServiceModels.ReturnQueryData<ServiceModels.ProjectInfo.ProjectTargetNameList> GetProjectTargetForParticipant(decimal projectID);
 

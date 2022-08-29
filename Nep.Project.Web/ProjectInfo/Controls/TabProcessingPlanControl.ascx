@@ -39,7 +39,13 @@
                                  ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Model.ProcessingPlan_Location) %>"
                                  ValidationGroup="SaveProcessingPlan" />
                         </div>
-                    </div>                     
+                    </div>           
+                      <div class="form-group form-group-sm"  id="divHistoryAddress" style="color:gray;" runat="server" visible="false">
+                        <label class="col-sm-12" style="color:gray;">สถานที่ดำเนินโครงการเดิม</label>
+                        <div class="col-sm-12">
+                            <asp:Label ID="LabelOperationAddressOld" runat="server" Text=""></asp:Label>
+                        </div>
+                    </div>       
                     
                 </div>
             </div>
@@ -111,6 +117,14 @@
                         <span class="field-desc"><%: UI.LabelFieldDescription %></span><%=Nep.Project.Common.Web.WebUtility.DisplayInHtml(UI.PeriodDesc) %>                
                     </div>
                 </div>
+                 <%--ประวัติการแก้ไข Contract_StartDate Contract_EndDate --%> 
+               <div class="form-horizontal" id="divHistoryEditStartEndDate" style="color:gray;" runat="server" visible="false" >
+                        <label class="col-sm-12" style="color:gray;">ระยะเวลาเดิม</label>
+                        <div class="col-sm-12">
+                            <asp:Label ID="LabelHistoryEditStartEndDate" runat="server" Text=""></asp:Label>
+                 </div>
+            </div>
+                 
             </div>
         </div>
         <div class="panel panel-default">

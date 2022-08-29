@@ -8,6 +8,10 @@
     <asp:UpdatePanel ID="UpdatePanelUserForm" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div class="form-horizontal">
+                 <div class="panel panel-default">
+                 <div class="panel-heading">
+                    <h3 class="panel-title">ข้อมูลผู้ใช้งาน</h3>
+                </div>
                 <div class="form-group form-group-sm">
                     <label class="col-sm-2 control-label" for="DdlRole"><%: Nep.Project.Resources.Model.UserProfile_Role %><span class="required"></span></label>
                     <div class="col-sm-4">
@@ -51,6 +55,13 @@
                             ValidationGroup="Save" />
                     </div>
                     
+                     <label class="col-sm-2 control-label" for="TextBoxConfirmPwd">ยืนยันรหัส</span></label>
+                    <div class="col-sm-4">
+                        <asp:TextBox runat="server" ID="TextBoxConfirmPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
+                        <asp:CompareValidator runat="server" ID="Comp1" ControlToValidate="TextBoxConfirmPwd" ControlToCompare="TextBoxContractPwd" 
+                            Text="ยืนยันรหัสผ่านไม่ถูกต้อง" Font-Size="11px" ForeColor="Red"  ValidationGroup="Save"  />
+                    </div>
+
                     <label class="col-sm-2 control-label" id="LabelProvince" runat="server"><%= Nep.Project.Resources.Model.ProjectInfo_Province %><span class="required"></span></label>
                     <div class="col-sm-4" id="DivComboBoxProvince" runat="server">
                         <input id="DdlProvince" runat="server" style="width:100%; " />
@@ -60,16 +71,8 @@
                             Text="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>"
                             ErrorMessage="<%$ code: String.Format(Nep.Project.Resources.Error.RequiredField, Nep.Project.Resources.Model.ProjectInfo_Province) %>"
                             />	
-                      
-
-                       
                     </div> 
-                    <label class="col-sm-2 control-label" for="TextBoxConfirmPwd">ยืนยันรหัส</span></label>
-                    <div class="col-sm-4">
-                        <asp:TextBox runat="server" ID="TextBoxConfirmPwd" TextMode="Password" CssClass="form-control" Text="" MaxLength="20"></asp:TextBox>
-                        <asp:CompareValidator runat="server" ID="Comp1" ControlToValidate="TextBoxConfirmPwd" ControlToCompare="TextBoxContractPwd" 
-                            Text="ยืนยันรหัสผ่านไม่ถูกต้อง" Font-Size="11px" ForeColor="Red"  ValidationGroup="Save"  />
-                    </div>
+                   
                 </div>               
 
                 <div class="form-group form-group-sm">
@@ -115,7 +118,37 @@
                         <asp:CheckBox ID="IsActive" runat="server" CssClass="form-control-checkbox" ClientIDMode="Inherit" />
                     </div>
                 </div>
-                   
+                </div>
+                  <div class="panel panel-default" id="MyDivBank" runat="server">
+                <div class="panel-heading">
+                    <h3 class="panel-title">บัญชีธนาคาร</h3>
+                </div>
+                <div class="panel-body">
+                    
+                        <div class="form-group form-group-sm">
+                             <label class="col-sm-2 control-label" for="DdlBank"><%: Nep.Project.Resources.Model.ListOfValue_Bank %><span </span></label>
+                            <div class="col-sm-4">
+                                <asp:DropDownList runat="server" ID="DdlBank" AutoPostBack="true" CssClass="form-control"></asp:DropDownList>     
+                            </div>
+                            <label class="col-sm-2 control-label">รหัสสาขา</label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxBranchNo" runat="server" CssClass="form-control" MaxLength="4" TextMode="Number"></asp:TextBox>
+                            </div>
+                        </div>
+                </div>
+                <div class="panel-body">
+                        <div class="form-group form-group-sm">
+                            <label class="col-sm-2 control-label">เลขที่บัญชี</span></label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxAccountNo" runat="server" CssClass="form-control" MaxLength="30" TextMode="Number"></asp:TextBox>
+                            </div>
+                            <label class="col-sm-2 control-label">ชื่อบัญชี</label>
+                            <div class="col-sm-4">
+                                <asp:TextBox ID="TextBoxAccountName" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            </div>
+                        </div>
+                </div>
+            </div>   
                 <div class="form-group form-group-sm">
                     <div class="col-sm-12 text-center">
                         <asp:Button runat="server" ID="ButtonSave" ClientIDMode="Inherit" CssClass="btn btn-primary btn-sm" Visible="false"
@@ -138,15 +171,21 @@
                     }
                     args.IsValid = isValid;
                 }
-
+                function validateBank(oSrc, args) {
+                    var selectedValue = $("#<%=DdlBank.ClientID%>").val();
+                     var isValid = false, selectedIndex;
+                     if ((selectedValue != "") && (!isNaN(selectedValue))) {
+                         selectedIndex = parseInt(selectedValue, 10);
+                         isValid = (selectedIndex < 0) ? false : true;
+                     }
+                     args.IsValid = isValid;
+                 }
                 
                 function ConfirmToDelete() {
                     var message = <%=Nep.Project.Common.Web.WebUtility.ToJSON(Nep.Project.Resources.Message.DeleteConfirmation)%>;
                     var isConfirm = window.confirm(message);
                      return isConfirm;
                  }
-
-            
             </script>
         </ContentTemplate>
     </asp:UpdatePanel>

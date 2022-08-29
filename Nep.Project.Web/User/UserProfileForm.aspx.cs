@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Nep.Project.Resources;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Nep.Project.Web.User
 {
@@ -134,8 +139,24 @@ namespace Nep.Project.Web.User
                 Page.Title = "สร้างผู้ใช้งาน";
             }
 
+            if (!this.IsPostBack)
+            {
+                string jsonFilePath = Server.MapPath("~/Content/Files/bank.json");
+                string json = File.ReadAllText(jsonFilePath);
+                object result = JsonConvert.DeserializeObject<object>(json.Replace("{\"result\":", "").Replace("}", ""));
+                JToken[] jArray = ((result as JArray) as JToken).ToArray();
+                List<ListItem> items = new List<ListItem>();
+                items.Add(new ListItem { Text = UI.DropdownPleaseSelect, Value = "" });
+                for (int i = 1; i < jArray.Length; i++)
+                {
+                    items.Add(new ListItem { Text = jArray[i][1].ToString().Replace("\"", ""), Value = jArray[i][2].ToString().Replace("\"", "") });
+                }
+                DdlBank.DataSource = items;
+                DdlBank.DataTextField = "Text";
+                DdlBank.DataValueField = "Value";
+                DdlBank.DataBind();
+            }
 
-            
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -231,6 +252,13 @@ namespace Nep.Project.Web.User
                         CustomValidatorProvince.Enabled = false;
                       
                     }
+                    if (user.ExtendData != null)
+                    {
+                        TextBoxAccountName.Text = user.ExtendData.AccountName;
+                        TextBoxAccountNo.Text = user.ExtendData.AccountNo;
+                        DdlBank.SelectedValue = user.ExtendData.BankNo;
+                        TextBoxBranchNo.Text = user.ExtendData.BranchNo;
+                    }
                     //TextBoxConfirmPwd.Text = user.ContractPWD;
                     //TextBoxConfirmPwd.Text = user.ContractPWD;
                     TextBoxContractPwd.Attributes["value"] = user.ContractPWD;
@@ -256,6 +284,7 @@ namespace Nep.Project.Web.User
             else
             {                
                 IsActive.Checked = true;
+                MyDivBank.Visible = false;
             }
 
             ButtonSave.Visible = IsDeleteRole;
@@ -300,12 +329,26 @@ namespace Nep.Project.Web.User
                 user.ProvinceID = provinceID;
                 user.Position = TxtPosition.Text.Trim();
                 user.IsActive = (IsActive.Checked) ? "1" : "0";
-                user.ContractPWD = TextBoxContractPwd.Text;
+                user.ContractPWD = TextBoxContractPwd.Text;//Beer24032021
+                if (DdlBank.SelectedValue==""&& TextBoxBranchNo.Text.Trim()==""&& TextBoxAccountNo.Text.Trim()=="" && TextBoxAccountName.Text.Trim() == "")
+                {
+                    user.ExtendData = null;
+                }
+                else
+                {
+                    user.ExtendData = new ServiceModels.UserExtend
+                    {
+                        AccountName = TextBoxAccountName.Text.Trim(),
+                        AccountNo = TextBoxAccountNo.Text.Trim(),
+                        BankNo = DdlBank.SelectedValue.Trim(),
+                        BranchNo = TextBoxBranchNo.Text.Trim()
+                    };
+                }
+                
 
 
 
-
-                if(IsCreateMode){
+                if (IsCreateMode){
                     var createResult = _service.CreateInternalUser(user);
                     if (createResult.IsCompleted)
                     {

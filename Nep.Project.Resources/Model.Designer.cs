@@ -19,7 +19,7 @@ namespace Nep.Project.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Model {
@@ -232,6 +232,24 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ตำแหน่ง บรรทัดที่ 2.
+        /// </summary>
+        public static string Contract_ContractRefPositionLine2 {
+            get {
+                return ResourceManager.GetString("Contract_ContractRefPositionLine2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ตำแหน่ง บรรทัดที่ 3.
+        /// </summary>
+        public static string Contract_ContractRefPositionLine3 {
+            get {
+                return ResourceManager.GetString("Contract_ContractRefPositionLine3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ตำแหน่ง.
         /// </summary>
         public static string Contract_ContractRefProsition {
@@ -246,6 +264,15 @@ namespace Nep.Project.Resources {
         public static string Contract_EndDate {
             get {
                 return ResourceManager.GetString("Contract_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ไฟล์การโอนเงิน KTB.
+        /// </summary>
+        public static string Contract_FileKTB {
+            get {
+                return ResourceManager.GetString("Contract_FileKTB", resourceCulture);
             }
         }
         
@@ -498,6 +525,15 @@ namespace Nep.Project.Resources {
         public static string FollowupTrackingDocumentForm_TrackingType {
             get {
                 return ResourceManager.GetString("FollowupTrackingDocumentForm_TrackingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ธนาคาร.
+        /// </summary>
+        public static string ListOfValue_Bank {
+            get {
+                return ResourceManager.GetString("ListOfValue_Bank", resourceCulture);
             }
         }
         
@@ -2096,7 +2132,7 @@ namespace Nep.Project.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ปัญหาอุปสรรค์และวิธีการแก้ปัญหาจากการดำเนินการ.
+        ///   Looks up a localized string similar to ปัญหาอุปสรรคและวิธีการแก้ปัญหาจากการดำเนินการ.
         /// </summary>
         public static string ProjectReportResult_ProblemsAndObstacle {
             get {
@@ -2164,6 +2200,15 @@ namespace Nep.Project.Resources {
         public static string ProjectTarget_TargetName {
             get {
                 return ResourceManager.GetString("ProjectTarget_TargetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SignedContract {
+            get {
+                return ResourceManager.GetString("SignedContract", resourceCulture);
             }
         }
         

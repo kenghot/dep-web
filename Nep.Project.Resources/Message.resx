@@ -135,6 +135,9 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>การเปลี่ยนรหัสผ่านสำเร็จ</value>
   </data>
+  <data name="ConfirmReport" xml:space="preserve">
+    <value>ยืนยันผลการตรวจสอบแบบรายงานผลการปฏิบัติงานสำเร็จ</value>
+  </data>
   <data name="ConfirmResetPassword" xml:space="preserve">
     <value>ยืนยันการ Reset Password ?</value>
   </data>
@@ -179,6 +182,9 @@
   <data name="RejectSuccess" xml:space="preserve">
     <value>การส่งโครงการเพื่อให้องค์ปรับปรุงคำร้องสำเร็จ</value>
   </data>
+  <data name="ResetFollowUpStatus" xml:space="preserve">
+    <value>อัพเดตสถานะการติดตามสำเร็จแล้ว</value>
+  </data>
   <data name="ResetPasswordSuccess" xml:space="preserve">
     <value>Reset Password สำเร็จ</value>
   </data>
@@ -220,6 +226,12 @@
   </data>
   <data name="TotalFollowup" xml:space="preserve">
     <value>ติดตาม : {0} รายการ</value>
+  </data>
+  <data name="UpdateProjectContractRefund" xml:space="preserve">
+    <value>บันทึกการคืนเงินสำเร็จ</value>
+  </data>
+  <data name="UpdateProjectContractStartEndDate" xml:space="preserve">
+    <value>บันทึกวันที่เริ่มสัญญาและสิ้นสุดสัญญาสำเร็จแล้ว</value>
   </data>
   <data name="WarningProjectReportResultSMS" xml:space="preserve">
     <value>ขอให้ท่านส่งรายงานผลโครงการภายในวันที่{0}</value>

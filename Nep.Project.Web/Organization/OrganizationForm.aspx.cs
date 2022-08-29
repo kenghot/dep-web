@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Nep.Project.Resources;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -89,8 +93,24 @@ namespace Nep.Project.Web.Organization
                 }
             }
 
-            
-            
+
+            if (!this.IsPostBack)
+            {
+                string jsonFilePath = Server.MapPath("~/Content/Files/bank.json");
+                string json = File.ReadAllText(jsonFilePath);
+                object result = JsonConvert.DeserializeObject<object>(json.Replace("{\"result\":", "").Replace("}", ""));
+                JToken[] jArray = ((result as JArray) as JToken).ToArray();
+                List<ListItem> items = new List<ListItem>();
+                items.Add(new ListItem { Text = UI.DropdownPleaseSelect, Value = "" });
+                for (int i = 1; i < jArray.Length; i++)
+                {
+                    items.Add(new ListItem { Text = jArray[i][1].ToString().Replace("\"", ""), Value = jArray[i][2].ToString().Replace("\"", "") });
+                }
+                DdlBank.DataSource = items;
+                DdlBank.DataTextField = "Text";
+                DdlBank.DataValueField = "Value";
+                DdlBank.DataBind();
+            }
 
             //if (!IsPostBack)
             //{
@@ -158,7 +178,7 @@ namespace Nep.Project.Web.Organization
                 {
                     TextBoxAccountName.Text = data.ExtendData.AccountName;
                     TextBoxAccountNo.Text = data.ExtendData.AccountNo;
-                    TextBoxBankNo.Text = data.ExtendData.BankNo;
+                    DdlBank.SelectedValue = data.ExtendData.BankNo;
                     TextBoxBranchNo.Text = data.ExtendData.BranchNo;
                 }
                 SetSelectedOrganizationType(data.OrganizationType, data.OrganizationTypeEtc);
@@ -314,13 +334,20 @@ namespace Nep.Project.Web.Organization
             entry.Mobile = TextBoxMobileOrganization.Text.Trim();
             entry.Fax = TextBoxFax.Text.Trim();
             entry.Email = TextBoxEmail.Text.Trim();
-            entry.ExtendData = new ServiceModels.OrganizationExtend
+            if (DdlBank.SelectedValue.Trim() == "" && TextBoxBranchNo.Text.Trim() == "" && TextBoxAccountNo.Text.Trim() == "" && TextBoxAccountName.Text.Trim() == "")
             {
-                AccountName = TextBoxAccountName.Text.Trim(),
-                AccountNo = TextBoxAccountNo.Text.Trim(),
-                BankNo = TextBoxBankNo.Text.Trim(),
-                BranchNo = TextBoxBranchNo.Text.Trim()
-            };
+                entry.ExtendData = null;
+            }
+            else
+            {
+                entry.ExtendData = new ServiceModels.OrganizationExtend
+                {
+                    AccountName = TextBoxAccountName.Text.Trim(),
+                    AccountNo = TextBoxAccountNo.Text.Trim(),
+                    BankNo = DdlBank.SelectedValue.Trim(),
+                    BranchNo = TextBoxBranchNo.Text.Trim()
+                };
+            }
             ServiceModels.ReturnObject<ServiceModels.OrganizationProfile> result = null;
 
             if (this.OrganizationID.HasValue)

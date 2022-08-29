@@ -1118,8 +1118,8 @@ var c2xProjectReport = null;
                 isValid = false;
 
             } else if (idCardNo != "") {
-                    // check format
-                var isIdCardValid = c2x.ValidateCitizenId(idCardNo);
+                // check format
+                var isIdCardValid = c2x.ValidateCitizenId(idCardNo.trim());
                 if (!isIdCardValid) {
 
                    //temp = (config.TxtIdCard).split("_");

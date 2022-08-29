@@ -1323,7 +1323,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Parameters!DisabledCommittee.Value</Value>
+                              <Value>มติที่ประชุมคณะทำงาน/อนุกรรมการ</Value>
                               <Style>
                                 <FontFamily>TH SarabunPSK</FontFamily>
                                 <FontSize>16pt</FontSize>
@@ -2050,7 +2050,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>มติที่ประชุมคณะอนุกรรมการบริหารกองทุนฯ</Value>
+                              <Value>มติที่ประชุมคณะทำงาน/อนุกรรมการ</Value>
                               <Style>
                                 <FontFamily>TH SarabunPSK</FontFamily>
                                 <FontSize>16pt</FontSize>

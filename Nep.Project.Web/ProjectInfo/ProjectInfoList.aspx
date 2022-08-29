@@ -352,12 +352,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group form-group-sm">
-                                    <label for="<%=CheckConsiderCancel.ClientID %>" class="col-sm-5 control-label">ขอยกเลิกในช่วงระยะพิจารณาผล</label>
+                                    <label for="<%=CheckBoxWaitingTransferKTBStatus.ClientID %>" class="col-sm-2 control-label">รอโอนเงิน</label>                                    
+                                    <div class="col-sm-1 control-value">
+                                        <asp:CheckBox ID="CheckBoxWaitingTransferKTBStatus" runat="server" />
+                                    </div>
+                                    <label for="<%=CheckConsiderCancel.ClientID %>" class="col-sm-3 control-label">ขอยกเลิกในช่วงระยะพิจารณาผล</label>
                                     <div class="col-sm-1 control-value">
                                         <asp:CheckBox ID="CheckConsiderCancel" runat="server" />
                                     </div>
 
-                                    <label for="<%= CheckApproveCancel.ClientID %>" class="col-sm-5 control-label">ขอยกเลิกในกรณีอนุมัติโครงการแล้ว</label>
+                                    <label for="<%= CheckApproveCancel.ClientID %>" class="col-sm-3 control-label">ขอยกเลิกในกรณีอนุมัติโครงการแล้ว</label>
                                     <div class="col-sm-1 control-value">
                                         <asp:CheckBox ID="CheckApproveCancel" runat="server" />
                                     </div>
@@ -436,7 +440,7 @@
             <asp:Label ID="lblCannotAdd" runat="server" ForeColor="#FF3300" Visible="false" Font-Size="Large" Text="ไม่สามารถยืนเสนอโครงการใหม่ได้เนื่องจากไม่ได้ส่งแบบรายผลการปฏิบัติงาน ดังรายการต่อไปนี้"></asp:Label>
             <div id="divHelpImg">
                 <div class="form-group form-group-sm">
-                    <div  class="col-sm-4" <%= (this.UserInfo.IsAdministrator) ? "" : "style='display:none'" %> >
+                    <div  class="col-sm-4" <%= (this.UserInfo.IsAdministrator || this.UserInfo.IsCenterOfficer || this.UserInfo.IsProvinceOfficer) ? "" : "style='display:none'" %> >
                         <button type="button" class="btn btn-default btn-sm" onclick="CreateEPayment()">สร้างไฟล์สำหรับ e-Payment</button>
                     </div>
                     <div class="col-sm-6">
@@ -450,7 +454,9 @@
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_3.png" />ไม่อนุมัติ<br />
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_4.png" />ชะลอการพิจารณา<br />
                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_5.png" />ยกเลิก<br />
-                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น
+                            <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/Approval/ApprovalStatus1_6.png" />อื่น<br />
+                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/icon/reported.png" Width="35px" Height="35px" />ส่งรายงานแล้ว<br />
+                             <asp:Image runat="server" alt="arrpove" ImageUrl="~/Images/icon/report_success.png" Width="35px" Height="35px" />ตรวจสอบรายงานแล้ว
                     <br />
                         </div>
                     </div>
@@ -635,6 +641,7 @@
                             <td style="text-align: center; vertical-align: central">
                                 <asp:Image ID="imgApprovalStatus" alt="approve" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
                                 <asp:Image ImageUrl="~/Images/icon/reported.png" ID="imgReported" alt="ส่งรายงานแล้ว" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
+                                   <asp:Image ImageUrl="~/Images/icon/report_success.png" ID="imgReportedSuccess" alt="ตรวจสอบรายงานแล้ว" runat="server" Visible="false" Width="35px" Height="35px" ImageAlign="AbsMiddle" />
                                 <%--<%#Eval("BudgetYearThai") %>--%>                              
                             </td>
                         </ItemTemplate>
