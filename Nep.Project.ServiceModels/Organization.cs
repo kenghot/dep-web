@@ -168,4 +168,39 @@ namespace Nep.Project.ServiceModels
 
         public bool IsDeletable { get; set; }
     }
+    public class OrganizationListAPI
+    {
+        public Decimal OrganizationID { get; set; }
+
+        public string OrganizationName { get; set; }
+
+        public string Address { get; set; }
+
+        public string Building { get; set; }
+
+        public string Moo { get; set; }
+
+        public string Soi { get; set; }
+
+        public string Road { get; set; }
+
+        public decimal SubDistrictID { get; set; }
+
+        public String SubDistrict { get; set; }
+
+        public decimal DistrictID { get; set; }
+
+        public String District { get; set; }
+
+        public decimal ProvinceID { get; set; }
+
+        public String Province { get; set; }
+
+        public string PostCode { get; set; }
+
+
+        public string OrganizationUnder { get; set; }
+
+        public bool IsDeletable { get; set; }
+    }
 }

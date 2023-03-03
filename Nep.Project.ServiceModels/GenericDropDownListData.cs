@@ -13,4 +13,10 @@ namespace Nep.Project.ServiceModels
         public String Text { get; set; }
         public decimal? OrderNo { get; set; }       
     }
+    public class GenericDropDownListDataAPI
+    {
+        public String Value { get; set; }
+        public String Text { get; set; }
+        public decimal? OrderNo { get; set; }
+    }
 }

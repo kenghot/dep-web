@@ -520,6 +520,26 @@ namespace Nep.Project.Common.Web
             }
             return bahtTH;
         }
+        public static string Removek__BackingField(string source)
+        {
+            int iopen, iclose;
+            var back = ">k__BackingField";
+            iopen = iclose = 0;
+            while (true)
+            {
+                
+              
+                iclose = source.IndexOf(back);
+                if (iclose < 0)
+                {
+                    break;
+                }
+                source = source.Remove(iclose, back.Length);
+                iopen = source.LastIndexOf("<",iclose);
+                source = source.Remove(iopen, 1);
 
+            }
+            return source;
+        }
     }
 }

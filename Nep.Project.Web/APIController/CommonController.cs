@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Nep.Project.ServiceModels.API.Requests;
 using Nep.Project.ServiceModels.API.Responses;
+using GenericDropDownListData = Nep.Project.ServiceModels.API.Responses.GenericDropDownListData;
 
 namespace Nep.Project.Web.APIController
 {
@@ -22,12 +23,13 @@ namespace Nep.Project.Web.APIController
         public IServices.IProjectInfoService projService { get; set; }
         public CommonController(
               IServices.IAuthenticationService auth , IServices.IAttachmentService attach,
-              IServices.IProjectInfoService proj
+              IServices.IProjectInfoService proj, IServices.IProviceService province
             )
         {
             authSerivce = auth;
             attachService = attach;
             projService = proj;
+            provinceService = province;
         }
         [Route("Login")]
         [HttpPost]
@@ -128,6 +130,84 @@ namespace Nep.Project.Web.APIController
             try
             {
                  result = attachService.DeleteImage(imageId, groupCode);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        [Route("ListProvince")]
+        [HttpGet]
+        public ServiceModels.ReturnQueryData<GenericDropDownListData> ListProvince(String filter = "")
+        {
+            var result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
+            result.IsCompleted = false;
+            try
+            {
+                var prov = provinceService.ListProvince(filter);
+                if (prov.IsCompleted)
+                {
+                    result.Data = prov.Data.Select(s => new GenericDropDownListData
+                    {
+                        OrderNo = s.OrderNo,
+                        Text = s.Text,
+                        Value = s.Value
+                    }).ToList();
+                    result.IsCompleted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        [Route("ListDistrict")]
+        [HttpGet]
+        public ServiceModels.ReturnQueryData<GenericDropDownListData> ListDistrict(String provinceId,String filter = "")
+        {
+            var result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
+            result.IsCompleted = false;
+            try
+            {
+                var prov = provinceService.ListDistrict(int.Parse(provinceId), filter);
+                if (prov.IsCompleted)
+                {
+                    result.Data = prov.Data.Select(s => new GenericDropDownListData
+                    {
+                        OrderNo = s.OrderNo,
+                        Text = s.Text,
+                        Value = s.Value
+                    }).ToList();
+                    result.IsCompleted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        [Route("ListSubDistrict")]
+        [HttpGet]
+        public ServiceModels.ReturnQueryData<GenericDropDownListData> ListSubDistrict(String districtId,  string filter = "")
+        {
+            var result = new ServiceModels.ReturnQueryData<GenericDropDownListData>();
+            result.IsCompleted = false;
+            try
+            {
+                var prov = provinceService.ListSubDistrict(int.Parse(districtId), filter);
+                if (prov.IsCompleted)
+                {
+                    result.Data = prov.Data.Select(s => new GenericDropDownListData
+                    {
+                        OrderNo = s.OrderNo,
+                        Text = s.Text,
+                        Value = s.Value
+                    }).ToList();
+                    result.IsCompleted = true;
+                }
             }
             catch (Exception ex)
             {

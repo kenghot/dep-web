@@ -14,6 +14,8 @@ namespace Nep.Project.ServiceModels.ProjectInfo
     public class OrganizationInfo
     {
         public Decimal ProjectID { get; set; }
+        public string projectNameTH { get; set; }
+        public string projectNameEN { get; set; }
 
         //-- ข้อมูลทั่วไป --//
         [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
@@ -633,6 +635,71 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public String StractegicName { get; set; }
     }
 
+    public class ProjectBudgetAPI
+    {
+        public Decimal ProjectID { get; set; }
+        public Decimal OrganizationID { get; set; }
+
+        [Display(Name = "ProjectBudget_TotalAmount", ResourceType = typeof(Nep.Project.Resources.Model))]
+        [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+        public Decimal? TotalRequestAmount { get; set; }
+
+        public Decimal? TotalReviseAmount { get; set; }
+
+        public Boolean? IsBudgetGotSupport { get; set; }
+
+        private string _budgetGotSupportName = null;
+        public String BudgetGotSupportName
+        {
+            get { return _budgetGotSupportName; }
+            set
+            {
+                if (IsBudgetGotSupport.HasValue && (IsBudgetGotSupport == true))
+                {
+                    _budgetGotSupportName = value;
+                }
+                else
+                {
+                    _budgetGotSupportName = null;
+                }
+            }
+        }
+        public decimal? BudgetGotSupportAmount { get; set; }
+
+        public ICollection<BudgetDetailAPI> BudgetDetails { get; set; }
+
+        //-- สถานะ Project --//
+        public Decimal? ProjectApprovalStatusID { get; set; }
+        public String ProjectApprovalStatusCode { get; set; }
+        public String ProjectApprovalStatusName { get; set; }
+
+        /// <summary>
+        /// 1 = Approvaed
+        /// 0 = Not Approved
+        /// null = Nothing
+        /// </summary>
+        public String ApprovalStatus { get; set; }
+
+        public Decimal? CreatorOrganizationID { get; set; }
+        public Decimal? ProvinceID { get; set; }
+
+        /// <summary>
+        /// 
+        /// รายชื่อแท็บที่ยังใส่ข้อมูลไม่ครบ
+        /// </summary>
+        public List<string> RequiredSubmitData { get; set; }
+
+        /// <summary>
+        /// ขอโครงการจากส่วนกลางใช่หรือไม่
+        /// </summary>
+        public bool IsRequestCenter { get; set; }
+
+        //kenghot18
+        public List<ServiceModels.ProjectInfo.BudgetActivityAPI> BudgetActivities { get; set; }
+        public decimal? ActivityID { get; set; }
+        public decimal? ReviseBudgetAmount { get; set; }
+        public decimal? Interest { get; set; }
+    }
     public class ProjectBudget
     {
         public Decimal ProjectID { get; set; }
@@ -717,9 +784,37 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public decimal? Revise2Amount { get; set; }
         public decimal? ActualExpense { get; set; }
     }
+    public class BudgetDetailAPI
+    {
+        public Decimal ProjectBudgetID { get; set; }
 
+        public string UID { get; set; }
 
-[Serializable]
+        public Int32? No { get; set; }
+
+        [Display(Name = "BudgetDetail_Detail", ResourceType = typeof(Nep.Project.Resources.Model))]
+        //[Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+        //[StringLength(1000, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+        public String Detail { get; set; }
+
+        [Display(Name = "BudgetDetail_Amount", ResourceType = typeof(Nep.Project.Resources.Model))]
+        //[Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+        //[Range(1, 999999, ErrorMessageResourceName = "ValidationRangeTypeNumber", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+        public Decimal? Amount { get; set; }
+
+        public String ReviseDetail { get; set; }
+        public Decimal? ReviseAmount { get; set; }
+        public String ReviseRemark { get; set; }
+
+        public Decimal? Revise1Amount { get; set; }
+        public Decimal? Revise2Amount { get; set; }
+        public Decimal? ActualExpense { get; set; }
+        public String ApprovalRemark { get; set; }
+        public string BudgetCode { get; set; }
+        public decimal? ActivityID { get; set; }
+    }
+
+    [Serializable]
     public class BudgetDetail
     {
         public Decimal ProjectBudgetID { get; set; }
@@ -748,6 +843,17 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public String ApprovalRemark { get; set; }
         public string BudgetCode { get; set; }
         public decimal? ActivityID { get; set; }
+    }
+    public class BudgetActivityAPI
+    {
+        public Decimal? ActivityID { get; set; }
+        public Decimal? ProjectID { get; set; }
+        public long RunNo { get; set; }
+        public string ActivityName { get; set; }
+        public string ActivityDESC { get; set; }
+        public Decimal? TotalAmount { get; set; }
+        public DateTime? CreateDate { get; set; }
+
     }
     [Serializable]
     public class BudgetActivity
@@ -1024,7 +1130,33 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         }
         public String LovIsActive { get; set; }
     }
-       
+    public class ProjectTargetNameListAPI
+    {
+        public Decimal? ProjectParticipantsID { get; set; }
+        public String TempProjectTargetID { get; set; }
+        public Decimal? ProjectTargetID { get; set; }
+        public Decimal? TargetID { get; set; }
+        public string TargetCode { get; set; }
+        public String TargetName { get; set; }
+        public String TargetEtc { get; set; }
+        public String TargetDesc
+        {
+            get
+            {
+                string desc = "";
+                if (!String.IsNullOrEmpty(TargetEtc))
+                {
+                    desc = TargetEtc;
+                }
+                else
+                {
+                    desc = TargetName;
+                }
+                return desc;
+            }
+        }
+        public String LovIsActive { get; set; }
+    }
     public class ProjectFollowup
     {
         /// <summary>
@@ -2223,6 +2355,98 @@ namespace Nep.Project.ServiceModels.ProjectInfo
         public List<ServiceModels.KendoAttachment> AddedReportAttachments { get; set; }
         public List<ServiceModels.KendoAttachment> RemovedReportAttachments { get; set; }
     }
+    public class ProjectReportResultResponseAPI
+    {
+        public ProjectReportResultAPI ReportResult { get; set; }
+        public ProjectBudgetAPI Budgets { get; set; }
+    }
+    public class ProjectReportResultAPI
+    {
+        public decimal ProjectID { get; set; }
+        public decimal OrganizationID { get; set; }
+
+        public decimal? ContractYear { get; set; }
+
+        /// <summary>
+        /// 1 = Approvaed
+        /// 0 = Not Approved
+        /// null = Nothing
+        /// </summary>
+        public String ApprovalStatus { get; set; }
+
+        public Decimal? FollowupStatusID { get; set; }
+        public string FollowupStatusCode { get; set; }
+        public Decimal? BudgetAmount { get; set; }
+        public Decimal? ReviseBudgetAmount { get; set; }
+
+        public string ActivityDescription { get; set; }
+        public decimal MaleParticipant { get; set; }
+        public decimal FemaleParticipant { get; set; }
+        public decimal? ActualExpense { get; set; }
+        public string Benefit { get; set; }
+        public string ProblemsAndObstacle { get; set; }
+        public string Suggestion { get; set; }
+        public decimal? OperationResult { get; set; }
+        public decimal? OperationLevel { get; set; }
+        public string OperationLevelDesc { get; set; }
+        public string ReporterName1 { get; set; }
+        public string ReporterLastname1 { get; set; }
+        public string Position1 { get; set; }
+        public DateTime? RepotDate1 { get; set; }
+        public string Telephone1 { get; set; }
+        public string SuggestionDesc { get; set; }
+        public string ReporterName2 { get; set; }
+        public string ReporterLastname2 { get; set; }
+        public string Position2 { get; set; }
+        public DateTime? RepotDate2 { get; set; }
+        public string Telephone2 { get; set; }
+
+        public Decimal? ReportAttachmentID { get; set; }
+        public ServiceModels.KendoAttachmentAPI ReportAttachment { get; set; }
+        public ServiceModels.KendoAttachmentAPI AddedReportAttachment { get; set; }
+        public ServiceModels.KendoAttachmentAPI RemovedReportAttachment { get; set; }
+
+        /// <summary>
+        /// kenghot18
+        /// </summary>
+        public List<ServiceModels.KendoAttachmentAPI> ReportAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> AddedReportAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> RemovedReportAttachments { get; set; }
+
+        public List<ServiceModels.KendoAttachmentAPI> ActivityAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> AddedActivityAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> RemovedActivityAttachments { get; set; }
+
+        public List<ServiceModels.KendoAttachmentAPI> ParticipantAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> AddedParticipantAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> RemovedParticipantAttachments { get; set; }
+
+        public List<ServiceModels.KendoAttachmentAPI> ResultAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> AddedResultAttachments { get; set; }
+        public List<ServiceModels.KendoAttachmentAPI> RemovedResultAttachments { get; set; }
+        // end kenghot 
+        public List<ProjectParticipantAPI> Participants { get; set; }
+
+        public decimal ProjectApprovalStatusID { get; set; }
+        public String ProjectApprovalStatusCode { get; set; }
+        public Decimal? CreatorOrganizationID { get; set; }
+        public Decimal? ProvinceID { get; set; }
+        public string IPAddress { get; set; }
+        public List<BudgetDetail> BudgetDetails { get; set; }
+        public decimal? Interest { get; set; }
+        public decimal? SueCaseId { get; set; }
+        public MultipleAttachFile SueDocument1 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument2 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument3 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument4 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument5 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument6 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument7 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument8 { get; set; } = new MultipleAttachFile();
+        public MultipleAttachFile SueDocument9 { get; set; } = new MultipleAttachFile();
+        public ReportExtend ExtendData { get; set; }
+        public string ExtendJson { get; set; }
+    }
     public class ProjectReportResult
     {
         public decimal ProjectID { get; set; }
@@ -2489,7 +2713,185 @@ namespace Nep.Project.ServiceModels.ProjectInfo
             public ServiceModels.KendoAttachment RemovedLocationMapAttachment { get; set; }
         }
     }
+    public class ProjectParticipantAPI
+    {
+        public string UID { get; set; }
+        public int? No { get; set; }
 
+        public Decimal? ProjectParticipantID { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String IDCardNo { get; set; }
+        public String Gender { get; set; }
+        public String GenderName
+        {
+            get
+            {
+                string name = (Gender == Common.Constants.GENDER_MALE) ? Nep.Project.Resources.UI.LabelMale : Nep.Project.Resources.UI.LabelFemale;
+                return name;
+            }
+        }
+
+        public String TempProjectTargetGroupID { get; set; }
+        public Decimal? ProjectTargetGroupID { get; set; }
+        public Decimal? TargetGroupID { get; set; }
+        public String TargetGroupName { get; set; }
+        public String TargetGroupNameDesc
+        {
+            get
+            {
+                String text = this.TargetGroupName;
+                if (!String.IsNullOrEmpty(this.TargetGroupEtc))
+                {
+                    text = this.TargetGroupEtc;
+                }
+
+                return text;
+            }
+        }
+        public String TargetGroupCode { get; set; }
+        public String TargetGroupEtc { get; set; }
+        public GenericDropDownListDataAPI DdlGender
+        {
+            get
+            {
+                GenericDropDownListDataAPI item = new GenericDropDownListDataAPI
+                {
+                    Value = Gender,
+                    Text = (Gender == "M") ? Nep.Project.Resources.UI.LabelMale : Nep.Project.Resources.UI.LabelFemale
+                };
+                return item;
+            }
+        }
+        private List<ServiceModels.GenericDropDownListDataAPI> _isCrippleList;
+        public List<ServiceModels.GenericDropDownListDataAPI> isCrippleList
+        {
+            get
+            {
+                if (_isCrippleList == null)
+                {
+                    _isCrippleList = new List<ServiceModels.GenericDropDownListDataAPI>();
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = Nep.Project.Resources.UI.LabelCripple, Value = "1" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = Nep.Project.Resources.UI.LabelCrippleSupporter, Value = "0" });
+                    //kenghot
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "วิทยากร", Value = "2" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "อาสาสมัครประชุมหน้าที่ประสานงาน", Value = "3" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "เจ้าหน้าที่โครงการ", Value = "4" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "กลุ่มเป้าหมายอื่นๆ ", Value = "5" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "ล่ามภาษามือ", Value = "6" });
+                    _isCrippleList.Add(new ServiceModels.GenericDropDownListDataAPI { Text = "ผู้ช่วยเหลือคนพิการเฉพาะกิจ", Value = "7" });
+                }
+                return _isCrippleList;
+            }
+
+        }
+        public String IsCripple { get; set; }
+        public String IsCrippleDesc
+        {
+            get
+            {
+                //kenghot
+
+                var desc = isCrippleList.Where(w => w.Value == IsCripple).FirstOrDefault();
+                if (desc != null)
+                {
+                    return desc.Text;
+                }
+                else
+                {
+                    return (IsCripple == "1") ? Nep.Project.Resources.UI.LabelCripple : Nep.Project.Resources.UI.LabelCrippleSupporter;
+                }
+
+
+            }
+            // set { }
+        }
+        public GenericDropDownListDataAPI DdlIsCripple
+        {
+            get
+            {
+                GenericDropDownListDataAPI item = new GenericDropDownListDataAPI
+                {
+                    Value = IsCripple,
+                    Text = (IsCripple == "1") ? Nep.Project.Resources.UI.LabelCripple : Nep.Project.Resources.UI.LabelCrippleSupporter
+                };
+                return item;
+            }
+        }
+
+        public ProjectTargetNameListAPI DdlTargetGroup
+        {
+            get
+            {
+                ProjectTargetNameListAPI item = new ProjectTargetNameListAPI
+                {
+                    ProjectParticipantsID = ProjectParticipantID,
+                    ProjectTargetID = ProjectTargetGroupID,
+                    TargetID = TargetGroupID,
+                    TargetName = TargetGroupName,
+                    TargetEtc = TargetGroupEtc,
+                };
+                return item;
+            }
+        }
+
+
+        [Serializable]
+        public class ProjectOperationAddress
+        {
+            public string UID { get; set; }
+            public Decimal? OperationAddressID { get; set; }
+            public Decimal ProjectID { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Address", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String Address { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Building", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String Building { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Moo", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String Moo { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Soi", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String Soi { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Road", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String Road { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_SubDistrict", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public Decimal? SubDistrictID { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_SubDistrict", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String SubDistrict { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_District", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public Decimal? DistrictID { get; set; }
+
+            [StringLength(100, ErrorMessageResourceName = "StringLengthField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_District", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public String District { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Nep.Project.Resources.Error))]
+            [Display(Name = "ProjectInfo_Province", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public Decimal? ProvinceID { get; set; }
+            public String Province { get; set; }
+
+            [Display(Name = "ProcessingPlan_Map", ResourceType = typeof(Nep.Project.Resources.Model))]
+            public Decimal? LocationMapID { get; set; }
+            public ServiceModels.KendoAttachment LocationMapAttachment { get; set; }
+            public ServiceModels.KendoAttachment AddedLocationMapAttachment { get; set; }
+            public ServiceModels.KendoAttachment RemovedLocationMapAttachment { get; set; }
+        }
+    }
     public class DashBoard
     {
         public List<ProjectInfoList> ProjectInfoList { get; set; }

@@ -63,7 +63,39 @@ namespace Nep.Project.ServiceModels
 
         public DateTime? OrgApprovalDate { get; set; }
     }
+    public class RegisterEntryAPI
+    {
+        public int RegisterEntryID { get; set; }
 
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public string Email { get; set; }
+        public string RegisterName { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public string TelephoneNo { get; set; }
+        public string Mobile { get; set; }
+        public string Position { get; set; }
+
+        public Decimal? OrganizationID { get; set; }
+
+        public string OrganizationName { get; set; }
+
+        public Decimal? IdentityAttachmentID { get; set; }
+
+        public string IdentityAttachmentName { get; set; }
+
+        public Decimal? OrgIdentityAttachmentID { get; set; }
+
+        public string OrgIdentityAttachmentName { get; set; }
+        public String PersonalID { get; set; }
+
+        public String IsActive { get; set; }
+
+        public Decimal? RegisteredUserID { get; set; }
+
+        public DateTime? OrgApprovalDate { get; set; }
+    }
     [Serializable]
     public class ConfirmEmail
     {

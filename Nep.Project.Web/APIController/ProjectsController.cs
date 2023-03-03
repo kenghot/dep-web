@@ -44,7 +44,7 @@ namespace Nep.Project.Web.APIController
         /// <returns></returns>
         [Route("UpdateProcessActivity/{projId}/{processId}")]
         [HttpPost]
-        public ReturnObject<decimal?> UpdateProcessActivity([Required][FromUri] decimal projId, [Required][FromUri] decimal processId, [FromBody] BaseActivity p)
+        public ReturnObject<decimal?> UpdateProcessActivity([Required][FromUri] decimal projId, [Required][FromUri] decimal processId, [FromBody]Activity p)
         {
             var result = new ReturnObject<decimal?>();
             result.IsCompleted = false;
@@ -60,9 +60,69 @@ namespace Nep.Project.Web.APIController
                 }
 
                 copyProjectProcessed(p, pc);
+                if (p.ExtendData == null )
+                {
+
+                    p.ExtendData = new ActivityExtend();
+
+                }
+                var md = Newtonsoft.Json.JsonConvert.SerializeObject(p.ExtendData);
+                var qnhRow = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == processId && w.QUESTGROUP == "ACTIVITYEXTEND").FirstOrDefault();
+              
+                if (qnhRow == null)
+                {
+                    qnhRow = new PROJECTQUESTIONHD
+                    {
+                        CREATEDBY = userInfo.UserName,
+                        CREATEDBYID = userInfo.UserID.GetValueOrDefault(1),
+                        CREATEDDATE = DateTime.Now,
+                        PROJECTID = pc.PROCESSID,
+                        QUESTGROUP = "ACTIVITYEXTEND",
+                        ISREPORTED = "0"
+                };
+                    db.PROJECTQUESTIONHDs.Add(qnhRow);
+                }
+                qnhRow.UPDATEDBY = userInfo.UserName;
+                qnhRow.UPDATEDBYID= userInfo.UserID.GetValueOrDefault(1);
+                qnhRow.UPDATEDDATE = DateTime.Now;
+                qnhRow.DATA = md;
+
                 //db.PROJECTPROCESSEDs.Add(pc);
                 db.SaveChanges();
-                result.Data = pc.PROCESSID;
+                result.Data = pc.PROCESSID; 
+                result.IsCompleted = true;
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        /// <summary>
+        /// update กิจกรรม
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [Route("DeleteProcessActivity/{projId}/{processId}")]
+        [HttpDelete]
+        public ReturnObject<decimal?> DeleteProcessActivity([Required][FromUri] decimal projId, [Required][FromUri] decimal processId)
+        {
+            var result = new ReturnObject<decimal?>();
+            result.IsCompleted = false;
+            try
+            {
+
+                var db = projService.GetDB();
+                var pc = db.PROJECTPROCESSEDs.Where(w => w.PROCESSID == processId && w.PROJECTID == projId).FirstOrDefault();
+                if (pc == null)
+                {
+                    result.Message.Add($"ไม่พบโครงการที่ระบุ (no. {projId})");
+                    return result;
+                }
+
+                db.PROJECTPROCESSEDs.Remove(pc);
+                db.SaveChanges();
+                
                 result.IsCompleted = true;
             }
             catch (Exception ex)
@@ -78,7 +138,7 @@ namespace Nep.Project.Web.APIController
         /// <returns></returns>
         [Route("AddProcessActivity/{projId}")]
         [HttpPost]
-        public ReturnObject<decimal?> AddProcessActivity([FromUri] decimal projId, [FromBody] BaseActivity p)
+        public ReturnObject<decimal?> AddProcessActivity([FromUri] decimal projId, [FromBody]Activity p)
         {
             var result = new ReturnObject<decimal?>();
             result.IsCompleted = false;
@@ -105,6 +165,23 @@ namespace Nep.Project.Web.APIController
                 db.PROJECTPROCESSEDs.Add(pc);
                 db.SaveChanges();
                 result.Data = pc.PROCESSID;
+                if (p.ExtendData != null)
+                {
+                    var md = Newtonsoft.Json.JsonConvert.SerializeObject(p.ExtendData);
+                    var newqn = new PROJECTQUESTIONHD
+                    {
+                        CREATEDBY = userInfo.UserName,
+                        CREATEDBYID = userInfo.UserID.GetValueOrDefault(1),
+                        CREATEDDATE = DateTime.Now,
+                        DATA = md,
+                        PROJECTID = pc.PROCESSID,
+                        ISREPORTED = "0",
+                        QUESTGROUP = "ACTIVITYEXTEND"
+                    };
+                    db.PROJECTQUESTIONHDs.Add(newqn);
+                    db.SaveChanges();
+
+                }
                 result.IsCompleted = true;
             }
             catch (Exception ex)
@@ -113,37 +190,59 @@ namespace Nep.Project.Web.APIController
             }
             return result;
         }
-        private void copyProjectProcessed(BaseActivity source, PROJECTPROCESSED dest)
+        private void copyProjectProcessed(Activity source, PROJECTPROCESSED dest)
 
         {
             var db = projService.GetDB();
             var p = db.MT_Province.Where(w => w.SectionID == 1).FirstOrDefault();
 
-            dest.PROVINCEID = p.ProvinceID;
+            
             dest.DESCRIPTION = source.Description;
             dest.LATITUDE = source.Latitude;
             dest.LONGITUDE = source.Longitude;
             dest.PROCESSSTART = source.ProcessStart;
             dest.PROCESSEND = source.ProcessEnd;
             // dest.PROCESSID = source.ProcessID.Value;
+            dest.ADDRESS = source.Addresss;
+            dest.BUILDING = source.Building;
+            dest.MOO = source.Moo;
+            dest.SOI = source.Soi;
+            dest.ROAD = source.Road;
+            dest.SUBDISTRICTID = source.SubDistrictID;
+            dest.DISTRICTID = source.DistrictID;
+            dest.PROVINCEID = source.ProvinceID;
 
         }
         [Route("GetActivityListScreen/{id}")]
         [HttpPost]
-        public ReturnObject<ActivityScreen> GetActivityListScreen([FromUri] decimal id)
+        public ReturnObject<ActivityScreen> GetActivityListScreenByProjectId([FromUri] decimal id,string publish="")
+        {
+
+            bool pub = publish == "1" ? true : false;
+   
+
+            return GetActivityListScreen(id, null,pub);
+        }
+        [Route("GetActivityListScreen/{id}/{actId}")]
+        [HttpPost]
+        public ReturnObject<ActivityScreen> GetActivityListScreenByActivityId([FromUri] decimal id, [FromUri] decimal actId)
+        { 
+            return GetActivityListScreen(id, actId,false);
+        }
+        public ReturnObject<ActivityScreen> GetActivityListScreen(decimal id,decimal? actId, bool isPublish)
         {
             var result = new ReturnObject<ActivityScreen>();
             result.IsCompleted = false;
             try
             {
-                if (!userInfo.IsAuthenticated)
+                if (!isPublish && !userInfo.IsAuthenticated)
                 {
                     result.Message.Add("ไม่มีสิทธิ์เข้าถึงข้อมูล");
                     return result;
                 }
                 result.Data = new ActivityScreen();
                 var db = projService.GetDB();
-                var acts = db.PROJECTPROCESSEDs.Where(w => w.PROJECTID == id).Select(s => new Activity
+                var sql = db.PROJECTPROCESSEDs.Where(w => w.PROJECTID == id).Select(s => new Activity
                 {
                     Description = s.DESCRIPTION,
                     Latitude = s.LATITUDE,
@@ -151,12 +250,69 @@ namespace Nep.Project.Web.APIController
                     ProcessEnd = s.PROCESSEND,
                     ProcessStart = s.PROCESSSTART,
                     ProcessID = s.PROCESSID,
-                    LogDetail = new DataLog { AddLog = new BaseDataLog { UserId = s.ADDUSER, LogDateTime = s.ADDDATETIME} }
-                }).ToList();
+                    LocationMapID = s.LOCATIONMAPID,
+                    LogDetail = new DataLog { AddLog = new BaseDataLog { UserId = s.ADDUSER, LogDateTime = s.ADDDATETIME } },
+                    Addresss = s.ADDRESS,
+                    Building = s.BUILDING,
+                    Moo = s.MOO,
+                    Soi = s.SOI,
+                    Road = s.ROAD,
+                    SubDistrictID = s.SUBDISTRICTID,
+                    DistrictID = s.DISTRICTID,
+                    ProvinceID = s.PROVINCEID
+
+         
+            });
+                if (actId.HasValue)
+                {
+                    sql = sql.Where(w => w.ProcessID == actId);
+                }
+                var acts = sql.ToList();
+
                 var path = Request.RequestUri.Scheme + "://" + Request.RequestUri.Authority + "/UploadImages/";
+              
                 foreach (var act in acts)
                 {
                     var au = act.LogDetail.AddLog;
+                    var qnh = db.PROJECTQUESTIONHDs.Where(w => w.PROJECTID == act.ProcessID && w.QUESTGROUP == "ACTIVITYEXTEND").FirstOrDefault();
+                    act.ExtendData = new ActivityExtend();
+                    if (qnh != null)
+                    {
+                        try
+                        {
+                            if (!string.IsNullOrEmpty(qnh.DATA))
+                            {
+                                act.ExtendData = Newtonsoft.Json.JsonConvert.DeserializeObject<ActivityExtend>(qnh.DATA);
+                            }
+                           
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+                    }
+                    if (isPublish  && !act.ExtendData.PublishActivity)
+                    {
+                        
+                        continue;
+                    }
+                    var proj = db.ProjectGeneralInfoes.Where(w => w.ProjectID == id).FirstOrDefault();
+                    if (proj != null)
+                    {
+                        act.ProjectName = proj.ProjectInformation.ProjectNameTH;
+                        act.OrganizationName = proj.OrganizationNameTH;
+                    }
+                    if (act.LocationMapID.HasValue)
+                    {
+                        act.AttachmentFile = new ApiAttachment();
+                        var file = db.MT_Attachment.Where(w => w.AttachmentID == act.LocationMapID).FirstOrDefault();
+                        if (file != null)
+                        {
+                            act.AttachmentFile.fieldName = file.AttachmentFilename;
+                            //act.AttachmentFile.size = file.FileSize;
+                            act.AttachmentFile.fileUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/AttachmentHandler/View/Project/{id}/{act.LocationMapID}/{file.AttachmentFilename}";
+                        }
+                    }
                     if (au.UserId.HasValue)
                     {
                         var user = db.SC_User.Where(w => w.UserID == au.UserId.Value).FirstOrDefault();
@@ -171,7 +327,8 @@ namespace Nep.Project.Web.APIController
                         {
                             au.UserImage = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/UploadImages/{uImg.DATA}";
                         }
-                    }else
+                    }
+                    else
                     {
                         au.FirstName = "ไม่พบ";
                         au.LastName = "ผู้ใช้งาน";
@@ -188,6 +345,10 @@ namespace Nep.Project.Web.APIController
                     {
                         i.ImageFullPath = path + i.ImageName;
                     }
+                }
+                if (isPublish)
+                {
+                    acts.RemoveAll(w => w.ExtendData.PublishActivity == false);
                 }
                 result.Data.Activities = acts;
 
@@ -262,6 +423,22 @@ namespace Nep.Project.Web.APIController
             }
             return result;
         }
+        [Route("CreateProjectInformation")]
+        [HttpPost]
+        public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> Create(ServiceModels.ProjectInfo.TabProjectInfo model)
+        {
+            var result = new ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo>();
+            result.IsCompleted = false;
+            try
+            {
+                result = projService.SaveProjectInformation(model, null);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
         [Route("GetProjectInformation/{id}")]
         [HttpGet]
         public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.TabProjectInfo> GetProjectInformation([FromUri] Decimal id)
@@ -271,6 +448,27 @@ namespace Nep.Project.Web.APIController
             try
             {
                 result = projService.GetProjectInformationByProjecctID(id);
+            }
+            catch (Exception ex)
+            {
+                result.SetExceptionMessage(ex);
+            }
+            return result;
+        }
+        [Route("{projectId}/ReportResult")]
+        [HttpGet]
+        public ServiceModels.ReturnObject<ServiceModels.ProjectInfo.ProjectReportResultResponseAPI> GetProjectReportResult([FromUri] Decimal projectId)
+        {
+            var result = new ServiceModels.ReturnObject<ServiceModels.ProjectInfo.ProjectReportResultResponseAPI>();
+            result.IsCompleted = false;
+            try
+            {
+                result.Data = new ProjectReportResultResponseAPI();
+                var rep = projService.GetProjectReportResult(projectId);
+                var bud = projService.GetProjectBudgetInfoByProjectID(projectId);
+                result.Data.ReportResult = Newtonsoft.Json.JsonConvert.DeserializeObject<ProjectReportResultAPI>(Newtonsoft.Json.JsonConvert.SerializeObject(rep.Data));
+                result.Data.Budgets = Newtonsoft.Json.JsonConvert.DeserializeObject<ProjectBudgetAPI>(Newtonsoft.Json.JsonConvert.SerializeObject(bud.Data));
+               
             }
             catch (Exception ex)
             {
@@ -294,20 +492,20 @@ namespace Nep.Project.Web.APIController
             });
 
 
-            fields.Add(new ServiceModels.FilterDescriptor()
-            {
-                Field = "ApprovalStatus",
-                Operator = ServiceModels.FilterOperator.IsNotEqualTo,
-                Value = "0"
-            });
+            //fields.Add(new ServiceModels.FilterDescriptor()
+            //{
+            //    Field = "ApprovalStatus",
+            //    Operator = ServiceModels.FilterOperator.IsNotEqualTo,
+            //    Value = "0"
+            //});
 
 
-            fields.Add(new ServiceModels.FilterDescriptor()
-            {
-                Field = "ProjectApprovalStatusCode",
-                Operator = ServiceModels.FilterOperator.IsEqualTo,
-                Value = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว
-            });
+            //fields.Add(new ServiceModels.FilterDescriptor()
+            //{
+            //    Field = "ProjectApprovalStatusCode",
+            //    Operator = ServiceModels.FilterOperator.IsEqualTo,
+            //    Value = Common.LOVCode.Projectapprovalstatus.ขั้นตอนที่_6_ทำสัญญาเรียบร้อยแล้ว
+            //});
 
 
             //filter by user login 

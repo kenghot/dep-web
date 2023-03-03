@@ -26,4 +26,20 @@ namespace Nep.Project.ServiceModels.API.Responses
         public BaseDataLog AddLog { get; set; }
         public BaseDataLog UpdateLog { get; set; }
     }
+    public class Media
+    {
+        public decimal? ID { get; set; }
+        /// <summary>
+        /// youtube , facebook, instagram
+        /// </summary>
+        public string MediaType { get; set; }
+        public string MediaUrl { get; set; }
+        public string Description { get; set; }
+    }
+    public class GenericDropDownListData
+    {
+        public String Value { get; set; }
+        public String Text { get; set; }
+        public decimal? OrderNo { get; set; }
+    }
 }

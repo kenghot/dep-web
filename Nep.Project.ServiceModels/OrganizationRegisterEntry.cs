@@ -140,4 +140,53 @@ namespace Nep.Project.ServiceModels
         public String ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
     }
+    public class OrganizationRegisterEntryAPI
+    {
+        //User Info
+        public int OrganzationEntryID { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public string EmailUser { get; set; }
+        public string EmailOrganization { get; set; }
+        public string RegisterName { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public DateTime ExpireDate { get; set; }
+        public string TelephoneNoUser { get; set; }
+        public string MobileUser { get; set; }
+        public string TelephoneNoOrganization { get; set; }
+        public string Position { get; set; }
+        public Decimal? IdentityAttachmentID { get; set; }
+        public string IdentityAttachmentName { get; set; }
+        public KendoAttachmentAPI IdentityAttachment { get; set; }
+        public Decimal? OrgIdentityAttachmentID { get; set; }
+        public string OrgIdentityAttachmentName { get; set; }
+        public KendoAttachmentAPI OrgIdentityAttachment { get; set; }
+        public String PersonalID { get; set; }
+
+        //Org Info
+        public string OrganizationNameTH { get; set; }
+        public string OrganizationNameEN { get; set; }
+        public decimal OrganizationType { get; set; }
+        public String OrganizationTypeName { get; set; }
+        public string OrganizationTypeEtc { get; set; }
+        public String OrgUnderSupport { get; set; }
+        public string OrganizationYear { get; set; }
+        public DateTime? OrganizationDate { get; set; }
+        public string Address { get; set; }
+        public string Building { get; set; }
+        public string Moo { get; set; }
+        public string Soi { get; set; }
+        public string Road { get; set; }
+        public decimal SubDistrictID { get; set; }
+        public String SubDistrict { get; set; }
+        public decimal DistrictID { get; set; }
+        public String District { get; set; }
+        public decimal ProvinceID { get; set; }
+        public String Province { get; set; }
+        public string PostCode { get; set; }
+        public string Fax { get; set; }
+        public string MobileOrganization { get; set; }
+        public String ApprovedBy { get; set; }
+        public DateTime? ApprovedDate { get; set; }
+    }
 }
